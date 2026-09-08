@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "settlers-research"
+version = "0.1.0"
+description = "Protocol-driven, headless Settlers experiments"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+settlers-research = "harness.cli:main"
+
+[tool.setuptools]
+packages = ["harness"]

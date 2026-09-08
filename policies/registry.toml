@@ -1,0 +1,16 @@
+# Commands are argv arrays, never shell strings. Paths are relative to this repo.
+# The runner creates and joins each seat before launching its policy.
+[fast]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "fast", "{token_file}", "{name}"]
+description = "Existing Rust fast builder with its trading wrapper"
+
+[eta]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "eta", "{token_file}", "{name}"]
+description = "Existing Rust estimated-acquisition-time builder with trading"
+
+[legal-first]
+transport = "stdio"
+command = ["{python}", "policies/legal_first.py"]
+description = "Research-owned protocol example; a legality smoke baseline, not a strong strategy"

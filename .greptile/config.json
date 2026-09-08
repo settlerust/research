@@ -1,0 +1,5 @@
+{
+  "fileChangeLimit": 1000,
+  "ignorePatterns": "*\n!*/\n!*.rs\n!*.ts\n!*.tsx\n!*.py\nruns/\nartifacts/\n.runtime/\nnode_modules/\ntarget/\ndist/\n**/*.generated.*\n**/protocol.ts\n**/types.py",
+  "instructions": "Review authored Rust, TypeScript/TSX, and Python code. Focus on protocol redaction, command idempotency, process cleanup, outcome denominators, artifact integrity, and reproducibility. Generated results and narrative records are context, not review targets."
+}

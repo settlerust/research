@@ -1,0 +1,37 @@
+---
+title: The arena and notebook come online
+summary: Protocol smoke matches, a cleanup failure, and the first public replay.
+---
+
+# The arena and notebook come online
+
+The first task was to make experiments easy to run and possible to audit. The
+harness now launches independent player processes, rotates seats, captures public
+events, and retains compact run records. The notebook renders those records and
+selected game exhibits through components from the design Storybook.
+
+A restricted local connection prevented the first preflight. Its invalid record
+is `6637673e-bb0f-4d1a-8956-6723ed8bd51c`. The next attempt,
+`f7e76bf5-5045-4e08-8e54-ce62275013a5`, exposed a cleanup failure when signaling
+an already exited policy group. A terminal snapshot exists, but finalization
+failed; that attempt is not valid match evidence. Its early summary reports no
+finalized matches, not proof that no game was created. The cleanup now checks
+process state and preserves results even if cleanup itself fails.
+
+After the correction, run `28504a38-48ac-455f-9e47-30193e09e266` completed four
+short three-point Rust games. Run `23b9302c-62d1-40e1-ad2b-923f99f5429f` completed
+four short games with the Python legal-first policy and Rust opponents. These
+verify the two policy transports; neither run establishes a strength ranking.
+
+Run `0fd99290-4982-4f53-b663-04503f308be2` completed four normal ten-point games.
+The [first arena report](/research/reports/baseline-smoke) contains its recorded
+win rates and a selected public replay. A hash-verified archive exists locally;
+there is no cloud backup or public artifact URL yet.
+
+This was infrastructure and publishing work, not a new strategic research
+contribution. The next useful experiment is a preregistered comparison with a
+larger fixed cohort and a specific change to the value of a build.
+
+A final two-player check, `77bb8109-f474-47a0-ac6c-874e0dd95ce8`, completed both
+short games after tightening the policy I/O deadline. Its archive inventory also
+retains the exact harness and policy sources for dirty working trees.
