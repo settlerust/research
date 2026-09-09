@@ -119,3 +119,17 @@ Browser timing: on 40 sampled main-phase positions the WASM build runs 1.26 to
 1.38 times slower than native by depth (asset `search-cost-wasm`), so a
 one-second browser budget usually completes depth 3.
 
+## Ablations, confirmation on fresh seeds
+
+The six borderline arms ran again on seeds 64 to 255 (768 games each). Event
+knowledge is supported; the rest show no effect or stay unresolved.
+
+| Study | Run | Treatment wins | Control wins | Contrast (95% interval) |
+| --- | --- | ---: | ---: | --- |
+| tempo/acquisition-time-term | `b4d274b1-d42c-44cb-bb54-25bfa331f346` | 307 | 277 | +0.039 (95% interval -0.021 to +0.099) |
+| expansion/site-value-terms | `0ea66d80-04a1-470f-b6dc-384cf6f1dde6` | 275 | 287 | -0.016 (95% interval -0.078 to +0.047) |
+| beliefs/event-knowledge | `9fa439db-c29a-446b-94ea-147bae23e473` | 250 | 301 | -0.066 (95% interval -0.125 to -0.008) |
+| beliefs/sampled-worlds | `5b5b528d-de10-4a20-921f-68f1b286d6e9` | 271 | 280 | -0.012 (95% interval -0.072 to +0.048) |
+| risk/risk-appetite | `837c9293-5996-49d1-8d1f-019c2dd395ee` | 261 | 303 | -0.055 (95% interval -0.118 to +0.008) |
+| bargaining/trade-openness | `1bfc00f0-05ed-4635-b499-69cb50bc4c80` | 281 | 293 | -0.016 (95% interval -0.075 to +0.043) |
+

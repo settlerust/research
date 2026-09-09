@@ -6,14 +6,15 @@ summary: "Eighteen one-change ablations on identical boards: lookahead and dice 
 
 # What each mechanism is worth
 
-<ResearchCallout title="Finding · two levers dominate, the rest are small">
+<ResearchCallout title="Finding · two levers dominate, one belief mechanism survives, the rest are small">
 On 64 deterministic boards, each played once per seat rotation, removing the
 opponents' round and the next turn (depth 1) cost **−0.324 wins per game**
 (95% interval −0.413 to −0.235) against an unchanged depth-2 control, and
 averaging the round over two dice scenarios instead of eight cost **−0.410**
 (−0.489 to −0.331). Every other single change, whether a leaf term switched
 off or a style slider pushed to its limit, moved the contrast by less than
-0.1 wins per game with an interval that crossed zero.
+0.1 wins per game with an interval that crossed zero; on 192 fresh seeds only
+event-based hand knowledge held up (**−0.066** when removed, −0.125 to −0.008).
 </ResearchCallout>
 
 <ResearchPlot asset="ablation-contrasts-search" />
@@ -63,6 +64,29 @@ brushed zero (event knowledge, trade margin, expansion terms, risk slider,
 sampled worlds, and the plan term) are registered again on 192 fresh seeds;
 their results are added below when they complete.
 
+## Confirmation on fresh seeds
+
+The six borderline arms were registered again on 192 fresh seeds (64 to 255),
+768 games each, with everything else unchanged.
+
+<ResearchPlot asset="ablation-confirmed" />
+
+| Arm | Treatment wins | Control wins | Contrast | Verdict |
+| --- | ---: | ---: | --- | --- |
+| Tempo: plan term off | 307 | 277 | +0.039 (95% interval -0.021 to +0.099) | inconclusive; the term is not needed at depth 2 |
+| Expansion: site and road terms off | 275 | 287 | -0.016 (95% interval -0.078 to +0.047) | no effect |
+| Beliefs: counts only, no event history | 250 | 301 | -0.066 (95% interval -0.125 to -0.008) | supported: event knowledge pays |
+| Beliefs: one sampled world | 271 | 280 | -0.012 (95% interval -0.072 to +0.048) | no effect |
+| Risk: slider at 1 | 261 | 303 | -0.055 (95% interval -0.118 to +0.008) | inconclusive, leaning harmful |
+| Bargaining: no trade margin | 281 | 293 | -0.016 (95% interval -0.075 to +0.043) | no effect |
+
+One mechanism survives: sampling hidden hands from the event history instead
+of public counts alone is worth about 0.07 wins per game, and its interval
+excludes zero. The expansion terms, the number of sampled worlds, and the trade
+margin do nothing measurable at this scale, and the plan term that rescued the
+first leaf is redundant once turns are planned. The risk slider leans harmful
+but is not resolved by 768 games.
+
 ## Four styles at one table
 
 <ResearchChart asset="ablation-crossplay-wins" />
@@ -111,5 +135,12 @@ Engine-arena registrations under the approach studies, all with
 `just engine-run EXPERIMENT`; the forest plot comes from
 `analysis/ablation_assets.py`. Server commit `36c6899` carries the
 deterministic mode and ablation switches. Attribution: Claude Fable 5.1
-(claude-fable-5-1) through Claude Code.
+(claude-fable-5-1) through Claude Code. Confirmation runs: tempo
+`b4d274b1-d42c-44cb-bb54-25bfa331f346`, expansion
+`0ea66d80-04a1-470f-b6dc-384cf6f1dde6`, beliefs (event knowledge)
+`9fa439db-c29a-446b-94ea-147bae23e473`, beliefs (sampled worlds)
+`5b5b528d-de10-4a20-921f-68f1b286d6e9`, risk (slider)
+`837c9293-5996-49d1-8d1f-019c2dd395ee`, bargaining (trade slider)
+`1bfc00f0-05ed-4635-b499-69cb50bc4c80`; reciprocity
+`7c17e2c7-a140-4fe5-b055-68bdea33ea60`.
 </AgentContext>

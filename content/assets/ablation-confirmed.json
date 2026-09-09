@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Confirmation on fresh seeds",
+  "evidence": "measured",
+  "source": "Engine-arena ablation cohorts: 192 fresh seeds (64 to 255), each played once per rotation; treatment in slot 0, the unchanged depth-2 control in slot 1, an ETA and a fast builder in the other seats. Run IDs are listed in the ablation report.",
+  "caption": "Each point is the mean per-seed difference in wins between a search with one change and the unchanged depth-2 control; the bar is the 95% interval over 192 fresh seeds (64 to 255).",
+  "x": {
+    "label": "Ablation arm",
+    "min": 0,
+    "max": 5,
+    "ticks": [
+      "acquisition-time-term",
+      "site-value-terms",
+      "event-knowledge",
+      "sampled-worlds",
+      "risk-appetite",
+      "trade-openness"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, treatment minus control",
+    "min": -0.18,
+    "max": 0.15
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.0391,
+          "low": -0.021,
+          "high": 0.0991
+        },
+        {
+          "x": 1,
+          "y": -0.0156,
+          "low": -0.0779,
+          "high": 0.0467
+        },
+        {
+          "x": 2,
+          "y": -0.0664,
+          "low": -0.1253,
+          "high": -0.0075
+        },
+        {
+          "x": 3,
+          "y": -0.0117,
+          "low": -0.0718,
+          "high": 0.0483
+        },
+        {
+          "x": 4,
+          "y": -0.0547,
+          "low": -0.1178,
+          "high": 0.0084
+        },
+        {
+          "x": 5,
+          "y": -0.0156,
+          "low": -0.0747,
+          "high": 0.0435
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

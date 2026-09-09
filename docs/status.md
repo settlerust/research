@@ -59,7 +59,10 @@ cohorts (one change per arm against an unchanged depth-2 control, 256
 deterministic games each) found two decisive levers, lookahead (−0.324 wins
 per game when removed) and dice scenarios (−0.410 with two instead of eight),
 and no single leaf term or style slider worth more than 0.1 wins per game on 64
-seeds. Six borderline arms are being confirmed on 192 fresh seeds.
+seeds. On 192 fresh seeds one belief mechanism held up: sampling hidden hands from
+the event history rather than public counts alone is worth about 0.07 wins per
+game; the expansion terms, sampled-world count, trade margin, and plan term
+showed no measurable effect at depth 2.
 
 ## The protocol-arena baseline is now expectimax-v2-plan
 

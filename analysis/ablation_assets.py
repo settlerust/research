@@ -24,6 +24,7 @@ def latest_run(experiment):
     return sorted(runs)[-1]
 
 
+SEEDS = '64 seeds'
 def forest(arms, name, title, caption):
     points, ticks = [], []
     rows = []
@@ -40,7 +41,7 @@ def forest(arms, name, title, caption):
     lo = min(p['low'] for p in points) - 0.05
     hi = max(p['high'] for p in points) + 0.05
     data = {'schema': 1, 'kind': 'plot', 'variant': 'scatter', 'title': title, 'evidence': 'measured',
-            'source': 'Engine-arena ablation cohorts: 64 deterministic seeds each played once per rotation (256 games per arm); treatment in slot 0, the unchanged depth-2 control in slot 1, an ETA and a fast builder in the other seats. Run IDs are listed in the ablation report.',
+            'source': f'Engine-arena ablation cohorts: {SEEDS}, each played once per rotation; treatment in slot 0, the unchanged depth-2 control in slot 1, an ETA and a fast builder in the other seats. Run IDs are listed in the ablation report.',
             'caption': caption, 'x': {'label': 'Ablation arm', 'min': 0, 'max': len(points) - 1, 'ticks': ticks},
             'y': {'label': 'Wins per game, treatment minus control', 'min': round(min(lo, -0.05), 2), 'max': round(max(hi, 0.05), 2)},
             'series': [{'label': 'Paired seed contrast (95% interval)', 'points': points}], 'reference': {'y': 0, 'label': 'no difference'}}
@@ -65,13 +66,23 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('registry', help='JSON list of registered arms')
     parser.add_argument('--out', default='ablation-contrasts')
+    parser.add_argument('--seeds', default='64 seeds', help='Seed description for captions and sources')
+    parser.add_argument('--single', action='store_true', help='One panel instead of two')
     args = parser.parse_args()
     arms = json.load(open(args.registry))
+    SEEDS = args.seeds
     single = [dict(a, label=a['study'].split('/')[1]) for a in arms if a['treatment'] != 'presets']
+    if args.single:
+        rows = forest(single, args.out, 'Confirmation on fresh seeds',
+                      f'Each point is the mean per-seed difference in wins between a search with one change and the unchanged depth-2 control; the bar is the 95% interval over {SEEDS}.')
+        for r in rows:
+            c = r['contrast']
+            print(f"{r['study']:32} run {r['run'][:8]} contrast {c['mean_win_difference']:+.3f} [{c['interval95'][0]:+.3f}, {c['interval95'][1]:+.3f}]")
+        raise SystemExit(0)
     search_side = {'search', 'beliefs', 'bargaining', 'adaptation'}
     rows = forest([a for a in single if a['study'].split('/')[0] in search_side], f'{args.out}-search',
                   'Search, beliefs, trading, and opponent model',
-                  'Each point is the mean per-seed difference in wins between a search with one change and the unchanged depth-2 control; the bar is the 95% interval over 64 seeds. Points below zero mean the change hurt.')
+                  'Each point is the mean per-seed difference in wins between a search with one change and the unchanged depth-2 control; the bar is the 95% interval over 64 seeds. Points below zero mean the change hurt.'.replace('64 seeds', SEEDS))
     rows += forest([a for a in single if a['study'].split('/')[0] not in search_side], f'{args.out}-terms',
                    'Leaf terms and style sliders',
                    'Each point is the mean per-seed difference in wins between a search with one leaf term switched off or one slider at its limit and the unchanged depth-2 control; the bar is the 95% interval over 64 seeds.')

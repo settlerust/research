@@ -27,7 +27,7 @@ Use reliability curves and Brier scores for observable predictions such as wheth
 
 ## First ablation
 
-Sampling hidden hands from public counts alone, ignoring the event history, changed the contrast by -0.090 wins per game (95% interval -0.201 to +0.021); one sampled world instead of four changed it by -0.051 wins per game (95% interval -0.166 to +0.064). Both lean harmful and both are registered again on fresh seeds. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
+Sampling hidden hands from public counts alone, ignoring the event history, changed the contrast by -0.090 wins per game (95% interval -0.201 to +0.021); one sampled world instead of four changed it by -0.051 wins per game (95% interval -0.166 to +0.064). Both lean harmful and both are registered again on fresh seeds. On 192 fresh seeds, counts-only sampling cost -0.066 (95% interval -0.125 to -0.008) and one sampled world -0.012 (95% interval -0.072 to +0.048): event knowledge pays, the world count does not. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
 
 ## What could disprove it
 
@@ -51,7 +51,7 @@ The deployable policy reads only its own observation and recipient-visible event
 
 | Updated | Investigation | Status | Finding and next step |
 | --- | --- | --- | --- |
-| 2026-09-09 | [Hidden hands sampled from event history versus public counts only](/research/approaches/beliefs) | Active | Round one, 256 deterministic games: contrast -0.090 wins per game (95% interval -0.201 to +0.021). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
-| 2026-09-09 | [One sampled world versus four](/research/approaches/beliefs) | Active | Round one, 256 deterministic games: contrast -0.051 wins per game (95% interval -0.166 to +0.064). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [Hidden hands sampled from event history versus public counts only](/research/approaches/beliefs) | Complete | Screen -0.090 then confirmation -0.066 (95% interval -0.125 to -0.008) on 192 fresh seeds: sampling hands from event history instead of counts alone is worth about 0.07 wins per game. Supported. Next: Measure calibration of the sampled hands against sealed true hands offline, then test richer inference (refusals, discards). [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [One sampled world versus four](/research/approaches/beliefs) | Complete | Screen -0.051 then confirmation -0.012 (95% interval -0.072 to +0.048): one sampled world instead of four makes no measurable difference at depth 2. Next: Retest at depth 3, where worlds also shape the opponents' rounds. [Log 2026-09-09](/research/log/2026-09-09) |
 
 [research-studies:end]: #
