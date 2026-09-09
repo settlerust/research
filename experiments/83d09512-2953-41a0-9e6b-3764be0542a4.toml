@@ -1,0 +1,12 @@
+id = "83d09512-2953-41a0-9e6b-3764be0542a4"
+study = "search/scenario-count"
+arena = "engine"
+hypothesis = "Averaging the opponents' round over two dice scenarios instead of eight lowers the win rate."
+decision_rule = "All 256 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes; the 95% seed interval decides support (excludes zero in the stated direction), refutation (excludes zero the other way), or inconclusive. Development tier; treatment and control share every other setting."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":2,\"inner_scenarios\":1}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

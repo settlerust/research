@@ -1,8 +1,8 @@
 ---
 title: Opponent adaptation
 summary: "How quickly should a player change its strategy when an opponent behaves differently?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Opponent adaptation
@@ -25,6 +25,10 @@ Compare a fixed opponent model, an online model with bounded updates, and a mode
 
 Plot prediction error through each game and cross-play outcomes by opponent class. Track how often a model changes its preferred action. Evaluate on withheld policy versions and messaging styles, not only alternate prompts from the same template.
 
+## First ablation
+
+Modelling opponents as leaf-guided greedy players instead of the fixed builder changed the contrast by -0.008 wins per game (95% interval -0.111 to +0.096) at roughly double the decision time; against actual builders the builder model is the better-calibrated one. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
+
 ## What could disprove it
 
 Adaptation can become exploitable if a rival intentionally teaches the wrong pattern. Report worst-opponent performance. Private identity attributes are unnecessary: game behavior and the explicitly available memory are the research inputs.
@@ -40,3 +44,13 @@ Compare with [belief tracking](../beliefs/README.mdx): beliefs about cards, will
 </AgentContext>
 
 [All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-09 | [Leaf-guided opponents versus the builder model](/research/approaches/adaptation) | Active | Round one, 256 deterministic games: contrast -0.008 wins per game (95% interval -0.111 to +0.096). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+
+[research-studies:end]: #

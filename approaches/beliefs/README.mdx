@@ -1,8 +1,8 @@
 ---
 title: Beliefs about hidden hands
 summary: "How much should a player infer from production, spending, and refused trades?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Beliefs about hidden hands
@@ -25,6 +25,10 @@ Compare card-count-only sampling, event-constrained sampling, and event constrai
 
 Use reliability curves and Brier scores for observable predictions such as whether an affordable offer will be accepted. If a separate offline diagnostic uses sealed hidden-state labels, keep them out of policy inputs and publish only approved aggregates. Split data by whole game.
 
+## First ablation
+
+Sampling hidden hands from public counts alone, ignoring the event history, changed the contrast by -0.090 wins per game (95% interval -0.201 to +0.021); one sampled world instead of four changed it by -0.051 wins per game (95% interval -0.166 to +0.064). Both lean harmful and both are registered again on fresh seeds. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
+
 ## What could disprove it
 
 A sharply confident wrong belief is worse than a broad one. Missing history must widen uncertainty. Do not condition a deployable policy on spectator hands, future random outcomes, or diagnostic labels.
@@ -40,3 +44,14 @@ The deployable policy reads only its own observation and recipient-visible event
 </AgentContext>
 
 [All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-09 | [Hidden hands sampled from event history versus public counts only](/research/approaches/beliefs) | Active | Round one, 256 deterministic games: contrast -0.090 wins per game (95% interval -0.201 to +0.021). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [One sampled world versus four](/research/approaches/beliefs) | Active | Round one, 256 deterministic games: contrast -0.051 wins per game (95% interval -0.166 to +0.064). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+
+[research-studies:end]: #

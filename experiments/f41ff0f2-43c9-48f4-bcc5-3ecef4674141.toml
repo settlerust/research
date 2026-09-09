@@ -1,0 +1,12 @@
+id = "f41ff0f2-43c9-48f4-bcc5-3ecef4674141"
+study = "population/cross-play"
+arena = "engine"
+hypothesis = "Among four depth-2 searches that differ only in inclination presets (builder, raider, gambler, trader), win rates differ on deterministic paired boards."
+decision_rule = "All 256 games complete. Report per-preset win rates with Wilson intervals and pairwise paired contrasts; no preset is promoted unless its contrast interval against every other preset excludes zero. Development tier."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"inclinations\":{\"expansion\":0.9,\"development\":0.2,\"aggression\":0.4,\"risk\":0.4,\"trade\":0.6}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"inclinations\":{\"aggression\":1.0,\"risk\":0.6,\"expansion\":0.5,\"development\":0.6,\"trade\":0.3}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"inclinations\":{\"risk\":1.0,\"development\":0.9,\"expansion\":0.5,\"aggression\":0.5,\"trade\":0.5}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"inclinations\":{\"trade\":1.0,\"expansion\":0.6,\"development\":0.4,\"aggression\":0.3,\"risk\":0.3}}"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

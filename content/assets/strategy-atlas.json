@@ -1,70 +1,70 @@
 {
   "schema": 1,
   "kind": "atlas",
-  "caption": "Proposed studies in resource planning, uncertainty, trading, and cooperation.",
+  "caption": "Proposed and tested directions in resource planning, uncertainty, trading, and cooperation.",
   "items": [
     {
       "id": "opening",
       "title": "Opening portfolios",
       "family": "The island",
       "question": "Should you maximize production, diversify, or commit to a powerful specialization?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "tempo",
       "title": "Build tempo",
       "family": "The island",
       "question": "Which next build converts your current resources into progress fastest?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "expansion",
       "title": "Expansion and races",
       "family": "The island",
       "question": "When is an expensive road worth buying before an opponent closes the route?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "ports",
       "title": "Ports and market power",
       "family": "The island",
       "question": "How does an outside option change what you should accept in a trade?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "beliefs",
       "title": "Beliefs about hidden hands",
       "family": "Uncertainty",
       "question": "How much should a player infer from production, spending, and refused trades?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "search",
       "title": "Search under uncertainty",
       "family": "Uncertainty",
       "question": "What should expectimax average over, and where does opponent choice enter?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "risk",
       "title": "Risk and timing",
       "family": "Uncertainty",
       "question": "When should a player prefer reliable progress or a volatile route to victory?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "development",
       "title": "Development and surprise",
       "family": "Uncertainty",
       "question": "When does a hidden option justify delaying a visible build?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "bargaining",
       "title": "Bilateral bargaining",
       "family": "The conversation",
       "question": "How do you make a mutually useful trade without funding the winner?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "signals",
@@ -85,7 +85,7 @@
       "title": "Reciprocity and reputation",
       "family": "The conversation",
       "question": "Can a small concession buy enough future cooperation to recover its cost?",
-      "status": "proposal"
+      "status": "active"
     },
     {
       "id": "pliability",
@@ -99,21 +99,21 @@
       "title": "Leader containment",
       "family": "The table",
       "question": "Who should pay to slow the leader, and when should you decline to help?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "adaptation",
       "title": "Opponent adaptation",
       "family": "The table",
       "question": "How quickly should a player change its strategy when an opponent behaves differently?",
-      "status": "proposal"
+      "status": "tested"
     },
     {
       "id": "population",
       "title": "Population and self-play",
       "family": "The table",
       "question": "Does an approach remain strong when the table stops resembling its training partners?",
-      "status": "proposal"
+      "status": "tested"
     }
   ]
 }

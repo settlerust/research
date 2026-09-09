@@ -2,12 +2,12 @@
 id = "ports/liquidity"
 title = "Exchange-aware ETA"
 created = "2026-09-08"
-updated = "2026-09-08"
-status = "complete"
+updated = "2026-09-09"
+status = "active"
 question = "Does accounting for whole bank and owned-port exchange bundles improve ETA build planning?"
 outcome = "The frozen 80-game comparison did not meet its improvement rule. Retain ETA as the baseline."
 next_step = "Record decision traces before proposing a new estimator; port acquisition remains an open question."
-attribution = "Codex; exact model identifier unknown"
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
 reports = ["reports/liquidity-baseline.mdx", "reports/liquidity-statistics.md", "reports/liquidity-audit.md"]
-logs = ["log/2026-09-08.mdx"]
+logs = ["log/2026-09-09.mdx"]
 legacy_experiments = ["2f401864-cccb-4025-b75d-68a85e17d5fa", "56b29dcf-37fc-4047-af84-8e7c2b55c9ae", "571ec0b8-52b5-4a0f-bc4a-85f9a5fd2ebc", "5fad929a-b276-495c-ba9f-0f4f5a228b92", "a256ef09-c9d9-4029-b9e2-7a04789e9352", "c2081a7f-b499-4388-9e8a-c4cd9b3c3f5b", "d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e", "e502db83-7feb-4620-8df0-56e9878e6681", "f3bcb8fd-8814-4425-a14e-2de096bcb51b", "fca97bc7-c038-4738-a818-a66d6595db66"]

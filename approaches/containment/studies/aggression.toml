@@ -1,0 +1,12 @@
+id = "containment/aggression"
+title = "Maximal aggression"
+created = "2026-09-09"
+updated = "2026-09-09"
+status = "active"
+question = "Does this change pay off for expectimax-v2 on deterministic paired boards? Raising the opponent terms by half (aggression slider at 1) changes the win rate; the direction is the question."
+outcome = "Round one, 256 deterministic games: contrast +0.020 wins per game (95% interval -0.084 to +0.123). See the ablation report."
+next_step = "Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = []
+logs = ["log/2026-09-09.mdx"]
+legacy_experiments = []

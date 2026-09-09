@@ -1,0 +1,12 @@
+id = "reputation/reciprocity"
+title = "Learning who accepts"
+created = "2026-09-09"
+updated = "2026-09-09"
+status = "active"
+question = "Does scaling the willingness model by each partner's observed acceptance rate of this seat's offers pay off against fixed builders on deterministic paired boards?"
+outcome = "Registered; the reciprocity arm is running."
+next_step = "Read the 64-seed arm; if inconclusive, register a fresh-seed confirmation."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = []
+logs = ["log/2026-09-09.mdx"]
+legacy_experiments = []

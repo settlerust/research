@@ -1,8 +1,8 @@
 ---
 title: Population and self-play
 summary: "Does an approach remain strong when the table stops resembling its training partners?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Population and self-play
@@ -25,6 +25,10 @@ Compare training against a fixed baseline, self-play against only the latest pol
 
 Show a matchup heatmap with game counts and uncertainty linked from every measured cell. Report mean and worst-family outcomes, completion, compute budget, and training/evaluation separation. In four-player studies, a cell identifies a full lineup, not an unspecified opponent.
 
+## First cross-play
+
+Four depth-2 searches that differ only in inclination presets (builder, raider, gambler, trader) split 256 deterministic games almost evenly: 66, 59, 69, and 62 wins. No preset dominates; the sliders change style without changing strength against equals. See the [ablation report](../../reports/ablations.mdx).
+
 ## What could disprove it
 
 A finite test pool cannot establish unexploitable play or a Nash equilibrium. Repeatedly tuning against a published matrix turns the test set into training data. Leave a fresh final cohort and record negative transfer.
@@ -40,3 +44,13 @@ The deployable policy reads only its own observation and recipient-visible event
 </AgentContext>
 
 [All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-09 | [Cross-play of four search styles](/research/approaches/population) | Active | Four inclination presets split 256 deterministic games almost evenly (66, 59, 69, 62 wins); no preset dominates. Next: Cross-play at depth 3 and against the frozen reference, then a heatmap of pairwise contrasts. [Log 2026-09-09](/research/log/2026-09-09) |
+
+[research-studies:end]: #

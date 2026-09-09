@@ -2,7 +2,7 @@
 title: Search under uncertainty
 summary: "What should expectimax average over, and where does opponent choice enter?"
 status: active
-evidence: protocol arena
+evidence: engine arena
 ---
 
 # Search under uncertainty
@@ -29,6 +29,10 @@ First compare the fixed expectimax reference with a response-aware evaluator at 
 
 Plot win-rate intervals against decision latency and compute cost, with budget exhaustion and fallback rates visible. Retain candidate IDs, values, observation version, and the unchanged reference. The current web reference uses additive heuristic points, not calibrated win probabilities.
 
+## First ablation
+
+Removing the lookahead (depth 1) changed the contrast by -0.324 wins per game (95% interval -0.413 to -0.235), and two dice scenarios instead of eight by -0.410 wins per game (95% interval -0.489 to -0.331): the two decisive results of the ablation program. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
+
 ## What could disprove it
 
 A stronger leaf model, larger candidate set, or larger time budget can masquerade as a search improvement. Hidden-state samples can also cause strategy fusion: choosing different actions using information unavailable to the actual player.
@@ -51,6 +55,8 @@ The information-set distinction and strategy-fusion failure are discussed in [Co
 
 | Updated | Investigation | Status | Finding and next step |
 | --- | --- | --- | --- |
-| 2026-09-09 | [A tunable turn-level expectimax](/research/reports/expectimax-v2-development) | Active | The corrected depth-3 candidate (expectimax-v2-plan) won 47 of 80 authoritative games against 11 for the compared ETA slot (p = 1.0e-6), meeting its rule; engine arena: depth 2 wins 50.4% and depth 3 57.4% of paired slot-games against ETA, and 46.9% against the frozen reference. Next: Tune the leaf weights and inclinations on unregistered sweeps against the new baseline, measure WASM cost per depth in the browser, and test a response-aware opponent model. [Expectimax v2 protocol](/research/reports/expectimax-v2-protocol) · [Expectimax v2 corrected](/research/reports/expectimax-v2-corrected) · [Expectimax v2 plan protocol](/research/reports/expectimax-v2-plan-protocol) · [Log 2026-09-08](/research/log/2026-09-08) · [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [A tunable turn-level expectimax](/research/reports/expectimax-v2-development) | Active | The corrected depth-3 candidate (expectimax-v2-plan) won 47 of 80 authoritative games against 11 for the compared ETA slot (p = 1.0e-6), meeting its rule; engine arena: depth 2 wins 50.4% and depth 3 57.4% of paired slot-games against ETA, and 46.9% against the frozen reference. Next: Tune the leaf weights and inclinations on unregistered sweeps against the new baseline, measure WASM cost per depth in the browser, and test a response-aware opponent model. [Expectimax v2 protocol](/research/reports/expectimax-v2-protocol) · [Expectimax v2 corrected](/research/reports/expectimax-v2-corrected) · [Expectimax v2 plan protocol](/research/reports/expectimax-v2-plan-protocol) · [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [Static turn planning versus one round of lookahead](/research/approaches/search) | Active | Round one, 256 deterministic games: contrast -0.324 wins per game (95% interval -0.413 to -0.235). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [Two common random scenarios versus eight](/research/approaches/search) | Active | Round one, 256 deterministic games: contrast -0.410 wins per game (95% interval -0.489 to -0.331). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
 
 [research-studies:end]: #

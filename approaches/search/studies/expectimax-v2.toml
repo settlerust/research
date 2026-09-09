@@ -8,5 +8,5 @@ outcome = "The corrected depth-3 candidate (expectimax-v2-plan) won 47 of 80 aut
 next_step = "Tune the leaf weights and inclinations on unregistered sweeps against the new baseline, measure WASM cost per depth in the browser, and test a response-aware opponent model."
 attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
 reports = ["reports/expectimax-v2-development.mdx", "reports/expectimax-v2-protocol.mdx", "reports/expectimax-v2-corrected.mdx", "reports/expectimax-v2-plan-protocol.mdx"]
-logs = ["log/2026-09-08.mdx", "log/2026-09-09.mdx"]
+logs = ["log/2026-09-09.mdx"]
 legacy_experiments = []

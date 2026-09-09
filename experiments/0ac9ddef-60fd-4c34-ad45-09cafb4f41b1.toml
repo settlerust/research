@@ -1,0 +1,12 @@
+id = "0ac9ddef-60fd-4c34-ad45-09cafb4f41b1"
+study = "tempo/acquisition-time-term"
+arena = "engine"
+hypothesis = "Removing the plan term that values a build target by its gain over turns-to-afford lowers the win rate."
+decision_rule = "All 256 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes; the 95% seed interval decides support (excludes zero in the stated direction), refutation (excludes zero the other way), or inconclusive. Development tier; treatment and control share every other setting."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"weights\":{\"readiness\":0.0}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

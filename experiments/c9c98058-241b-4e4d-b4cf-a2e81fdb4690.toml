@@ -1,0 +1,12 @@
+id = "c9c98058-241b-4e4d-b4cf-a2e81fdb4690"
+study = "opening/search-placement"
+arena = "engine"
+hypothesis = "Removing search placement (builder_setup) lowers the win rate of an otherwise identical depth-2 search on identical boards."
+decision_rule = "All 256 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes; the 95% seed interval decides support (excludes zero in the stated direction), refutation (excludes zero the other way), or inconclusive. Development tier; treatment and control share every other setting."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"builder_setup\":true}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

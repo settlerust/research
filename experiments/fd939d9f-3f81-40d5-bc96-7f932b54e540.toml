@@ -1,0 +1,12 @@
+id = "fd939d9f-3f81-40d5-bc96-7f932b54e540"
+study = "bargaining/trade-openness"
+arena = "engine"
+hypothesis = "Removing the trade margin (trade slider at 1) changes the win rate; the direction is the question."
+decision_rule = "All 256 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes; the 95% seed interval decides support (excludes zero in the stated direction), refutation (excludes zero the other way), or inconclusive. Development tier; treatment and control share every other setting."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"inclinations\":{\"trade\":1.0}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

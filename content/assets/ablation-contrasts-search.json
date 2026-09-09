@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Search, beliefs, trading, and opponent model",
+  "evidence": "measured",
+  "source": "Engine-arena ablation cohorts: 64 deterministic seeds each played once per rotation (256 games per arm); treatment in slot 0, the unchanged depth-2 control in slot 1, an ETA and a fast builder in the other seats. Run IDs are listed in the ablation report.",
+  "caption": "Each point is the mean per-seed difference in wins between a search with one change and the unchanged depth-2 control; the bar is the 95% interval over 64 seeds. Points below zero mean the change hurt.",
+  "x": {
+    "label": "Ablation arm",
+    "min": 0,
+    "max": 6,
+    "ticks": [
+      "event-knowledge",
+      "sampled-worlds",
+      "lookahead",
+      "scenario-count",
+      "offer-policy",
+      "trade-openness",
+      "opponent-model"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, treatment minus control",
+    "min": -0.54,
+    "max": 0.15
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0898,
+          "low": -0.2008,
+          "high": 0.0211
+        },
+        {
+          "x": 1,
+          "y": -0.0508,
+          "low": -0.1659,
+          "high": 0.0643
+        },
+        {
+          "x": 2,
+          "y": -0.3242,
+          "low": -0.4133,
+          "high": -0.2351
+        },
+        {
+          "x": 3,
+          "y": -0.4102,
+          "low": -0.4891,
+          "high": -0.3312
+        },
+        {
+          "x": 4,
+          "y": -0.0273,
+          "low": -0.1321,
+          "high": 0.0774
+        },
+        {
+          "x": 5,
+          "y": -0.0938,
+          "low": -0.1923,
+          "high": 0.0048
+        },
+        {
+          "x": 6,
+          "y": -0.0078,
+          "low": -0.1113,
+          "high": 0.0957
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

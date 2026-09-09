@@ -1,0 +1,12 @@
+id = "population/cross-play"
+title = "Cross-play of four search styles"
+created = "2026-09-09"
+updated = "2026-09-09"
+status = "active"
+question = "Which inclination preset wins when four expectimax-v2 seats with different styles share a table on deterministic paired boards?"
+outcome = "Four inclination presets split 256 deterministic games almost evenly (66, 59, 69, 62 wins); no preset dominates."
+next_step = "Cross-play at depth 3 and against the frozen reference, then a heatmap of pairwise contrasts."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = []
+logs = ["log/2026-09-09.mdx"]
+legacy_experiments = []

@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Leaf terms and style sliders",
+  "evidence": "measured",
+  "source": "Engine-arena ablation cohorts: 64 deterministic seeds each played once per rotation (256 games per arm); treatment in slot 0, the unchanged depth-2 control in slot 1, an ETA and a fast builder in the other seats. Run IDs are listed in the ablation report.",
+  "caption": "Each point is the mean per-seed difference in wins between a search with one leaf term switched off or one slider at its limit and the unchanged depth-2 control; the bar is the 95% interval over 64 seeds.",
+  "x": {
+    "label": "Ablation arm",
+    "min": 0,
+    "max": 9,
+    "ticks": [
+      "search-placement",
+      "acquisition-time-term",
+      "site-value-terms",
+      "port-value-terms",
+      "discard-exposure",
+      "risk-appetite",
+      "card-terms",
+      "card-appetite",
+      "opponent-terms",
+      "aggression"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, treatment minus control",
+    "min": -0.23,
+    "max": 0.21
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0352,
+          "low": -0.1327,
+          "high": 0.0624
+        },
+        {
+          "x": 1,
+          "y": 0.0625,
+          "low": -0.0393,
+          "high": 0.1643
+        },
+        {
+          "x": 2,
+          "y": -0.0742,
+          "low": -0.1692,
+          "high": 0.0207
+        },
+        {
+          "x": 3,
+          "y": 0.0195,
+          "low": -0.0859,
+          "high": 0.1249
+        },
+        {
+          "x": 4,
+          "y": -0.0234,
+          "low": -0.1335,
+          "high": 0.0866
+        },
+        {
+          "x": 5,
+          "y": -0.0625,
+          "low": -0.1754,
+          "high": 0.0504
+        },
+        {
+          "x": 6,
+          "y": -0.0352,
+          "low": -0.1442,
+          "high": 0.0739
+        },
+        {
+          "x": 7,
+          "y": 0.0312,
+          "low": -0.0697,
+          "high": 0.1322
+        },
+        {
+          "x": 8,
+          "y": 0.0,
+          "low": -0.1047,
+          "high": 0.1047
+        },
+        {
+          "x": 9,
+          "y": 0.0195,
+          "low": -0.0842,
+          "high": 0.1232
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

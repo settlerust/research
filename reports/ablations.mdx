@@ -1,0 +1,112 @@
+---
+date: "2026-09-09"
+title: "What each mechanism is worth"
+summary: "Eighteen one-change ablations on identical boards: lookahead and dice scenarios are decisive, single leaf terms and style sliders are worth at most a few games per hundred."
+---
+
+# What each mechanism is worth
+
+<ResearchCallout title="Finding · two levers dominate, the rest are small">
+On 64 deterministic boards, each played once per seat rotation, removing the
+opponents' round and the next turn (depth 1) cost **−0.324 wins per game**
+(95% interval −0.413 to −0.235) against an unchanged depth-2 control, and
+averaging the round over two dice scenarios instead of eight cost **−0.410**
+(−0.489 to −0.331). Every other single change, whether a leaf term switched
+off or a style slider pushed to its limit, moved the contrast by less than
+0.1 wins per game with an interval that crossed zero.
+</ResearchCallout>
+
+<ResearchPlot asset="ablation-contrasts-search" />
+
+<ResearchPlot asset="ablation-contrasts-terms" />
+
+## How the arms were built
+
+Every arm seats a search with exactly one change in slot 0 and the unchanged
+depth-2 control in slot 1, with an ETA builder and a fast builder in the other
+seats. Games run in deterministic mode, so both searches and both builders face
+the same board, the same k-th roll, the same k-th theft, and the same deck
+order on every seed; each seed is played once per rotation of the four slots.
+The primary outcome is the per-seed difference in wins between slots 0 and 1
+with a normal-approximation interval over 64 seeds. Depth 2 is the control
+because it is representative and four times cheaper than the confirmed
+depth-3 candidate; a change that helps at depth 2 is a candidate for the deep
+configuration, not a proof.
+
+## The arms
+
+| Approach | Change tested | Treatment wins | Control wins | Contrast (95% interval) |
+| --- | --- | ---: | ---: | --- |
+| Search | depth 1: no lookahead | 50 | 133 | −0.324 (−0.413 to −0.235) |
+| Search | two dice scenarios instead of eight | 27 | 132 | −0.410 (−0.489 to −0.331) |
+| Beliefs | hands sampled from counts only, no event history | 78 | 101 | −0.090 (−0.201 to +0.021) |
+| Beliefs | one sampled world instead of four | 89 | 102 | −0.051 (−0.166 to +0.064) |
+| Bargaining | no trade margin (trade slider at 1) | 80 | 104 | −0.094 (−0.192 to +0.005) |
+| Bargaining | never propose a trade | 83 | 90 | −0.027 (−0.132 to +0.077) |
+| Expansion | site-value and road-contention terms off | 87 | 106 | −0.074 (−0.169 to +0.021) |
+| Risk | risk slider at 1 (half the discard weight) | 88 | 104 | −0.062 (−0.175 to +0.050) |
+| Risk | discard-exposure term off | 90 | 96 | −0.023 (−0.134 to +0.087) |
+| Opening | builder placement instead of search placement | 87 | 96 | −0.035 (−0.133 to +0.062) |
+| Development | card and knight terms off | 91 | 100 | −0.035 (−0.144 to +0.074) |
+| Development | development slider at 1 | 98 | 90 | +0.031 (−0.070 to +0.132) |
+| Adaptation | leaf-guided opponents instead of the builder model | 88 | 90 | −0.008 (−0.111 to +0.096) |
+| Containment | all opponent terms off | 96 | 96 | 0.000 (−0.105 to +0.105) |
+| Containment | aggression slider at 1 | 99 | 94 | +0.020 (−0.084 to +0.123) |
+| Ports | port terms off | 97 | 92 | +0.020 (−0.086 to +0.125) |
+| Tempo | acquisition-time plan term off | 105 | 89 | +0.062 (−0.039 to +0.164) |
+
+Each row is 256 games. Removing the plan term did not hurt at depth 2, which
+was unexpected: the card, production, and hand terms already carry most of the
+acquisition-time signal once the search plans a whole turn, so the term that
+rescued the first leaf is now nearly redundant. Six arms whose intervals
+brushed zero (event knowledge, trade margin, expansion terms, risk slider,
+sampled worlds, and the plan term) are registered again on 192 fresh seeds;
+their results are added below when they complete.
+
+## Four styles at one table
+
+<ResearchChart asset="ablation-crossplay-wins" />
+
+Four depth-2 searches that differ only in their inclination presets (builder,
+raider, gambler, trader) split a table almost evenly: 66, 59, 69, and 62 wins
+of 256. The sliders change what a seat builds and how it trades without
+changing how often it wins against equals, which is what a style control
+should do.
+
+## What this program cannot test
+
+Truthful signals, bluffs, and bounded pliability need messages and a
+recipient that reads them; the fixed builders ignore conversation. Reputation
+has one mechanical proxy, a willingness model that learns each partner's
+acceptance rate from the public trade record, and its arm is running.
+
+<SearchFigure concept="scenarios" />
+
+<AgentContext>
+Engine-arena registrations under the approach studies, all with
+`deterministic = true`, seeds 0 to 63, four rotations, treatment slot 0
+`v2:{...one change...}`, control slot 1
+`v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}`, then `eta` and
+`fast`. Run IDs: opening `47db0437-fcc8-4bce-be06-57c2caadf5f9`, tempo
+`d4472a6a-7480-43c5-a045-bd23cc41f944`, expansion
+`52198182-e594-45d0-b71a-71c6f90835e4`, ports
+`03b1a60e-01fb-4a0f-85a6-db7c83a98472`, beliefs (event knowledge)
+`165fc976-0cb1-40af-a17b-14911bbdcc89`, beliefs (sampled worlds)
+`e5e7218e-5a00-4689-842d-01228f1bca19`, search (lookahead)
+`7586d662-410e-413b-a6d6-b1f8386ff39e`, search (scenarios)
+`917f7901-15a9-410f-b8f5-314a8041ab5b`, risk (exposure term)
+`0b9e852a-cc87-4d37-8694-ef01545b677e`, risk (slider)
+`d611102f-d5c0-4828-9131-1e746844ff65`, development (terms)
+`3fdce968-dd9a-4bba-9698-79bee17b6d28`, development (slider)
+`e2b45621-eead-4c98-ade1-8113ced106f5`, bargaining (proposals off)
+`0e7068ca-536d-4c35-a77c-e37f55119639`, bargaining (trade slider)
+`7ff05cd9-d1d7-477a-8386-f49ddefba3be`, containment (terms)
+`49df8c4e-96e9-497f-80ce-d8dd9ed19302`, containment (slider)
+`c4427fe6-e074-4598-83cc-aa2e4a0dc283`, adaptation
+`3807570d-117b-4b6f-b0c4-86b77767b6f5`, cross-play
+`729fc30f-edaa-4120-829d-125e68825e66`. Reproduce any arm with
+`just engine-run EXPERIMENT`; the forest plot comes from
+`analysis/ablation_assets.py`. Server commit `36c6899` carries the
+deterministic mode and ablation switches. Attribution: Claude Fable 5.1
+(claude-fable-5-1) through Claude Code.
+</AgentContext>

@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Search time by depth: native and WASM",
+  "evidence": "measured",
+  "source": "40 main-phase positions sampled from builder games on seeds 100 to 103 by the structure tool; each analysed once natively (release build, one core) and once in WASM under Node 26 on an otherwise idle machine; iterative deepening off, default sample and scenario counts.",
+  "caption": "Median milliseconds per analysis on 40 sampled main-phase positions with the 10th to 90th percentile; WASM to native ratio 1.26 at depth 1, 1.36 at depth 2, 1.38 at depth 3.",
+  "x": {
+    "label": "Depth (planned own turns)",
+    "min": 0,
+    "max": 4
+  },
+  "y": {
+    "label": "Milliseconds",
+    "min": 0,
+    "max": 636.0
+  },
+  "series": [
+    {
+      "label": "Native (release build)",
+      "points": [
+        {
+          "x": 1,
+          "y": 6.0,
+          "low": 2.2,
+          "high": 60.9
+        },
+        {
+          "x": 2,
+          "y": 34.6,
+          "low": 18.6,
+          "high": 249.2
+        },
+        {
+          "x": 3,
+          "y": 226.0,
+          "low": 90.3,
+          "high": 417.0
+        }
+      ]
+    },
+    {
+      "label": "WASM in Node",
+      "points": [
+        {
+          "x": 1,
+          "y": 7.4,
+          "low": 2.9,
+          "high": 72.0
+        },
+        {
+          "x": 2,
+          "y": 49.6,
+          "low": 24.7,
+          "high": 264.2
+        },
+        {
+          "x": 3,
+          "y": 312.2,
+          "low": 118.0,
+          "high": 577.5
+        }
+      ]
+    }
+  ]
+}

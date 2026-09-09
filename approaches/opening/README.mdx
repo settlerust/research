@@ -1,8 +1,8 @@
 ---
 title: Opening portfolios
 summary: "Should you maximize production, diversify, or commit to a powerful specialization?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Opening portfolios
@@ -27,6 +27,10 @@ Compare production-only placement, build-aware resource coverage, and coverage p
 
 Record production by resource, turns to first new settlement and city, unspent cards, and loss of reachable sites. Stratify by opening seat and a board-scarcity definition frozen before evaluation. A useful exhibit is a scatter plot of expected income against time to the first point-producing build.
 
+## First ablation
+
+Placing the opening with the builder heuristic instead of the search changed the contrast by -0.035 wins per game (95% interval -0.133 to +0.062) on 64 deterministic boards: search placement is worth little at depth 2, if anything. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
+
 ## What could disprove it
 
 More production without faster conversion or a win-rate improvement does not support the mechanism. Opening scores can also overfit specific boards. Do not choose a scarcity threshold after seeing which games the candidate won.
@@ -42,3 +46,13 @@ Use the [rules and reading guide](../../docs/sources.md) to distinguish rules fr
 </AgentContext>
 
 [All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-09 | [Placing the opening with the search instead of the builder heuristic](/research/approaches/opening) | Active | Round one, 256 deterministic games: contrast -0.035 wins per game (95% interval -0.133 to +0.062). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+
+[research-studies:end]: #

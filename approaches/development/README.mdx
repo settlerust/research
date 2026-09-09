@@ -1,8 +1,8 @@
 ---
 title: Development and surprise
 summary: "When does a hidden option justify delaying a visible build?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Development and surprise
@@ -25,6 +25,10 @@ Compare fixed development-card bonuses, deck-aware valuation, and timing-aware v
 
 Record buy-to-play time, award transfers, robber impact, and unused development counts at game end. Use public timelines for exhibits. Separate directly observed plays from inferred hidden points and preserve the server’s visibility rules.
 
+## First ablation
+
+Switching the held-card and knight terms off changed the contrast by -0.035 wins per game (95% interval -0.144 to +0.074); raising them by half through the development slider changed it by +0.031 wins per game (95% interval -0.070 to +0.132). Neither is distinguishable from zero. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
+
 ## What could disprove it
 
 Largest Army and Longest Road are contests with opponents, not guaranteed point purchases. Spending heavily to take an award briefly may be worse than a permanent build. Evaluate the full continuation.
@@ -40,3 +44,14 @@ Consult the [official rules](https://www.catan.com/sites/default/files/2021-06/c
 </AgentContext>
 
 [All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-09 | [A maximal development-card appetite](/research/approaches/development) | Active | Round one, 256 deterministic games: contrast +0.031 wins per game (95% interval -0.070 to +0.132). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [Development card and knight terms](/research/approaches/development) | Active | Round one, 256 deterministic games: contrast -0.035 wins per game (95% interval -0.144 to +0.074). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+
+[research-studies:end]: #

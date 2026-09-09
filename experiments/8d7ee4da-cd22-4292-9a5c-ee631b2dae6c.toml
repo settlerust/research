@@ -1,0 +1,12 @@
+id = "8d7ee4da-cd22-4292-9a5c-ee631b2dae6c"
+study = "beliefs/event-knowledge"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: Sampling opponents' hands from public counts alone (ignoring the event history) lowers the win rate."
+decision_rule = "All 768 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes over 192 fresh seeds; the 95% seed interval decides support, refutation, or inconclusive. Development tier; registered after an inconclusive 64-seed screen."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"counts_only\":true}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "64-255"
+rotations = 4
+games = 768
+points_to_win = 10
+max_turns = 500
+deterministic = true

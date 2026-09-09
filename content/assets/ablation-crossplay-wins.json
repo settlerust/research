@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Four search styles at one table",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "builder (slot 0)",
+      "value": 0.2578125,
+      "low": 0.20808593083982155,
+      "high": 0.31469999961646,
+      "n": 256
+    },
+    {
+      "label": "raider (slot 1)",
+      "value": 0.23046875,
+      "low": 0.183093576056734,
+      "high": 0.28581334654783735,
+      "n": 256
+    },
+    {
+      "label": "gambler (slot 2)",
+      "value": 0.26953125,
+      "low": 0.2188800151092185,
+      "high": 0.3269969187120816,
+      "n": 256
+    },
+    {
+      "label": "trader (slot 3)",
+      "value": 0.2421875,
+      "low": 0.19377015335079256,
+      "high": 0.2982277726187974,
+      "n": 256
+    }
+  ],
+  "caption": "Per-preset win rates when four depth-2 searches with different inclination presets share a table. Run 729fc30f-edaa-4120-829d-125e68825e66: 256 of 256 games completed; deterministic tapes, 64 seeds, four rotations."
+}

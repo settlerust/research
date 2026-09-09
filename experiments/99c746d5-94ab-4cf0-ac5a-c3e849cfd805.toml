@@ -1,0 +1,12 @@
+id = "99c746d5-94ab-4cf0-ac5a-c3e849cfd805"
+study = "expansion/site-value-terms"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: Removing the expansion and road-contention terms lowers the win rate."
+decision_rule = "All 768 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes over 192 fresh seeds; the 95% seed interval decides support, refutation, or inconclusive. Development tier; registered after an inconclusive 64-seed screen."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"weights\":{\"expansion\":0.0,\"expansion_sites\":0.0,\"road_contention\":0.0}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "64-255"
+rotations = 4
+games = 768
+points_to_win = 10
+max_turns = 500
+deterministic = true

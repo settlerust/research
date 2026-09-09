@@ -1,0 +1,12 @@
+id = "log/ablations"
+title = "Ablations: what each mechanism is worth"
+created = "2026-09-09"
+updated = "2026-09-09"
+status = "active"
+question = "Which parts of the tunable search pay for themselves on identical boards, measured one change at a time against an unchanged control?"
+outcome = "Round one of eighteen one-change arms: removing lookahead costs -0.324 wins per game and two scenarios instead of eight costs -0.410; every leaf term and slider is within 0.1 with an interval crossing zero."
+next_step = "Complete the six fresh-seed confirmations and the reciprocity arm, then retest the surviving mechanisms under the depth-3 candidate."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = ["reports/ablations.mdx"]
+logs = ["log/2026-09-09.mdx"]
+legacy_experiments = []

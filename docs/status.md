@@ -49,6 +49,18 @@ Those cohorts ran with a turn-planning defect. After the
 paired slot-games against ETA's 20.3% (paired contrast +0.301) and depth 3
 under 1.5 s wins 57.4% (contrast +0.414).
 
+## Deterministic mode and ablations
+
+Both tiers can now play deterministic paired cohorts: the k-th roll, theft, and
+development draw come from seed-derived tapes, so two policies on one seed face
+identical luck. A protocol smoke confirmed identical rolls across rotations
+through the server. An [ablation program](../reports/ablations.mdx) of eighteen registered
+cohorts (one change per arm against an unchanged depth-2 control, 256
+deterministic games each) found two decisive levers, lookahead (−0.324 wins
+per game when removed) and dice scenarios (−0.410 with two instead of eight),
+and no single leaf term or style slider worth more than 0.1 wins per game on 64
+seeds. Six borderline arms are being confirmed on 192 fresh seeds.
+
 ## The protocol-arena baseline is now expectimax-v2-plan
 
 The corrected depth-3 candidate, frozen as `expectimax-v2-plan`, [won 47 of 80

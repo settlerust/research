@@ -56,6 +56,15 @@ distinct boards.
 
 <ResearchPlot asset="tree-transpositions" />
 
+## In the browser
+
+The same search compiled to WebAssembly runs 1.26 to 1.38 times slower than
+the native release build on 40 sampled main-phase positions (medians by depth
+in the chart), so a one-second budget in a browser worker usually completes
+depth 3 and always completes depth 2.
+
+<ResearchPlot asset="search-cost-wasm" />
+
 ## One decision, term by term
 
 At turn 59 of an engine-arena game on seed 5, the corrected search at depth 3
