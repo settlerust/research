@@ -46,7 +46,16 @@ baseline remains ETA and that candidate's advantage is not confirmed.
 
 Those cohorts ran with a turn-planning defect. After the
 [correction](../reports/expectimax-v2-corrected.mdx), depth 2 wins 50.4% of 256
-paired slot-games against ETA's 20.3% (paired contrast +0.301, interval +0.190
-to +0.412), still engine-arena evidence. A corrected candidate is registered for
-a fresh protocol cohort; until it completes, the protocol baseline remains ETA.
+paired slot-games against ETA's 20.3% (paired contrast +0.301) and depth 3
+under 1.5 s wins 57.4% (contrast +0.414).
+
+## The protocol-arena baseline is now expectimax-v2-plan
+
+The corrected depth-3 candidate, frozen as `expectimax-v2-plan`, [won 47 of 80
+authoritative games](../reports/expectimax-v2-plan-protocol.mdx) against 11 for
+the compared ETA slot, with all 80 games valid; the registered rule (a 10-point
+gap at p ≤ 0.05) is met at p = 1.0 × 10⁻⁶. New candidates should be compared
+against this policy in a four-player table with the fixed builders. The
+comparison is one lineup and one seat rotation scheme; strength against other
+searches, humans, or negotiation-aware opponents is not established.
 

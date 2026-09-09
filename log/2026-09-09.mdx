@@ -1,6 +1,6 @@
 ---
 title: A planning defect, a protocol cohort, and new exhibits
-summary: The frozen depth-3 candidate is inconclusive through the protocol arena; a turn-planning bug in the search is found and fixed.
+summary: A turn-planning bug is found and fixed; the corrected candidate wins 47 of 80 authoritative games and becomes the protocol baseline.
 ---
 
 # A planning defect, a protocol cohort, and new exhibits
@@ -48,6 +48,14 @@ multiplying by four to six per planned turn (medians of 15, 92, 465 and 1654 ms
 at depths 1 to 4). The [tree-structure report](../reports/tree-structure.mdx)
 has the charts and a term-by-term decision exhibit. An earlier structure run
 with the defective search was discarded before publication.
+
+The protocol confirmation of the corrected candidate,
+`49427921-feaf-4291-a5bf-79500acdcae7`, run
+`0df1bae1-1928-4bcc-8fb6-a5519621bb76`, completed 80 of 80 games with twelve in
+flight and no timeout moves: 47 wins (58.8%) against the compared ETA slot's 11
+(13.8%), a 45-point gap at p = 1.0 × 10⁻⁶. The registered rule is met and the
+[protocol report](../reports/expectimax-v2-plan-protocol.mdx) makes
+`expectimax-v2-plan` the protocol-arena baseline.
 
 The design package gained interval and bar plots, a decision-trace exhibit, and
 three animated search figures; the notebook validators accept them.

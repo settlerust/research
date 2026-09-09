@@ -2,7 +2,7 @@
 title: Search under uncertainty
 summary: "What should expectimax average over, and where does opponent choice enter?"
 status: active
-evidence: engine arena
+evidence: protocol arena
 ---
 
 # Search under uncertainty
@@ -21,7 +21,7 @@ Separate legal candidate generation, chance outcomes, hidden-state beliefs, oppo
 
 ## What has been built
 
-`expectimax-v2` in the server's expectimax crate plans the current turn as a small tree: every first action, then the best few continuations by static value, with purchases, thefts and the player's own roll branching exactly over their outcomes. A first action is credited with the best line it enables. The afterstates of that line are followed through the other seats' turns, played by a fixed builder under common random dice scenarios so every candidate is judged on the same dice, and then through the player's next turn as a greedy line. Iterative deepening adds one planned turn at a time under a wall-clock budget and a depth cap, and the deepest completed depth is played. The leaf prices points, cards, production and build targets in one card-value currency, with tunable weights and five inclination sliders. The [development report](../../reports/expectimax-v2-development.mdx) records the first cohorts, which ran with a turn-planning defect, and the [corrected search report](../../reports/expectimax-v2-corrected.mdx) records the cohorts after the fix.
+`expectimax-v2` in the server's expectimax crate plans the current turn as a small tree: every first action, then the best few continuations by static value, with purchases, thefts and the player's own roll branching exactly over their outcomes. A first action is credited with the best line it enables. The afterstates of that line are followed through the other seats' turns, played by a fixed builder under common random dice scenarios so every candidate is judged on the same dice, and then through the player's next turn as a greedy line. Iterative deepening adds one planned turn at a time under a wall-clock budget and a depth cap, and the deepest completed depth is played. The leaf prices points, cards, production and build targets in one card-value currency, with tunable weights and five inclination sliders. The [development report](../../reports/expectimax-v2-development.mdx) records the first cohorts, which ran with a turn-planning defect, the [corrected search report](../../reports/expectimax-v2-corrected.mdx) records the paired cohorts after the fix, and the [protocol confirmation](../../reports/expectimax-v2-plan-protocol.mdx) records the corrected candidate winning 47 of 80 authoritative games.
 
 ## Proposed experiment
 
@@ -51,6 +51,6 @@ The information-set distinction and strategy-fusion failure are discussed in [Co
 
 | Updated | Investigation | Status | Finding and next step |
 | --- | --- | --- | --- |
-| 2026-09-09 | [A tunable turn-level expectimax](/research/reports/expectimax-v2-development) | Active | Corrected search, engine arena: depth 2 wins 50.4% of 256 paired slot-games against ETA (contrast +0.301) and 46.9% against the frozen reference (contrast +0.336); depth 3 under 1.5 s wins 57.4% against ETA (contrast +0.414, interval +0.327 to +0.502). The pre-fix candidate was inconclusive through the protocol arena. Next: Run the depth-3 engine cohort and the v2-versus-v1 cohort, then confirm the corrected frozen candidate through the registered 80-game protocol cohort. [Expectimax v2 protocol](/research/reports/expectimax-v2-protocol) · [Expectimax v2 corrected](/research/reports/expectimax-v2-corrected) · [Log 2026-09-08](/research/log/2026-09-08) · [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [A tunable turn-level expectimax](/research/reports/expectimax-v2-development) | Active | The corrected depth-3 candidate (expectimax-v2-plan) won 47 of 80 authoritative games against 11 for the compared ETA slot (p = 1.0e-6), meeting its rule; engine arena: depth 2 wins 50.4% and depth 3 57.4% of paired slot-games against ETA, and 46.9% against the frozen reference. Next: Tune the leaf weights and inclinations on unregistered sweeps against the new baseline, measure WASM cost per depth in the browser, and test a response-aware opponent model. [Expectimax v2 protocol](/research/reports/expectimax-v2-protocol) · [Expectimax v2 corrected](/research/reports/expectimax-v2-corrected) · [Expectimax v2 plan protocol](/research/reports/expectimax-v2-plan-protocol) · [Log 2026-09-08](/research/log/2026-09-08) · [Log 2026-09-09](/research/log/2026-09-09) |
 
 [research-studies:end]: #

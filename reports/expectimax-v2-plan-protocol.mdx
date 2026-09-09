@@ -1,0 +1,49 @@
+---
+date: "2026-09-09"
+title: "Confirmed through the protocol arena"
+summary: "The corrected depth-3 candidate won 47 of 80 authoritative games against 11 for the compared ETA slot, meeting its registered rule."
+---
+
+# Confirmed through the protocol arena
+
+<ResearchCallout title="Finding · the corrected candidate beats ETA on the authoritative server">
+Run `0df1bae1-1928-4bcc-8fb6-a5519621bb76` completed **80 of 80** games with no
+timeout moves. `expectimax-v2-plan` won **47 (58.8%)**; the ETA builder in the
+compared slot won **11 (13.8%)**, the other ETA slot 12 and the fast builder 10.
+The registered rule asked for a 10-point gap and a one-sided exact test at
+p ≤ 0.05: the gap is 45 points and p = 1.0 × 10⁻⁶. The candidate is the new
+protocol-arena baseline.
+</ResearchCallout>
+
+<ResearchChart asset="expectimax-v2-plan-protocol-wins" />
+
+The candidate is the corrected `expectimax-v2` at depth 3 under a 1.5 s budget
+with eight common random scenarios and four sampled worlds, frozen in the policy
+registry as `expectimax-v2-plan` before the cohort. The lineup and rule are the
+ones the [pre-fix candidate](expectimax-v2-protocol.mdx) had failed a day
+earlier with 31 wins against 25. Twelve matches ran at once against one server;
+the wall-clock budget makes contention search less, never longer, so any effect
+of sharing the machine works against the candidate.
+
+The mean game lasted 69 turns. The candidate averaged 8.40 points to the
+builders' 6.5 to 7.1, and the two identical ETA policies finished within one
+win of each other this time.
+
+## One game, viewed from above
+
+The first scheduled game, selected by schedule rather than outcome.
+
+<GameReplay asset="expectimax-v2-plan-protocol-game" />
+
+<AgentContext>
+Experiment `49427921-feaf-4291-a5bf-79500acdcae7` under study
+`search/expectimax-v2`, run with `just run 49427921-feaf-4291-a5bf-79500acdcae7
+--parallel 12`. The exact test counts wins by the candidate slot and the
+compared ETA slot only: P(X ≥ 47 | n = 58, p = 0.5) = 1.02 × 10⁻⁶. The
+candidate's exact configuration is the doubled-brace JSON in
+`policies/registry.toml`; the run manifest records the server `remote` binary
+hash and both repositories' Git state (server commit `59433b7` carries the
+planning fix). Public frame source SHA-256:
+`4b9783ed0a6f0eb46818295534984f46b92ee8ece278548c02926e5587a15204`.
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>
