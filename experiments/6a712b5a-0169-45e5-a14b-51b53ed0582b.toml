@@ -1,0 +1,12 @@
+id = "6a712b5a-0169-45e5-a14b-51b53ed0582b"
+study = "patterns/ntuple-leaf"
+arena = "engine"
+hypothesis = "The frozen tables played one ply (depth 1, no opponents round) are at least as strong as the hand-written leaf inside the depth-2 search."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Read the contrast: an interval above zero supports the tables one ply; an interval below zero means the depth-2 search over the hand-written leaf is still stronger than the tables alone; otherwise inconclusive. Never extend or refill this cohort."
+players = ["v2:{\"depth\":1,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "256-319"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

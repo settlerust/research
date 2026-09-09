@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Screen: the tables against the hand-written leaf at depth 3 under 1.5 s",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 3, 1.5 s (slot 0)",
+      "value": 0.52734375,
+      "low": 0.4662346942501266,
+      "high": 0.5876443136015835,
+      "n": 256
+    },
+    {
+      "label": "expectimax-v2 depth 3, 1.5 s (slot 1)",
+      "value": 0.28515625,
+      "low": 0.23334463740263667,
+      "high": 0.3433203009053549,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 2)",
+      "value": 0.1171875,
+      "low": 0.08333128838163656,
+      "high": 0.16236260169442127,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 3)",
+      "value": 0.0703125,
+      "low": 0.04493554746197091,
+      "high": 0.10839432915401236,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games on the same 64 fresh seeds. Both search seats plan three turns under a 1.5 s budget; slot 0 uses the frozen tables as its leaf. Run ec904c96-b029-4d1b-8d37-393cc15ebb5a: 256 of 256 planned games completed; engine arena, paired seeds."
+}

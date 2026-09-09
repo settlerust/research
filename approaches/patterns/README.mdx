@@ -1,7 +1,7 @@
 ---
 title: Learned pattern values
 summary: "Can lookup tables of small board patterns, learned from self-play, replace the hand-written leaf and save a ply of search?"
-status: active
+status: tested
 evidence: engine arena
 ---
 
@@ -37,6 +37,10 @@ A pilot trains six layouts for eighteen minutes each: the full set, each pair of
 
 The frozen tables then play registered deterministic cohorts on fresh seeds, 256 games each, one contrast per cohort: the tables versus the hand-written leaf at depth 2 in the same search, the tables played one ply against the depth-2 search, and the tables at depth 2 against the hand-written leaf at depth 3. Hypothesis: the tables beat the hand-written leaf at equal depth, and match it one ply deeper. A protocol cohort against `expectimax-v2-plan` follows if the engine screen passes.
 
+## First results
+
+On 64 fresh deterministic boards the frozen hex plus portfolio tables, as the leaf of the depth-2 search, won 130 of 256 slot-games against 74 for the hand-written leaf in the same search (paired contrast +0.219, 95% interval +0.124 to +0.314). Played one ply with no search they beat the two-turn hand-written search (+0.164), at depth 2 they beat the hand-written leaf at depth 3 (+0.156), and at depth 3 against depth 3 the margin is +0.242 (+0.140 to +0.345). Through the authoritative server the same tables inside the baseline's search won 46 of 80 games against 25 for `expectimax-v2-plan` (paired contrast +0.263, 95% interval +0.094 to +0.431), so `ntuple-leaf` is the protocol baseline. The [report](../../reports/ntuple-leaf.mdx) has the training curve, the decoded hex table, and every run ID, and the [protocol report](../../reports/ntuple-leaf-protocol.mdx) the confirmation. One lineup with two fixed builders; nothing is established against negotiating opponents or humans.
+
 ## What could disprove it
 
 Self-play against copies of itself can learn a style that beats itself and loses to the builders; the validation lineup keeps two builders at the table for that reason. Tables trained on depth-1 play may not transfer to the deeper search that uses them. A margin on the fixed validation seeds chooses the candidate and cannot confirm it; only the fresh registered cohorts count.
@@ -57,6 +61,6 @@ The deployable policy reads only its own observation and recipient-visible event
 
 | Updated | Investigation | Status | Finding and next step |
 | --- | --- | --- | --- |
-| 2026-09-09 | [N-tuple tables as the search leaf](/research/reports/ntuple-leaf) | Active | Pilot: hex plus portfolio tables finished with the largest validation margin (+0.302 wins per game over the hand-written leaf on 96 fixed games); portfolio tables carry the mechanism and intersection windows hurt at this budget. Main run training; no registered cohort has completed. Next: Pick the layout by pilot validation margin, train the main run, freeze the best validation point, then register the fresh-seed screen and a protocol cohort against expectimax-v2-plan. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [N-tuple tables as the search leaf](/research/reports/ntuple-leaf) | Complete | The frozen hex plus portfolio tables beat the hand-written leaf on fresh seeds at every depth tested (equal depth 2: +0.219, 95% interval +0.124 to +0.314; one ply against depth 2: +0.164; depth 2 against depth 3: +0.156; depth 3 against depth 3: +0.242) and won 46 of 80 authoritative games against 25 for expectimax-v2-plan (paired contrast +0.263, +0.094 to +0.431); the protocol baseline is now ntuple-leaf. Next: Vary the learning settings and the window families under a longer budget, read the portfolio tables, speed up feature extraction, and test the tables against a second search seat and negotiating opponents. [Ntuple leaf protocol](/research/reports/ntuple-leaf-protocol) · [Log 2026-09-09](/research/log/2026-09-09) |
 
 [research-studies:end]: #

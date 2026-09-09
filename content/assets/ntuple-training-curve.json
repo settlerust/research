@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Main run: the tables against the hand-written leaf as training proceeds",
+  "evidence": "measured",
+  "source": "Training run runs/ntuple/main; every validation point is a tournament on fixed deterministic seeds against the hand-written leaf in the same search with the two builders.",
+  "caption": "Hex plus portfolio tables trained from scratch: 20,000 builder warm-up games, then self-play on 32 threads at about 44 games per second. Every 32,000 games the frozen tables played 128 deterministic games (32 fixed seeds, every rotation) as the depth-2 leaf against the hand-written leaf in the same search with an ETA and a fast builder; the second series plays the same tables one ply with no search. Bands are normal-approximation 95% intervals of the paired per-seed margin. The run stopped on its plateau rule after eight points; the point at 96,000 games, the largest margin, is the frozen candidate.",
+  "x": {
+    "label": "Self-play games trained (thousands)",
+    "min": 0,
+    "max": 257.0
+  },
+  "y": {
+    "label": "Wins per game, tables minus hand leaf",
+    "min": -0.08,
+    "max": 0.58
+  },
+  "series": [
+    {
+      "label": "Tables as the depth-2 leaf",
+      "points": [
+        {
+          "x": 32.0,
+          "y": 0.1562,
+          "low": 0.0074,
+          "high": 0.3051
+        },
+        {
+          "x": 64.1,
+          "y": 0.1797,
+          "low": 0.0253,
+          "high": 0.3341
+        },
+        {
+          "x": 96.1,
+          "y": 0.375,
+          "low": 0.221,
+          "high": 0.529
+        },
+        {
+          "x": 128.1,
+          "y": 0.3047,
+          "low": 0.1527,
+          "high": 0.4567
+        },
+        {
+          "x": 160.2,
+          "y": 0.3203,
+          "low": 0.1659,
+          "high": 0.4747
+        },
+        {
+          "x": 192.2,
+          "y": 0.2734,
+          "low": 0.1337,
+          "high": 0.4132
+        },
+        {
+          "x": 224.2,
+          "y": 0.1406,
+          "low": -0.0311,
+          "high": 0.3124
+        },
+        {
+          "x": 256.2,
+          "y": 0.3203,
+          "low": 0.174,
+          "high": 0.4666
+        }
+      ]
+    },
+    {
+      "label": "Tables played one ply",
+      "points": [
+        {
+          "x": 32.0,
+          "y": 0.0078
+        },
+        {
+          "x": 64.1,
+          "y": 0.0547
+        },
+        {
+          "x": 96.1,
+          "y": 0.1094
+        },
+        {
+          "x": 128.1,
+          "y": 0.125
+        },
+        {
+          "x": 160.2,
+          "y": 0.1328
+        },
+        {
+          "x": 192.2,
+          "y": 0.1406
+        },
+        {
+          "x": 224.2,
+          "y": 0.1328
+        },
+        {
+          "x": 256.2,
+          "y": 0.1953
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

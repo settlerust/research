@@ -21,7 +21,7 @@ for the result, mechanism, diagnostics and retained failures.
 
 Each approach describes a decision, a mechanism, and a proposed comparison.
 
-These sixteen broad directions are proposals. A narrow exchange-planning ablation is now implemented and evaluated; it did not establish an improvement. Read the [evidence boundary](docs/status.md) before making a strength claim. The [first arena report](reports/baseline-smoke.mdx) contains a recorded ten-point game and a real smoke-cohort chart.
+These seventeen broad directions began as proposals. A narrow exchange-planning ablation was implemented and evaluated first and did not establish an improvement; a tunable search and, after it, a [learned n-tuple leaf](reports/ntuple-leaf.mdx) later became the protocol baseline. Read the [evidence boundary](docs/status.md) before making a strength claim. The [first arena report](reports/baseline-smoke.mdx) contains a recorded ten-point game and a real smoke-cohort chart.
 
 Follow the dated [experiment log](log/experiments.mdx) for investigations and their
 next steps. The [research workflow](docs/research-workflow.md) explains how agents

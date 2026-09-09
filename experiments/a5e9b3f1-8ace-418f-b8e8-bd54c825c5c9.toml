@@ -1,0 +1,12 @@
+id = "a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9"
+study = "patterns/ntuple-leaf"
+hypothesis = "The frozen hex + portfolio tables as the leaf of the expectimax-v2-plan search (depth 3, 1.5 s budget, 8 scenarios, 4 sampled worlds) win more often than expectimax-v2-plan itself through the authoritative protocol arena, in a four-player table with an ETA and a fast builder, on deterministic paired seeds."
+decision_rule = "All 80 games must complete validly with no server timeout moves. Primary contrast: per-seed difference in wins between the ntuple-leaf slot and the expectimax-v2-plan slot over 20 deterministic seeds played once per rotation, with a normal-approximation 95% interval. Support the hypothesis only if the interval lies above zero; an interval below zero means the learned leaf is weaker than the hand-written leaf at the baseline configuration; otherwise inconclusive. Never extend or refill this cohort."
+players = ["ntuple-leaf", "expectimax-v2-plan", "eta", "fast"]
+games = 80
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000
+seeds = "320-339"
+deterministic = true

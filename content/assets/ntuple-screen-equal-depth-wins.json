@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Screen: the tables against the hand-written leaf at depth 2",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 2 (slot 0)",
+      "value": 0.5078125,
+      "low": 0.44690987163300716,
+      "high": 0.5684841306103388,
+      "n": 256
+    },
+    {
+      "label": "expectimax-v2 depth 2 (slot 1)",
+      "value": 0.2890625,
+      "low": 0.2369733003711826,
+      "high": 0.34738863905848194,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 2)",
+      "value": 0.125,
+      "low": 0.08995183318684266,
+      "high": 0.17113605913256094,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 3)",
+      "value": 0.078125,
+      "low": 0.05114064056843023,
+      "high": 0.11758323829089878,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games on 64 fresh deterministic seeds (256 to 319), each played once per rotation. Slot 0 seats the frozen tables as the leaf of the depth-2 search, slot 1 the hand-written leaf in the same search. Run 09fb758b-051f-435c-aaa8-8c9454c3baa3: 256 of 256 planned games completed; engine arena, paired seeds."
+}

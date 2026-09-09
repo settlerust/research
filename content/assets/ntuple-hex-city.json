@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "heatmap",
+  "title": "The same window with a city instead of a settlement",
+  "evidence": "measured",
+  "source": "Frozen candidate tables artifacts/ntuple/hex-portfolio-main.bin (SHA-256 f8e61e66...), decoded by analysis/ntuple_inspect.py.",
+  "caption": "Entries of the frozen hex table for one own city with empty corners and no robber. A city doubles production, and the tables value it above a settlement on nearly every hex, most on ore and grain.",
+  "x": {
+    "label": "Pips of the hex number",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+    ]
+  },
+  "y": {
+    "label": "Resource",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "brick",
+      "lumber",
+      "wool",
+      "grain",
+      "ore"
+    ]
+  },
+  "series": [
+    {
+      "label": "Hex window value with one own city and empty corners",
+      "points": [
+        {
+          "x": 0,
+          "y": 0,
+          "value": 0.0619
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "value": 0.087
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "value": 0.1578
+        },
+        {
+          "x": 3,
+          "y": 0,
+          "value": 0.1409
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "value": 0.1677
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "value": 0.0386
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "value": 0.0728
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "value": 0.1111
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "value": 0.1267
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "value": 0.1389
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "value": 0.0462
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "value": 0.0771
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "value": 0.1246
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "value": 0.1476
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "value": 0.1603
+        },
+        {
+          "x": 0,
+          "y": 3,
+          "value": 0.0534
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "value": 0.0839
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "value": 0.1294
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "value": 0.1703
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "value": 0.202
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "value": 0.0724
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "value": 0.1155
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "value": 0.1525
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "value": 0.1889
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "value": 0.2033
+        }
+      ]
+    }
+  ],
+  "color": {
+    "label": "Table entry (win-probability units)",
+    "min": 0.0386,
+    "max": 0.2033
+  }
+}

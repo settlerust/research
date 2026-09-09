@@ -173,3 +173,56 @@ rule; its screen and protocol cohorts are registered below when the candidate
 is frozen.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+Registered before the candidate is frozen, all on fresh deterministic seeds
+with the frozen tables at `artifacts/ntuple/hex-portfolio-main.bin` in slot 0:
+
+| Cohort | Registration | Slot 0 | Slot 1 | Seeds |
+| --- | --- | --- | --- | --- |
+| Equal depth (engine) | `ea8af9cc-c1f0-42b9-a388-b241e62cc7e0` | tables, depth 2 | hand-written leaf, depth 2 | 256 to 319, 256 games |
+| One ply (engine) | `6a712b5a-0169-45e5-a14b-51b53ed0582b` | tables, depth 1 | hand-written leaf, depth 2 | 256 to 319, 256 games |
+| Buys a ply (engine) | `9ed38762-4927-4f9e-bb2b-b45e893a1834` | tables, depth 2 | hand-written leaf, depth 3, 1.5 s | 256 to 319, 256 games |
+| Deployment depth (engine) | `acf5812a-4596-4d09-b401-9c29758df92b` | tables, depth 3, 1.5 s | hand-written leaf, depth 3, 1.5 s | 256 to 319, 256 games |
+| Protocol confirmation | `a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9` | `ntuple-leaf` (depth 3, 1.5 s) | `expectimax-v2-plan` | 320 to 339, 80 games |
+
+Every engine cohort seats an ETA and a fast builder in the other two slots; the
+protocol cohort seats `eta` and `fast`. Their runs are recorded below when they
+complete.
+
+## The learned leaf on fresh seeds
+
+The main run (`records/training/ntuple-main/`) trained hex plus portfolio
+tables from scratch and stopped on its plateau rule after 256,248 games and
+1 hour 50 minutes; all eight validation points beat the hand-written leaf and
+the point at 96,093 games (+0.375 on the validation seeds) was frozen as
+`artifacts/ntuple/hex-portfolio-main.bin` (SHA-256 `f8e61e66…`, receipt in
+`records/artifacts/`). The four pre-registered screens then ran on seeds 256 to
+319, 256 games each, tables in slot 0 and the hand-written leaf in slot 1 with
+an ETA and a fast builder:
+
+| Cohort | Run | Tables wins | Hand wins | Contrast (95% interval) |
+| --- | --- | ---: | ---: | --- |
+| Equal depth, d2 vs d2 | `09fb758b-051f-435c-aaa8-8c9454c3baa3` | 130 | 74 | +0.219 (+0.124 to +0.314) |
+| One ply, d1 vs d2 | `d249aa28-d737-4f4e-b068-12542f4679b9` | 121 | 79 | +0.164 (+0.058 to +0.270) |
+| Buys a ply, d2 vs d3 (1.5 s) | `169b0772-f6c8-46ff-8eb3-aa8b5f0f6cfb` | 122 | 82 | +0.156 (+0.051 to +0.262) |
+| Deployment depth, d3 vs d3 (1.5 s) | `ec904c96-b029-4d1b-8d37-393cc15ebb5a` | 135 | 73 | +0.242 (+0.140 to +0.345) |
+
+Every registered rule is met: the learned leaf beats the hand-written leaf at
+equal depth by more than the +0.10 the rule asked for, is worth more than a
+planned turn of search, and keeps its margin at the baseline's depth. The
+[report](../reports/ntuple-leaf.mdx) has the training curve, the decoded hex
+table, and the build profile. The protocol cohort
+`a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9` is running as run
+`e861616e-8100-43e6-a8d3-39047b5b6669`; its outcome is recorded below.
+
+The protocol cohort completed: run `e861616e-8100-43e6-a8d3-39047b5b6669`
+played all 80 games with twelve matches in flight and no timeout moves;
+`ntuple-leaf` won 46 (57.5%) against 25 (31.2%) for `expectimax-v2-plan`, with
+`eta` at 5 and `fast` at 4, a paired contrast of +0.263 wins per game over 20
+seeds (95% interval +0.094 to +0.431). The registered rule is met and the
+[protocol report](../reports/ntuple-leaf-protocol.mdx) makes `ntuple-leaf` the
+protocol-arena baseline. Protocol run records for deterministic cohorts now
+carry their paired contrast; this run's record was regenerated from its retained
+summary with the corrected template.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.

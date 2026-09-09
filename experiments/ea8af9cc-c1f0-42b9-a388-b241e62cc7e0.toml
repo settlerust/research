@@ -1,0 +1,12 @@
+id = "ea8af9cc-c1f0-42b9-a388-b241e62cc7e0"
+study = "patterns/ntuple-leaf"
+arena = "engine"
+hypothesis = "The frozen hex + portfolio tables as the leaf of expectimax-v2 at depth 2 win more often than the hand-written leaf in the same search at depth 2, with an ETA and a fast builder at the table."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support the hypothesis only if the interval lies above zero and the mean is at least +0.10 wins per game; an interval below zero refutes it; otherwise inconclusive. Never extend or refill this cohort."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "256-319"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

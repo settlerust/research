@@ -1,0 +1,69 @@
+---
+date: "2026-09-09"
+title: "The learned leaf through the protocol arena"
+summary: "With the n-tuple tables as its leaf, the baseline's own search won 46 of 80 authoritative games against 25 for expectimax-v2-plan on deterministic paired seeds; the registered rule is met and the protocol baseline changes."
+---
+
+# The learned leaf through the protocol arena
+
+<ResearchCallout title="Finding · the tables beat the protocol baseline, and become it">
+Through the authoritative server, on 20 deterministic seeds each played once
+per rotation of the four slots, `ntuple-leaf` (the `expectimax-v2-plan` search
+at depth 3 under 1.5 s with the learned hex plus portfolio tables as its leaf)
+won **46 of 80 games (57.5%)**; `expectimax-v2-plan` itself won **25
+(31.2%)**, the ETA builder 5 and the fast builder 4. The paired per-seed
+contrast is **+0.263 wins per game** (95% interval +0.094 to +0.431). All 80
+games completed validly with no timeout move, so the registered rule is met
+and `ntuple-leaf` is the new protocol-arena baseline.
+</ResearchCallout>
+
+<ResearchChart asset="ntuple-leaf-protocol-wins" />
+
+## What was registered
+
+Experiment `a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9` was registered under
+`patterns/ntuple-leaf` before the candidate was frozen: the frozen tables at
+`artifacts/ntuple/hex-portfolio-main.bin` as the leaf of the baseline's exact
+search configuration (depth 3, 1.5 s budget, 8 scenarios, 4 sampled worlds) in
+slot 0, `expectimax-v2-plan` in slot 1, `eta` and `fast` in the other seats, on
+seeds 320 to 339 in deterministic mode, 80 games. The rule: all games complete
+validly with no server timeout moves; support only if the 95% interval of the
+paired per-seed win difference between slots 0 and 1 lies above zero.
+
+Run `e861616e-8100-43e6-a8d3-39047b5b6669` played all 80 with twelve matches in
+flight. The two searches ran as separate `remote` processes against the server
+and saw only their own seated view and event history; the tables were loaded
+from the file named in the policy registry, whose SHA-256
+(`f8e61e66…`) is recorded with the candidate's receipt. Games averaged 73
+turns.
+
+| Slot / policy | Wins | Completed | Win rate | 95% Wilson interval | Mean points |
+| --- | ---: | ---: | ---: | --- | ---: |
+| 0 / `ntuple-leaf` | 46 | 80 | 57.5% | 46.6% to 67.7% | 8.28 |
+| 1 / `expectimax-v2-plan` | 25 | 80 | 31.2% | 22.2% to 42.1% | 6.90 |
+| 2 / `eta` | 5 | 80 | 6.2% | 2.7% to 13.8% | 6.10 |
+| 3 / `fast` | 4 | 80 | 5.0% | 2.0% to 12.2% | 6.03 |
+
+The result agrees with the [engine-arena screens](ntuple-leaf.mdx): at depth 3
+against depth 3 on 64 fresh engine seeds the contrast was +0.242, and here
+through the protocol on 20 seeds it is +0.263.
+
+## One game, viewed from above
+
+The first match of the cohort, seed 320 in its first rotation, which the
+tables' seat won in 65 turns. It is a real recorded game chosen for the replay;
+it does not by itself establish which policy is stronger.
+
+<GameReplay asset="ntuple-leaf-protocol-game" />
+
+## Limitations
+
+One lineup, one seat rotation scheme, and twenty seeds. The interval is wide
+because the cohort is small; the engine screens on more seeds carry the
+sharper estimate. Both searches negotiate only with the fixed builders'
+willingness model, so nothing here speaks to trade-rich tables with
+negotiating opponents or to play against humans. The tables decide more slowly
+than the hand-written leaf under the same budget, which the 1.5 s cap absorbs
+at depth 3 but which would matter under a tighter deadline.
+
+[Run record](/research/records/runs/e861616e-8100-43e6-a8d3-39047b5b6669) · Public frame source SHA-256: `20d74cd3af2c892ed69591e1c0479164c3bb76762bddc7ca15ac8a519955902c`.

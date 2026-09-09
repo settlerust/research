@@ -1,20 +1,27 @@
 ---
 date: "2026-09-09"
 title: "Lookup tables as the leaf of the search"
-summary: "N-tuple tables of hex and portfolio patterns, learned by self-play, replace the hand-written leaf of expectimax-v2; a six-layout pilot picks hex plus portfolio tables, and the main run's screen follows."
+summary: "N-tuple tables of hex and portfolio patterns, learned by self-play in under two hours, replace the hand-written leaf of expectimax-v2 and beat it on fresh seeds at every depth tested; played one ply they beat the two-turn search, at depth 2 they beat the hand-written leaf at depth 3, and through the protocol arena they beat the baseline 46 to 25."
 ---
 
 # Lookup tables as the leaf of the search
 
-<ResearchCallout title="Status · pilot complete, main run training, screen pending">
-Six pattern layouts trained for eighteen minutes each. Played as the depth-2
-leaf against the hand-written leaf in the same search on 96 fixed games, tables
-of **hex windows plus portfolio patterns** finished with the largest margin,
-**+0.302 wins per game** (95% interval +0.141 to +0.464). Portfolio tables
-alone were positive, hex windows added to them, and the sparse intersection
-windows hurt. Those games chose the layout and confirm nothing; the main run
-and its registered fresh-seed screens are reported below as they complete.
+<ResearchCallout title="Finding · the learned leaf beats the hand-written leaf at every depth (development tier)">
+Lookup tables of hex and portfolio patterns, learned from 96,000 self-play
+games, replaced the leaf of `expectimax-v2` with nothing else changed. On 64
+fresh deterministic boards played once per rotation, the tables at depth 2 won
+**130 of 256 slot-games against 74** for the hand-written leaf in the same
+search, a paired contrast of **+0.219 wins per game** (95% interval +0.124 to
++0.314). Played one ply with no search, they still beat the two-turn search
+over the hand-written leaf (+0.164); at depth 2 they beat the hand-written
+leaf at depth 3 under 1.5 s (+0.156); and at depth 3 against depth 3 the margin
+is **+0.242** (+0.140 to +0.345). Through the authoritative server the same
+tables inside the baseline's search then [won 46 of 80 games against 25 for
+`expectimax-v2-plan`](ntuple-leaf-protocol.mdx), and the protocol baseline
+changes.
 </ResearchCallout>
+
+<ResearchPlot asset="ntuple-screens" />
 
 <ResearchPlot asset="ntuple-pilot-margins" />
 
@@ -97,12 +104,112 @@ three-hour wall with a plateau rule.
 Compact records of every arm (configuration, progress rows, validation
 summaries, stop reason) are under `records/training/ntuple-pilot/`.
 
+## The main run
+
+Hex plus portfolio tables trained again from scratch on 32 threads: 20,000
+builder games, then self-play at about 44 games per second, validated every
+32,000 games on 32 fixed deterministic seeds in every rotation (128 games) as
+the depth-2 leaf against the hand-written leaf with the two builders, and
+played one ply in a second tournament. The run stopped on its plateau rule
+after eight validation points, 256,000 games and 1 hour 50 minutes of wall
+time, when the mean margin of the last three points (+0.245) was no longer
+above the mean of the three before (+0.333).
+
+<ResearchPlot asset="ntuple-training-curve" />
+
+<ResearchPlot asset="ntuple-training-wins" />
+
+| Games trained | Tables wins | Hand wins | ETA | Fast | Margin (95% interval) | One ply, tables wins | Entries touched |
+| ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: |
+| 32,031 | 61 | 41 | 15 | 11 | +0.156 (+0.007 to +0.305) | 47 | 306,764 |
+| 64,062 | 60 | 37 | 20 | 11 | +0.180 (+0.025 to +0.334) | 51 | 429,628 |
+| 96,093 | 78 | 30 | 14 | 6 | +0.375 (+0.221 to +0.529) | 54 | 504,727 |
+| 128,124 | 71 | 32 | 15 | 10 | +0.305 (+0.153 to +0.457) | 57 | 558,302 |
+| 160,155 | 76 | 35 | 11 | 6 | +0.320 (+0.166 to +0.475) | 56 | 599,345 |
+| 192,186 | 67 | 32 | 18 | 11 | +0.273 (+0.134 to +0.413) | 60 | 631,971 |
+| 224,217 | 59 | 41 | 11 | 17 | +0.141 (−0.031 to +0.312) | 58 | 659,822 |
+| 256,248 | 75 | 34 | 8 | 11 | +0.320 (+0.174 to +0.467) | 65 | 683,529 |
+
+Every point beat the hand-written leaf inside the same search, and the point
+at 96,093 games, with the largest margin, is the frozen candidate
+(`artifacts/ntuple/hex-portfolio-main.bin`, SHA-256 `f8e61e66…`, receipt under
+`records/artifacts/`). About half a million of the 3.6 million entries had
+been touched by then. The margin on the validation seeds is noisy from point to
+point, and choosing its maximum makes +0.375 an optimistic reading; the fresh
+seeds below are the test. The tables played one ply, with no search at all,
+improved at every point and won 65 of the last 128 games against a table where
+the hand-written leaf searched two turns ahead; that arm is registered on fresh
+seeds too.
+
+## What the tables learned
+
+The hex table can be read directly. For a window holding exactly one own
+settlement and nothing else, the entry rises with the pips of the hex number on
+every resource, and ore and grain are worth most; a city is valued above a
+settlement on the same hex almost everywhere. No term for pips, resources, or
+cities was written down; the tables learned these from which positions went on
+to win.
+
+<ResearchPlot asset="ntuple-hex-settlement" />
+
+<ResearchPlot asset="ntuple-hex-city" />
+
+## Screens on fresh seeds
+
+Four cohorts were registered before the candidate was frozen, all on seeds 256
+to 319, which nothing had read, each seed played once per rotation of the four
+slots (256 games), with the tables in slot 0, the hand-written leaf in slot 1,
+and an ETA and a fast builder in the other seats. The primary outcome of every
+cohort is the per-seed difference in wins between slots 0 and 1.
+
+<ResearchChart asset="ntuple-screen-equal-depth-wins" />
+
+| Screen | Registration | Run | Tables wins | Hand wins | ETA | Fast | Contrast (95% interval) | Reading |
+| --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
+| Equal depth: tables d2 vs hand d2 | `ea8af9cc` | `09fb758b` | 130 | 74 | 32 | 20 | +0.219 (+0.124 to +0.314) | supported; the rule asked for at least +0.10 |
+| One ply: tables d1 vs hand d2 | `6a712b5a` | `d249aa28` | 121 | 79 | 35 | 21 | +0.164 (+0.058 to +0.270) | the tables without any search beat the two-turn search |
+| Buys a ply: tables d2 vs hand d3, 1.5 s | `9ed38762` | `169b0772` | 122 | 82 | 37 | 15 | +0.156 (+0.051 to +0.262) | the learned leaf is worth more than a planned turn |
+| Deployment depth: tables d3 vs hand d3, 1.5 s | `acf5812a` | `ec904c96` | 135 | 73 | 30 | 18 | +0.242 (+0.140 to +0.345) | the margin transfers to depth 3 |
+
+<ResearchChart asset="ntuple-screen-depth3-wins" />
+
+Decision cost differs. The tables are slower to evaluate than the hand-written
+terms (125 ms against 85 ms per decision at depth 2, 612 ms against 363 ms at
+depth 3 under the same budget), because every window is recomputed at every
+leaf and the portfolio tables call the road-length walk. The one-ply tables
+decide in 15 ms, six times faster than the depth-2 hand-written search they
+beat.
+
+## How the tables play
+
+The build counts of the equal-depth screen say something about the style the
+tables learned. Per game, the tables seat bought 4.9 development cards to the
+hand-written leaf's 2.6, built 1.3 cities to its 1.7, and settled and traded
+at about the same rate (1.7 settlements, 5.1 player trades). The first version
+of the hand-written leaf over-bought development cards and lost; the tables
+buy even more and win, which suggests the cards themselves were never the
+problem, only how the earlier leaf priced everything else around them. Which
+patterns drive the difference is a question for a follow-up that reads the
+portfolio tables as the hex table is read above.
+
+## The protocol cohort
+
+The registered protocol cohort seated the same tables inside
+`expectimax-v2-plan`'s exact search against `expectimax-v2-plan` itself, with
+the two builders, on 20 deterministic seeds through the authoritative server:
+46 wins to 25 of 80, paired contrast +0.263 (95% interval +0.094 to +0.431),
+every game valid. The [protocol report](ntuple-leaf-protocol.mdx) records it
+and makes `ntuple-leaf` the protocol-arena baseline.
+
 ## Limitations
 
-The pilot's validation seeds are reused at every point and chose the layout, so
-its margins are optimistic and confirm nothing. Tables trained by depth-1 play
-are validated inside a depth-2 search; whether they transfer to depth 3, where
-the protocol baseline plays, is a question for the screen. Self-play against
-copies of the tables could learn a style that beats itself; the builders at the
-validation table are the guard against that, and the registered screens keep
-them.
+The pilot's and the main run's validation seeds are reused at every point and
+chose the layout and the candidate, so their margins are optimistic; the fresh
+seeds of the screens are the evidence, and they are development-tier engine
+games on one lineup with two fixed builders. Strength against other searches,
+against humans, or in trade-rich tables with negotiating opponents is not
+established. The tables were trained by depth-1 self-play for under two hours
+on one layout; none of the learning settings (step size, lambda, point reward,
+warm-up) has been varied beyond the pilot's single ablation of the point
+reward. Self-play against copies of the tables could learn a style that beats
+itself; the builders at every table are the guard against that.

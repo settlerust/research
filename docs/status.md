@@ -64,7 +64,32 @@ the event history rather than public counts alone is worth about 0.07 wins per
 game; the expansion terms, sampled-world count, trade margin, and plan term
 showed no measurable effect at depth 2.
 
-## The protocol-arena baseline is now expectimax-v2-plan
+## A learned leaf beats the hand-written leaf
+
+Lookup tables of hex and portfolio patterns, learned by self-play in under two
+hours (`patterns/ntuple-leaf`, [report](../reports/ntuple-leaf.mdx)), replace
+the leaf of `expectimax-v2` with nothing else changed. On 64 fresh deterministic
+boards the tables at depth 2 won 130 of 256 slot-games against 74 for the
+hand-written leaf in the same search (paired contrast +0.219, 95% interval
++0.124 to +0.314); played one ply they beat the two-turn hand-written search,
+at depth 2 they beat the hand-written leaf at depth 3, and at depth 3 against
+depth 3 the margin is +0.242. This is engine-arena evidence on one lineup with
+two fixed builders; the tables are a server-side policy (`ntuple-leaf`) and the
+browser keeps the hand-written leaf.
+
+## The protocol-arena baseline is now ntuple-leaf
+
+Through the authoritative server, `ntuple-leaf` (the `expectimax-v2-plan`
+search with the learned tables as its leaf) [won 46 of 80
+games](../reports/ntuple-leaf-protocol.mdx) against 25 for `expectimax-v2-plan`
+on 20 deterministic seeds played once per rotation, a paired contrast of +0.263
+wins per game (95% interval +0.094 to +0.431), all games valid. The registered
+rule is met. New candidates should be compared against `ntuple-leaf` in a
+four-player table with the fixed builders. As before, the comparison is one
+lineup and one seat rotation scheme; strength against other searches, humans,
+or negotiation-aware opponents is not established.
+
+## The previous protocol-arena baseline: expectimax-v2-plan
 
 The corrected depth-3 candidate, frozen as `expectimax-v2-plan`, [won 47 of 80
 authoritative games](../reports/expectimax-v2-plan-protocol.mdx) against 11 for

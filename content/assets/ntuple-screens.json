@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Four registered screens on fresh seeds",
+  "evidence": "measured",
+  "source": "Engine-arena runs 09fb758b, d249aa28, 169b0772, ec904c96 (registrations ea8af9cc, 6a712b5a, 9ed38762, acf5812a).",
+  "caption": "Paired per-seed win difference, tables minus hand-written leaf, with 95% intervals over 64 fresh deterministic seeds (256 games per screen). Each screen seats the frozen tables in slot 0 and the hand-written leaf in slot 1 with an ETA and a fast builder; d1, d2, d3 are planned turns, and the depth-3 seats run under a 1.5 s budget.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 3,
+    "ticks": [
+      "tables d2 vs hand d2",
+      "tables d1 vs hand d2",
+      "tables d2 vs hand d3",
+      "tables d3 vs hand d3"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, tables minus hand-written leaf",
+    "min": -0.05,
+    "max": 0.39
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.2188,
+          "low": 0.1239,
+          "high": 0.3136
+        },
+        {
+          "x": 1,
+          "y": 0.1641,
+          "low": 0.0581,
+          "high": 0.27
+        },
+        {
+          "x": 2,
+          "y": 0.1562,
+          "low": 0.0507,
+          "high": 0.2618
+        },
+        {
+          "x": 3,
+          "y": 0.2422,
+          "low": 0.1398,
+          "high": 0.3445
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

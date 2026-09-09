@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Win rate by competitor",
+  "unit": "fraction",
+  "caption": "Run e861616e-8100-43e6-a8d3-39047b5b6669. 80 completed of 80 planned games. 95% Wilson intervals; descriptive evidence only.",
+  "rows": [
+    {
+      "label": "ntuple-leaf \u00b7 slot 0",
+      "value": 0.575,
+      "low": 0.4656928984656886,
+      "high": 0.6774343821039822,
+      "n": 80
+    },
+    {
+      "label": "expectimax-v2-plan \u00b7 slot 1",
+      "value": 0.3125,
+      "low": 0.2215040411289482,
+      "high": 0.4206777574468744,
+      "n": 80
+    },
+    {
+      "label": "eta \u00b7 slot 2",
+      "value": 0.0625,
+      "low": 0.026989375670841982,
+      "high": 0.13810148767274424,
+      "n": 80
+    },
+    {
+      "label": "fast \u00b7 slot 3",
+      "value": 0.05,
+      "low": 0.01961355453554428,
+      "high": 0.1216227620464301,
+      "n": 80
+    }
+  ]
+}

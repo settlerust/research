@@ -74,6 +74,32 @@ def summarize(matches, lineup):
     }
 
 
+def contrast_text(summary):
+    """Paired seed contrast sentence for a deterministic cohort, or an empty string."""
+    c = summary.get('paired_contrast')
+    if not c:
+        return ''
+    return (f"Paired contrast slot 0 minus slot 1: {c['mean_win_difference']:+.3f} wins per game over {c['seeds']} seeds "
+            f"(95% interval {c['interval95'][0]:+.3f} to {c['interval95'][1]:+.3f}).\n\n")
+
+
+def run_record(run_id, experiment, status, planned, summary, run_dir):
+    """The compact Markdown record of one protocol run, derived from its retained summary."""
+    paired = bool(summary.get('paired_contrast'))
+    return (f'# Run {run_id}\n\nStatus: **{status}**. Experiment: `{experiment}`.'
+            + (' Deterministic paired seeds, every seed played once per rotation.' if paired else '') + '\n\n'
+            f"Planned: {planned}. Attempted: {summary['attempted']}. Completed: {summary['completed']}. "
+            f"Incomplete: {summary['incomplete']}. Unplayed: {summary['unplayed']}.\n\n"
+            + summary_table(summary) + '\n\n' + contrast_text(summary)
+            + f"Manifest SHA-256: `{digest(run_dir / 'manifest.json')}`.\n\n"
+            + f"Inventory SHA-256: `{digest(run_dir / 'inventory.json')}`.\n\n"
+            + 'Artifacts are local under `runs/' + run_id + '/`; no remote durability is claimed until an archive receipt exists.\n\n'
+            + 'Intervals are descriptive per competitor slot across completed games; outcomes within a game are dependent. '
+            + 'Incomplete games are not losses. '
+            + ('The paired contrast is the per-seed win difference between slots 0 and 1 with a normal-approximation interval over seeds.\n'
+               if paired else 'Seat rotation does not pair random seeds.\n'))
+
+
 def summary_table(summary):
     lines = ['| Slot / policy | Wins | Losses | Completed | Win rate | 95% Wilson interval | Mean points |',
              '| --- | ---: | ---: | ---: | ---: | --- | ---: |']

@@ -64,7 +64,7 @@
       "title": "Learned pattern values",
       "family": "Uncertainty",
       "question": "Can lookup tables of small board patterns, learned from self-play, replace the hand-written leaf and save a ply of search?",
-      "status": "active"
+      "status": "tested"
     },
     {
       "id": "bargaining",

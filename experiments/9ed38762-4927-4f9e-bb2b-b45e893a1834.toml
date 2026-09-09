@@ -1,0 +1,12 @@
+id = "9ed38762-4927-4f9e-bb2b-b45e893a1834"
+study = "patterns/ntuple-leaf"
+arena = "engine"
+hypothesis = "The frozen tables at depth 2 match the hand-written leaf at depth 3 under a 1.5 s budget: the learned leaf is worth one planned turn of search."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. The tables match or beat the deeper hand-written search if the interval includes zero or lies above it; an interval below zero means the extra ply of the hand-written search is still worth more than the learned leaf. Never extend or refill this cohort."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "256-319"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

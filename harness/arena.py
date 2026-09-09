@@ -12,7 +12,7 @@ import tomllib
 import uuid
 
 from .protocol import Client, ServerError, public_frame, public_batch
-from .records import digest, git_state, now, summarize, summary_table, write_json
+from .records import contrast_text, digest, git_state, now, run_record, summarize, summary_table, write_json
 
 
 class PolicyProcess:
@@ -384,15 +384,8 @@ def run(root, args):
         write_json(run_dir / 'inventory.json', inventory)
         records = root / 'records/runs'
         records.mkdir(parents=True, exist_ok=True)
-        record = (f'# Run {run_id}\n\nStatus: **{status}**. Experiment: `{args.experiment}`.\n\n'
-                  f"Planned: {args.games}. Attempted: {summary['attempted']}. Completed: {summary['completed']}. "
-                  f"Incomplete: {summary['incomplete']}. Unplayed: {summary['unplayed']}.\n\n"
-                  + summary_table(summary) + '\n\n'
-                  + f"Manifest SHA-256: `{digest(run_dir / 'manifest.json')}`.\n\n"
-                  + f"Inventory SHA-256: `{digest(run_dir / 'inventory.json')}`.\n\n"
-                  + 'Artifacts are local under `runs/' + run_id + '/`; no remote durability is claimed until an archive receipt exists.\n\n'
-                  + 'Intervals are descriptive per competitor slot across completed games; outcomes within a game are dependent. '
-                  + 'Incomplete games are not losses. Seat rotation does not pair random seeds.\n')
+        record = run_record(run_id, args.experiment, status, args.games, summary, run_dir)
         (records / f'{run_id}.md').write_text(record)
         print(summary_table(summary), flush=True)
+        print(contrast_text(summary).strip(), flush=True)
     return 0 if status == 'completed' else 1
