@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "expectimax-v2 at depth 2 against the builders",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 2 (slot 0)",
+      "value": 0.33984375,
+      "low": 0.28457152593543,
+      "high": 0.39985142807598195,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 1)",
+      "value": 0.2421875,
+      "low": 0.19377015335079256,
+      "high": 0.2982277726187974,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 2)",
+      "value": 0.16796875,
+      "low": 0.12715856241588983,
+      "high": 0.2185963422419154,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 3)",
+      "value": 0.25,
+      "low": 0.20091686568173925,
+      "high": 0.3064750625311965,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games: 64 seeds, each played once per rotation. Run 77928683-3ef2-4ee7-90f0-04f7b2885c53: 256 of 256 planned games completed; engine arena, paired seeds."
+}

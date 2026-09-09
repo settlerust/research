@@ -1,0 +1,12 @@
+id = "search/expectimax-v2"
+title = "A tunable turn-level expectimax"
+created = "2026-09-08"
+updated = "2026-09-08"
+status = "active"
+question = "Does a tunable search with an acquisition-time leaf and common random scenarios beat the builders and the frozen reference, and how does strength scale with depth and time?"
+outcome = "At depth 2 the tunable search wins 34.0% of 256 paired slot-games against ETA (paired contrast +0.098, interval +0.005 to +0.190); depth 3 with a 1.5 s budget wins 32.0% (+0.078, interval includes zero). Development tier."
+next_step = "Confirm the frozen depth-3 candidate through the 80-game protocol cohort, then tune development-card and discard-risk weights on unregistered sweeps before a new engine cohort."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = ["reports/expectimax-v2-development.mdx"]
+logs = ["log/2026-09-08.mdx"]
+legacy_experiments = []

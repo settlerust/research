@@ -29,3 +29,18 @@ description = "Liquidity study: eta, shared Rust runner and frozen baseline sour
 transport = "remote"
 command = ["{root}/policies/liquidity/target/release/remote", "{base}", "{game}", "fast", "{token_file}", "{name}"]
 description = "Liquidity study: fast, shared Rust runner and frozen baseline source"
+
+[expectimax-v1]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "v1", "{token_file}", "{name}"]
+description = "Frozen reference expectimax (server crates/expectimax, default config)"
+
+[expectimax-v2]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "v2", "{token_file}", "{name}"]
+description = "Tunable expectimax-v2 at its default configuration (server crates/expectimax/src/v2)"
+
+[expectimax-v2-deep]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":8,\"scenarios\":16,\"inner_scenarios\":4,\"beam\":4,\"afterstates\":96}}", "{token_file}", "{name}"]
+description = "expectimax-v2 candidate: depth 3, 1.5 s budget, 16 scenarios, 8 sampled worlds (frozen 2026-09-08); braces are doubled for the harness placeholder syntax"

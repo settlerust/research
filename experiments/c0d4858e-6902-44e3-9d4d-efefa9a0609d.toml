@@ -1,0 +1,10 @@
+id = "c0d4858e-6902-44e3-9d4d-efefa9a0609d"
+study = "log/protocol-smoke"
+hypothesis = "Check protocol plumbing for this lineup; no strength claim."
+decision_rule = "Every game completes without invalid actions or server timeout moves."
+players = ["fast", "eta", "fast", "eta"]
+games = 2
+points_to_win = 3
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000

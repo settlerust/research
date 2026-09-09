@@ -1,0 +1,11 @@
+id = "01aa5a90-9cf6-4850-8007-ec6f24556c6d"
+study = "search/expectimax-v2"
+arena = "engine"
+hypothesis = "expectimax-v2 at depth 2 with its default leaf wins at least as often as the ETA builder on identical boards (development cohort)."
+decision_rule = "All 256 games complete. Primary contrast: v2 slot minus ETA slot wins per seed; support the hypothesis only if the 95% seed interval excludes a negative difference. Development tier; not a confirmation."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"beam\":4,\"afterstates\":96}", "eta", "fast", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500

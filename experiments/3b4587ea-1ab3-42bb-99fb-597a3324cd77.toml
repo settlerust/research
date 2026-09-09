@@ -1,0 +1,11 @@
+id = "3b4587ea-1ab3-42bb-99fb-597a3324cd77"
+study = "log/engine-arena"
+arena = "engine"
+hypothesis = "In the engine arena the ETA builder wins more often than the fast builder on identical boards, matching the direction of the protocol-arena baseline, and every game completes."
+decision_rule = "All 512 games complete. Report per-slot win rates with Wilson intervals and the paired seed contrast between the ETA and fast slots; no strength claim about other policies."
+players = ["fast", "eta", "fast", "eta"]
+seeds = "0-127"
+rotations = 4
+games = 512
+points_to_win = 10
+max_turns = 500

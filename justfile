@@ -26,8 +26,9 @@ match *args:
 register *args:
     python3 -m harness.cli register "$@"
 
-run experiment:
-    python3 -m harness.cli run {{quote(experiment)}}
+# Example: just run EXPERIMENT_ID --parallel 8
+run *args:
+    python3 -m harness.cli run "$@"
 
 archive run destination:
     python3 -m harness.cli archive {{quote(run)}} {{quote(destination)}}
@@ -35,6 +36,19 @@ archive run destination:
 # Example: just publish RUN_UUID --match 0 --slug baseline-smoke
 publish *args:
     python3 -m harness.cli publish "$@"
+
+# Build the offline engine arena in the server checkout (requires SETTLERS_SERVER_DIR or ../server).
+build-arena:
+    python3 -m harness.cli setup
+    cargo build --release --locked -p settlers-arena --manifest-path "${SETTLERS_SERVER_DIR:-../server}/Cargo.toml"
+
+# Example: just engine-register --study search/expectimax-v2 --seats v2 eta fast eta --seeds 0-63 --hypothesis '...' --decision-rule '...'
+engine-register *args:
+    python3 -m harness.engine register "$@"
+
+# Paired-seed engine tournament for a registered engine experiment (development tier).
+engine-run experiment:
+    python3 -m harness.engine run {{quote(experiment)}}
 
 check:
     python3 -m unittest discover -s tests -v

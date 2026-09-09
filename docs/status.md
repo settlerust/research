@@ -26,3 +26,20 @@ policies and the comparator source are retained under `policies/liquidity/`.
 The [audit](../reports/liquidity-audit.md) preserves the startup failures, rate-limit
 failure, stopped first evaluation and all smoke runs. None was pooled into the
 fresh cohort. All archives are verified local copies.
+
+## Engine arena and the tunable search
+
+An offline engine arena now plays paired-seed games with only redacted
+observations reaching each seat. Its [calibration](../reports/engine-arena-calibration.mdx)
+reproduces the protocol ordering of the two builders over 512 slot-games and
+shows the frozen `expectimax-v1` reference losing to both (13.3% against 30.1%).
+Engine-arena results are development-tier evidence; they do not replace a
+protocol cohort.
+
+`expectimax-v2`, a tunable turn-level search with an acquisition-time leaf,
+won 34.0% of 256 paired slot-games against ETA's 24.2% at depth 2 (paired
+contrast +0.098, 95% interval +0.005 to +0.190). See the
+[development report](../reports/expectimax-v2-development.mdx). A frozen
+depth-3 candidate is registered for protocol confirmation; until that cohort
+completes, the protocol-arena baseline remains ETA.
+

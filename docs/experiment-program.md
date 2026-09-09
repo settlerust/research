@@ -103,6 +103,24 @@ Keep these proposal pages alongside later findings so a reader can compare the
 original hypothesis with what the experiment actually showed.
 
 
+## Two evidence tiers
+
+Evidence comes from two arenas, and every result names its tier.
+
+| Tier | Where games are played | Randomness | Use |
+| --- | --- | --- | --- |
+| Engine arena | Offline, in the server's `crates/arena` process; seats receive `observe()` and participant events only | Explicit seeds; every seed is played once per lineup rotation, so lineups are compared on identical boards | Development, tuning sweeps, tree-structure measurements, and screening comparisons |
+| Protocol arena | Independent processes against the authoritative HTTP server | Server-generated and hidden; unpaired | Confirmation of a frozen candidate, protocol compatibility, latency under transport |
+
+Engine-arena runs register with `just engine-register --study OWNER/SLUG --seats ... --seeds A-B`
+and execute with `just engine-run EXPERIMENT`. Their run records say "Tier: engine
+arena". Paired seeds make the seed-level win difference between two slots a
+natural contrast; the record reports its mean and a normal-approximation
+interval over seeds. A candidate frozen after engine-arena development still
+needs a fresh protocol-arena cohort before the evidence boundary changes.
+Exploratory sweeps that guide tuning are not registered; the daily log names
+them as unregistered and they carry no evidential weight.
+
 ## Compare policies fairly
 
 The basic unit is a complete game. A lineup contains two to four **competitor

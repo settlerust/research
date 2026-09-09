@@ -1,0 +1,11 @@
+id = "47f68359-fd9a-46cf-ac21-c9e05b715af3"
+study = "search/expectimax-v2"
+arena = "engine"
+hypothesis = "Deeper search (depth 3, 1.5 s budget, 16 scenarios, 8 sampled worlds) wins more often than the ETA builder on identical boards (development cohort)."
+decision_rule = "All 256 games complete. Primary contrast: v2 slot minus ETA slot wins per seed with a 95% seed interval; support only if the interval excludes zero. Report mean decision time. Development tier."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":1500,\"samples\":8,\"scenarios\":16,\"inner_scenarios\":4,\"beam\":4,\"afterstates\":96}", "eta", "fast", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500

@@ -79,3 +79,66 @@ bundles in `artifacts/liquidity-study/`. No remote backup or deployment occurred
 A reusable report template lists missing contrast-interval, decision-trace,
 protocol-health and cohort/population views. Attribution: Codex; exact model
 identifier unknown.
+
+## A tunable expectimax and an offline engine arena
+
+Goal: a strong, tunable expectimax player that compiles to the browser, plus
+structural measurements of the game tree. The frozen reference `expectimax-v1`
+stays as the comparator. Its search and leaf were replaced in a second engine,
+`expectimax-v2`, in `server/crates/expectimax/src/v2`: turn-level afterstate
+enumeration with information-set transpositions, exact chance for purchases,
+thefts and the own roll, common random dice scenarios for the other seats'
+turns, beam expansion at inner levels, and iterative deepening under a time
+budget and a depth cap. The leaf values points, cards, production, build targets
+by acquisition time, discard risk, roads, ports and opponent progress in one
+card-value currency; every weight is tunable and five inclination sliders scale
+weight groups.
+
+To evaluate quickly, `server/crates/arena` plays complete games offline with
+explicit seeds. Seats receive only their redacted observation and participant
+events. The [experiment program](../docs/experiment-program.md) now defines this
+engine arena as the development tier and the protocol arena as the confirmation
+tier; `just engine-register` and `just engine-run` file and execute engine
+experiments with the same study ownership as protocol runs.
+
+Calibration run `25a7ddd7-8c86-44d7-9bb8-3582f9cf219e` (512 paired builder
+games) ranks ETA above fast, matching the protocol arena. Run
+`4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c` shows the reference losing to both
+builders (13.3% against 30.1%; paired contrast −0.168, interval −0.251 to
+−0.085). Both are in the [calibration report](../reports/engine-arena-calibration.mdx).
+
+Developing the v2 leaf took three unregistered exploratory rounds on 8 to 16
+seeds, retained only in a scratch directory and carrying no evidential weight.
+The first leaf bought 5.7 development cards per game and built 0.4 cities: a
+hidden victory card counted as a full point while production was worth almost
+nothing. Pricing production as cards over the remaining rolls did not change
+that. Adding the builders' acquisition-time idea, a target valued by its gain
+divided by one plus the turns until affordable, fixed it: cities rose to 1.95
+per game and mean points matched ETA. Registered run
+`77928683-3ef2-4ee7-90f0-04f7b2885c53` then showed v2 at depth 2 winning 34.0%
+of 256 slot-games against ETA's 24.2%, paired contrast +0.098 (interval +0.005
+to +0.190), at 25 ms per decision. Run `9dc44463-a29d-4d38-af29-91483f109370` (depth 3, 1.5 s budget, 16
+scenarios, 8 worlds) won 32.0% with a paired contrast of +0.078 (interval −0.022
+to +0.178): the registered rule was not met and depth 3 is not distinguishable
+from depth 2 on these boards, although the unregistered 16-seed sweep had
+suggested 42%. Details are in the
+[development report](../reports/expectimax-v2-development.mdx). A frozen
+depth-3 candidate is registered as protocol experiment
+`e36c2351-eed2-49cc-9cc7-595d5029bf97`. Its first run,
+`f3933ecf-afbe-4fe4-839f-40777a9d280c`, is invalid: no game started because the
+harness formats registry arguments with placeholder braces and the candidate's
+inline JSON configuration was read as a placeholder. The registry now doubles
+those braces; the candidate itself is unchanged. All twelve attempted matches
+are retained as invalid.
+
+Protocol infrastructure: smoke `0f46efd7-d7b4-465e-bdc3-ade0d70bde23` was
+censored before any game started because the server's `remote` runner never
+sent the readiness handshake the current server requires. The runner now sends
+it, retries the same envelope on backpressure, and can seat `v1` or `v2`; smoke
+`dbb6f336-03fc-481f-858b-4f6c30bb1c1c` completed two games, and
+`32073407-32e3-4ba1-9f55-a9b452cce4dc` completed four games with four matches
+in flight at once using the new `--parallel` option and an `expectimax-v2` seat.
+These smokes check plumbing only.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+

@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "expectimax-v2 at depth 3 with a 1.5 s budget",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 3, 1.5 s (slot 0)",
+      "value": 0.3203125,
+      "low": 0.26617385334096993,
+      "high": 0.3797640950620776,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 1)",
+      "value": 0.2421875,
+      "low": 0.19377015335079256,
+      "high": 0.2982277726187974,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 2)",
+      "value": 0.18359375,
+      "low": 0.14096616877647156,
+      "high": 0.23557674036802523,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 3)",
+      "value": 0.25390625,
+      "low": 0.20449864653192884,
+      "high": 0.31059028280267975,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games: 64 seeds, each played once per rotation; the candidate's decisions averaged 629 ms. Run 9dc44463-a29d-4d38-af29-91483f109370: 256 of 256 planned games completed; engine arena, paired seeds."
+}

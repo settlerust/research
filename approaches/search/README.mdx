@@ -1,8 +1,8 @@
 ---
 title: Search under uncertainty
 summary: "What should expectimax average over, and where does opponent choice enter?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Search under uncertainty
@@ -18,6 +18,10 @@ Dice introduce chance. Other players introduce strategic responses. Averaging po
 ## The mechanism to test
 
 Separate legal candidate generation, chance outcomes, hidden-state beliefs, opponent response policy, and leaf evaluation. Compare expectimax with belief rollouts and information-set tree search at the same decision budget. Preserve one action choice across states the player cannot distinguish; otherwise search can plan with information it will never receive.
+
+## What has been built
+
+`expectimax-v2` in the server's expectimax crate plans whole turns: it enumerates the distinct end-of-turn positions a turn can reach, branches exactly over purchases, thefts and its own roll, and plays the other seats' turns with a fixed builder under common random dice scenarios so every candidate is judged on the same dice. Iterative deepening adds one planned turn at a time under a wall-clock budget and a depth cap, and the deepest completed depth is played. Its leaf prices points, cards, production and build targets in one card-value currency, with tunable weights and five inclination sliders. The [development report](../../reports/expectimax-v2-development.mdx) records the first paired engine-arena cohorts.
 
 ## Proposed experiment
 
@@ -40,3 +44,13 @@ The information-set distinction and strategy-fusion failure are discussed in [Co
 </AgentContext>
 
 [All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-08 | [A tunable turn-level expectimax](/research/reports/expectimax-v2-development) | Active | At depth 2 the tunable search wins 34.0% of 256 paired slot-games against ETA (paired contrast +0.098, interval +0.005 to +0.190); depth 3 with a 1.5 s budget wins 32.0% (+0.078, interval includes zero). Development tier. Next: Confirm the frozen depth-3 candidate through the 80-game protocol cohort, then tune development-card and discard-risk weights on unregistered sweeps before a new engine cohort. [Log 2026-09-08](/research/log/2026-09-08) |
+
+[research-studies:end]: #

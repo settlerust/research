@@ -1,0 +1,11 @@
+id = "e5972f4e-88d1-4832-b70b-e279a536430a"
+study = "log/engine-arena"
+arena = "engine"
+hypothesis = "The frozen reference expectimax-v1 at its default configuration wins fewer games than the ETA builder on identical boards."
+decision_rule = "All 256 games complete. Compare the v1 slot's win rate with the ETA slot; report the paired contrast interval. Any completion failure invalidates the run."
+players = ["v1", "eta", "fast", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500

@@ -1,0 +1,63 @@
+---
+date: "2026-09-08"
+title: "An offline arena that agrees with the protocol arena"
+summary: "512 paired builder games and 256 reference games: ETA beats fast by 10 points, and the frozen expectimax reference loses to both."
+---
+
+# An offline arena that agrees with the protocol arena
+
+<ResearchCallout title="Finding · the engine arena reproduces the protocol ordering">
+On 128 boards played once per seat rotation, the ETA builder won **154 of 512
+slot-games (30.1%)** and the fast builder **102 (19.9%)**. The paired seed
+contrast is **−0.102 wins per game** for fast against ETA (95% interval −0.157 to
+−0.046). The protocol arena's earlier 80-game cohort ranked the same two
+builders the same way.
+</ResearchCallout>
+
+The engine arena plays complete games inside one process using the server's
+rules engine. A seat receives only what a protocol participant would receive:
+its own redacted observation and its own event batches, with theft receipts
+delivered only to thief and victim. Games take an explicit seed, so every lineup
+rotation sees the same board and opening order, and the 32 cores of this
+machine finish 512 builder games in under a second.
+
+<ResearchChart asset="engine-calibration-wins" />
+
+This tier is for development, sweeps, and structural measurements. It is not
+the authoritative protocol arena: there is no network, no turn clock, and player
+trades resolve by asking recipients in seat order. The [experiment program](../docs/experiment-program.md)
+defines both tiers and requires a fresh protocol cohort before the evidence
+boundary changes.
+
+## The frozen reference loses to the builders
+
+Run `4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c` seated the reference `expectimax-v1`
+at its default configuration against two ETA builders and one fast builder.
+It won **34 of 256 slot-games (13.3%)** against ETA's 30.1% and 32.4% in the
+other two slots. The paired contrast against ETA is **−0.168** (95% interval
+−0.251 to −0.085). Its decisions took 338 ms on average.
+
+<ResearchChart asset="engine-reference-wins" />
+
+Unregistered exploratory runs on 8 seeds gave the same picture at larger
+budgets (depth 2 with a 256 node allocation, and depth 4 with beam 6 and a 512
+allocation): 4 wins of 32 in each. Depth did not help the reference, which
+points at its leaf and its trading rather than at search effort. The reference
+stays frozen as the comparator that the [tunable search](expectimax-v2-development.mdx)
+is measured against.
+
+<AgentContext>
+Experiments `3b4587ea-1ab3-42bb-99fb-597a3324cd77` (builders, run
+`25a7ddd7-8c86-44d7-9bb8-3582f9cf219e`) and `e5972f4e-88d1-4832-b70b-e279a536430a`
+(reference, run `4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c`) are engine-arena
+registrations under the `log/engine-arena` study. Reproduce with
+`just build-arena` and `just engine-run EXPERIMENT` from this repository; the
+run manifest records the tournament binary hash and both repositories' Git
+state. The arena is `server/crates/arena`; its seats, trade resolution, and
+records are described in `server/docs/expectimax.md`.
+
+The paired contrast is the per-seed mean of slot-0 wins minus slot-1 wins over
+the seed's rotations, with a normal-approximation interval over seeds. It is a
+development-tier statistic and not the protocol arena's preregistered test.
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>

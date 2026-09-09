@@ -1,0 +1,104 @@
+---
+date: "2026-09-08"
+title: "A tunable expectimax that beats the builders on paired boards"
+summary: "expectimax-v2 wins 34% of 256 paired slot-games at depth 2 against ETA's 24%; the leaf, not depth, was what the reference lacked."
+---
+
+# A tunable expectimax that beats the builders on paired boards
+
+<ResearchCallout title="Finding · depth 2 beats ETA on identical boards (development tier)">
+On 64 boards played once per seat rotation, `expectimax-v2` at depth 2 won
+**87 of 256 slot-games (34.0%)** against **62 (24.2%)** for the ETA builder in
+the neighbouring slot. The paired seed contrast is **+0.098 wins per game**
+(95% interval +0.005 to +0.190), so the interval excludes no difference. Each
+decision took 25 ms. This is engine-arena evidence; the protocol confirmation
+cohort is registered and pending.
+</ResearchCallout>
+
+<ResearchChart asset="expectimax-v2-depth2-wins" />
+
+## What changed from the reference
+
+The frozen reference searches a beam of single actions and evaluates a fixed
+additive leaf; it [loses to both builders](engine-arena-calibration.mdx) and
+does not improve with budget. The new search plans whole turns instead:
+
+1. It enumerates the distinct end-of-turn positions a turn can reach through
+   builds, card plays, purchases, useful roads, and bank exchanges, treating
+   positions reached by different action orders as one.
+2. Purchases, thefts, and the player's own roll branch exactly over their
+   outcomes. Discards enumerate every legal multiset and keep the four that best
+   preserve the current build target.
+3. Between planned turns, every other seat plays a fixed builder on its sampled
+   hand under common random dice scenarios, so every candidate is judged on the
+   same dice. Deeper turns expand only the best few first actions.
+4. Iterative deepening adds one planned turn at a time under a wall-clock budget
+   and a depth cap; the deepest completed depth is played.
+
+The leaf prices points, cards in hand, and expected production in one currency:
+a card is worth a fixed number of points, and production is worth its expected
+cards over the rolls that remain. A plan term values the best build target by
+its gain divided by one plus the turns needed to afford it at current
+production, which is the same acquisition-time idea the ETA builder uses. Every
+weight is a setting, and five inclination sliders (aggression, risk,
+development, expansion, trade) scale weight groups so a browser opponent can
+have a recognisable style without changing the search.
+
+## The leaf was the problem, and how it was found
+
+The first leaf treated a hidden victory card as a full point and production as
+nearly worthless. In unregistered 8-seed exploration the search bought 5.7
+development cards per game and built 0.4 cities; ETA built 2.4 cities. Pricing
+production over the remaining rolls did not change the pattern, because a city
+that needs five specific cards lies beyond a two-turn horizon. Adding the
+acquisition-time plan term raised cities to 1.95 per game and lifted mean points
+to ETA's level. Those exploratory rounds guided design and carry no evidential
+weight; the registered cohort above is the first retained comparison.
+
+## Does more search help now?
+
+With the reference, extra depth and samples changed nothing. With the new leaf,
+unregistered 16-seed sweeps (64 games each, about ±12 points of noise) ordered
+the configurations as expected: depth 1 with no lookahead won 3%, the depth-2
+default 25%, sixteen scenarios with eight sampled worlds 36%, and depth 3 with a
+1.5 s budget, sixteen scenarios and eight worlds 42% at 589 ms per decision.
+Depth 4 under a 3 s budget won 36% at 1.3 s per decision. The registered depth-3
+cohort below tests the strongest of these.
+
+## Depth 3 on 64 boards: not distinguishable from depth 2
+
+Run `9dc44463-a29d-4d38-af29-91483f109370` seated the same lineup with the
+search at depth 3, a 1.5 s budget, sixteen scenarios and eight sampled worlds.
+It won **82 of 256 slot-games (32.0%)** against ETA's 24.2%; the paired contrast
+is **+0.078** (95% interval −0.022 to +0.178), which includes no difference, so
+the registered rule is not met. Decisions averaged 629 ms and never exceeded the
+budget by more than a few milliseconds. The 42% seen in the 16-seed sweep was
+the optimistic end of its noise.
+
+<ResearchChart asset="expectimax-v2-depth3-wins" />
+
+Both v2 cohorts beat ETA on points and wins by a similar margin. What the deep
+search does not fix is visible in the per-game means: it still buys 4.2
+development cards and discards 10.5 cards per game, against ETA's 1.2 and 9.2.
+The next tuning question is the development-card and discard-risk weights, and
+the next evidence question is whether the gain survives the protocol arena. A
+frozen depth-3 candidate, `expectimax-v2-deep` in the policy registry, is
+registered for an 80-game protocol cohort.
+
+<AgentContext>
+Registered experiments `01aa5a90-9cf6-4850-8007-ec6f24556c6d` (run
+`77928683-3ef2-4ee7-90f0-04f7b2885c53`, depth 2) and
+`47f68359-fd9a-46cf-ac21-c9e05b715af3` (run
+`9dc44463-a29d-4d38-af29-91483f109370`, depth 3 with
+`"time_budget_ms":1500,"samples":8,"scenarios":16`) seat
+`v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4,"beam":4,"afterstates":96}`
+against `eta`, `fast`, `eta` on seeds 0 to 63 with all four rotations. The
+paired contrast is the per-seed mean of slot-0 minus slot-1 wins with a
+normal-approximation interval over 64 seeds; it is a development-tier statistic.
+Reproduce with `just engine-run 01aa5a90-9cf6-4850-8007-ec6f24556c6d` after
+`just build-arena`; the manifest records the tournament binary hash and Git
+state of both repositories. Search semantics, settings, and the leaf terms are
+documented in `server/docs/expectimax.md`. Exploratory sweeps were run with the
+`tournament` binary directly and are not retained as evidence.
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>

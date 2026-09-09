@@ -58,6 +58,22 @@ table. Four matches are a plumbing check, not a strength ranking. `Ctrl-C` recor
 an interruption and stops the owned players. The server retains the game; its
 later timeout actions are outside that run's evidence.
 
+## Play games offline
+
+The engine arena in the server checkout plays paired-seed games between the
+builders and both expectimax searches without a network. Register and run an
+engine experiment with:
+
+```sh
+just build-arena
+just engine-register --study search/expectimax-v2 --seats v2 eta fast eta --seeds 0-63 \
+  --hypothesis '...' --decision-rule '...'
+just engine-run EXPERIMENT_ID
+```
+
+Engine runs are development-tier evidence. See the [experiment program](docs/experiment-program.md)
+for the two tiers.
+
 ## Register research
 
 ```sh

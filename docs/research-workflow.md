@@ -18,7 +18,7 @@ statistical denominators.
 | Approach explanation | `approaches/APPROACH/README.mdx` | Mechanism, proposal, evidence boundary, and linked investigations |
 | Approach study | `approaches/APPROACH/studies/SLUG.toml` | Ownership, dates, status, conclusion, next step, and document references |
 | Cross-cutting study | `log/studies/SLUG.toml` | Protocol, infrastructure, or comparison work without a single approach |
-| Frozen registration | `experiments/UUID.toml` | Exact hypothesis, full lineup, budgets, and decision rule; carries a study ID |
+| Frozen registration | `experiments/UUID.toml` | Exact hypothesis, full lineup, budgets, and decision rule; carries a study ID. Engine-arena registrations add `arena = "engine"`, seat specs, and a seed range |
 | Policy and analysis source | `policies/` and `analysis/` | Reproducible implementation shared by its linked studies |
 | Daily interpretation | `log/YYYY-MM-DD.mdx` | What changed, why, failures, run IDs, and actual attribution |
 | Public report and exhibits | `reports/SLUG.mdx`, `content/assets/` | Dated findings and bounded, validated figures/replays |
@@ -51,6 +51,11 @@ actual candidate, counts, and decision rule using the [experiment program](exper
 Set the study to `active` when work starts. `proposed`, `active`, `blocked`, and
 `complete` describe progress; `complete` does not mean the hypothesis succeeded.
 A completed study stays complete: create a follow-up for a new question or cohort.
+
+Engine-arena experiments use `just engine-register --study OWNER/SLUG --seats ...
+--seeds A-B` and `just engine-run EXPERIMENT`; their records say "Tier: engine
+arena" and file under the same study. Structure measurements from
+`analysis/structure.py` write `records/structure/` notes that reports link.
 
 Candidate smoke matches also take `--study tempo/bottleneck-trace`. The default
 for plain `just match` is the ongoing `log/protocol-smoke` investigation. Existing

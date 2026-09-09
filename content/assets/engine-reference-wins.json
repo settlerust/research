@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "The frozen reference against the builders",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v1 reference (slot 0)",
+      "value": 0.1328125,
+      "low": 0.09662155083903351,
+      "high": 0.17986034372371584,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 1)",
+      "value": 0.30078125,
+      "low": 0.24788835618653265,
+      "high": 0.35956458660815055,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 2)",
+      "value": 0.2421875,
+      "low": 0.19377015335079256,
+      "high": 0.2982277726187974,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 3)",
+      "value": 0.32421875,
+      "low": 0.2698445830530154,
+      "high": 0.38379036647170506,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games: 64 seeds, each played once per rotation. Run 4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c: 256 of 256 planned games completed; engine arena, paired seeds."
+}

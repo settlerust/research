@@ -46,3 +46,19 @@ just match fast eta fast eta --games 4
 The harness rotates the lineup through the seats and prints completion counts and outcomes. This first run checks the setup. Four games are too few to rank these policies. If a match fails, the schedule stops and retains the reason so you can fix the problem before continuing.
 
 Continue to [2. Write your first policy](protocol.md).
+
+## Play offline in the engine arena
+
+The server checkout also builds an offline arena that plays paired-seed games
+on every core without a network. After `just build-arena`, register an engine
+experiment under a study and run it:
+
+```sh
+just engine-register --study search/expectimax-v2 --seats v2 eta fast eta --seeds 0-63 \
+  --hypothesis '...' --decision-rule '...'
+just engine-run EXPERIMENT_ID
+```
+
+Engine runs are development-tier evidence; a frozen candidate still needs a
+protocol cohort before the evidence boundary changes.
+

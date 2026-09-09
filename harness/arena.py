@@ -269,6 +269,46 @@ def policy_binary_hashes(root, server, base, players, registry):
     return result
 
 
+def schedule(root, run_dir, args, players, plan, registry, topology, results):
+    """Play the registered schedule. With `--parallel N`, N matches run against the same server
+    at once; a failure stops new matches while in-flight games finish and are retained."""
+    parallel = max(1, int(getattr(args, 'parallel', 1) or 1))
+    count = len(players)
+
+    def announce(result):
+        results.append(result)
+        write_json(run_dir / 'summary.json', summarize(results, players))
+        print(f"match={result['index']} game={result['game_id']} status={result['status']} "
+              f"winner={result['winner']} turns={result['turns']}", flush=True)
+
+    if parallel == 1:
+        for index in range(args.games):
+            slots = [(seat + index) % count for seat in range(count)]
+            announce(match(root, run_dir, index, slots, plan, registry, topology))
+            if results[-1]['status'] != 'completed':
+                return results[-1]['status']  # Investigate failure before spending the remaining budget.
+        return 'completed'
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+    status = 'completed'
+    futures = {}
+    index = 0
+    with ThreadPoolExecutor(max_workers=parallel) as pool:
+        while (index < args.games and status == 'completed') or futures:
+            while index < args.games and status == 'completed' and len(futures) < parallel:
+                slots = [(seat + index) % count for seat in range(count)]
+                futures[pool.submit(match, root, run_dir, index, slots, plan, registry, topology)] = index
+                index += 1
+            done, _ = wait(list(futures), return_when=FIRST_COMPLETED)
+            for future in done:
+                futures.pop(future)
+                result = future.result()
+                announce(result)
+                if result['status'] != 'completed' and status == 'completed':
+                    status = result['status']
+    results.sort(key=lambda r: r['index'])
+    return status
+
+
 def run(root, args):
     registry_path = root / 'policies/registry.toml'
     registry = tomllib.loads(registry_path.read_text())
@@ -317,17 +357,7 @@ def run(root, args):
             raise ValueError(f"Unsupported protocol version {health['protocol']}")
         topology = observer.request('GET', '/v1/topology')
         write_json(run_dir / 'topology.json', topology)
-        for index in range(args.games):
-            slots = [(seat + index) % len(players) for seat in range(len(players))]
-            result = match(root, run_dir, index, slots, plan, registry, topology)
-            results.append(result)
-            write_json(run_dir / 'summary.json', summarize(results, players))
-            print(f"match={index} game={result['game_id']} status={result['status']} winner={result['winner']} turns={result['turns']}", flush=True)
-            if result['status'] != 'completed':
-                status = result['status']
-                break  # Investigate failure before spending the remaining budget.
-        else:
-            status = 'completed'
+        status = schedule(root, run_dir, args, players, plan, registry, topology, results)
     except KeyboardInterrupt:
         status = 'interrupted'
     except Exception as error:

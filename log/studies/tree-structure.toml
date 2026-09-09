@@ -1,0 +1,12 @@
+id = "log/tree-structure"
+title = "Game tree structure"
+created = "2026-09-08"
+updated = "2026-09-08"
+status = "active"
+question = "How wide is the Settlers decision tree by phase, and how do afterstates, chance branches, and transpositions grow with depth?"
+outcome = "No experiment has been executed."
+next_step = "Register a fixed candidate, comparison, budget, and decision rule."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = []
+logs = ["log/2026-09-08.mdx"]
+legacy_experiments = []

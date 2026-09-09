@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Builders on identical boards",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "fast builder (slot 0)",
+      "value": 0.19921875,
+      "low": 0.16691827849863472,
+      "high": 0.23599904283466194,
+      "n": 512
+    },
+    {
+      "label": "ETA builder (slot 1)",
+      "value": 0.30078125,
+      "low": 0.2626619417224134,
+      "high": 0.34186771266717264,
+      "n": 512
+    },
+    {
+      "label": "fast builder (slot 2)",
+      "value": 0.19921875,
+      "low": 0.16691827849863472,
+      "high": 0.23599904283466194,
+      "n": 512
+    },
+    {
+      "label": "ETA builder (slot 3)",
+      "value": 0.30078125,
+      "low": 0.2626619417224134,
+      "high": 0.34186771266717264,
+      "n": 512
+    }
+  ],
+  "caption": "Per-slot win rates over 512 games: 128 seeds, each played once per rotation of the four slots. Run 25a7ddd7-8c86-44d7-9bb8-3582f9cf219e: 512 of 512 planned games completed; engine arena, paired seeds."
+}

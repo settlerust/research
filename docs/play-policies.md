@@ -29,6 +29,9 @@ Commands are argument arrays, executed from the research checkout. The harness s
 | `eta` | Plans with estimated resource acquisition time and a trading wrapper | `just setup` |
 | `liquidity` | Experimental exchange-aware acquisition estimator; did not earn promotion in the first evaluation | `just build-liquidity` |
 | `eta-control`, `fast-control` | Frozen study comparators sharing the liquidity runner and protocol adaptations | `just build-liquidity` |
+| `expectimax-v1` | The frozen reference expectimax at its default configuration | `just setup` |
+| `expectimax-v2` | The tunable turn-level expectimax at its default depth-2 configuration | `just setup` |
+| `expectimax-v2-deep` | The frozen depth-3 candidate with a 1.5 s budget, 16 scenarios and 8 sampled worlds | `just setup` |
 
 These are policy descriptions, not a general strength ranking. Start with a small, fixed lineup:
 
