@@ -1,0 +1,31 @@
+---
+title: A planning defect, a protocol cohort, and new exhibits
+summary: The frozen depth-3 candidate is inconclusive through the protocol arena; a turn-planning bug in the search is found and fixed.
+---
+
+# A planning defect, a protocol cohort, and new exhibits
+
+The protocol confirmation of the frozen depth-3 candidate,
+`e4949ebe-8132-4428-aae9-37ae1e0c3748`, completed all 80 games with twelve
+matches in flight: 31 wins (38.8%) against the compared ETA slot's 25 (31.2%),
+a 7.5-point gap at p = 0.25, short of the registered rule. The
+[protocol report](../reports/expectimax-v2-protocol.mdx) records it.
+
+Measuring the game tree exposed a defect in `expectimax-v2`: after any
+non-ending action, the turn enumerator reused the root's restricting action as
+its own action list, so it re-applied that action, failed, and returned nothing.
+Non-ending root actions were valued without the opponents' round and inner turns
+collapsed to ending the turn. The fix limits the restriction to the root step.
+A second problem surfaced with the fix: the flattened afterstate list averaged
+over the player's own alternatives instead of taking the best one, and the
+correct enumeration was expensive. The planner is now a recursion that takes the
+maximum over own actions and the expectation over chance outcomes with a
+transposition memo, ends the turn first among candidates, and narrows later
+steps to the best few actions. Every earlier v2 cohort and the structure
+measurement used the defective search; their records stand as recorded, and
+the corrected search is a new candidate with its own cohorts.
+
+The design package gained interval and bar plots, a decision-trace exhibit, and
+three animated search figures; the notebook validators accept them.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.

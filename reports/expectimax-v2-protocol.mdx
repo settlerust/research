@@ -1,0 +1,52 @@
+---
+date: "2026-09-09"
+title: "The frozen candidate through the protocol arena"
+summary: "80 authoritative games: the depth-3 candidate won 38.8% against the compared ETA slot's 31.2%, short of its registered rule."
+---
+
+# The frozen candidate through the protocol arena
+
+<ResearchCallout title="Finding · positive direction, rule not met">
+Run `e4949ebe-8132-4428-aae9-37ae1e0c3748` completed **80 of 80** games through
+the authoritative server with no timeout moves. `expectimax-v2-deep` won
+**31 (38.8%)**; the ETA builder in the compared slot won **25 (31.2%)**. The
+registered rule asked for a 10-point gap with a one-sided exact test at
+p ≤ 0.05; the gap is 7.5 points and p = 0.25. The cohort is inconclusive.
+</ResearchCallout>
+
+<ResearchChart asset="expectimax-v2-protocol-wins" />
+
+The lineup was the frozen depth-3 candidate (1.5 s budget, sixteen scenarios,
+eight sampled worlds), two ETA builders and one fast builder, rotated through
+every seat over 20 rounds. Twelve matches ran at once against one server, so
+the candidate's decisions shared the machine with eleven other searches; its
+budget is a wall clock, so contention makes it search less, never longer.
+
+The other ETA slot won 13 games and the fast builder 11. Two identical ETA
+policies finishing 12 games apart is a reminder of how far unpaired 80-game
+cohorts move; the [engine arena](engine-arena-calibration.mdx) pairs boards to
+take that variance out of development comparisons.
+
+This candidate was frozen before a turn-planning defect was found in the search
+(its inner turns collapsed to ending the turn, and non-ending root actions were
+valued without the opponents' round). The result stands as recorded for that
+exact binary and configuration; the corrected search is a new candidate and
+will have its own cohorts.
+
+## One game, viewed from above
+
+The first scheduled game, selected by schedule rather than outcome.
+
+<GameReplay asset="expectimax-v2-protocol-game" />
+
+<AgentContext>
+Experiment `e36c2351-eed2-49cc-9cc7-595d5029bf97` under study
+`search/expectimax-v2`; its first run `f3933ecf-afbe-4fe4-839f-40777a9d280c`
+is retained as invalid (no game started: the harness read the candidate's
+inline JSON braces as placeholders; the registry now doubles them). The rerun
+used `just run e36c2351-eed2-49cc-9cc7-595d5029bf97 --parallel 12`. The exact
+test counts wins by the candidate slot and the compared ETA slot only
+(31 against 25; P(X ≥ 31 | n = 56, p = 0.5) = 0.25). Public frame source
+SHA-256: `de85febbac98d365952f2e08a1a66b286da09f45e0cb2b85b2181221c7263232`.
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>

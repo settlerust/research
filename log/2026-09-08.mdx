@@ -129,7 +129,12 @@ depth-3 candidate is registered as protocol experiment
 harness formats registry arguments with placeholder braces and the candidate's
 inline JSON configuration was read as a placeholder. The registry now doubles
 those braces; the candidate itself is unchanged. All twelve attempted matches
-are retained as invalid.
+are retained as invalid. The rerun, `e4949ebe-8132-4428-aae9-37ae1e0c3748`,
+completed all 80 games with twelve matches in flight and no server timeout
+moves: the candidate won 31 (38.8%) and the compared ETA slot 25 (31.2%), a
+7.5-point gap with a one-sided exact test at p = 0.25. The registered rule
+required 10 points and p ≤ 0.05, so the protocol cohort is inconclusive: the
+direction favours the candidate, the evidence does not establish it.
 
 Protocol infrastructure: smoke `0f46efd7-d7b4-465e-bdc3-ade0d70bde23` was
 censored before any game started because the server's `remote` runner never

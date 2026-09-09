@@ -39,7 +39,8 @@ protocol cohort.
 `expectimax-v2`, a tunable turn-level search with an acquisition-time leaf,
 won 34.0% of 256 paired slot-games against ETA's 24.2% at depth 2 (paired
 contrast +0.098, 95% interval +0.005 to +0.190). See the
-[development report](../reports/expectimax-v2-development.mdx). A frozen
-depth-3 candidate is registered for protocol confirmation; until that cohort
-completes, the protocol-arena baseline remains ETA.
+[development report](../reports/expectimax-v2-development.mdx). The frozen
+depth-3 candidate then won 38.8% of an 80-game protocol cohort against the
+compared ETA slot's 31.2%, short of its registered rule, so the protocol-arena
+baseline remains ETA and the candidate's advantage is not confirmed.
 
