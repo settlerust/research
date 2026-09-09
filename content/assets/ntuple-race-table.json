@@ -1,0 +1,289 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "heatmap",
+  "title": "The race: own points against the best opponent",
+  "evidence": "measured",
+  "source": "Frozen candidate tables artifacts/ntuple/hex-portfolio-main.bin (SHA-256 f8e61e66...), decoded by analysis/ntuple_inspect.py.",
+  "caption": "Entries of the race table in the mid-game turn bucket with the second opponent two points behind the best, from the frozen tables, over the score range play reaches there. Rows are own points, columns the best opponent's public points.",
+  "x": {
+    "label": "Best opponent's public points",
+    "min": 0,
+    "max": 5,
+    "ticks": [
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  "y": {
+    "label": "Own points",
+    "min": 0,
+    "max": 7,
+    "ticks": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  },
+  "series": [
+    {
+      "label": "Race table entry, mid-game, second opponent two points behind the best",
+      "points": [
+        {
+          "x": 0,
+          "y": 0,
+          "value": -0.1341
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "value": -0.1595
+        },
+        {
+          "x": 2,
+          "y": 0,
+          "value": -0.1709
+        },
+        {
+          "x": 3,
+          "y": 0,
+          "value": -0.1475
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "value": -0.0776
+        },
+        {
+          "x": 5,
+          "y": 0,
+          "value": 0.0292
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "value": -0.0646
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "value": -0.1149
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "value": -0.1402
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "value": -0.1439
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "value": -0.0836
+        },
+        {
+          "x": 5,
+          "y": 1,
+          "value": 0.0146
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "value": 0.0073
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "value": -0.0492
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "value": -0.0854
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "value": -0.1033
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "value": -0.0938
+        },
+        {
+          "x": 5,
+          "y": 2,
+          "value": 0.0279
+        },
+        {
+          "x": 0,
+          "y": 3,
+          "value": 0.0969
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "value": 0.0376
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "value": -0.017
+        },
+        {
+          "x": 3,
+          "y": 3,
+          "value": -0.0621
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "value": -0.0746
+        },
+        {
+          "x": 5,
+          "y": 3,
+          "value": 0.0048
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "value": 0.1706
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "value": 0.1276
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "value": 0.0592
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "value": 0.0128
+        },
+        {
+          "x": 4,
+          "y": 4,
+          "value": -0.0589
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "value": -0.0185
+        },
+        {
+          "x": 0,
+          "y": 5,
+          "value": 0.2416
+        },
+        {
+          "x": 1,
+          "y": 5,
+          "value": 0.2286
+        },
+        {
+          "x": 2,
+          "y": 5,
+          "value": 0.1778
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "value": 0.1092
+        },
+        {
+          "x": 4,
+          "y": 5,
+          "value": -0.0221
+        },
+        {
+          "x": 5,
+          "y": 5,
+          "value": 0.0222
+        },
+        {
+          "x": 0,
+          "y": 6,
+          "value": 0.2874
+        },
+        {
+          "x": 1,
+          "y": 6,
+          "value": 0.3214
+        },
+        {
+          "x": 2,
+          "y": 6,
+          "value": 0.3234
+        },
+        {
+          "x": 3,
+          "y": 6,
+          "value": 0.2487
+        },
+        {
+          "x": 4,
+          "y": 6,
+          "value": 0.0514
+        },
+        {
+          "x": 5,
+          "y": 6,
+          "value": -0.0213
+        },
+        {
+          "x": 0,
+          "y": 7,
+          "value": 0.1283
+        },
+        {
+          "x": 1,
+          "y": 7,
+          "value": 0.4077
+        },
+        {
+          "x": 2,
+          "y": 7,
+          "value": 0.4673
+        },
+        {
+          "x": 3,
+          "y": 7,
+          "value": 0.4245
+        },
+        {
+          "x": 4,
+          "y": 7,
+          "value": 0.1968
+        },
+        {
+          "x": 5,
+          "y": 7,
+          "value": 0.0227
+        }
+      ]
+    }
+  ],
+  "color": {
+    "label": "Table entry (win-probability units)",
+    "min": -0.1709,
+    "max": 0.4673
+  }
+}

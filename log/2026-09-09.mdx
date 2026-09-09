@@ -226,3 +226,27 @@ carry their paired contrast; this run's record was regenerated from its retained
 summary with the corrected template.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+## Follow-ups: more searches at the table
+
+Two cohorts under `patterns/ntuple-followups`, seeds 340 to 403, 256 games each,
+with the frozen tables at depth 2. With a second hand-written search replacing
+the fast builder (`5af081f1-c109-4390-9bea-2ca7f451d43a`, run
+`b5bd6e07-98f8-42aa-ac82-79b060e116cf`), the tables won 107 slot-games against
+63 and 58 for the two hand-written seats and 28 for ETA: contrast +0.172 (95%
+interval +0.056 to +0.287), supported. In a symmetric field of two table seats
+and two hand-written seats (`94097c5c-0247-4d7e-a10f-ca855680de21`, run
+`8a6a8227-3951-410c-b278-fc27944f4005`) each table seat won 76 against 52 for
+each hand-written seat: contrast +0.094 (+0.004 to +0.183). That lineup is
+unchanged by a two-seat shift, so its four rotations come in identical pairs
+and the cohort holds 128 distinct games; the interval over seeds is therefore
+narrower than it should be, and the reading is a narrow support. The advantage
+does not come only from exploiting the two builders, and it shrinks, as it
+must, when half the table is the tables.
+
+A stability digest over 303 positions now pins pattern extraction; a compact
+`corner` window family (the three touching hexes and the building state,
+303,918 entries) is added for the next pilot. Feature extraction is not the
+cost: one table evaluation takes 0.64 microseconds against 1.65 for the
+hand-written terms, and the tables seat's longer decisions come from a search
+that expands about twice as many nodes and chance branches under the tables.

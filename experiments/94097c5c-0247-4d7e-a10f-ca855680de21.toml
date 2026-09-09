@@ -1,0 +1,12 @@
+id = "94097c5c-0247-4d7e-a10f-ca855680de21"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "In a symmetric field of two table seats and two hand-written seats, each table seat still wins more often than each hand-written seat."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; slots 2 and 3 are read as a second contrast. Never extend or refill this cohort."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}"]
+seeds = "340-403"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

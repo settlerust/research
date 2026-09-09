@@ -1,0 +1,12 @@
+id = "5af081f1-c109-4390-9bea-2ca7f451d43a"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "The frozen tables keep their margin over the hand-written leaf when a second hand-written search sits at the table (three searches, one builder), so the advantage is not only exploitation of the two weak builders."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero refutes it; otherwise inconclusive. Slot 2 is a separate competitor slot. Never extend or refill this cohort."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta"]
+seeds = "340-403"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

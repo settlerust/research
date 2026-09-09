@@ -154,6 +154,31 @@ to win.
 
 <ResearchPlot asset="ntuple-hex-city" />
 
+The portfolio tables can be read the same way. The race table, in the
+mid-game turn bucket, rises steeply with own points and falls with the best
+opponent's: at eight points against an opponent on five the entry is +0.32,
+at four against eight it is −0.09. The hand table values every card above an
+empty hand, ore most (four ore +0.07 above nothing; four lumber +0.05). The
+production table's marginal effect is small: averaged over the profiles play
+reached, one more pip in any resource moves the entry by under 0.01, so the
+production signal lives in the hex windows, which see each building on its
+hex directly.
+
+<ResearchPlot asset="ntuple-race-table" />
+
+<ResearchPlot asset="ntuple-hand-table" />
+
+## Why the tables spend more search time
+
+The tables are not the expensive part. One evaluation of the hex plus
+portfolio tables costs 0.64 microseconds against 1.65 for the hand-written
+terms on the same positions. The search over the tables simply expands more:
+per decision at depth 2 it visited 2,689 own nodes and 393 chance branches
+where the hand-written leaf visited 1,292 and 195, and at depth 3 the ratio is
+the same. The tables steer play toward purchases and thefts, whose chance
+outcomes the planner branches over exactly, so the trees are wider. A cheaper
+search under the tables is a search-side question, not a feature question.
+
 ## Screens on fresh seeds
 
 Four cohorts were registered before the candidate was frozen, all on seeds 256
@@ -200,6 +225,19 @@ the two builders, on 20 deterministic seeds through the authoritative server:
 46 wins to 25 of 80, paired contrast +0.263 (95% interval +0.094 to +0.431),
 every game valid. The [protocol report](ntuple-leaf-protocol.mdx) records it
 and makes `ntuple-leaf` the protocol-arena baseline.
+
+## More searches at the table
+
+Two follow-up cohorts on seeds 340 to 403 asked whether the margin depends on
+the two weak builders. With a second hand-written search in place of the fast
+builder, the tables won 107 of 256 slot-games against 63 and 58 for the two
+hand-written seats and 28 for ETA (contrast +0.172, 95% interval +0.056 to
++0.287). In a symmetric field of two table seats and two hand-written seats,
+each table seat won 76 against 52 for each hand-written seat (contrast
++0.094, +0.004 to +0.183); that lineup repeats under a two-seat shift, so the
+cohort holds 128 distinct games and its interval is narrower than it should
+be. The advantage survives more searches at the table and shrinks, as it must,
+when half the table is the tables.
 
 ## Limitations
 

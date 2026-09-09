@@ -1,0 +1,146 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "What holding cards of one resource is worth",
+  "evidence": "measured",
+  "source": "Frozen candidate tables artifacts/ntuple/hex-portfolio-main.bin (SHA-256 f8e61e66...), decoded by analysis/ntuple_inspect.py.",
+  "caption": "Entries of the hand table for a hand of k cards of a single resource and nothing else, with three settlements and four cities still to build, from the frozen tables.",
+  "x": {
+    "label": "Cards of the one resource in hand",
+    "min": 0,
+    "max": 4.0
+  },
+  "y": {
+    "label": "Table entry (win-probability units)",
+    "min": -0.126,
+    "max": -0.02
+  },
+  "series": [
+    {
+      "label": "brick",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1061
+        },
+        {
+          "x": 1,
+          "y": -0.0889
+        },
+        {
+          "x": 2,
+          "y": -0.0854
+        },
+        {
+          "x": 3,
+          "y": -0.0677
+        },
+        {
+          "x": 4,
+          "y": -0.0585
+        }
+      ]
+    },
+    {
+      "label": "lumber",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1061
+        },
+        {
+          "x": 1,
+          "y": -0.0835
+        },
+        {
+          "x": 2,
+          "y": -0.0703
+        },
+        {
+          "x": 3,
+          "y": -0.0621
+        },
+        {
+          "x": 4,
+          "y": -0.0537
+        }
+      ]
+    },
+    {
+      "label": "wool",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1061
+        },
+        {
+          "x": 1,
+          "y": -0.0833
+        },
+        {
+          "x": 2,
+          "y": -0.0712
+        },
+        {
+          "x": 3,
+          "y": -0.0656
+        },
+        {
+          "x": 4,
+          "y": -0.0571
+        }
+      ]
+    },
+    {
+      "label": "grain",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1061
+        },
+        {
+          "x": 1,
+          "y": -0.0791
+        },
+        {
+          "x": 2,
+          "y": -0.0665
+        },
+        {
+          "x": 3,
+          "y": -0.0626
+        },
+        {
+          "x": 4,
+          "y": -0.0581
+        }
+      ]
+    },
+    {
+      "label": "ore",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1061
+        },
+        {
+          "x": 1,
+          "y": -0.0841
+        },
+        {
+          "x": 2,
+          "y": -0.0624
+        },
+        {
+          "x": 3,
+          "y": -0.0476
+        },
+        {
+          "x": 4,
+          "y": -0.0404
+        }
+      ]
+    }
+  ]
+}

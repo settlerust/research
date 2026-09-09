@@ -1,0 +1,12 @@
+id = "patterns/ntuple-followups"
+title = "Follow-ups to the learned leaf"
+created = "2026-09-09"
+updated = "2026-09-09"
+status = "active"
+question = "Does the learned leaf keep its margin against more searches and a symmetric field, which learning settings and window families train best, and does a longer run improve the tables?"
+outcome = "With a second hand-written search at the table the tables still win (+0.172, 95% interval +0.056 to +0.287); in a symmetric two-and-two field each table seat beats each hand-written seat (+0.094, +0.004 to +0.183, 128 distinct games). Learning-settings pilot and longer run pending."
+next_step = "Run the learning-settings and corner-family pilot, then a longer main run with the winning settings, then fresh-seed screens and a protocol cohort for any new candidate."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = []
+logs = ["log/2026-09-09.mdx"]
+legacy_experiments = []
