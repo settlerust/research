@@ -1,8 +1,8 @@
 ---
 title: Reciprocity and reputation
 summary: "Can a small concession buy enough future cooperation to recover its cost?"
-status: proposal
-evidence: none
+status: active
+evidence: engine arena
 ---
 
 # Reciprocity and reputation
@@ -24,6 +24,10 @@ Model future response conditional on the specific partner, the observed interact
 Compare no social memory, recipient-specific memory with no concessions, and bounded concessions with that same memory. Hypothesis: concessions recover their cost against reciprocal partners and fail against nonreciprocal partners. Add forgiveness versus permanent punishment as a follow-up, not a hidden change.
 
 Use an event-aligned trajectory showing the concession, later offers, acceptance, and cumulative foregone reference value. Log opportunities to reciprocate as well as actual reciprocation. Whole-game randomization estimates the policy effect; the later accepted-trade subset cannot identify causality on its own.
+
+## First ablation
+
+Scaling modeled willingness by each partner's observed acceptance rate changed the contrast by -0.031 wins per game (95% interval -0.125 to +0.063) on 64 deterministic boards (90 treatment wins against 98): against builders that accept by a fixed deficit rule, learning who accepts does not pay. A reciprocal opponent is the missing ingredient, and the fixed builders cannot supply it. Run `7c17e2c7-a140-4fe5-b055-68bdea33ea60`; see the [ablation report](../../reports/ablations.mdx).
 
 ## What could disprove it
 
@@ -47,6 +51,6 @@ Try the [pliability laboratory](../pliability/README.mdx) to see an explicit toy
 
 | Updated | Investigation | Status | Finding and next step |
 | --- | --- | --- | --- |
-| 2026-09-09 | [Learning who accepts](/research/approaches/reputation) | Active | Registered; the reciprocity arm is running. Next: Read the 64-seed arm; if inconclusive, register a fresh-seed confirmation. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-09 | [Learning who accepts](/research/approaches/reputation) | Active | Round one, 256 deterministic games: contrast -0.031 (interval -0.125 to +0.063); no effect against fixed builders. Next: Test reciprocity against an opponent whose acceptance depends on history, for example a second search seat with the same model. [Log 2026-09-09](/research/log/2026-09-09) |
 
 [research-studies:end]: #
