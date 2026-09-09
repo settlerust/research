@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "bar",
+  "title": "Legal actions per decision, by phase",
+  "evidence": "measured",
+  "source": "Engine-arena structure run fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5: 64 builder games (fast, ETA, fast, ETA) on seeds 0-63; 21840 decisions after setup and 12578 sampled searches.",
+  "caption": "Bars are medians over builder-game decisions; the interval marks the 10th to 90th percentile. The main phase lists every legal build, exchange, and card play the server enumerates.",
+  "x": {
+    "label": "Phase",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "roll",
+      "main",
+      "discard",
+      "robber",
+      "free roads"
+    ]
+  },
+  "y": {
+    "label": "Legal actions",
+    "min": 0,
+    "max": 29.0
+  },
+  "series": [
+    {
+      "label": "Builder games",
+      "points": [
+        {
+          "x": 0,
+          "y": 1,
+          "low": 1.0,
+          "high": 1.0
+        },
+        {
+          "x": 1,
+          "y": 8.0,
+          "low": 1.0,
+          "high": 17.0
+        },
+        {
+          "x": 2,
+          "y": 1.0,
+          "low": 1.0,
+          "high": 1.0
+        },
+        {
+          "x": 3,
+          "y": 22,
+          "low": 20.0,
+          "high": 24.0
+        },
+        {
+          "x": 4,
+          "y": 9.0,
+          "low": 7.0,
+          "high": 11.5
+        }
+      ]
+    }
+  ]
+}

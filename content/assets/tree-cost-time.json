@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Native analysis time, by depth",
+  "evidence": "measured",
+  "source": "Engine-arena structure run fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5: 64 builder games (fast, ETA, fast, ETA) on seeds 0-63; 21840 decisions after setup and 12578 sampled searches.",
+  "caption": "Median wall-clock milliseconds per analysis on one core with the 10th to 90th percentile; native release build, default scenario and sample counts.",
+  "x": {
+    "label": "Depth (planned own turns)",
+    "min": 0,
+    "max": 5
+  },
+  "y": {
+    "label": "Milliseconds",
+    "min": 0,
+    "max": 4197.809
+  },
+  "series": [
+    {
+      "label": "expectimax-v2, default budgets",
+      "points": [
+        {
+          "x": 1,
+          "y": 15.09,
+          "low": 3.29,
+          "high": 106.11
+        },
+        {
+          "x": 2,
+          "y": 92.09,
+          "low": 28.64,
+          "high": 379.47
+        },
+        {
+          "x": 3,
+          "y": 465.01,
+          "low": 123.21,
+          "high": 1492.21
+        },
+        {
+          "x": 4,
+          "y": 1654.28,
+          "low": 248.41,
+          "high": 3816.19
+        }
+      ]
+    }
+  ]
+}

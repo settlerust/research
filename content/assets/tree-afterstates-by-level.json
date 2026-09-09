@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "bar",
+  "title": "Work per search level",
+  "evidence": "measured",
+  "source": "Engine-arena structure run fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5: 64 builder games (fast, ETA, fast, ETA) on seeds 0-63; 21840 decisions after setup and 12578 sampled searches.",
+  "caption": "Median own-turn nodes explored and end-of-turn positions followed at each level of a depth-4 analysis, with the 10th to 90th percentile; the current turn is a small tree, later levels multiply by the scenarios that lead to them.",
+  "x": {
+    "label": "Search level (own turn)",
+    "min": 1,
+    "max": 4,
+    "ticks": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  "y": {
+    "label": "Count per analysis",
+    "min": 0,
+    "max": 41261.0
+  },
+  "series": [
+    {
+      "label": "Own-turn nodes explored",
+      "points": [
+        {
+          "x": 1,
+          "y": 179,
+          "low": 39.8,
+          "high": 1458.2
+        },
+        {
+          "x": 2,
+          "y": 708.5,
+          "low": 218.7,
+          "high": 1441.2
+        },
+        {
+          "x": 3,
+          "y": 3984,
+          "low": 845.4,
+          "high": 7913.8
+        },
+        {
+          "x": 4,
+          "y": 17251,
+          "low": 1228.4,
+          "high": 37509.4
+        }
+      ]
+    },
+    {
+      "label": "End-of-turn positions followed",
+      "points": [
+        {
+          "x": 1,
+          "y": 19,
+          "low": 12.0,
+          "high": 41.0
+        },
+        {
+          "x": 2,
+          "y": 492.0,
+          "low": 162.7,
+          "high": 927.0
+        },
+        {
+          "x": 3,
+          "y": 2409,
+          "low": 551.8,
+          "high": 4552.8
+        },
+        {
+          "x": 4,
+          "y": 10160,
+          "low": 929.0,
+          "high": 21962.6
+        }
+      ]
+    }
+  ]
+}

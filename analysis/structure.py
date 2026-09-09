@@ -58,10 +58,10 @@ def assets(rows, run_id, seeds):
     points = []
     for i, p in enumerate(phases):
         widths = [r['legal_actions'] for r in decisions if r['phase'] == p]
-        points.append({'x': i, 'y': round(statistics.mean(widths), 2), 'low': round(quantile(widths, .1), 2), 'high': round(quantile(widths, .9), 2)})
+        points.append({'x': i, 'y': round(statistics.median(widths), 2), 'low': round(quantile(widths, .1), 2), 'high': round(quantile(widths, .9), 2)})
     ymax = max(pt['high'] for pt in points)
     out['tree-width-by-phase'] = plot('bar', 'Legal actions per decision, by phase',
-        'Bars are means over builder-game decisions; the interval marks the 10th to 90th percentile. The main phase lists every legal build, exchange, and card play the server enumerates.',
+        'Bars are medians over builder-game decisions; the interval marks the 10th to 90th percentile. The main phase lists every legal build, exchange, and card play the server enumerates.',
         source, {'label': 'Phase', 'min': 0, 'max': len(phases) - 1, 'ticks': [p.replace('_', ' ') for p in phases]},
         {'label': 'Legal actions', 'min': 0, 'max': float(int(ymax) + 5)},
         [{'label': 'Builder games', 'points': points}])
@@ -70,40 +70,44 @@ def assets(rows, run_id, seeds):
     for r in decisions:
         if r['phase'] == 'main':
             buckets.setdefault(min(r['turn'] // 8, 11), []).append(r['legal_actions'])
-    pts = [{'x': b * 8 + 4, 'y': round(statistics.mean(v), 2), 'low': round(quantile(v, .1), 2), 'high': round(quantile(v, .9), 2)}
+    pts = [{'x': b * 8 + 4, 'y': round(statistics.median(v), 2), 'low': round(quantile(v, .1), 2), 'high': round(quantile(v, .9), 2)}
            for b, v in sorted(buckets.items())]
     out['tree-width-by-turn'] = plot('line', 'Main-phase width through the game',
-        'Mean legal actions in the main phase per eight-turn window, with the 10th to 90th percentile; width grows as hands and road networks grow.',
+        'Median legal actions in the main phase per eight-turn window, with the 10th to 90th percentile; width grows as hands and road networks grow.',
         source, {'label': 'Turn', 'min': 0, 'max': 96}, {'label': 'Legal actions', 'min': 0, 'max': float(int(max(p['high'] for p in pts)) + 5)},
         [{'label': 'Main phase', 'points': pts}])
-    # 3. Afterstates per planned turn, by level, for depth-3 searches.
+    # 3. Own-turn nodes explored and end-of-turn positions followed, by level, deepest depth.
     deepest = max((r['depth'] for r in searches), default=1)
     deep = [r for r in searches if r['depth'] == deepest]
-    per_level = {}
+    nodes_by, ends_by = {}, {}
     for r in deep:
         for level, (n, a) in enumerate(zip(r['per_level_nodes'], r['per_level_afterstates'])):
-            if level >= 1 and n > 0:
-                per_level.setdefault(level, []).append(a / n)
-    pts = [{'x': level, 'y': round(statistics.mean(v), 2), 'low': round(quantile(v, .1), 2), 'high': round(quantile(v, .9), 2)}
-           for level, v in sorted(per_level.items())]
-    if pts:
-        out['tree-afterstates-by-level'] = plot('bar', 'Distinct end-of-turn positions per planned turn',
-            f'Mean afterstates enumerated per own-turn node at each search level of a depth-{deepest} analysis, with the 10th to 90th percentile; deeper levels start from sampled continuations with more cards.',
-            source, {'label': 'Search level (own turn)', 'min': 1, 'max': max(per_level), 'ticks': [str(l) for l in sorted(per_level)]},
-            {'label': 'Afterstates per node', 'min': 0, 'max': float(int(max(p['high'] for p in pts)) + 2)},
-            [{'label': f'Depth-{deepest} searches', 'points': pts}])
+            if level >= 1:
+                nodes_by.setdefault(level, []).append(n)
+                ends_by.setdefault(level, []).append(a)
+    if nodes_by:
+        levels = sorted(nodes_by)
+        series = [
+            {'label': 'Own-turn nodes explored', 'points': [{'x': l, 'y': round(statistics.median(nodes_by[l]), 1), 'low': round(quantile(nodes_by[l], .1), 1), 'high': round(quantile(nodes_by[l], .9), 1)} for l in levels]},
+            {'label': 'End-of-turn positions followed', 'points': [{'x': l, 'y': round(statistics.median(ends_by[l]), 1), 'low': round(quantile(ends_by[l], .1), 1), 'high': round(quantile(ends_by[l], .9), 1)} for l in levels]},
+        ]
+        top = max(p['high'] for se in series for p in se['points'])
+        out['tree-afterstates-by-level'] = plot('bar', 'Work per search level',
+            f'Median own-turn nodes explored and end-of-turn positions followed at each level of a depth-{deepest} analysis, with the 10th to 90th percentile; the current turn is a small tree, later levels multiply by the scenarios that lead to them.',
+            source, {'label': 'Search level (own turn)', 'min': 1, 'max': max(levels), 'ticks': [str(l) for l in levels]},
+            {'label': 'Count per analysis', 'min': 0, 'max': float(int(top * 1.1) + 1)}, series)
     # 4. Cost by depth: transitions and milliseconds (two plots to keep units honest).
     by_depth = {}
     for r in searches:
         by_depth.setdefault(r['depth'], []).append(r)
-    trans = [{'x': d, 'y': round(statistics.mean(x['transitions'] for x in v)), 'low': round(quantile([x['transitions'] for x in v], .1)), 'high': round(quantile([x['transitions'] for x in v], .9))} for d, v in sorted(by_depth.items())]
-    ms = [{'x': d, 'y': round(statistics.mean(x['time_ms'] for x in v), 2), 'low': round(quantile([x['time_ms'] for x in v], .1), 2), 'high': round(quantile([x['time_ms'] for x in v], .9), 2)} for d, v in sorted(by_depth.items())]
+    trans = [{'x': d, 'y': round(statistics.median(x['transitions'] for x in v)), 'low': round(quantile([x['transitions'] for x in v], .1)), 'high': round(quantile([x['transitions'] for x in v], .9))} for d, v in sorted(by_depth.items())]
+    ms = [{'x': d, 'y': round(statistics.median(x['time_ms'] for x in v), 2), 'low': round(quantile([x['time_ms'] for x in v], .1), 2), 'high': round(quantile([x['time_ms'] for x in v], .9), 2)} for d, v in sorted(by_depth.items())]
     out['tree-cost-transitions'] = plot('line', 'Engine transitions per analysis, by depth',
-        'Mean transitions applied per analysis with the 10th to 90th percentile; each additional planned turn multiplies the work by the scenario count and the inner beam.',
+        'Median transitions applied per analysis with the 10th to 90th percentile; each additional planned turn multiplies the work by the scenario count and the inner beam.',
         source, {'label': 'Depth (planned own turns)', 'min': 0, 'max': max(by_depth) + 1}, {'label': 'Transitions', 'min': 0, 'max': float(max(p['high'] for p in trans) * 1.1)},
         [{'label': 'expectimax-v2, default budgets', 'points': trans}])
     out['tree-cost-time'] = plot('line', 'Native analysis time, by depth',
-        'Mean wall-clock milliseconds per analysis on one core with the 10th to 90th percentile; native release build, default scenario and sample counts.',
+        'Median wall-clock milliseconds per analysis on one core with the 10th to 90th percentile; native release build, default scenario and sample counts.',
         source, {'label': 'Depth (planned own turns)', 'min': 0, 'max': max(by_depth) + 1}, {'label': 'Milliseconds', 'min': 0, 'max': float(max(p['high'] for p in ms) * 1.1)},
         [{'label': 'expectimax-v2, default budgets', 'points': ms}])
     # 5. Transposition share by depth.
@@ -131,12 +135,19 @@ def main():
     parser.add_argument('--rows', help='Reuse an existing structure.jsonl instead of running the tool')
     parser.add_argument('--write-assets', action='store_true')
     parser.add_argument('--threads', type=int)
+    parser.add_argument('--reuse', help='Write the summary, record and assets for this existing structure run ID')
     args = parser.parse_args()
-    run_id = str(uuid.uuid4())
+    run_id = args.reuse or str(uuid.uuid4())
     folder = ROOT / 'runs' / f'structure-{run_id}'
-    folder.mkdir(parents=True)
+    if args.reuse:
+        manifest = json.loads((folder / 'manifest.json').read_text())
+        args.seeds, args.every, args.depths, args.time = manifest['seeds'], manifest['every'], ','.join(map(str, manifest['depths'])), manifest['time_budget_ms']
+        args.rows = str(folder / 'structure.jsonl')
+    else:
+        folder.mkdir(parents=True)
     depths = [int(d) for d in args.depths.split(',')]
-    write_json(folder / 'manifest.json', {'schema': 1, 'run_id': run_id, 'created_at': now(), 'kind': 'structure', 'seeds': args.seeds,
+    if not args.reuse:
+        write_json(folder / 'manifest.json', {'schema': 1, 'run_id': run_id, 'created_at': now(), 'kind': 'structure', 'seeds': args.seeds,
                                           'every': args.every, 'depths': depths, 'time_budget_ms': args.time, 'server': args.server,
                                           'research_git': git_state(ROOT), 'server_git': git_state(args.server)})
     rows_path = Path(args.rows) if args.rows else run_tool(args.server, args.seeds, args.every, depths, args.time, folder, args.threads)

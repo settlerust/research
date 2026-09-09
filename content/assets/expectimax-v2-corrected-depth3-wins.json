@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Corrected search at depth 3 with a 1.5 s budget",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 3, 1.5 s (slot 0)",
+      "value": 0.57421875,
+      "low": 0.5129905510088384,
+      "high": 0.6332524703029463,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 1)",
+      "value": 0.16015625,
+      "low": 0.12030547683153675,
+      "high": 0.21005542558292273,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 2)",
+      "value": 0.09375,
+      "low": 0.0638098481830768,
+      "high": 0.13570203516294374,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 3)",
+      "value": 0.171875,
+      "low": 0.13059812036467136,
+      "high": 0.2228537854148068,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games: 64 seeds, each played once per rotation; decisions averaged 360 ms. Run 156f77ff-b781-42d6-b6e0-999bdf9506fe: 256 of 256 planned games completed; engine arena, paired seeds."
+}

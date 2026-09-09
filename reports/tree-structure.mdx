@@ -1,0 +1,83 @@
+---
+date: "2026-09-09"
+title: "How wide is a Settlers turn?"
+summary: "Median legal actions by phase, how the main phase widens through a game, and what one more planned turn costs the search."
+---
+
+# How wide is a Settlers turn?
+
+<ResearchCallout title="Finding · the width lives in the robber and in late-game main phases">
+Across 21,840 decisions after setup in 64 builder games, the median number of
+legal actions was **8 in the main phase**, **22 when placing the robber**, and
+**1** when rolling or discarding (the server lists one automatic discard). The
+main phase widens from a median of 2 legal actions in the first eight turns to
+9 after turn 68. Each additional planned turn multiplies the search's work by
+roughly four to six.
+</ResearchCallout>
+
+<ResearchPlot asset="tree-width-by-phase" />
+
+The engine's legal-action list is the raw width: every legal build site, every
+unit bank exchange, every playable card, and every robber hex paired with each
+victim. The search does not branch over all of it. Its candidate generator keeps
+builds, purchases, card plays, roads that shorten the path to a reachable site or
+extend a contested longest road, and exchanges that reduce a build deficit, then
+narrows later steps of the turn to the best few by static value.
+
+<ResearchPlot asset="tree-width-by-turn" />
+
+## What a planned turn costs
+
+The measurement analysed every third decision with `expectimax-v2` at depths 1
+to 4 under a fixed 400,000-transition budget and no clock. Medians rise from
+2,110 transitions and 15 ms at depth 1 to 180,066 transitions and 1.65 s at
+depth 4; a quarter of the depth-4 analyses hit the budget and are excluded from
+the medians. The ratio between consecutive depths is about six, then four, then
+three and a half: the opponents' round costs a fixed number of scenarios, and
+the transposition memo catches more as trees grow.
+
+<ResearchPlot asset="tree-cost-time" />
+
+<ResearchPlot asset="tree-cost-transitions" />
+
+<SearchFigure concept="levels" />
+
+## Where the work goes
+
+In a depth-4 analysis the current turn is a small tree, a median of 179
+own-turn nodes ending in 19 positions. Each later level starts from the
+positions the previous level followed through the opponents' round, so the
+counts multiply: a median of 709 nodes at level 2, 3,984 at level 3, and 17,251
+at level 4. The share of own-turn positions already seen falls from 21% at
+depth 1 to 5% at depth 4, because dice scenarios spread later levels over many
+distinct boards.
+
+<ResearchPlot asset="tree-afterstates-by-level" />
+
+<ResearchPlot asset="tree-transpositions" />
+
+## One decision, term by term
+
+At turn 59 of an engine-arena game on seed 5, the corrected search at depth 3
+chose to buy a development card with two wool in hand rather than extend a road.
+The bars show each candidate's value as the stack of its additive leaf terms;
+the point term dominates because a fifth of the deck is a victory card and the
+game is close.
+
+<SearchTrace asset="expectimax-v2-endgame-decision" />
+
+<AgentContext>
+Structure run `fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5` under the
+`log/tree-structure` study: `analysis/structure.py --seeds 0-63 --every 3
+--depths 1,2,3,4 --write-assets`, which runs the server's `structure` binary
+(64 fast/ETA/fast/ETA games, every third decision analysed at each depth with
+`iterative: false`, `node_budget: 400000`, no time budget) and derives the plot
+assets. Medians and 10th to 90th percentiles are over analyses; aborted
+analyses are excluded from the cost figures. The record in
+`records/structure/` carries the rows digest. The decision exhibit comes from
+`tournament --trace` on seed 5 with the corrected depth-3 candidate; its values
+are the search's mass-weighted heuristic points. Native timings are from a
+32-thread run with 8 threads reserved for the tool on an otherwise idle machine
+and are not a browser benchmark. Attribution: Claude Fable 5.1
+(claude-fable-5-1) through Claude Code.
+</AgentContext>

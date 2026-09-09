@@ -47,6 +47,7 @@ def main():
     parser.add_argument('--seed', type=int, required=True)
     parser.add_argument('--rotation', type=int, default=0)
     parser.add_argument('--turn', type=int, required=True)
+    parser.add_argument('--chosen', help='Prefer the decision at that turn whose chosen action has this type')
     parser.add_argument('--title', required=True)
     parser.add_argument('--caption', required=True)
     parser.add_argument('--source', required=True)
@@ -54,6 +55,11 @@ def main():
     rows = [json.loads(l) for l in Path(args.games).read_text().splitlines() if l.strip()]
     game = next(r for r in rows if r['seed'] == args.seed and r['rotation'] == args.rotation)
     entries = [e for e in game['game']['trace'] if e['turn'] == args.turn and e['phase']['type'] == 'main']
+    if args.chosen:
+        def kind(e):
+            c = e['chosen']
+            return (c.get('action') or {}).get('type') if c and c['type'] == 'act' else (c or {}).get('type')
+        entries = [e for e in entries if kind(e) == args.chosen] or entries
     entry = max(entries, key=lambda e: len(e['candidates']))
     chosen = json.dumps(entry['chosen'], sort_keys=True)
     candidates = []
@@ -64,6 +70,7 @@ def main():
     if not any(c['chosen'] for c in candidates):
         candidates[0]['chosen'] = True
     levels = [{'level': i, 'nodes': n, 'afterstates': a} for i, (n, a) in enumerate(zip(entry.get('per_level_nodes', []), entry['per_level_afterstates'])) if i >= 1]
+    statistics = {'transitions': entry['transitions'], 'leaves': entry['leaves'], 'scenarios': entry.get('scenarios', 0), 'transpositions': entry.get('transpositions', 0)}
     position = entry['position']
     position['players'] = [{k: v for k, v in p.items() if k != 'victory_cards' or v is not None} for p in position['players']]
     data = {'schema': 1, 'kind': 'search', 'title': args.title, 'caption': args.caption, 'evidence': 'measured',
@@ -71,7 +78,7 @@ def main():
             'phase': entry['phase']['type'], 'depth': entry['depth'], 'timeMs': round(entry['ms'], 1),
             'topology': json.loads(Path(args.topology).read_text()), 'position': position, 'hand': entry['hand'],
             'candidates': candidates, 'levels': levels,
-            'statistics': {'transitions': entry['transitions'], 'leaves': entry['leaves'], 'scenarios': 0, 'transpositions': 0}}
+            'statistics': statistics}
     write_json(ROOT / 'content/assets' / f'{args.name}.json', data)
     print(ROOT / 'content/assets' / f'{args.name}.json', len(candidates), 'candidates')
 

@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Engine transitions per analysis, by depth",
+  "evidence": "measured",
+  "source": "Engine-arena structure run fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5: 64 builder games (fast, ETA, fast, ETA) on seeds 0-63; 21840 decisions after setup and 12578 sampled searches.",
+  "caption": "Median transitions applied per analysis with the 10th to 90th percentile; each additional planned turn multiplies the work by the scenario count and the inner beam.",
+  "x": {
+    "label": "Depth (planned own turns)",
+    "min": 0,
+    "max": 5
+  },
+  "y": {
+    "label": "Transitions",
+    "min": 0,
+    "max": 368498.9
+  },
+  "series": [
+    {
+      "label": "expectimax-v2, default budgets",
+      "points": [
+        {
+          "x": 1,
+          "y": 2110,
+          "low": 335,
+          "high": 15740
+        },
+        {
+          "x": 2,
+          "y": 12517,
+          "low": 5079,
+          "high": 49449
+        },
+        {
+          "x": 3,
+          "y": 50396,
+          "low": 18454,
+          "high": 147838
+        },
+        {
+          "x": 4,
+          "y": 180066,
+          "low": 40539,
+          "high": 334999
+        }
+      ]
+    }
+  ]
+}

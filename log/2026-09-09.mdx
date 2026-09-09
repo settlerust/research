@@ -30,8 +30,20 @@ Registered cohort `d5eb6354-2b59-4ca4-8ab0-fefee3690cb3`, run
 depth 2 on the same 64 boards as before: 129 of 256 slot-games (50.4%) against
 the compared ETA slot's 20.3%, paired contrast +0.301 (interval +0.190 to
 +0.412), at 87 ms per decision. The [corrected search report](../reports/expectimax-v2-corrected.mdx)
-records it. A corrected depth-3 candidate is frozen as `expectimax-v2-plan`
+records it. Cohort `11cb5a59-5490-4a78-96cf-2332d8364cf2`, run
+`156f77ff-b781-42d6-b6e0-999bdf9506fe`, put depth 3 under a 1.5 s budget on
+the same boards: 147 of 256 (57.4%) against 16.0%, paired contrast +0.414
+(interval +0.327 to +0.502), 360 ms per decision. Depth now pays. A corrected
+depth-3 candidate is frozen as `expectimax-v2-plan`
 and registered as protocol experiment `49427921-feaf-4291-a5bf-79500acdcae7`.
+
+Structure run `fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5` measured the tree with
+the corrected search: median legal actions of 8 in the main phase and 22 for
+the robber, main-phase width rising from 2 to 9 through a game, and search cost
+multiplying by four to six per planned turn (medians of 15, 92, 465 and 1654 ms
+at depths 1 to 4). The [tree-structure report](../reports/tree-structure.mdx)
+has the charts and a term-by-term decision exhibit. An earlier structure run
+with the defective search was discarded before publication.
 
 The design package gained interval and bar plots, a decision-trace exhibit, and
 three animated search figures; the notebook validators accept them.

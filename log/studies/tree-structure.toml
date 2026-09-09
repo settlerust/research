@@ -1,12 +1,12 @@
 id = "log/tree-structure"
 title = "Game tree structure"
 created = "2026-09-08"
-updated = "2026-09-08"
+updated = "2026-09-09"
 status = "active"
 question = "How wide is the Settlers decision tree by phase, and how do afterstates, chance branches, and transpositions grow with depth?"
-outcome = "No experiment has been executed."
-next_step = "Register a fixed candidate, comparison, budget, and decision rule."
+outcome = "Median legal actions: 8 in the main phase, 22 for the robber, 1 for rolls and discards; the main phase widens from 2 to 9 through a game. Each planned turn multiplies expectimax-v2 work by four to six; depth 3 costs about 0.5 s natively."
+next_step = "Measure the browser (WASM) cost per depth and how much of the tree the candidate generator prunes relative to the raw legal list."
 attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
-reports = []
-logs = ["log/2026-09-08.mdx"]
+reports = ["reports/tree-structure.mdx"]
+logs = ["log/2026-09-08.mdx", "log/2026-09-09.mdx"]
 legacy_experiments = []

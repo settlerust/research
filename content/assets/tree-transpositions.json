@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Share of own-turn positions already seen",
+  "evidence": "measured",
+  "source": "Engine-arena structure run fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5: 64 builder games (fast, ETA, fast, ETA) on seeds 0-63; 21840 decisions after setup and 12578 sampled searches.",
+  "caption": "Transpositions divided by transpositions plus expanded own-turn nodes; different action orders within a turn often reach the same position.",
+  "x": {
+    "label": "Depth (planned own turns)",
+    "min": 0,
+    "max": 5
+  },
+  "y": {
+    "label": "Fraction",
+    "min": 0,
+    "max": 1
+  },
+  "series": [
+    {
+      "label": "expectimax-v2",
+      "points": [
+        {
+          "x": 1,
+          "y": 0.209
+        },
+        {
+          "x": 2,
+          "y": 0.123
+        },
+        {
+          "x": 3,
+          "y": 0.065
+        },
+        {
+          "x": 4,
+          "y": 0.048
+        }
+      ]
+    }
+  ]
+}
