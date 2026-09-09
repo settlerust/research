@@ -17,13 +17,22 @@ DEFAULT_ROOT = Path.cwd() if (Path.cwd() / 'policies/registry.toml').is_file() e
 ROOT = Path(os.environ.get('SETTLERS_RESEARCH_DIR', DEFAULT_ROOT)).resolve()
 
 
-def register(root, players, games, hypothesis, decision_rule, points=10, *, study):
+def register(root, players, games, hypothesis, decision_rule, points=10, *, study, seeds=None):
     require_study(root, study)
     registry = tomllib.loads((root / 'policies/registry.toml').read_text())
     if not 2 <= len(players) <= 4 or any(p not in registry for p in players):
         raise ValueError('Choose 2–4 policies from the registry')
     if games < 1 or not 3 <= points <= 20:
         raise ValueError('Games must be positive and points must be 3–20')
+    extra = ''
+    if seeds:
+        if not re.fullmatch(r'\d+-\d+', seeds):
+            raise ValueError('Seeds must be a range like 0-19')
+        first, last = map(int, seeds.split('-'))
+        if last < first:
+            raise ValueError('Seed range must be ascending')
+        games = (last - first + 1) * len(players)
+        extra = f'seeds = {json.dumps(seeds)}\ndeterministic = true\n'
     identifier = str(uuid.uuid4())
     folder = root / 'experiments'
     folder.mkdir(exist_ok=True)
@@ -31,7 +40,7 @@ def register(root, players, games, hypothesis, decision_rule, points=10, *, stud
         f'id = {json.dumps(identifier)}\nstudy = {json.dumps(study)}\nhypothesis = {json.dumps(hypothesis)}\n'
         f'decision_rule = {json.dumps(decision_rule)}\nplayers = {json.dumps(players)}\n'
         f'games = {games}\npoints_to_win = {points}\nmatch_seconds = 600\n'
-        'decision_seconds = 5\nmax_turns = 3000\n'
+        'decision_seconds = 5\nmax_turns = 3000\n' + extra
     )
     return identifier
 
@@ -52,6 +61,7 @@ def main():
     experiment.add_argument('--decision-rule', required=True)
     experiment.add_argument('--points', type=int, default=10)
     experiment.add_argument('--study', required=True, help='Owning APPROACH/SLUG or log/SLUG investigation')
+    experiment.add_argument('--seeds', help='Deterministic mode: play each seed in this range once per lineup rotation (games = seeds x players)')
     runner = commands.add_parser('run')
     runner.add_argument('experiment')
     runner.add_argument('--parallel', type=int, default=1, help='Concurrent matches against the same server')
@@ -88,7 +98,7 @@ def main():
             binary = Path(args.server).resolve() / 'target/release/server'
             os.execve(binary, [str(binary)], env)
         elif args.command == 'register':
-            print(register(ROOT, args.players, args.games, args.hypothesis, args.decision_rule, args.points, study=args.study))
+            print(register(ROOT, args.players, args.games, args.hypothesis, args.decision_rule, args.points, study=args.study, seeds=args.seeds))
         elif args.command in ('run', 'match'):
             if args.command == 'match':
                 args.experiment = register(ROOT, args.players, args.games,

@@ -54,8 +54,20 @@ def summarize(matches, lineup):
             'wilson95': wilson(wins, total),
             'mean_points': sum(m['points'][seat] for m, seat in appearances) / total if total else None,
         })
+    contrast = None
+    if len(lineup) >= 2 and finished and all(m.get('seed') is not None for m in finished):
+        by_seed = {}
+        for m in finished:
+            by_seed.setdefault(m['seed'], []).append(m)
+        diffs = [sum((m['winner'] == m['slots'].index(0)) - (m['winner'] == m['slots'].index(1)) for m in games) / len(games)
+                 for games in by_seed.values()]
+        mean = sum(diffs) / len(diffs)
+        sd = math.sqrt(sum((d - mean) ** 2 for d in diffs) / max(1, len(diffs) - 1))
+        se = sd / math.sqrt(len(diffs))
+        contrast = {'slots': [0, 1], 'seeds': len(diffs), 'mean_win_difference': mean, 'standard_error': se,
+                    'interval95': [mean - 1.96 * se, mean + 1.96 * se]}
     return {
-        'attempted': len(matches), 'completed': len(finished),
+        'attempted': len(matches), 'completed': len(finished), 'paired_contrast': contrast,
         'incomplete': len(matches) - len(finished),
         'mean_turns': sum(m['turns'] for m in finished) / len(finished) if finished else None,
         'players': rows,

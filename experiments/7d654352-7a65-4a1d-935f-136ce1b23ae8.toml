@@ -1,0 +1,12 @@
+id = "7d654352-7a65-4a1d-935f-136ce1b23ae8"
+study = "log/engine-arena"
+hypothesis = "Protocol smoke of deterministic mode: on each seed, every rotation sees the same dice by roll index; no strength claim."
+decision_rule = "All 8 games complete; for each seed the sequence of rolled totals by index is identical across the four rotations over the shorter of any two games."
+players = ["fast", "eta", "fast", "eta"]
+games = 8
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000
+seeds = "0-1"
+deterministic = true

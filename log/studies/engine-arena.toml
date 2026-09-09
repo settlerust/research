@@ -1,12 +1,12 @@
 id = "log/engine-arena"
 title = "Engine arena: paired-seed offline tournaments"
 created = "2026-09-08"
-updated = "2026-09-08"
+updated = "2026-09-09"
 status = "active"
 question = "Can an offline engine arena with redacted observations and paired seeds rank policies quickly enough to guide development before protocol confirmation?"
-outcome = "The engine arena reproduces the protocol arena ordering: ETA beats fast on 128 paired boards, and the frozen reference loses to both builders."
+outcome = "The engine arena reproduces the protocol ordering (ETA beats fast on 128 paired boards; the frozen reference loses to both). Deterministic mode now gives both tiers seed-indexed dice, theft, and deck tapes; a protocol smoke confirmed identical rolls across rotations."
 next_step = "Use the arena for development sweeps and structure measurements; confirm any frozen candidate with a fresh protocol cohort."
 attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
 reports = ["reports/engine-arena-calibration.mdx"]
-logs = ["log/2026-09-08.mdx"]
+logs = ["log/2026-09-08.mdx", "log/2026-09-09.mdx"]
 legacy_experiments = []

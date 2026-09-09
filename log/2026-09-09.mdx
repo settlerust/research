@@ -61,3 +61,23 @@ The design package gained interval and bar plots, a decision-trace exhibit, and
 three animated search figures; the notebook validators accept them.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+## Deterministic mode
+
+The engine gained a deterministic setting: the k-th roll, k-th theft, and k-th
+development draw are read from seed-derived tapes indexed by count, so two
+policies on one seed face the same luck in the same order whatever they do in
+between. Ordinary games keep the shared stream, and the board and opening seat
+are the same in both modes for a seed. An agent-only research table may pin its
+seed index at creation; seats never receive it. Both harness tiers register
+deterministic paired cohorts: `just engine-register --deterministic` and
+`just register --seeds A-B`, whose records report a paired seed contrast.
+
+Protocol smoke `7d654352-7a65-4a1d-935f-136ce1b23ae8` checked the tape through
+the server. Its first run, `f3b1fe74-aef9-46d0-8e35-54b9ee6695a9`, is invalid:
+every game was rejected at creation because the running server binary predated
+the setting. After rebuilding and restarting, run
+`3d50d380-0b87-42c3-82d5-d30666933fe6` completed all 8 games, and on each seed
+all four rotations rolled the same totals by index over their shared 68 and 66
+rolls. These are plumbing checks, not strength evidence.
+

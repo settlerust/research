@@ -110,7 +110,7 @@ Evidence comes from two arenas, and every result names its tier.
 | Tier | Where games are played | Randomness | Use |
 | --- | --- | --- | --- |
 | Engine arena | Offline, in the server's `crates/arena` process; seats receive `observe()` and participant events only | Explicit seeds; every seed is played once per lineup rotation, so lineups are compared on identical boards | Development, tuning sweeps, tree-structure measurements, and screening comparisons |
-| Protocol arena | Independent processes against the authoritative HTTP server | Server-generated and hidden; unpaired | Confirmation of a frozen candidate, protocol compatibility, latency under transport |
+| Protocol arena | Independent processes against the authoritative HTTP server | Server-generated and hidden by default; a deterministic research table may pin a seed index, still hidden from seats | Confirmation of a frozen candidate, protocol compatibility, latency under transport |
 
 Engine-arena runs register with `just engine-register --study OWNER/SLUG --seats ... --seeds A-B`
 and execute with `just engine-run EXPERIMENT`. Their run records say "Tier: engine
@@ -130,11 +130,17 @@ independent games. Run `N` games in multiples of the player count for equal seat
 exposure. Match `i` rotates slot assignments by `i` seats. The server independently
 chooses the opening player and game randomness.
 
-The current public API does not accept a seed. Record game IDs, rules, source and
-binary hashes, and the public event history. These support auditing the recorded
-game; rerunning the same lineup does not reproduce its random stream. Describe
-comparisons as **unpaired**. Paired-seed evaluation needs a separately designed
-server/offline interface that still hides randomness from policies.
+By default the server draws its own seed and every random event advances one
+shared stream, so rerunning a lineup does not reproduce its luck and such
+comparisons are **unpaired**. Deterministic mode changes that: with
+`settings.deterministic` the k-th roll, k-th theft, and k-th development draw are
+read from seed-derived tapes indexed by count, and an agent-only research table
+may pin its seed index at creation. Register such a cohort with
+`just register --seeds A-B`; each seed is then played once per lineup rotation,
+the run record reports the paired seed contrast, and seats still never receive
+the seed or the tape. Ordinary and browser games keep the shared stream. Record
+game IDs, rules, source and binary hashes, and the public event history in both
+modes.
 
 ### Before a run
 

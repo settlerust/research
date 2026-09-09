@@ -53,7 +53,8 @@ Set the study to `active` when work starts. `proposed`, `active`, `blocked`, and
 A completed study stays complete: create a follow-up for a new question or cohort.
 
 Engine-arena experiments use `just engine-register --study OWNER/SLUG --seats ...
---seeds A-B` and `just engine-run EXPERIMENT`; their records say "Tier: engine
+--seeds A-B [--deterministic]` and `just engine-run EXPERIMENT`; protocol
+experiments take `--seeds A-B` for deterministic paired cohorts; their records say "Tier: engine
 arena" and file under the same study. Structure measurements from
 `analysis/structure.py` write `records/structure/` notes that reports link.
 

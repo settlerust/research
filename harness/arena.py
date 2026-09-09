@@ -81,12 +81,12 @@ class PolicyProcess:
         self.log.close()
 
 
-def match(root, run_dir, index, slots, plan, registry, topology):
+def match(root, run_dir, index, slots, plan, registry, topology, seed=None):
     folder = run_dir / f'match-{index:04d}'
     folder.mkdir()
     private = folder / 'private'
     private.mkdir(mode=0o700)
-    result = {'index': index, 'slots': slots, 'status': 'running', 'started_at': now(),
+    result = {'index': index, 'slots': slots, 'seed': seed, 'status': 'running', 'started_at': now(),
               'game_id': None, 'winner': None, 'points': [], 'turns': 0,
               'event_counts': {}, 'history_complete': False, 'policy_decisions': 0,
               'decision_seconds': 0., 'conflicts': 0}
@@ -127,10 +127,11 @@ def match(root, run_dir, index, slots, plan, registry, topology):
     try:
         host = Client.guest(plan['base'], 'Research observer')
         (private / 'host.jwt').write_text(host.token)
-        created = host.request('POST', '/v1/games', {
-            'name': f"{plan['run_id']} match {index}", 'settings': plan['settings'],
-            'host_as_player': False, 'research': True,
-        })
+        creation = {'name': f"{plan['run_id']} match {index}", 'settings': plan['settings'],
+                    'host_as_player': False, 'research': True}
+        if seed is not None:
+            creation['seed'] = seed
+        created = host.request('POST', '/v1/games', creation)
         result['game_id'] = created['id']
         write_json(folder / 'result.json', result)
         for seat, slot in enumerate(slots):
@@ -274,6 +275,12 @@ def schedule(root, run_dir, args, players, plan, registry, topology, results):
     at once; a failure stops new matches while in-flight games finish and are retained."""
     parallel = max(1, int(getattr(args, 'parallel', 1) or 1))
     count = len(players)
+    seeds = plan.get('seeds')
+
+    def schedule_entry(index):
+        if seeds:
+            return [(seat + index % count) % count for seat in range(count)], seeds[index // count]
+        return [(seat + index) % count for seat in range(count)], None
 
     def announce(result):
         results.append(result)
@@ -283,8 +290,8 @@ def schedule(root, run_dir, args, players, plan, registry, topology, results):
 
     if parallel == 1:
         for index in range(args.games):
-            slots = [(seat + index) % count for seat in range(count)]
-            announce(match(root, run_dir, index, slots, plan, registry, topology))
+            slots, seed = schedule_entry(index)
+            announce(match(root, run_dir, index, slots, plan, registry, topology, seed))
             if results[-1]['status'] != 'completed':
                 return results[-1]['status']  # Investigate failure before spending the remaining budget.
         return 'completed'
@@ -295,8 +302,8 @@ def schedule(root, run_dir, args, players, plan, registry, topology, results):
     with ThreadPoolExecutor(max_workers=parallel) as pool:
         while (index < args.games and status == 'completed') or futures:
             while index < args.games and status == 'completed' and len(futures) < parallel:
-                slots = [(seat + index) % count for seat in range(count)]
-                futures[pool.submit(match, root, run_dir, index, slots, plan, registry, topology)] = index
+                slots, seed = schedule_entry(index)
+                futures[pool.submit(match, root, run_dir, index, slots, plan, registry, topology, seed)] = index
                 index += 1
             done, _ = wait(list(futures), return_when=FIRST_COMPLETED)
             for future in done:
@@ -330,10 +337,14 @@ def run(root, args):
             'experiment_sha256': digest(protocol_path), 'players': players,
             'base': args.base, 'server': str(server), 'games': args.games,
             'settings': {'players': len(players), 'points_to_win': experiment['points_to_win'],
-                         'discard_limit': 7, 'turn_seconds': 120},
+                         'discard_limit': 7, 'turn_seconds': 120,
+                         **({'deterministic': True} if experiment.get('deterministic') else {})},
+            'seeds': (list(range(int(experiment['seeds'].split('-')[0]), int(experiment['seeds'].split('-')[1]) + 1))
+                      if experiment.get('seeds') else None),
             'match_seconds': experiment['match_seconds'], 'decision_seconds': experiment['decision_seconds'],
             'max_turns': experiment['max_turns'], 'max_decisions': 30000,
-            'seed_policy': 'server-generated; unpaired; no seed exposed to policies',
+            'seed_policy': ('host-pinned deterministic tapes; every seed played once per lineup rotation; no seed exposed to policies'
+                            if experiment.get('seeds') else 'server-generated; unpaired; no seed exposed to policies'),
             'research_git': git_state(root), 'server_git': git_state(server),
             'source_sha256': {str(p.relative_to(root)): digest(p) for p in sorted(source_paths)},
             'runtime': {'python': sys.version, 'platform': sys.platform},

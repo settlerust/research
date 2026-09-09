@@ -19,7 +19,7 @@ ROOT = Path(os.environ.get('SETTLERS_RESEARCH_DIR', Path(__file__).resolve().par
 SEAT = r'(fast|eta|legal|v1|v2)(:\{.*\})?'
 
 
-def register(root, seats, seeds, hypothesis, decision_rule, *, study, points=10, rotations=None, max_turns=500):
+def register(root, seats, seeds, hypothesis, decision_rule, *, study, points=10, rotations=None, max_turns=500, deterministic=False):
     require_study(root, study)
     if not 2 <= len(seats) <= 4 or any(not re.fullmatch(SEAT, s) for s in seats):
         raise ValueError('Use 2–4 engine seats: fast, eta, legal, v1, v2, or v1:{json}/v2:{json}')
@@ -40,6 +40,7 @@ def register(root, seats, seeds, hypothesis, decision_rule, *, study, points=10,
         f'hypothesis = {json.dumps(hypothesis)}\ndecision_rule = {json.dumps(decision_rule)}\n'
         f'players = {json.dumps(seats)}\nseeds = {json.dumps(seeds)}\nrotations = {rotations}\n'
         f'games = {(last - first + 1) * rotations}\npoints_to_win = {points}\nmax_turns = {max_turns}\n'
+        f'deterministic = {"true" if deterministic else "false"}\n'
     )
     return identifier
 
@@ -121,6 +122,7 @@ def run(root, experiment_id, server, threads=None):
             'experiment_sha256': digest(protocol), 'seats': experiment['players'], 'seeds': experiment['seeds'],
             'rotations': experiment['rotations'], 'games': experiment['games'], 'points_to_win': experiment['points_to_win'],
             'max_turns': experiment['max_turns'], 'threads': threads, 'server': str(server),
+            'deterministic': bool(experiment.get('deterministic')),
             'tournament_sha256': digest(binary), 'research_git': git_state(root), 'server_git': git_state(server),
             'seed_policy': 'explicit engine seeds; every seed played once per lineup rotation; policies never see seeds',
             'runtime': {'python': sys.version, 'platform': sys.platform}}
@@ -131,6 +133,8 @@ def run(root, experiment_id, server, threads=None):
                '--max-turns', str(experiment['max_turns']), '--out', str(folder / 'games.jsonl')]
     for seat in experiment['players']:
         command += ['--seat', seat]
+    if experiment.get('deterministic'):
+        command.append('--deterministic')
     print(f'run_id={run_id}', flush=True)
     status = 'completed'
     try:
@@ -159,8 +163,9 @@ def run(root, experiment_id, server, threads=None):
     contrast_text = (f"Paired contrast slot 0 minus slot 1: {contrast['mean_win_difference']:+.3f} wins per game over "
                      f"{contrast['seeds']} seeds (95% interval {contrast['interval95'][0]:+.3f} to {contrast['interval95'][1]:+.3f}).\n\n"
                      if contrast else '')
+    mode = 'deterministic tapes' if experiment.get('deterministic') else 'paired boards, shared stream'
     (records / f'{run_id}.md').write_text(
-        f'# Run {run_id}\n\nStatus: **{status}**. Experiment: `{experiment_id}`. Tier: engine arena (paired seeds).\n\n'
+        f'# Run {run_id}\n\nStatus: **{status}**. Experiment: `{experiment_id}`. Tier: engine arena (paired seeds, {mode}).\n\n'
         f"Planned: {experiment['games']}. Attempted: {summary['attempted']}. Completed: {summary['completed']}. "
         f"Incomplete: {summary['incomplete']}. Unplayed: {summary['unplayed']}.\n\n" + table(summary) + '\n\n' + contrast_text
         + f"Manifest SHA-256: `{digest(folder / 'manifest.json')}`. Inventory SHA-256: `{digest(folder / 'inventory.json')}`.\n\n"
@@ -186,6 +191,7 @@ def main():
     reg.add_argument('--hypothesis', required=True)
     reg.add_argument('--decision-rule', required=True)
     reg.add_argument('--study', required=True)
+    reg.add_argument('--deterministic', action='store_true', help='Deterministic mode: seed-indexed dice, theft, and deck tapes')
     runner = commands.add_parser('run')
     runner.add_argument('experiment')
     runner.add_argument('--threads', type=int)
@@ -193,7 +199,8 @@ def main():
     try:
         if args.command == 'register':
             print(register(ROOT, args.seats, args.seeds, args.hypothesis, args.decision_rule, study=args.study,
-                           points=args.points, rotations=args.rotations, max_turns=args.max_turns))
+                           points=args.points, rotations=args.rotations, max_turns=args.max_turns,
+                           deterministic=args.deterministic))
         else:
             return run(ROOT, args.experiment, args.server, args.threads)
     except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
