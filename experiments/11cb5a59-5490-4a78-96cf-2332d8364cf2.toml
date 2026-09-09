@@ -1,0 +1,11 @@
+id = "11cb5a59-5490-4a78-96cf-2332d8364cf2"
+study = "search/expectimax-v2"
+arena = "engine"
+hypothesis = "After the turn-planning fix, depth 3 under a 1.5 s budget wins more often than the ETA builder on identical boards (development cohort), and at least as often as depth 2."
+decision_rule = "All 256 games complete. Primary contrast: v2 slot minus ETA slot wins per seed with a 95% seed interval; support only if it excludes zero. Compare with the depth-2 cohort descriptively. Development tier."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500

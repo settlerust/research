@@ -44,3 +44,8 @@ description = "Tunable expectimax-v2 at its default configuration (server crates
 transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":8,\"scenarios\":16,\"inner_scenarios\":4,\"beam\":4,\"afterstates\":96}}", "{token_file}", "{name}"]
 description = "expectimax-v2 candidate: depth 3, 1.5 s budget, 16 scenarios, 8 sampled worlds (frozen 2026-09-08); braces are doubled for the harness placeholder syntax"
+
+[expectimax-v2-plan]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}}", "{token_file}", "{name}"]
+description = "expectimax-v2 after the turn-planning fix: depth 3, 1.5 s budget, 8 scenarios, 4 sampled worlds (frozen 2026-09-09); braces are doubled for the harness placeholder syntax"

@@ -42,5 +42,11 @@ contrast +0.098, 95% interval +0.005 to +0.190). See the
 [development report](../reports/expectimax-v2-development.mdx). The frozen
 depth-3 candidate then won 38.8% of an 80-game protocol cohort against the
 compared ETA slot's 31.2%, short of its registered rule, so the protocol-arena
-baseline remains ETA and the candidate's advantage is not confirmed.
+baseline remains ETA and that candidate's advantage is not confirmed.
+
+Those cohorts ran with a turn-planning defect. After the
+[correction](../reports/expectimax-v2-corrected.mdx), depth 2 wins 50.4% of 256
+paired slot-games against ETA's 20.3% (paired contrast +0.301, interval +0.190
+to +0.412), still engine-arena evidence. A corrected candidate is registered for
+a fresh protocol cohort; until it completes, the protocol baseline remains ETA.
 

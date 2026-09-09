@@ -1,0 +1,11 @@
+id = "8d5b24cd-e6ed-4a04-87c8-c1d0db7b747c"
+study = "search/expectimax-v2"
+arena = "engine"
+hypothesis = "After the turn-planning fix, expectimax-v2 at depth 2 wins more often than the frozen reference expectimax-v1 on identical boards, in a table that also seats an ETA and a fast builder (development cohort)."
+decision_rule = "All 256 games complete. Primary contrast: v2 slot minus v1 slot wins per seed; support only if the 95% seed interval excludes zero. Development tier."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "v1", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500

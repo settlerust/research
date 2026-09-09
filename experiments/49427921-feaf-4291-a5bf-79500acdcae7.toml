@@ -1,0 +1,10 @@
+id = "49427921-feaf-4291-a5bf-79500acdcae7"
+study = "search/expectimax-v2"
+hypothesis = "The corrected expectimax-v2 candidate (depth 3, 1.5 s budget, 8 scenarios, 4 sampled worlds) wins more often than the ETA builder through the authoritative protocol arena, in a four-player table with two ETA builders and one fast builder."
+decision_rule = "All 80 games must complete validly with no server timeout moves. Primary contrast: candidate slot win rate minus ETA slot 1 win rate; support the hypothesis only if the candidate wins at least 10 percentage points more and a one-sided exact conditional binomial test among wins by those two slots rejects equality at p <= 0.05. Otherwise report inconclusive or negative; never extend or refill this cohort."
+players = ["expectimax-v2-plan", "eta", "fast", "eta"]
+games = 80
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000

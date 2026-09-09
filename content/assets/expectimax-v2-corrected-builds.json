@@ -1,0 +1,116 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "bar",
+  "title": "What each policy built per game",
+  "evidence": "measured",
+  "source": "Engine-arena run a0c91849-4abf-4f1c-9de1-6255e1ef73e6; per-game means over 256 completed games per slot.",
+  "caption": "Per-game means over 256 completed games per slot; the corrected search builds like ETA and trades with players more often.",
+  "x": {
+    "label": "Action",
+    "min": 0,
+    "max": 5,
+    "ticks": [
+      "settlements",
+      "cities",
+      "roads",
+      "dev cards",
+      "player trades",
+      "bank trades"
+    ]
+  },
+  "y": {
+    "label": "Per game",
+    "min": 0,
+    "max": 7.0
+  },
+  "series": [
+    {
+      "label": "expectimax-v2 depth 2",
+      "points": [
+        {
+          "x": 0,
+          "y": 2.02
+        },
+        {
+          "x": 1,
+          "y": 2.06
+        },
+        {
+          "x": 2,
+          "y": 4.71
+        },
+        {
+          "x": 3,
+          "y": 2.76
+        },
+        {
+          "x": 4,
+          "y": 6.2
+        },
+        {
+          "x": 5,
+          "y": 4.27
+        }
+      ]
+    },
+    {
+      "label": "ETA builder",
+      "points": [
+        {
+          "x": 0,
+          "y": 2.31
+        },
+        {
+          "x": 1,
+          "y": 2.31
+        },
+        {
+          "x": 2,
+          "y": 4.75
+        },
+        {
+          "x": 3,
+          "y": 1.08
+        },
+        {
+          "x": 4,
+          "y": 5.3
+        },
+        {
+          "x": 5,
+          "y": 5.29
+        }
+      ]
+    },
+    {
+      "label": "fast builder",
+      "points": [
+        {
+          "x": 0,
+          "y": 1.46
+        },
+        {
+          "x": 1,
+          "y": 2.79
+        },
+        {
+          "x": 2,
+          "y": 3.11
+        },
+        {
+          "x": 3,
+          "y": 2.06
+        },
+        {
+          "x": 4,
+          "y": 5.34
+        },
+        {
+          "x": 5,
+          "y": 5.44
+        }
+      ]
+    }
+  ]
+}

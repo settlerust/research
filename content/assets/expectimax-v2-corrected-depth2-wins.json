@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Corrected search at depth 2 against the builders",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 2 (slot 0)",
+      "value": 0.50390625,
+      "low": 0.4430558870480185,
+      "high": 0.5646411140736544,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 1)",
+      "value": 0.203125,
+      "low": 0.15839924133131683,
+      "high": 0.25662867342154433,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 2)",
+      "value": 0.14453125,
+      "low": 0.10671067600593546,
+      "high": 0.1928622219218325,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 3)",
+      "value": 0.1484375,
+      "low": 0.1100947469586396,
+      "high": 0.19717515209080125,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games: 64 seeds, each played once per rotation; decisions averaged 87 ms. Run a0c91849-4abf-4f1c-9de1-6255e1ef73e6: 256 of 256 planned games completed; engine arena, paired seeds."
+}
