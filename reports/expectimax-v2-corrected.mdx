@@ -82,8 +82,9 @@ Registered experiments `d5eb6354-2b59-4ca4-8ab0-fefee3690cb3` (run
 seat the search against `eta`, `fast`, `eta`; experiment
 `8d5b24cd-e6ed-4a04-87c8-c1d0db7b747c` (run
 `436f4740-c7a5-48f2-9e35-9f1ce92c3af5`) seats depth 2 against `v1`, `eta`,
-`fast`. All `v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}` against
-`eta`, `fast`, `eta` on seeds 0 to 63 with all four rotations. The paired
+`fast`. The depth-2 configuration is
+`v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}`; every cohort
+uses seeds 0 to 63 with all four rotations. The paired
 contrast is the per-seed mean of slot-0 minus slot-1 wins with a
 normal-approximation interval over 64 seeds. Reproduce with
 `just engine-run EXPERIMENT` after `just build-arena`; the manifest records the
