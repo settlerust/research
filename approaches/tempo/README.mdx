@@ -1,0 +1,47 @@
+---
+title: Build tempo
+summary: "Which next build converts your current resources into progress fastest?"
+status: proposal
+evidence: none
+---
+
+# Build tempo
+
+Which next build converts your current resources into progress fastest?
+
+<StrategyFigure approach="tempo" />
+
+A first, narrower [exchange-aware ETA experiment](../../reports/liquidity-baseline.mdx)
+is now complete: 80 valid games, with no established improvement over ETA.
+The broader study below remains a proposal.
+
+
+## The decision at the table
+
+A city can have a higher long-run return while a settlement can arrive sooner and secure scarce space. A road may spend the exact cards needed for that settlement. Counting resources and dividing by average income misses these competing uses.
+
+## The mechanism to test
+
+Estimate a distribution of times to afford each useful build from the current hand, production, bank exchanges, and plausible trades. Compare short sequences, including what becomes possible after the first build. Expected time to afford is different from expected resources divided by production: arrivals are discrete, joint, and interrupted by robber events.
+
+## Proposed experiment
+
+Compare a fixed build priority with the existing ETA baseline, then ETA plus an explicit opportunity cost for spending bottleneck cards. Freeze opening placement and trade behavior. Hypothesis: bottleneck-aware sequencing reduces time to meaningful builds and improves win rate.
+
+Plot build-time distributions and the share of turns waiting for each missing resource. Retain unfinished games alongside the completion denominator. Before a build occurs, its waiting time is censored, not zero. Use event-aligned trajectories to show exactly where a plan stalled.
+
+## What could disprove it
+
+Faster first builds may mortgage the endgame. Test wins as the primary endpoint; turns to first city is a mechanism diagnostic. Cheap roads that lead nowhere should not count as equivalent progress.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. This full proposal has no run; the linked narrower ablation has its own retained run.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+The existing `eta` opponent is runnable; this extension is a proposal. See [protocol inputs](../../docs/protocol.md).
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

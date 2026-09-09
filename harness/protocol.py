@@ -68,4 +68,15 @@ def public_frame(view):
         return None
     if game.get('own') is not None or game.get('seat') is not None or game.get('legal_actions'):
         raise ValueError('Replay capture requires a spectator view')
-    return {'version': view['version'], 'game': game}
+    # Keep the public roster with every position. Do not retain is_you, identity
+    # subjects, host credentials, or research-only hands from the enclosing view.
+    members = [{key: member[key] for key in ('seat', 'name', 'connected', 'ready') if key in member}
+               for member in view.get('members', []) if member.get('seat') is not None]
+    return {'version': view['version'], 'game': game, 'members': members}
+
+
+def public_batch(batch):
+    """Research spectators see extras; the public tape keeps ordinary spectator scope."""
+    return {**batch, 'events': [event for event in batch['events']
+            if event['type'] != 'theft_details'
+            and not (event['type'] == 'message' and event.get('to') is not None)]}

@@ -1,0 +1,13 @@
+# Ownership for existing immutable protocols; new registrations carry their own study field.
+id = "log/protocol-smoke"
+title = "Protocol and replay validation"
+created = "2026-09-07"
+updated = "2026-09-08"
+status = "active"
+question = "Can independent policies complete authoritative games while retaining auditable, public-safe evidence?"
+outcome = "The harness completes normal games with Rust and Python policies. Smoke results establish plumbing, not policy strength."
+next_step = "Repeat a bounded smoke after protocol changes and retain every failed or interrupted attempt."
+attribution = "Codex; exact model identifier unknown"
+reports = ["reports/baseline-smoke.mdx"]
+logs = ["log/2026-09-08.mdx"]
+legacy_experiments = ["46b1745f-4f12-4d84-a537-c90128c8a9fc", "480367c5-a637-44e0-91af-1669c957465c", "5f5d7949-8306-4a5f-af2f-989bba1973d4", "ed0a3331-5cdc-4415-8423-8b5f81c78cf3"]

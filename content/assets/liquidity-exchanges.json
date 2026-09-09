@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "evidence": "measured",
+  "title": "Did exchange planning change bank use?",
+  "source": "Run de39917c-55da-40ad-a53a-5b8588898810; verified inventory SHA-256 063a024a2f341520bdf1188904b7ddc66a23836087fb7a14abef06c976ab6046. analysis/liquidity.py SHA-256 f22fc5d15a3c27cd6e0de0e4c17ff51506159974bbfca5775061f25a95d47898.",
+  "caption": "Fraction of 80 games with at most the indicated number of bank/port exchanges. Higher curves mean fewer exchanges. Values are exact empirical proportions at integer thresholds; connecting segments are guides. More trading alone is not evidence of stronger play.",
+  "x": {
+    "label": "Bank/port exchanges per game",
+    "min": 0,
+    "max": 16
+  },
+  "y": {
+    "label": "Fraction of completed games",
+    "min": 0,
+    "max": 1
+  },
+  "series": [
+    {
+      "label": "Liquidity",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.0125
+        },
+        {
+          "x": 1,
+          "y": 0.05
+        },
+        {
+          "x": 2,
+          "y": 0.1625
+        },
+        {
+          "x": 3,
+          "y": 0.2375
+        },
+        {
+          "x": 4,
+          "y": 0.35
+        },
+        {
+          "x": 5,
+          "y": 0.4625
+        },
+        {
+          "x": 6,
+          "y": 0.525
+        },
+        {
+          "x": 7,
+          "y": 0.625
+        },
+        {
+          "x": 8,
+          "y": 0.75
+        },
+        {
+          "x": 9,
+          "y": 0.8
+        },
+        {
+          "x": 10,
+          "y": 0.875
+        },
+        {
+          "x": 11,
+          "y": 0.925
+        },
+        {
+          "x": 12,
+          "y": 0.9625
+        },
+        {
+          "x": 13,
+          "y": 0.975
+        },
+        {
+          "x": 14,
+          "y": 0.975
+        },
+        {
+          "x": 15,
+          "y": 0.975
+        },
+        {
+          "x": 16,
+          "y": 1.0
+        }
+      ]
+    },
+    {
+      "label": "ETA control",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.0125
+        },
+        {
+          "x": 1,
+          "y": 0.0375
+        },
+        {
+          "x": 2,
+          "y": 0.1375
+        },
+        {
+          "x": 3,
+          "y": 0.2125
+        },
+        {
+          "x": 4,
+          "y": 0.35
+        },
+        {
+          "x": 5,
+          "y": 0.475
+        },
+        {
+          "x": 6,
+          "y": 0.625
+        },
+        {
+          "x": 7,
+          "y": 0.7
+        },
+        {
+          "x": 8,
+          "y": 0.8125
+        },
+        {
+          "x": 9,
+          "y": 0.9375
+        },
+        {
+          "x": 10,
+          "y": 0.95
+        },
+        {
+          "x": 11,
+          "y": 0.9625
+        },
+        {
+          "x": 12,
+          "y": 0.9625
+        },
+        {
+          "x": 13,
+          "y": 0.9875
+        },
+        {
+          "x": 14,
+          "y": 0.9875
+        },
+        {
+          "x": 15,
+          "y": 0.9875
+        },
+        {
+          "x": 16,
+          "y": 1.0
+        }
+      ]
+    }
+  ]
+}

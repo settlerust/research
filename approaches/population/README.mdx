@@ -1,0 +1,42 @@
+---
+title: Population and self-play
+summary: "Does an approach remain strong when the table stops resembling its training partners?"
+status: proposal
+evidence: none
+---
+
+# Population and self-play
+
+Does an approach remain strong when the table stops resembling its training partners?
+
+<StrategyFigure approach="population" />
+
+## The decision at the table
+
+A player can beat one style and lose to another. If those relationships form a cycle, one average win rate hides the structure. Four-player outcomes also depend on combinations of opponents, not just isolated pairs.
+
+## The mechanism to test
+
+Train against diverse frozen opponents, keep a pool of earlier policies, and evaluate on withheld mixtures. Use a cross-play matrix to detect specialization, then whole-table tests to expose coalition effects. A robust player balances average performance with vulnerability to its worst matchups.
+
+## Proposed experiment
+
+Compare training against a fixed baseline, self-play against only the latest policy, and a frozen population mixture under the same training budget. Hypothesis: the population-trained policy transfers better to withheld tables. Freeze the checkpoint and evaluation mix before the final cohort.
+
+Show a matchup heatmap with game counts and uncertainty linked from every measured cell. Report mean and worst-family outcomes, completion, compute budget, and training/evaluation separation. In four-player studies, a cell identifies a full lineup, not an unspecified opponent.
+
+## What could disprove it
+
+A finite test pool cannot establish unexploitable play or a Nash equilibrium. Repeatedly tuning against a published matrix turns the test set into training data. Leave a fresh final cohort and record negative transfer.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+[CICERO](https://ai.meta.com/research/cicero/) is an example of combining language and strategic planning in Diplomacy. It is an architectural reference, not evidence that these methods transfer to Catan.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

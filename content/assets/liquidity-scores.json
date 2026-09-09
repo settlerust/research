@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "heatmap",
+  "evidence": "measured",
+  "title": "How did the two policies finish in the same game?",
+  "source": "Run de39917c-55da-40ad-a53a-5b8588898810; verified inventory SHA-256 063a024a2f341520bdf1188904b7ddc66a23836087fb7a14abef06c976ab6046. analysis/liquidity.py SHA-256 f22fc5d15a3c27cd6e0de0e4c17ff51506159974bbfca5775061f25a95d47898.",
+  "caption": "80 complete games. Each cell counts games in the two final-score bands. Above the diagonal favors Liquidity; below favors ETA. Blank cells contain zero games. Score bands are descriptive; winning remains the primary outcome.",
+  "x": {
+    "label": "ETA control \u00b7 final points",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "2\u20134",
+      "5\u20136",
+      "7\u20138",
+      "9",
+      "10+"
+    ]
+  },
+  "y": {
+    "label": "Liquidity \u00b7 final points",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "2\u20134",
+      "5\u20136",
+      "7\u20138",
+      "9",
+      "10+"
+    ]
+  },
+  "color": {
+    "label": "number of games",
+    "min": 0,
+    "max": 12
+  },
+  "series": [
+    {
+      "label": "Games in each score combination",
+      "points": [
+        {
+          "x": 0,
+          "y": 1,
+          "value": 3
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "value": 1
+        },
+        {
+          "x": 0,
+          "y": 4,
+          "value": 1
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "value": 4
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "value": 6
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "value": 4
+        },
+        {
+          "x": 1,
+          "y": 3,
+          "value": 1
+        },
+        {
+          "x": 1,
+          "y": 4,
+          "value": 5
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "value": 4
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "value": 6
+        },
+        {
+          "x": 2,
+          "y": 3,
+          "value": 2
+        },
+        {
+          "x": 2,
+          "y": 4,
+          "value": 10
+        },
+        {
+          "x": 3,
+          "y": 1,
+          "value": 2
+        },
+        {
+          "x": 3,
+          "y": 2,
+          "value": 1
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "value": 4
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "value": 3
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "value": 8
+        },
+        {
+          "x": 4,
+          "y": 2,
+          "value": 12
+        },
+        {
+          "x": 4,
+          "y": 3,
+          "value": 3
+        }
+      ]
+    }
+  ]
+}

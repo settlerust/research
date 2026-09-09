@@ -1,0 +1,9 @@
+id = "c2081a7f-b499-4388-9e8a-c4cd9b3c3f5b"
+hypothesis = "Check protocol plumbing for this lineup; no strength claim."
+decision_rule = "Every game completes without invalid actions or server timeout moves."
+players = ["liquidity", "eta-control", "fast-control", "fast-control"]
+games = 4
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000

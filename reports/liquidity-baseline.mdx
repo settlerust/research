@@ -1,0 +1,89 @@
+---
+date: "2026-09-08"
+title: "Can exchange-aware planning beat ETA?"
+summary: "A frozen 80-game ablation: 25% versus 32.5%. Keep ETA as the baseline."
+---
+
+# Can exchange-aware planning beat ETA?
+
+<ResearchCallout title="First finding · keep ETA as the baseline">
+Liquidity won **20/80 games (25%)**. ETA won **26/80 (32.5%)**.
+The observed difference was **−7.5 percentage points**. The preregistered
+improvement rule failed; this experiment does not establish that either policy
+is inherently stronger.
+</ResearchCallout>
+
+**80 planned · 80 attempted · 80 valid completions · 0 incomplete · 0 unplayed.**
+Four players, ten points, balanced seat rotation. Earlier smoke and failed runs
+are kept in a [separate audit trail](liquidity-audit.md).
+
+<ResearchChart asset="liquidity-baseline-wins" />
+
+## One change: count what surplus can buy
+
+ETA estimates how long direct production takes to fund a build. Liquidity also
+counts whole bank and owned-port exchange bundles, after reserving the target's
+cards. The other strategic rules stay shared.
+
+For example, twelve surplus lumber can become three ore at 4:1, if the bank can
+supply them. Waiting for ore production is not the only route to a city.
+[Official trade rules](https://www.catan.com/sites/default/files/2021-06/catan_base_rules_2020_200707.pdf).
+
+<StrategyFigure approach="ports" />
+
+This study tests the conversion part of that idea. It does not test port acquisition,
+reputation, deception, or expectimax.
+
+## A different spending pattern did not produce more wins
+
+Liquidity averaged **6.34 exchanges** per game; ETA averaged **5.86**.
+It also discarded **10.16 cards** versus **8.71**. These descriptive differences
+suggest a diagnosis to investigate, not a demonstrated cause of the result.
+
+<ResearchPlot asset="liquidity-exchanges" />
+
+## Final scores tell a similarly mixed story
+
+Liquidity finished ahead of ETA in **35 games**, behind in **39**, and tied in
+**6**, using exact final points. The grid groups those scores into readable bands.
+
+<ResearchPlot asset="liquidity-scores" />
+
+## Watch the preselected example
+
+The first scheduled game ended on turn **68**. Fast opponent B won; Liquidity
+finished with **7 points** and ETA with **8**. The replay was selected by schedule,
+not because it supports the conclusion.
+
+<GameReplay asset="liquidity-baseline-game" />
+
+**Next test:** record the target and alternatives at each decision, then compare
+mean-income planning with a discard-aware estimate. The present data cannot tell
+us which particular target changes helped or hurt.
+
+[Statistics and reproduction](liquidity-statistics.md) ·
+[Failure ledger](liquidity-audit.md) ·
+[Reusable report structure and missing components](../docs/research-report-template.mdx)
+
+<AgentContext>
+The promotion rule required at least +10 percentage points and a one-sided exact
+conditional test at p ≤ 0.05. Observed p = 0.849. An exploratory whole-game
+bootstrap gives a 95% interval of −23.75 to +8.75 percentage points; it was not the
+preregistered decision test. Per-policy Wilson intervals appear in the chart.
+
+The lineup was one Liquidity, one ETA control and two Fast controls. All used the
+same Rust runner and a shared limit of 16 trade-offer attempts per game; acceptance
+remained available. Each received only its own participant view. No language model
+made game decisions. This is a heuristic ablation on one opponent population.
+
+The estimator uses deterministic mean production plus the baseline's 0.025
+smoothing. It ignores robber blocking, production variance, discards and future
+bank shortages. The server alone checks actual legality and determines outcomes.
+Native decision latency is unavailable in harness measurements; zero in the
+legacy counter is not zero computation. Timing is not a throughput result.
+
+The frozen evaluation is `d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e` and the run is
+`de39917c-55da-40ad-a53a-5b8588898810`. Sources and binary hashes match the final
+four-game smoke. Verified archives are local; no external publication or backup
+is claimed. Attribution: Codex; exact model identifier unknown.
+</AgentContext>

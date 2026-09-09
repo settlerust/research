@@ -3,7 +3,9 @@ name: settlers-experiment
 description: Register, implement, and run headless Settlers policy experiments with durable evidence. Use for strategy research or protocol policy comparisons in this repository.
 ---
 
-Read `docs/status.md`, `docs/methodology.md`, and the relevant approach before
+Use `settlers-research-workflow` to choose the owning study and keep all work
+inside the canonical research directory. Read `docs/status.md`,
+`docs/experiment-program.md`, and the relevant approach before
 choosing an experiment. Read `docs/protocol.md` when adding a policy.
 
 Use `just policies` to inspect opponents and `just doctor` to check the server.
@@ -13,10 +15,11 @@ foreground with research-owned local storage. An existing remote endpoint can
 be selected with `SETTLERS_SERVER_URL`.
 
 Register the hypothesis and decision rule using `python3 -m harness.cli register`
-with `--players`, `--games`, `--hypothesis`, and `--decision-rule`. Use a game count
+with `--study OWNER/SLUG`, `--players`, `--games`, `--hypothesis`, and `--decision-rule`. Use a game count
 divisible by the player count for balanced seat exposure. Edit budgets only
 before first execution. `just run EXPERIMENT_ID` uses that immutable protocol.
-For an implementation smoke check use `just match fast eta legal-first eta`.
+For a candidate smoke check use `just match fast eta legal-first eta --study OWNER/SLUG`.
+Plain `just match` files protocol-only smoke work in `log/protocol-smoke`.
 
 Implement strategies under `policies/` and register an argv array in
 `policies/registry.toml`. Stdio processes receive their own complete observation,
@@ -37,3 +40,7 @@ bundle without credentials. Preserve a truthful receipt: local copies are not
 remote backups. Append the daily log after interpreting evidence, including
 negative results and actual contributor attribution. For reports and exhibits,
 use the sibling `settlers-publishing` skill.
+
+After interpretation, update the owning study and its daily-log/report references,
+then run `just notebook`. Keep failed attempts in those references. A retained
+run without a filed interpretation will fail the notebook check.

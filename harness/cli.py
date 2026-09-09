@@ -11,12 +11,14 @@ import uuid
 from .arena import run
 from .protocol import Client
 from .publish import archive, exhibit
+from .notebook import canonical_root, require_study
 
 DEFAULT_ROOT = Path.cwd() if (Path.cwd() / 'policies/registry.toml').is_file() else Path(__file__).resolve().parents[1]
 ROOT = Path(os.environ.get('SETTLERS_RESEARCH_DIR', DEFAULT_ROOT)).resolve()
 
 
-def register(root, players, games, hypothesis, decision_rule, points=10):
+def register(root, players, games, hypothesis, decision_rule, points=10, *, study):
+    require_study(root, study)
     registry = tomllib.loads((root / 'policies/registry.toml').read_text())
     if not 2 <= len(players) <= 4 or any(p not in registry for p in players):
         raise ValueError('Choose 2–4 policies from the registry')
@@ -26,7 +28,7 @@ def register(root, players, games, hypothesis, decision_rule, points=10):
     folder = root / 'experiments'
     folder.mkdir(exist_ok=True)
     (folder / f'{identifier}.toml').write_text(
-        f'id = {json.dumps(identifier)}\nhypothesis = {json.dumps(hypothesis)}\n'
+        f'id = {json.dumps(identifier)}\nstudy = {json.dumps(study)}\nhypothesis = {json.dumps(hypothesis)}\n'
         f'decision_rule = {json.dumps(decision_rule)}\nplayers = {json.dumps(players)}\n'
         f'games = {games}\npoints_to_win = {points}\nmatch_seconds = 600\n'
         'decision_seconds = 5\nmax_turns = 3000\n'
@@ -37,7 +39,7 @@ def register(root, players, games, hypothesis, decision_rule, points=10):
 def main():
     parser = argparse.ArgumentParser(description='Headless Settlers research')
     parser.add_argument('--base', default=os.environ.get('SETTLERS_SERVER_URL', 'http://127.0.0.1:5555'))
-    parser.add_argument('--server', default=os.environ.get('SETTLERS_SERVER_DIR', str(ROOT.parent / 'server')))
+    parser.add_argument('--server', default=os.environ.get('SETTLERS_SERVER_DIR', str(canonical_root(ROOT).parent / 'server')))
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('policies')
     commands.add_parser('doctor')
@@ -49,12 +51,14 @@ def main():
     experiment.add_argument('--hypothesis', required=True)
     experiment.add_argument('--decision-rule', required=True)
     experiment.add_argument('--points', type=int, default=10)
+    experiment.add_argument('--study', required=True, help='Owning APPROACH/SLUG or log/SLUG investigation')
     runner = commands.add_parser('run')
     runner.add_argument('experiment')
     smoke = commands.add_parser('match')
     smoke.add_argument('players', nargs='*', default=['fast', 'eta', 'fast', 'eta'])
     smoke.add_argument('--games', type=int, default=4)
     smoke.add_argument('--points', type=int, default=10)
+    smoke.add_argument('--study', default='log/protocol-smoke', help='Owning study; defaults to the cross-cutting protocol log')
     archiver = commands.add_parser('archive')
     archiver.add_argument('run_id')
     archiver.add_argument('destination')
@@ -82,12 +86,12 @@ def main():
             binary = Path(args.server).resolve() / 'target/release/server'
             os.execve(binary, [str(binary)], env)
         elif args.command == 'register':
-            print(register(ROOT, args.players, args.games, args.hypothesis, args.decision_rule, args.points))
+            print(register(ROOT, args.players, args.games, args.hypothesis, args.decision_rule, args.points, study=args.study))
         elif args.command in ('run', 'match'):
             if args.command == 'match':
                 args.experiment = register(ROOT, args.players, args.games,
                                            'Check protocol plumbing for this lineup; no strength claim.',
-                                           'Every game completes without invalid actions or server timeout moves.', args.points)
+                                           'Every game completes without invalid actions or server timeout moves.', args.points, study=args.study)
                 print(f'experiment={args.experiment}', flush=True)
             if not re.fullmatch(r'[a-z0-9-]+', args.experiment):
                 raise ValueError('Invalid experiment ID')

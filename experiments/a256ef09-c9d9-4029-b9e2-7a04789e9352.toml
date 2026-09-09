@@ -1,0 +1,22 @@
+id = "a256ef09-c9d9-4029-b9e2-7a04789e9352"
+hypothesis = "Accounting for whole bank/port exchange bundles in the ETA builder target estimate increases its win probability versus the unchanged ETA control in a four-player lineup with two fast builders."
+decision_rule = "All 80 games must complete validly. Promote for this lineup only if liquidity minus ETA-control win rate is at least 0.10 and the one-sided exact conditional binomial test among wins by those two slots rejects equality at p <= 0.05. Otherwise report inconclusive or negative; never extend or refill this cohort."
+players = ["liquidity", "eta-control", "fast-control", "fast-control"]
+games = 80
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000
+
+cohort = "fresh evaluation"
+mechanism = "Only analytical target ETA changes: reserve target cards, then allow whole surplus bank/owned-port bundles using the baseline income plus 0.025 smoothing. Same opening, gain score, expansion BFS, robber, development, acceptance and remote runner. Trade requests follow the selected target."
+freeze = "Freeze all policy sources and release executable after a four-game protocol smoke; no tuning on evaluation outcomes. Preserve source and executable hashes in manifest."
+randomization = "Independent authoritative server randomness; no supplied or paired seeds. Rotate all four competitor slots over seats, 20 times each."
+primary = "Per-game outcome +1 liquidity win, -1 ETA-control win, 0 either fast slot win; average is the win-rate difference. Exact one-sided conditional test uses only the two primary slots' wins, not pooled opponent seats."
+secondary = "Descriptive final point contrast, bank trades per slot per game, discarded cards, roads and cities built, game duration; no secondary significance claims."
+stopping = "Stop at first invalid/censored/interrupted game; retain failures and unplayed count. No interim significance stopping."
+budget_notes = "600 seconds per game, 3000 server turns; shared native runner checks each choose call against 5 seconds and exits on non-race command errors. No native latency claim; harness native policy_decisions is unavailable."
+replay_selection = "Use first scheduled evaluation game regardless of winner."
+limitations = "One mixed heuristic lineup, 80 independent games; no humans, expectimax, reputation or deceptive communication. Prediction ignores stochastic waiting-time variance, robber blocking, discard and future bank shortages."
+
+transport_amendment = "Before any evaluation game: shared runner sends SetReady; all three policies have a fixed 16 trade-offer-attempt budget per game to respect current server communication limits at headless speed. Acceptance stays available. Four failed startup smoke runs and one partially completed smoke exposed these compatibility gaps; no ETA mechanism tuning. This bounds interpretation to this communication budget."

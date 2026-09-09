@@ -1,0 +1,42 @@
+---
+title: Beliefs about hidden hands
+summary: "How much should a player infer from production, spending, and refused trades?"
+status: proposal
+evidence: none
+---
+
+# Beliefs about hidden hands
+
+How much should a player infer from production, spending, and refused trades?
+
+<StrategyFigure approach="beliefs" />
+
+## The decision at the table
+
+You can observe a rival receiving resources, spending cards, and refusing an offer. Only some of those events tightly constrain the hidden hand. Refusal could mean inability to pay, a bad price, a different plan, or distrust.
+
+## The mechanism to test
+
+Maintain several hands compatible with the recipient-visible history. Update them with known gains and expenditures; keep distributions over unobserved thefts or discards. Model messages as claims with uncertain reliability. Keep beliefs about holdings separate from beliefs about willingness to trade.
+
+## Proposed experiment
+
+Compare card-count-only sampling, event-constrained sampling, and event constraints plus an explicit model of trade responses. Hypothesis: response-aware beliefs improve held-out acceptance prediction without harming calibration. Test policy strength only after the belief diagnostic passes.
+
+Use reliability curves and Brier scores for observable predictions such as whether an affordable offer will be accepted. If a separate offline diagnostic uses sealed hidden-state labels, keep them out of policy inputs and publish only approved aggregates. Split data by whole game.
+
+## What could disprove it
+
+A sharply confident wrong belief is worse than a broad one. Missing history must widen uncertainty. Do not condition a deployable policy on spectator hands, future random outcomes, or diagnostic labels.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+[Cowling, Powley and Whitehouse (2012)](https://eprints.whiterose.ac.uk/id/eprint/75048/) motivate searching over information sets. Applying that idea to these Catan beliefs is a proposal.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

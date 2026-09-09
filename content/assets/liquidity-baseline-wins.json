@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "The candidate did not earn promotion",
+  "unit": "fraction",
+  "caption": "Run de39917c-55da-40ad-a53a-5b8588898810. 80 completed of 80 planned games. 95% Wilson intervals; descriptive evidence only. Candidate 20 wins; ETA control 26. The two Fast rows are distinct competitor slots, not independent duplicate samples. Whiskers are per-slot uncertainty, not the uncertainty of their difference.",
+  "rows": [
+    {
+      "label": "Liquidity \u00b7 candidate",
+      "value": 0.25,
+      "low": 0.16806231857542375,
+      "high": 0.3548467461923397,
+      "n": 80
+    },
+    {
+      "label": "ETA \u00b7 control",
+      "value": 0.325,
+      "low": 0.2324416184435817,
+      "high": 0.4335947268938527,
+      "n": 80
+    },
+    {
+      "label": "Fast \u00b7 opponent A",
+      "value": 0.1625,
+      "low": 0.09749819402950367,
+      "high": 0.2584290434069771,
+      "n": 80
+    },
+    {
+      "label": "Fast \u00b7 opponent B",
+      "value": 0.2625,
+      "low": 0.1785740148850936,
+      "high": 0.36818959664428175,
+      "n": 80
+    }
+  ]
+}

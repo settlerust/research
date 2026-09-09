@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Production follows a distribution",
+  "evidence": "derived",
+  "source": "Exact enumeration of the 36 ordered outcomes of two independent fair six-sided dice; count(sum = s) = 6 \u2212 |7 \u2212 s|.",
+  "caption": "This is a dice calculation, not a sample of games. Seven has six outcomes and triggers the robber procedure rather than ordinary production. The connecting line is a visual guide between discrete sums.",
+  "x": {
+    "label": "Dice total",
+    "min": 2,
+    "max": 12,
+    "ticks": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ]
+  },
+  "y": {
+    "label": "Outcomes out of 36",
+    "min": 0,
+    "max": 6
+  },
+  "series": [
+    {
+      "label": "Number of ordered outcomes",
+      "points": [
+        {
+          "x": 2,
+          "y": 1
+        },
+        {
+          "x": 3,
+          "y": 2
+        },
+        {
+          "x": 4,
+          "y": 3
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 6,
+          "y": 5
+        },
+        {
+          "x": 7,
+          "y": 6
+        },
+        {
+          "x": 8,
+          "y": 5
+        },
+        {
+          "x": 9,
+          "y": 4
+        },
+        {
+          "x": 10,
+          "y": 3
+        },
+        {
+          "x": 11,
+          "y": 2
+        },
+        {
+          "x": 12,
+          "y": 1
+        }
+      ]
+    }
+  ]
+}

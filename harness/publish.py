@@ -5,6 +5,7 @@ import re
 import tarfile
 
 from .records import digest, now, summary_table, write_json
+from .replay import replay_activity, replay_positions
 
 
 def run_path(root, run_id):
@@ -76,17 +77,13 @@ def exhibit(root, run_id, match_index, slug):
     # interpolate or present sampled spectator snapshots as every command.
     count = min(120, len(source))
     indices = sorted({round(i * (len(source) - 1) / max(1, count - 1)) for i in range(count)})
-    fields = ['turn', 'current', 'phase', 'hexes', 'ports', 'buildings', 'roads', 'robber', 'players']
-    frames = []
-    for i in indices:
-        frame = source[i]
-        if frame['game'].get('own') is not None or frame['game'].get('seat') is not None:
-            raise ValueError('Player observations cannot become public exhibits')
-        frames.append({'version': frame['version'], **{key: frame['game'][key] for key in fields}})
+    frames = replay_positions(match_folder, indices)
     replay = {'schema': 1, 'kind': 'replay', 'gameId': result['game_id'],
-              'caption': f"Selected game {match_index} from run {run_id}. A narrative example, not aggregate evidence.",
-              'sampling': f'{len(frames)} selected spectator snapshots from {len(source)} captured positions; intermediate actions may be omitted.',
-              'topology': json.loads((folder / 'topology.json').read_text()), 'frames': frames}
+              'caption': f"Game {match_index + 1} in the scheduled cohort.",
+              'sampling': f'{len(frames)} of {len(source)} recorded positions. Board changes between positions are grouped.',
+              'topology': json.loads((folder / 'topology.json').read_text()), 'frames': frames,
+              'settings': source[0]['game']['settings'],
+              **replay_activity(match_folder, frames[-1]['version'])}
     assets, reports = root / 'content/assets', root / 'reports'
     assets.mkdir(parents=True, exist_ok=True)
     reports.mkdir(parents=True, exist_ok=True)
@@ -99,7 +96,7 @@ def exhibit(root, run_id, match_index, slug):
     write_json(outputs[0], chart)
     write_json(outputs[1], replay)
     outputs[2].write_text(
-        f'---\ntitle: "{slug.replace("-", " ").title()}"\nsummary: "Recorded protocol matches and one selected game."\n---\n\n'
+        f'---\ndate: "{result["started_at"][:10]}"\ntitle: "{slug.replace("-", " ").title()}"\nsummary: "Recorded protocol matches and one selected game."\n---\n\n'
         f'# {slug.replace("-", " ").title()}\n\n'
         f"Run `{run_id}` has status **{summary['status']}**. "
         f"{summary['completed']} of {summary['planned']} planned matches completed. "

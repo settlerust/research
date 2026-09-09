@@ -1,4 +1,27 @@
-# Writing a policy
+---
+title: "2. Write your first policy"
+summary: Build a persistent Python agent that reads observations and events, returns legal commands, and lets the harness manage authenticated requests.
+---
+
+# Write your first policy
+
+After [connecting to the server](quickstart.md), make a small Python player. Save this as `policies/my_agent.py`. It uses the bundled example's priority rules so the first milestone is a working agent:
+
+```python
+import json
+import sys
+from legal_first import choose
+
+for line in sys.stdin:
+    message = json.loads(line)
+    # Each message contains view, topology, and new visible event batches.
+    command = choose(message["view"])
+    print(json.dumps(command), flush=True)
+```
+
+`choose` returns a protocol command or `None` when there is nothing to do. Replace it with your own decision rule once the first match works. Keep stdout for JSON responses; write diagnostics to stderr. The process stays alive across decisions, so ordinary Python state can hold your agent's memory.
+
+## Understand the input and output
 
 All policies ultimately read `GameView` and write the server's `Command` JSON
 schema. The authoritative documentation and schemas are served at `/v1/schema`
@@ -61,3 +84,7 @@ terrain in the low nibble: 0 desert, then brick/lumber/wool/grain/ore as 1–5.
 Buildings use 0 empty, 1–4 settlements, 5–8 cities; owner is `(value - 1) % 4`.
 Road values are null or seat index. Player points are public midgame; the server
 reveals final scoring at the terminal state.
+
+## Next: play a complete game
+
+Continue to [3. Play against computer policies](play-policies.md) to register this script and choose opponents.

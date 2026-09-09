@@ -1,0 +1,42 @@
+---
+title: Risk and timing
+summary: "When should a player prefer reliable progress or a volatile route to victory?"
+status: proposal
+evidence: none
+---
+
+# Risk and timing
+
+When should a player prefer reliable progress or a volatile route to victory?
+
+<StrategyFigure approach="risk" />
+
+## The decision at the table
+
+Two plans can have similar expected progress and very different chances of finishing before an opponent. A player behind may need a successful long shot. A leader may prefer a line that avoids handing anyone else an immediate win.
+
+## The mechanism to test
+
+Compare distributions of terminal outcomes or time to victory, conditional on the public race and plausible hidden points. Include exposure to seven, robber targeting, and holding bottleneck cards. Risk sensitivity should emerge from the chance to win when that objective is represented well; a separate risk bonus is a hypothesis about an imperfect evaluator.
+
+## Proposed experiment
+
+Compare mean heuristic value, a downside penalty, and a race-conditioned risk policy. Freeze beliefs and budgets. Hypothesis: race-conditioned risk improves wins across leading and trailing states, rather than merely increasing final points in losing games.
+
+Show outcome distributions and a heatmap of decisions by estimated race position and hand exposure. In diagnostic continuations, keep original-state clusters intact; many rollouts from one position are not independent games.
+
+## What could disprove it
+
+Trailing positions are selected by earlier policy choices. A naive comparison of only trailing turns can confound risk choice with how the player got behind. Whole-game randomized arms remain the strength test.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+The [dice exhibit](../../docs/strategy-guide.mdx) is an exact probability calculation; the risk curves above are conceptual.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

@@ -14,3 +14,18 @@ description = "Existing Rust estimated-acquisition-time builder with trading"
 transport = "stdio"
 command = ["{python}", "policies/legal_first.py"]
 description = "Research-owned protocol example; a legality smoke baseline, not a strong strategy"
+
+[liquidity]
+transport = "remote"
+command = ["{root}/policies/liquidity/target/release/remote", "{base}", "{game}", "liquidity", "{token_file}", "{name}"]
+description = "Liquidity study: liquidity, shared Rust runner and frozen baseline source"
+
+[eta-control]
+transport = "remote"
+command = ["{root}/policies/liquidity/target/release/remote", "{base}", "{game}", "eta", "{token_file}", "{name}"]
+description = "Liquidity study: eta, shared Rust runner and frozen baseline source"
+
+[fast-control]
+transport = "remote"
+command = ["{root}/policies/liquidity/target/release/remote", "{base}", "{game}", "fast", "{token_file}", "{name}"]
+description = "Liquidity study: fast, shared Rust runner and frozen baseline source"

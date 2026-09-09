@@ -1,0 +1,94 @@
+---
+title: The well-rounded player
+summary: A practical guide to production, uncertainty, bargaining, credibility, and adapting without losing your objective.
+---
+
+# The well-rounded player
+
+Every turn asks two connected questions: what makes your position stronger, and how will the table respond? A good player develops both judgments. This guide supplies working principles, the game theory behind them, and experiments that could show where they fail.
+
+<ResearchCallout title="How to read this guide">
+Rules and exact calculations are labelled. Strategy recommendations are working heuristics and research hypotheses. The local evidence currently consists of harness smoke runs; it does not rank these approaches. See the [evidence boundary](status.md).
+</ResearchCallout>
+
+## A plan for ten points
+
+Start by naming a plausible route to victory: permanent buildings, an award you can hold, and possible development points. Then work backward to the resources, sites, and turns it requires. The plan should explain the next build while leaving an alternative if the island changes.
+
+| Moment | Question to ask | Explore it visually |
+| --- | --- | --- |
+| Opening placement | What can this pair actually build, and what will still be open? | [Opening portfolios](../approaches/opening/README.mdx) |
+| Before spending | Which scarce card or expansion option am I giving up? | [Build tempo](../approaches/tempo/README.mdx), [expansion races](../approaches/expansion/README.mdx) |
+| Before trading | What does each of us build afterward, and whose turn comes first? | [Bargaining](../approaches/bargaining/README.mdx), [ports](../approaches/ports/README.mdx) |
+| Before speaking | Is this a fact, a preference, a forecast, or a promise? | [Truthful signals](../approaches/signals/README.mdx), [bluffs](../approaches/deception/README.mdx) |
+| After an opponent acts | Which explanations survive the new evidence? | [Beliefs](../approaches/beliefs/README.mdx), [adaptation](../approaches/adaptation/README.mdx) |
+| Near the finish | Who can win next, including hidden potential? | [Development timing](../approaches/development/README.mdx), [containment](../approaches/containment/README.mdx) |
+
+The tabletop base game uses resources to buy roads, settlements, cities, and development cards. Cards and some intentions remain private; the board and completed trades provide evidence. Victory is checked under the game’s turn rules. This arena’s authoritative protocol is the final source of legal actions and outcomes. [Official base-game rules](https://www.catan.com/sites/default/files/2021-06/catan_base_rules_2020_200707.pdf).
+
+## Production, tempo, and optionality
+
+Expected income describes an average over many rolls. It does not promise an arrival next turn. A high-producing hand can remain unusable if every plan needs grain you cannot obtain. Production diversity, number diversity, resource scarcity, and port access affect different parts of that problem.
+
+<ResearchPlot asset="dice-distribution" />
+
+Resources on the same number arrive together, so their income is correlated. That can produce a useful bundle or expose a large hand at once. A road toward two viable sites can preserve flexibility; a road toward one contested site can become a sunk cost. Compare resources by the next best use you would give up, rather than a universal price list.
+
+<StrategyFigure approach="tempo" />
+
+A useful turn routine is: update the race, list feasible builds, inspect bottlenecks, compare trading with waiting, and reconsider after new information. Replanning after a blocked route is adaptation. Abandoning a coherent plan because one roll was unlucky is a separate behavior to test.
+
+## Chance is different from strategy
+
+Catan combines chance, hidden information, and strategic choice. **Expectimax** averages values over chance outcomes. To use it well here, specify whose future decisions it models and how. An opponent is not another die: their action depends on their information, incentives, and model of you.
+
+A **belief state** is a distribution over possibilities compatible with what you have seen. A **best response** is the best action against an assumed opponent policy. An **equilibrium** is a set of strategies that are mutually consistent best responses under a specified game model. Winning a finite benchmark does not demonstrate equilibrium play.
+
+At the resource level, a trade can create value for both partners. With one winner and binary win utility, completed terminal outcomes are constant-sum across the table. These facts coexist: a cooperative trade can improve both partners’ prospects at the expense of the other players. Two-player zero-sum search assumptions do not automatically extend to a four-player bargaining game.
+
+[Belief-aware search](../approaches/search/README.mdx) tests these distinctions. [Risk and timing](../approaches/risk/README.mdx) asks whether an evaluator prefers the right outcome distribution for the current race.
+
+## Truth, silence, and deception
+
+An honest player need not reveal every card or plan. Begin with the distinction between keeping information private and making a false claim. Credibility also depends on whether a claim is checkable, whether interests align, and whether the speaker can actually follow through.
+
+| Message choice | Possible benefit | Cost or failure to test |
+| --- | --- | --- |
+| Silence | Preserves information and avoids unnecessary commitments | A useful deal may never be recognized |
+| A truthful request | Makes your demand clear | Reveals a bottleneck others can price against you |
+| A verifiable explanation | Helps a partner see a mutual benefit | May also disclose your plan or their threat to you |
+| Selective disclosure | Shares useful truth while keeping options private | A recipient may infer what you omitted |
+| A false factual claim | Might change an immediate belief or price | Detection may change future offers and targeting |
+| A promise | Can coordinate a future interaction | The promise may be infeasible or time-inconsistent |
+
+A **cheap-talk** message does not mechanically bind the speaker to act. That does not make it useless: aligned interests and observable history can make communication informative. A promise is **credible** when incentives support keeping it at the later decision, not merely because it sounds sincere. The formal communication model in [Crawford and Sobel](https://www.haverford.edu/sites/default/files/CrawfordSobel1982.pdf) motivates questions about alignment; it is not a solved model of this game.
+
+The experiments compare message policies under the same offers and compute limits. They ask when truth, withholding, or a bounded bluff changes outcomes. There is no retained evidence here for a universal “lie late” or “always be honest” strategy. [Explore communication](../approaches/signals/README.mdx).
+
+## Reputation is a prediction about future responses
+
+A cooperative act can be an investment in future trade access. Its value depends on opportunities to reciprocate, the partner’s behavior, how easily they can recognize what you did, and how much time remains. A reputation for honoring promises is different from a reputation for giving generous prices or being harmless.
+
+<StrategyFigure approach="reputation" />
+
+Model these dimensions separately. One acceptance is evidence of one successful offer. One rejection might reflect an empty hand. Forgiveness may prevent mistaken retaliation from spiralling; permanent punishment may discourage opportunism in other settings. Both are testable policies with costs.
+
+Distinguish **instrumental reputation**, which serves the objective of winning, from a direct preference for fairness or enjoyable play. Either objective can be studied, but changing objectives must be explicit. Within-game reputation and persistent cross-game reputation are also different experiments. The current seat number is not a persistent identity.
+
+## Flexibility with a visible reference
+
+When someone gives new information, a player can revise beliefs while keeping the same objective. When future cooperation is missing from search, a player can improve the continuation model. When an agent gives weight to a separate social preference, it changes the objective. Record which of these happened.
+
+The [pliability laboratory](../approaches/pliability/README.mdx) keeps the fixed expectimax value visible and imposes a budget on how much reference value may be forgone. A move can look worse to that reference and still turn out better in the actual game. Only an experiment can establish that improvement.
+
+## The whole table matters
+
+Protect your own route while evaluating the leader’s immediate threat. Blocking the leader may help rivals more than it helps you. A public threat can invite retaliation; a hidden winning route can make visible points misleading. [Leader containment](../approaches/containment/README.mdx) treats this as a problem of incentives and shared costs.
+
+A well-rounded policy must also survive unfamiliar opponents. Test against silent builders, reciprocal traders, skeptics, opportunists, and adaptive negotiators. [Population evaluation](../approaches/population/README.mdx) looks for cycles and fragile specialization rather than assuming there is one context-free ranking.
+
+## Turn an intuition into a study
+
+Choose one proposed mechanism from the [strategy atlas](../approaches/README.md). Name what would change your mind. Freeze the policy, opponent mix, budgets, and decision rule. Then collect fresh evidence and communicate the result using the [visual publishing guide](visual-publishing.mdx).
+
+The [experiment program](experiment-program.md) contains the shared study design, dependencies, metrics, and decision gates. The [reading guide](sources.md) connects these ideas to primary sources without treating related-game results as local evidence.

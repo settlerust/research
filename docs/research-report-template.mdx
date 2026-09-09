@@ -1,0 +1,43 @@
+---
+title: A compact experiment report
+summary: The reusable structure established by the first policy comparison.
+---
+
+# A compact experiment report
+
+Lead with one finding and its scope. Put the result above the mechanism; readers
+should learn what happened before opening the implementation notes.
+
+| Report element | What it must answer | Existing component |
+| --- | --- | --- |
+| Finding | Did the preregistered decision rule pass? | ResearchCallout |
+| Outcome | How large is the effect, and how uncertain? | ResearchChart for win rates |
+| Mechanism | What single decision changed? | StrategyFigure |
+| Diagnosis | What changed besides winning? | ResearchPlot: distributions or score heatmaps |
+| Example | What did one preselected game look like? | GameReplay |
+| Audit | Can someone trace every number and failure? | AgentContext and linked run ledger |
+
+The [liquidity experiment](../reports/liquidity-baseline.mdx) is the first worked
+example. Its score grid compares both policies within each game, and its exchange
+distribution asks whether behavior changed. Neither diagnostic substitutes for
+the primary win comparison.
+
+## What the example still needs
+
+| Next component | Why it would help |
+| --- | --- |
+| Effect-size interval plot with a zero reference | Compare the actual policy contrast, beyond two separate win-rate intervals. |
+| Public-safe decision trace | Show the target, alternatives and value terms that caused a move; aggregate counts cannot establish that causal chain. |
+| Protocol health strip | Surface readiness, rate limits, retries, failures and unplayed games without burying them in logs. |
+| Cohort comparison and population matrix | Keep development separate from fresh evaluation, then show which full opponent lineups support a result. |
+
+<AgentContext>
+New visual implementations belong in design and need Storybook states, keyboard
+checks and mobile QA. Web should only validate data and bind components. Do not
+hide custom SVG or arbitrary scripts inside reports.
+
+The current arena has independent server-generated games, not paired seeds.
+Native decision latency is not a harness measurement. Verified local archives
+are not remote backups. Those are research infrastructure gaps as well as
+presentation constraints.
+</AgentContext>

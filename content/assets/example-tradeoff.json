@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Example: a concession has a price",
+  "evidence": "illustrative",
+  "source": "Hand-authored formatting fixture; three fictional policy configurations, no games.",
+  "caption": "Synthetic values. Each real point would represent a frozen policy and a retained cohort. This example supplies no error bars and establishes no improvement.",
+  "x": {
+    "label": "Mean foregone heuristic value per decision",
+    "min": 0,
+    "max": 10
+  },
+  "y": {
+    "label": "Completed-game win rate (fraction)",
+    "min": 0,
+    "max": 0.5
+  },
+  "series": [
+    {
+      "label": "Reference",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.25
+        }
+      ]
+    },
+    {
+      "label": "Small cap",
+      "points": [
+        {
+          "x": 2,
+          "y": 0.3
+        }
+      ]
+    },
+    {
+      "label": "Large cap",
+      "points": [
+        {
+          "x": 8,
+          "y": 0.22
+        }
+      ]
+    }
+  ]
+}

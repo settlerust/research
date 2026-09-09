@@ -11,7 +11,7 @@ import time
 import tomllib
 import uuid
 
-from .protocol import Client, ServerError, public_frame
+from .protocol import Client, ServerError, public_frame, public_batch
 from .records import digest, git_state, now, summarize, summary_table, write_json
 
 
@@ -107,6 +107,7 @@ def match(root, run_dir, index, slots, plan, registry, topology):
             for batch in page['events']:
                 if batch['sequence'] <= cursor:
                     raise ValueError('history sequence did not advance')
+                batch = public_batch(batch)
                 events.write(json.dumps(batch) + '\n')
                 batches.append(batch)
                 for event in batch['events']:
@@ -163,7 +164,7 @@ def match(root, run_dir, index, slots, plan, registry, topology):
             if any(p.process.poll() is not None for p in processes):
                 raise RuntimeError('policy exited before the game started')
             if time.monotonic() >= ready_by:
-                raise TimeoutError('remote policies did not connect before start')
+                raise TimeoutError('policies did not become connected and ready before start')
             time.sleep(.05)
 
         # Each stdio policy has its own event cursor and receives its own filtered
@@ -254,6 +255,20 @@ def match(root, run_dir, index, slots, plan, registry, topology):
     return result
 
 
+def policy_binary_hashes(root, server, base, players, registry):
+    """Hash the actual configured executables, including research-owned builds."""
+    result = {}
+    for policy in sorted(set(players)):
+        executable = registry[policy]['command'][0].format(
+            root=root, server=server, base=base, python=sys.executable)
+        path = Path(executable)
+        if not path.is_absolute():
+            path = root / path
+        if path.is_file():
+            result[policy] = {'path': str(path.resolve()), 'sha256': digest(path)}
+    return result
+
+
 def run(root, args):
     registry_path = root / 'policies/registry.toml'
     registry = tomllib.loads(registry_path.read_text())
@@ -269,7 +284,8 @@ def run(root, args):
     run_dir = root / 'runs' / run_id
     run_dir.mkdir(parents=True)
     source_paths = [p for directory in ['harness', 'policies'] for p in (root / directory).rglob('*')
-                    if p.suffix in ('.py', '.rs', '.ts', '.tsx', '.toml')]
+                    if p.is_file() and not {'target', 'node_modules', '__pycache__'}.intersection(p.relative_to(root).parts)
+                    and (p.suffix in ('.py', '.rs', '.ts', '.tsx', '.toml') or p.name == 'Cargo.lock')]
     plan = {'schema': 1, 'run_id': run_id, 'created_at': now(), 'experiment': args.experiment,
             'experiment_sha256': digest(protocol_path), 'players': players,
             'base': args.base, 'server': str(server), 'games': args.games,
@@ -281,6 +297,7 @@ def run(root, args):
             'research_git': git_state(root), 'server_git': git_state(server),
             'source_sha256': {str(p.relative_to(root)): digest(p) for p in sorted(source_paths)},
             'runtime': {'python': sys.version, 'platform': sys.platform},
+            'policy_binary_sha256': policy_binary_hashes(root, server, args.base, players, registry),
             'native_binary_sha256': {name: digest(server / 'target/release' / name)
                                     for name in ['server', 'remote'] if (server / 'target/release' / name).exists()}}
     write_json(run_dir / 'manifest.json', plan)

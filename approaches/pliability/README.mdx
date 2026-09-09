@@ -1,0 +1,46 @@
+---
+title: Bounded pliability
+summary: "Should social context change expectimax itself, or rerank a bounded set of alternatives?"
+status: proposal
+evidence: none
+---
+
+# Bounded pliability
+
+Should social context change expectimax itself, or rerank a bounded set of alternatives?
+
+<StrategyFigure approach="pliability" />
+
+## The decision at the table
+
+The search prefers a build. A negotiator prefers a slightly lower-scoring trade that may preserve goodwill. Calling the trade “suboptimal” is premature: it is worse under the fixed search estimate, but could be better under a more complete model of future responses.
+
+## The mechanism to test
+
+Keep three operations distinct. Update beliefs when a message provides evidence. Change the evaluator when modelling a future social consequence. Rerank candidates when applying an explicit preference or concession budget. Preserve the original search report before all three, so each change can be audited.
+
+A practical proposal admits only actions whose foregone reference value is at most ε, then scores eligible actions with a separately estimated social continuation term. The social weight λ expresses how much to trust that term. An eligibility threshold that merely calls a language model is not the same as a hard bound on its selected move.
+
+<PliabilityLab />
+
+## Proposed experiment
+
+Compare fixed expectimax, updated opponent beliefs with unchanged preferences, a social evaluator, and an external social reranker. Then ablate the reranker’s concession cap. Hold candidates, search time, message policy, and context window fixed. Hypothesis: bounded reranking helps in ambiguous social choices without expensive deviations in clear tactical positions.
+
+Plot the frontier of completed-game wins against cumulative foregone reference value, and latency against intervention frequency. Retain reference and selected IDs, both values, social rationale, cap, eligibility, actual applied action, and fallbacks. State the units: the existing reference is heuristic value, not win probability.
+
+## What could disprove it
+
+Do not count the same future trade in both Q and the social correction. Do not convert a heuristic gap into a percentage chance of winning. Choosing among only three surfaced candidates may miss a better social action; candidate generation needs a separate experiment.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+The interactive model below is an illustration, not the current agent implementation or a tuned policy setting.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "heatmap",
+  "title": "Example: strength depends on the table",
+  "evidence": "illustrative",
+  "source": "Hand-authored formatting fixture; eight fictional cells; no evaluation was run.",
+  "caption": "Synthetic values, not a ranking. Columns stand for full frozen lineups: all builders, all reciprocal traders, and all skeptics. The absent lower-right cell illustrates missing evidence.",
+  "x": {
+    "label": "Full opponent lineup",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Builders",
+      "Reciprocal",
+      "Skeptics"
+    ]
+  },
+  "y": {
+    "label": "Focal policy",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Adaptive",
+      "Social",
+      "Reference"
+    ]
+  },
+  "color": {
+    "label": "win fraction",
+    "min": 0,
+    "max": 0.5
+  },
+  "series": [
+    {
+      "label": "Fictional win fraction",
+      "points": [
+        {
+          "x": 0,
+          "y": 0,
+          "value": 0.3
+        },
+        {
+          "x": 1,
+          "y": 0,
+          "value": 0.32
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "value": 0.24
+        },
+        {
+          "x": 1,
+          "y": 1,
+          "value": 0.4
+        },
+        {
+          "x": 2,
+          "y": 1,
+          "value": 0.18
+        },
+        {
+          "x": 0,
+          "y": 2,
+          "value": 0.25
+        },
+        {
+          "x": 1,
+          "y": 2,
+          "value": 0.25
+        },
+        {
+          "x": 2,
+          "y": 2,
+          "value": 0.25
+        }
+      ]
+    }
+  ]
+}

@@ -17,7 +17,7 @@ def main():
         included = ['harness/arena.py', 'policies/new/src/main.rs', 'policies/new/src/policy.ts', 'charts/View.tsx']
         excluded = [f'results/game-{i}.json' for i in range(150)] + [
             'README.md', 'reports/new.mdx', 'policies/registry.toml', 'runs/code.py',
-            'node_modules/lib/index.ts', 'artifacts/analysis.py', 'client/types.py', 'client/protocol.ts',
+            'node_modules/lib/index.ts', 'artifacts/analysis.py', '.worktrees/old/policy.py', 'client/types.py', 'client/protocol.ts',
         ]
         result = subprocess.run(['git', '-C', str(folder), 'check-ignore', '--no-index', '--stdin'],
                                 input='\n'.join(included + excluded), text=True, capture_output=True)
@@ -30,6 +30,16 @@ def main():
     for name, policy in registry.items():
         if policy['transport'] not in ('remote', 'stdio') or not policy['command'] or not all(isinstance(a, str) for a in policy['command']):
             raise ValueError(f'Invalid policy registration: {name}')
+    common = subprocess.run(['git', '-C', str(ROOT), 'rev-parse', '--path-format=absolute', '--git-common-dir'],
+                            text=True, capture_output=True, check=True)
+    canonical = Path(common.stdout.strip()).resolve().parent
+    worktrees = subprocess.run(['git', '-C', str(ROOT), 'worktree', 'list', '--porcelain', '-z'],
+                               text=True, capture_output=True, check=True)
+    for field in worktrees.stdout.split('\0'):
+        if field.startswith('worktree '):
+            path = Path(field.removeprefix('worktree ')).resolve()
+            if path != canonical and not path.is_relative_to(canonical / '.worktrees'):
+                raise ValueError(f'Research worktree is outside the canonical .worktrees directory: {path}')
     # Root-only data exclusions must not also hide the compact records/runs and
     # records/artifacts directories that form the durable Git evidence trail.
     for folder in ['records/runs', 'records/artifacts']:
@@ -44,7 +54,7 @@ def main():
         if not name:
             continue
         path = ROOT / name
-        if name.split('/')[0] in ('runs', 'artifacts', '.runtime') or path.suffix in ('.jwt', '.jsonl', '.parquet'):
+        if name.split('/')[0] in ('runs', 'artifacts', '.runtime', '.worktrees') or path.suffix in ('.jwt', '.jsonl', '.parquet'):
             raise ValueError(f'Bulk/private artifact in Git scope: {name}')
         if path.is_file() and path.stat().st_size > 1_000_000:
             raise ValueError(f'File exceeds compact repository limit: {name}')

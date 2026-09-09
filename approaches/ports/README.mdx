@@ -1,0 +1,57 @@
+---
+title: Ports and market power
+summary: "How does an outside option change what you should accept in a trade?"
+status: proposal
+evidence: none
+---
+
+# Ports and market power
+
+How does an outside option change what you should accept in a trade?
+
+<StrategyFigure approach="ports" />
+
+A first, narrower [exchange-aware ETA experiment](../../reports/liquidity-baseline.mdx)
+is now complete: 80 valid games, with no established improvement over ETA.
+The broader study below remains a proposal.
+
+
+## The decision at the table
+
+A specialized port can turn surplus into flexibility. But reaching it costs roads and perhaps a weak settlement. Its value falls when the surplus disappears, the robber blocks production, or other players already offer better exchanges.
+
+## The mechanism to test
+
+Compute the best legal bank or port conversion first. That is an outside option against which a player trade can be compared. Then price saved cards, saved time, information revealed, and the opponent’s gain. Market power depends on what others need and can obtain elsewhere, not just how much you hold.
+
+## Proposed experiment
+
+Compare a fixed port bonus with realized-conversion value and a scarcity-aware trade reservation price. Hypothesis: accounting for port acquisition cost and actual surplus avoids overinvestment while preserving profitable specialization.
+
+Measure cards converted, acquisition cost, time until the port is used, bank-versus-player trade share, and wins. Plot cumulative saved cards against the original investment, labelling the resource-accounting convention; saved cards are not victory points.
+
+## What could disprove it
+
+Port use alone is not evidence of value. The policy may create surplus by neglecting better builds. Do not infer a monopoly from public production when hidden hands and alternative conversions remain possible.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. This full proposal has no run; the linked narrower ablation has its own retained run.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+Legal conversion options come from the server. The [official rules](https://www.catan.com/sites/default/files/2021-06/catan_base_rules_2020_200707.pdf) provide the tabletop reference.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-08 | [Exchange-aware ETA](/research/reports/liquidity-baseline) | Complete | The frozen 80-game comparison did not meet its improvement rule. Retain ETA as the baseline. Next: Record decision traces before proposing a new estimator; port acquisition remains an open question. [Liquidity statistics](/research/reports/liquidity-statistics) · [Liquidity audit](/research/reports/liquidity-audit) · [Log 2026-09-08](/research/log/2026-09-08) |
+
+[research-studies:end]: #

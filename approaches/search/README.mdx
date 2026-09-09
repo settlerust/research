@@ -1,0 +1,42 @@
+---
+title: Search under uncertainty
+summary: "What should expectimax average over, and where does opponent choice enter?"
+status: proposal
+evidence: none
+---
+
+# Search under uncertainty
+
+What should expectimax average over, and where does opponent choice enter?
+
+<StrategyFigure approach="search" />
+
+## The decision at the table
+
+Dice introduce chance. Other players introduce strategic responses. Averaging possible dice rolls does not tell you whether a rival accepts your trade, blocks your road, or targets you with the robber.
+
+## The mechanism to test
+
+Separate legal candidate generation, chance outcomes, hidden-state beliefs, opponent response policy, and leaf evaluation. Compare expectimax with belief rollouts and information-set tree search at the same decision budget. Preserve one action choice across states the player cannot distinguish; otherwise search can plan with information it will never receive.
+
+## Proposed experiment
+
+First compare the fixed expectimax reference with a response-aware evaluator at equal time and candidate budgets. Then compare search families with shared beliefs and leaf values. Hypothesis: modelling responses matters more than simply adding depth in trade-rich positions.
+
+Plot win-rate intervals against decision latency and compute cost, with budget exhaustion and fallback rates visible. Retain candidate IDs, values, observation version, and the unchanged reference. The current web reference uses additive heuristic points, not calibrated win probabilities.
+
+## What could disprove it
+
+A stronger leaf model, larger candidate set, or larger time budget can masquerade as a search improvement. Hidden-state samples can also cause strategy fusion: choosing different actions using information unavailable to the actual player.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+The information-set distinction and strategy-fusion failure are discussed in [Cowling et al.](https://eprints.whiterose.ac.uk/id/eprint/75048/1/CowlingPowleyWhitehouse2012.pdf).
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

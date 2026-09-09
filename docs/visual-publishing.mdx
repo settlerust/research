@@ -1,0 +1,70 @@
+---
+title: Communicate with evidence
+summary: A reusable visual language for mechanisms, tradeoffs, trajectories, matchups, and recorded games.
+---
+
+# Communicate with evidence
+
+Lead with the decision or finding. Show the mechanism, then the smallest chart that makes the evidence clear. Put detailed settings, records, and caveats in agent notes. A reader should understand the question before opening a technical appendix.
+
+## Choose the picture that answers the question
+
+| Question | Visual form | Required context |
+| --- | --- | --- |
+| How does an approach work? | `StrategyFigure` animated SVG | Mechanism, readable resting frame, concise caption |
+| Which ideas should I explore? | `StrategyAtlas` with filtering | Linked study briefs, explicit proposal status |
+| When does a social override become attractive? | `PliabilityLab` | Toy equation, assumptions, unchanged search reference |
+| Did an arm win more often? | `ResearchChart` with intervals | Run ID, planned/completed counts, interval definition |
+| How does a value change with time or budget? | `ResearchPlot` line chart | Units, ordered x values, source, evidence class |
+| What is the tradeoff between two outcomes? | `ResearchPlot` scatter plot | Units, comparable cohorts, point meanings |
+| Where are the weak matchups? | `ResearchPlot` heatmap | Full lineup definitions; cell-level evidence in the linked report |
+| What happened in one actual game? | `GameReplay` | Public observations, sampling notice, game ID |
+
+The examples below are deliberately synthetic formatting fixtures. They show how to communicate a future study. Their values are not estimates from the arena and must never be cited as strategic results.
+
+## Curves: show what changes
+
+<ResearchPlot asset="example-learning-curve" />
+
+Use curves for calibration, build timing, cost sweeps, or changes through a session. If measurements are noisy, publish intervals in the accompanying table or add a reviewed interval-capable design component. The current generic line plot does not draw uncertainty bands. Do not imply that a smooth line supplies uncertainty information.
+
+## Scatter plots: show the price of an improvement
+
+<ResearchPlot asset="example-tradeoff" />
+
+A win-versus-concession plot can reveal whether social gains require costly departures from the fixed reference. Compare equivalent compute budgets or label their differences. A point needs a retained cohort behind it before it can be marked measured.
+
+## Heatmaps: show where an approach fails
+
+<ResearchPlot asset="example-matchups" />
+
+A four-player cell must identify all three opponents. Link a measured heatmap to a report carrying planned, completed, incomplete, and invalid counts, uncertainty, and the exact lineup for each cell. Blank cells mean unmeasured, never a zero win rate. This compact component displays recorded cell values; the report owns their statistical interpretation.
+
+## Write an approach page
+
+Use [the authoring template](approach-template.md). Every idea gets a matching registered SVG near the top, one concrete decision, a mechanism, a falsifiable study, an appropriate visual outcome to collect, and an explicit evidence status. Keep an approach as a proposal until a retained result supports an update.
+
+For a new animation, design a specific explanatory sequence. A tradeoff frontier should look different from a belief update or an expansion race. Use a gentle loop that stays readable throughout. Respect reduced-motion preferences and omit animation pause buttons. Captions should describe the mechanism in one short sentence.
+
+## Asset and component contract
+
+Rich MDX accepts literal string attributes only. No JavaScript, imports, ad hoc HTML, styles, or remote embeds. Visual implementations live in the design Storybook, exported through `@settlers/design/research`; web loads and validates the data. The same registered figures are available in agent notebook rendering.
+
+```mdx
+<StrategyFigure approach="reputation" />
+<StrategyAtlas asset="strategy-atlas" />
+<PliabilityLab />
+<ResearchPlot asset="example-tradeoff" />
+```
+
+Store small JSON exhibits in `content/assets/`. Plot fields include `schema: 1`, `kind: "plot"`, `variant`, `title`, `caption`, `evidence`, `source`, labelled `x` and `y` domains, and up to five named series of points. Variants are `line`, `scatter`, and `heatmap`. A heatmap uses integer cell coordinates, category tick labels, and a `color` domain with a unit label. The checked-in examples are complete schemas to copy and replace.
+
+Use `illustrative` for synthetic teaching data, `derived` for an exact calculation with its formula, and `measured` only for retained observations. Include a run or artifact reference and denominator in a measured source/caption and link the evidence report nearby. Schema validation checks the data shape; it cannot establish that a claimed source is true. Evidence review remains required.
+
+<AgentContext>
+
+`ResearchChart` remains the existing interval-capable win-rate component. `ResearchPlot` adds trajectories, scatter plots, and heatmaps; it does not replace statistical analysis. The data table below each plot makes exact values available to keyboard and screen-reader users. Values outside axis/color bounds, duplicate heatmap cells, missing provenance, and unordered line points are rejected.
+
+Run `just check` in research and `npm run check:research` in web. The latter compiles every page, checks every asset, and verifies that each atlas item links to its own matching figure page. For new components also run design’s typecheck, lint, Storybook tests and build, plus web’s architecture check, typecheck, lint, tests, production build, and research browser checks. Inspect desktop, mobile, keyboard interaction, empty filters, and reduced motion.
+
+</AgentContext>

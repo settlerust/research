@@ -1,38 +1,80 @@
-# A plan for a stronger player
+---
+title: Roadmap
+summary: The open questions across resource planning, uncertainty, conversation, social strategy, and generalization, with evidence and prerequisites for each stage.
+---
 
-## Establish a trustworthy baseline
+# Roadmap
 
-First measure the existing fast and ETA builders in a fixed, seat-balanced
-lineup. Check completion, invalid actions, turn count, and points before comparing
-win rates. Inspect a few public replays to understand failure modes. Record a
-negative or inconclusive finding with the same care as an improvement.
+How do we build a player that handles both the island and the people around it? These are the open research questions, ordered by their dependencies. They are proposed investigations, not scheduled runs or demonstrated improvements. Every linked approach has a mechanism figure and a falsifiable study design.
 
-## Improve the value of a build
+## Where the evidence stands
 
-Opening production is a starting point. Add resource diversity, access to grain
-and ore, port conversion, and reachable settlement sites. During play, estimate
-how long the current hand and production need to fund a useful build. Compare
-that estimate with the opportunity cost of a road or development card.
+The arena completes real ten-point games and retains public observations and event tapes. The first frozen [liquidity comparison](../reports/liquidity-baseline.mdx) completed 80/80 games: liquidity won 20 and ETA control won 26. The improvement rule failed, so ETA remains the baseline. That finding concerns one estimator at one fixed table; the broader questions below remain open.
 
-## Model uncertainty and opponents
+## 1. Make resources turn into points
 
-Track a belief over unseen resource and development cards using only visible
-production, trades, expenditures, discards, and counts. Test calibration on
-separate diagnostic data before relying on it in search. Beliefs must remain
-consistent with a player's own observation; a public replay is not an oracle.
+The next mechanical studies should explain why a plan succeeds or stalls while holding placement, trading rules, and opponents fixed.
 
-## Search a small set of useful plans
+| Open question | Investigation | What would move us forward? |
+| --- | --- | --- |
+| Which opening resource mix supports a coherent build plan? | [Opening portfolios](../approaches/opening/README.mdx) | A frozen placement contrast with build-time and bottleneck diagnostics |
+| Does identifying the next scarce resource improve build timing? | [Build tempo](../approaches/tempo/README.mdx) | Faster useful builds and a fresh game-level evaluation; revisit the liquidity result before adding complexity |
+| When is a road worth building before an opponent closes the route? | [Expansion and races](../approaches/expansion/README.mdx) | Recorded contested-site decisions and opportunity costs |
+| When does port access beat bargaining or broader production? | [Ports and market power](../approaches/ports/README.mdx) | A contrast that includes the cost of reaching the coast |
 
-Compare short build sequences, blocked routes, award races, and trade choices.
-Use belief samples for hidden information and chance branches for dice. Start
-with a strict decision budget and test whether better planning survives protocol
-latency. The pure Rust engine has offline chance hooks, but a fair policy must
-construct its simulated states from its own information.
+## 2. Plan with uncertainty
 
-## Learn and evaluate
+Before granting more search or a stronger model, fix a common decision deadline and reference policy. Better predictions should be calibrated on held-out events and should improve decisions at equal cost.
 
-Use self-play or retained development games to learn a value function or rank
-candidate plans. Freeze a model and evaluate it against diverse opponents on
-fresh games. Include strategy ablations: production only, planning without
-beliefs, and negotiation disabled. A higher score against one weak opponent does
-not establish general strength or optimal play.
+| Open question | Investigation | What would move us forward? |
+| --- | --- | --- |
+| Can public production and spending support useful hidden-hand beliefs? | [Beliefs](../approaches/beliefs/README.mdx) | Calibrated predictions with no hidden-state leakage |
+| Which branches deserve a limited search budget? | [Search](../approaches/search/README.mdx) | A quality-versus-latency frontier against a fixed reference |
+| Should a leader and a trailing player choose different risks? | [Risk and timing](../approaches/risk/README.mdx) | Outcome distributions and predeclared position-dependent contrasts |
+| When should development cards become tempo, awards, or surprise points? | [Development](../approaches/development/README.mdx) | Public card-use timelines and fresh complete-game outcomes |
+
+## 3. Find out what conversation changes
+
+First establish that an opponent can receive and respond to messages. Then compare the same offers with silence, a request, and a truthful explanation, under equal message budgets and response windows. Changing the offer and the wording together would leave the cause unclear.
+
+| Open question | Investigation | What would move us forward? |
+| --- | --- | --- |
+| How should an offer price both players' next builds? | [Bilateral bargaining](../approaches/bargaining/README.mdx) | Bilateral value estimates plus actual responses |
+| Can a checkable reason help a useful offer get accepted? | [Truthful signals](../approaches/signals/README.mdx) | Identical-offer message contrasts and an offer-response timeline |
+| How do disclosure, false claims, and broken promises change later behavior? | [Bluffs and disclosure](../approaches/deception/README.mdx) | Separate treatments with belief and credibility diagnostics |
+
+## 4. Test whether social decisions pay back
+
+These studies depend on reliable event memory, a frozen reference valuation, and identifiable recipients. Keep the immediate cost of a concession visible; an eligibility threshold for a model call does not enforce a concession cap.
+
+| Open question | Investigation | What would move us forward? |
+| --- | --- | --- |
+| Does another player repay a costly concession? | [Reciprocity and reputation](../approaches/reputation/README.mdx) | Recipient-specific continuation evidence, including unrepaid costs |
+| Can social context improve choices inside a strict foregone-value budget? | [Bounded pliability](../approaches/pliability/README.mdx) | Verified cap enforcement and win-versus-cost analysis |
+| Who should pay to slow a leader? | [Leader containment](../approaches/containment/README.mdx) | Threat estimates, blocking costs, and each player's own route to victory |
+
+## 5. Check whether gains survive unfamiliar tables
+
+A policy that wins against one lineup may exploit a narrow weakness. Freeze candidates before testing fresh opponents and keep the full four-player lineup in the analysis.
+
+| Open question | Investigation | What would move us forward? |
+| --- | --- | --- |
+| Can a player adapt without overreacting to one refusal? | [Opponent adaptation](../approaches/adaptation/README.mdx) | Held-out predictions and controlled response changes |
+| Does training a diverse population produce broadly useful policies? | [Population and self-play](../approaches/population/README.mdx) | Cross-play tables with complete denominators, uncertainty, and visible matchup cycles |
+
+## Choose the next experiment
+
+Start with the smallest contrast that resolves an uncertainty. Useful next candidates are a bottleneck diagnostic for the existing estimator result, or a message-only study after verifying responsive opponents. No candidate is promoted by a plausible animation or a few successful games.
+
+Use the [Research experiment program](experiment-program.md) to register the hypothesis, budget, opponents, stop rule, and decision rule. Preserve failed and incomplete attempts. A negative result that rules out a mechanism is a useful completed contribution; update the [evidence boundary](status.md) when new retained evidence supports it.
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-08 | [Protocol and replay validation](/research/reports/baseline-smoke) | Active | The harness completes normal games with Rust and Python policies. Smoke results establish plumbing, not policy strength. Next: Repeat a bounded smoke after protocol changes and retain every failed or interrupted attempt. [Log 2026-09-08](/research/log/2026-09-08) |
+| 2026-09-08 | [Exchange-aware ETA](/research/reports/liquidity-baseline) | Complete | The frozen 80-game comparison did not meet its improvement rule. Retain ETA as the baseline. Next: Record decision traces before proposing a new estimator; port acquisition remains an open question. [Liquidity statistics](/research/reports/liquidity-statistics) · [Liquidity audit](/research/reports/liquidity-audit) · [Log 2026-09-08](/research/log/2026-09-08) |
+
+[research-studies:end]: #

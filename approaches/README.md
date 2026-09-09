@@ -1,18 +1,18 @@
-# General approaches
+---
+title: Strategy atlas
+summary: Sixteen visual study briefs covering the island, uncertainty, conversation, and the whole table.
+---
 
-| Approach | Mechanism to test | Main failure to watch |
-| --- | --- | --- |
-| Production and expansion | Prefer productive, diverse intersections and reachable sites | Resources accumulate without a route to points |
-| Acquisition-time planning | Rank builds by expected time to afford them | A short estimate ignores blocking and opponent races |
-| Belief-based search | Sample hidden hands compatible with public evidence | Hidden-state leakage or poorly calibrated beliefs |
-| Negotiation | Price trades by both players' build opportunities | Helping a leader or learning network scheduling quirks |
-| Learned value and self-play | Learn which plans lead to wins against varied opponents | Overfitting to a narrow opponent pool |
+# Strategy atlas
 
-The registered `fast` and `eta` opponents come from the server's Rust policy
-crate. `legal-first` is a small research-owned Python protocol example, intended
-for plumbing and legality checks. It is not presented as a competitive baseline.
+A well-rounded player needs several kinds of judgment. Explore an idea, inspect its mechanism, and follow it to the experiment that could support or disprove it.
 
-Put a new policy in `policies/<name>/` and add its command to the registry. Put
-its explanation and findings under `approaches/<name>/README.mdx`, with links to
-the preregistered experiment and run records. Shared mechanics belong in a
-policy-independent module only when more than one policy needs them.
+<StrategyAtlas asset="strategy-atlas" />
+
+Start with the [player’s guide](../docs/strategy-guide.mdx) for the big picture, or the [pliability laboratory](pliability/README.mdx) for the tradeoff between a search recommendation and future cooperation. The [experiment program](../docs/experiment-program.md) turns these directions into controlled comparisons.
+
+The registered `fast` and `eta` opponents come from the server’s Rust policy crate. `legal-first` is a legality and protocol example. These sixteen study briefs are proposals; they do not imply sixteen implemented policies.
+
+Each approach keeps its bounded investigations in `studies/`. Their dated findings
+appear below the approach explanation and in the [experiment log](../log/experiments.mdx).
+See [the research workflow](../docs/research-workflow.md) when adding or continuing a study.

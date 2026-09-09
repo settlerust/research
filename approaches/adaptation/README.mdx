@@ -1,0 +1,42 @@
+---
+title: Opponent adaptation
+summary: "How quickly should a player change its strategy when an opponent behaves differently?"
+status: proposal
+evidence: none
+---
+
+# Opponent adaptation
+
+How quickly should a player change its strategy when an opponent behaves differently?
+
+<StrategyFigure approach="adaptation" />
+
+## The decision at the table
+
+The same refused offer means different things from a conservative builder, a reciprocal trader, or a player that ignores chat. A flexible player should learn those differences without turning one observation into a personality diagnosis.
+
+## The mechanism to test
+
+Use a small set of behavioral hypotheses and update their weights from observed decisions. Keep uncertainty and a fallback response. Distinguish factual adaptation from accommodating pressure: better predictions may justify changing a move even when the player’s objective remains exactly the same.
+
+## Proposed experiment
+
+Compare a fixed opponent model, an online model with bounded updates, and a model with change detection when behavior shifts. Hypothesis: online adaptation improves predictions and wins against unfamiliar opponents while avoiding large losses to misleading early behavior.
+
+Plot prediction error through each game and cross-play outcomes by opponent class. Track how often a model changes its preferred action. Evaluate on withheld policy versions and messaging styles, not only alternate prompts from the same template.
+
+## What could disprove it
+
+Adaptation can become exploitable if a rival intentionally teaches the wrong pattern. Report worst-opponent performance. Private identity attributes are unnecessary: game behavior and the explicitly available memory are the research inputs.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+Compare with [belief tracking](../beliefs/README.mdx): beliefs about cards, willingness, and behavioral policy answer different questions.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

@@ -1,0 +1,42 @@
+---
+title: Bilateral bargaining
+summary: "How do you make a mutually useful trade without funding the winner?"
+status: proposal
+evidence: none
+---
+
+# Bilateral bargaining
+
+How do you make a mutually useful trade without funding the winner?
+
+<StrategyFigure approach="bargaining" />
+
+## The decision at the table
+
+A trade can improve both hands while making your relative position worse. One missing ore may complete your city and also complete the leader’s winning build. Trade acceptance alone is therefore a poor measure of negotiating skill.
+
+## The mechanism to test
+
+Estimate your gain, the partner’s gain, and each side’s outside option. Account for the probability of acceptance, the cost of failed offers, and whose turn comes next. A reservation price is the worst offer you prefer to declining; it should change with the race. A bargaining solution is a modelling assumption, not a universal price rule.
+
+## Proposed experiment
+
+Hold offer generation fixed and compare own-value pricing, bilateral build-aware pricing, and threat-aware pricing. Hypothesis: threat-aware pricing improves wins even if it lowers acceptance rate. Then test better offer generation separately.
+
+Plot own versus partner estimated gain for proposed, accepted, and rejected trades. Label these gains as model estimates. Report offers per turn, completion, time cost, and wins by opponent family, including a player that never trades.
+
+## What could disprove it
+
+Acceptance is selective: completed trades are not a random sample of offers. More offers can also win through scheduling advantages. Equalize response windows and limits. An uncalibrated partner model can reject almost every good deal.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. This is a draft study brief, not a preregistration. No run IDs exist for this proposal.
+
+The deployable policy reads only its own observation and recipient-visible events. The diagram is a conceptual schematic. Build new measured exhibits from retained artifacts using the [visual publishing guide](../../docs/visual-publishing.mdx).
+
+[Keizer et al. (2017)](https://aclanthology.org/E17-2077/) evaluate negotiation strategies in an online Catan setting; their results do not establish the best pricing policy in this arena.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)

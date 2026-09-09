@@ -22,7 +22,7 @@ policies:
 match *args:
     python3 -m harness.cli match "$@"
 
-# Example: just register --players fast eta fast eta --games 40 --hypothesis '...' --decision-rule '...'
+# Example: just register --study ports/new-study --players fast eta fast eta --games 40 --hypothesis '...' --decision-rule '...'
 register *args:
     python3 -m harness.cli register "$@"
 
@@ -39,3 +39,30 @@ publish *args:
 check:
     python3 -m unittest discover -s tests -v
     python3 scripts/check_repository.py
+    python3 -m harness.notebook check
+
+# Create an approach-owned investigation, or log/SLUG for cross-cutting work.
+study *args:
+    python3 -m harness.notebook study "$@"
+
+# Refresh the experiment log, approach pages, and roadmap from filed studies.
+notebook:
+    python3 -m harness.notebook sync
+
+# Validate filed evidence and the actual MDX/assets used by the web build.
+site-check:
+    python3 -m harness.notebook site-check
+
+# Keep temporary branches inside this research repository; requires a clean source checkout.
+worktree name:
+    python3 -m harness.notebook worktree {{quote(name)}}
+
+# Build failures stop this recipe before a smoke run can use a stale executable.
+build-liquidity:
+    cargo fmt --manifest-path policies/liquidity/Cargo.toml --check
+    cargo test --manifest-path policies/liquidity/Cargo.toml --locked
+    cargo clippy --manifest-path policies/liquidity/Cargo.toml --all-targets --all-features --locked -- -D warnings
+    cargo build --manifest-path policies/liquidity/Cargo.toml --release --locked
+
+smoke-liquidity: build-liquidity
+    python3 -m harness.cli match liquidity eta-control fast-control fast-control --games 4
