@@ -121,6 +121,18 @@ needs a fresh protocol-arena cohort before the evidence boundary changes.
 Exploratory sweeps that guide tuning are not registered; the daily log names
 them as unregistered and they carry no evidential weight.
 
+## Ablations
+
+An ablation seats a search with exactly one change in slot 0 and the unchanged
+control in slot 1, with the fixed builders in the other seats, on deterministic
+paired boards. The primary outcome is the per-seed difference in wins between
+the two slots with a 95% interval over seeds; an interval that excludes zero
+supports or refutes the change, and one that crosses zero is inconclusive. A
+64-seed screen (256 games) resolves effects of about 0.1 wins per game; smaller
+effects need a registered confirmation on fresh seeds, never an extension of
+the screening cohort. The [ablation report](../reports/ablations.mdx) applies
+this design across the atlas.
+
 ## Compare policies fairly
 
 The basic unit is a complete game. A lineup contains two to four **competitor
