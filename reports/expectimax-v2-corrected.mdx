@@ -52,6 +52,17 @@ tree working, the extra planned turn is worth about eleven more wins per 256.
 
 <SearchFigure concept="deepening" />
 
+## Against the reference it replaces
+
+Run `436f4740-c7a5-48f2-9e35-9f1ce92c3af5` seated the corrected depth-2 search
+with the frozen `expectimax-v1`, an ETA builder and a fast builder. It won
+**120 of 256 slot-games (46.9%)**; the reference won 34 (13.3%), ETA 69 and
+fast 33. The paired contrast against the reference is **+0.336** (95% interval
++0.249 to +0.423). The reference spent 240 ms per decision to the corrected
+search's 88 ms.
+
+<ResearchChart asset="expectimax-v2-versus-v1-wins" />
+
 ## What the corrected search does differently
 
 The per-game means show a builder-like profile: 2.0 settlements, 2.1 cities,
@@ -68,7 +79,10 @@ Registered experiments `d5eb6354-2b59-4ca4-8ab0-fefee3690cb3` (run
 `a0c91849-4abf-4f1c-9de1-6255e1ef73e6`, depth 2) and
 `11cb5a59-5490-4a78-96cf-2332d8364cf2` (run
 `156f77ff-b781-42d6-b6e0-999bdf9506fe`, depth 3 with `"time_budget_ms":1500`)
-seat `v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}` against
+seat the search against `eta`, `fast`, `eta`; experiment
+`8d5b24cd-e6ed-4a04-87c8-c1d0db7b747c` (run
+`436f4740-c7a5-48f2-9e35-9f1ce92c3af5`) seats depth 2 against `v1`, `eta`,
+`fast`. All `v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}` against
 `eta`, `fast`, `eta` on seeds 0 to 63 with all four rotations. The paired
 contrast is the per-seed mean of slot-0 minus slot-1 wins with a
 normal-approximation interval over 64 seeds. Reproduce with

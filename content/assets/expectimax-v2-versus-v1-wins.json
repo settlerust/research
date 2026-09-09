@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Corrected search against the frozen reference",
+  "unit": "fraction",
+  "rows": [
+    {
+      "label": "expectimax-v2 depth 2 (slot 0)",
+      "value": 0.46875,
+      "low": 0.4085346505933857,
+      "high": 0.5298893404332313,
+      "n": 256
+    },
+    {
+      "label": "expectimax-v1 reference (slot 1)",
+      "value": 0.1328125,
+      "low": 0.09662155083903351,
+      "high": 0.17986034372371584,
+      "n": 256
+    },
+    {
+      "label": "ETA builder (slot 2)",
+      "value": 0.26953125,
+      "low": 0.2188800151092185,
+      "high": 0.3269969187120816,
+      "n": 256
+    },
+    {
+      "label": "fast builder (slot 3)",
+      "value": 0.12890625,
+      "low": 0.09328077992555084,
+      "high": 0.17550411351552564,
+      "n": 256
+    }
+  ],
+  "caption": "Per-slot win rates over 256 games: 64 seeds, each played once per rotation, with an ETA and a fast builder in the other seats. Run 436f4740-c7a5-48f2-9e35-9f1ce92c3af5: 256 of 256 planned games completed; engine arena, paired seeds."
+}
