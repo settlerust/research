@@ -133,3 +133,43 @@ knowledge is supported; the rest show no effect or stay unresolved.
 | risk/risk-appetite | `837c9293-5996-49d1-8d1f-019c2dd395ee` | 261 | 303 | -0.055 (95% interval -0.118 to +0.008) |
 | bargaining/trade-openness | `1bfc00f0-05ed-4635-b499-69cb50bc4c80` | 281 | 293 | -0.016 (95% interval -0.075 to +0.043) |
 
+
+## Learned pattern values: an n-tuple leaf
+
+The tunable search gained a second leaf: lookup tables of small board and
+portfolio patterns whose sum values a position in win-probability units, in the
+spirit of the Drop7 n-tuple tables. `SearchConfig.leaf.tables` names a table
+file and swaps the leaf inside the otherwise unchanged search; the arena and
+the `remote` protocol seat load it once per process, and the browser build
+rejects it (the tables are a server-side policy by decision). The hand-written
+leaf is unchanged: the refactored search replays run
+`d611102f-d5c0-4828-9131-1e746844ff65` bit for bit on its first seeds.
+
+Tables are trained by self-play on the engine. Every seat plans its turn with
+the depth-1 search over the tables on the true state; the leaf reads only that
+seat's own hand and public information, so hidden hands never reach a table.
+At game end each seat's chain of end-of-turn positions is updated backward
+with TD(0.7) toward 1 for the winner and 0 for everyone else plus 0.05 per
+point gained, with temporal-coherence step sizes. Two things were needed
+before the tables learned anything. Shared tables can hit one entry twice in a
+position, so the update weights entries by multiplicity. And blank tables never
+finish a self-play game (nobody builds, every game hits the turn cap, every
+target is zero), so the first 20,000 games are played by the fast builder while
+the tables watch; the builder plays 15,000 games per second and self-play then
+runs at 45 to 65 games per second on 32 threads.
+
+An unregistered pilot trained six layouts for eighteen minutes each and played
+each as the depth-2 leaf against the hand-written leaf with the two builders on
+24 fixed deterministic seeds (96 games; asset `ntuple-pilot-margins`, records
+under `records/training/ntuple-pilot/`). Final margins, tables minus hand leaf:
+hex + portfolio +0.302 (+0.141 to +0.464), hex + vertex + portfolio +0.271,
+portfolio alone +0.208, the full layout without the point reward +0.188,
+vertex + portfolio -0.125, and hex + vertex without portfolio tables -0.177
+(-0.326 to -0.028). The portfolio tables carry the mechanism, hex windows add
+to them, and the eight-million-entry intersection windows hurt at this
+budget. These games chose the layout and carry no evidential weight. The main
+run trains hex + portfolio from scratch under a three-hour wall with a plateau
+rule; its screen and protocol cohorts are registered below when the candidate
+is frozen.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.

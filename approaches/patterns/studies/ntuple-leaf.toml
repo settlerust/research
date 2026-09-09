@@ -1,0 +1,12 @@
+id = "patterns/ntuple-leaf"
+title = "N-tuple tables as the search leaf"
+created = "2026-09-09"
+updated = "2026-09-09"
+status = "active"
+question = "Can lookup tables of small board and portfolio patterns, learned from self-play, replace the hand-written leaf of the tunable search and match or beat it at equal depth?"
+outcome = "Pilot: hex plus portfolio tables finished with the largest validation margin (+0.302 wins per game over the hand-written leaf on 96 fixed games); portfolio tables carry the mechanism and intersection windows hurt at this budget. Main run training; no registered cohort has completed."
+next_step = "Pick the layout by pilot validation margin, train the main run, freeze the best validation point, then register the fresh-seed screen and a protocol cohort against expectimax-v2-plan."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = ["reports/ntuple-leaf.mdx"]
+logs = ["log/2026-09-09.mdx"]
+legacy_experiments = []

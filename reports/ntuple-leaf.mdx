@@ -1,0 +1,108 @@
+---
+date: "2026-09-09"
+title: "Lookup tables as the leaf of the search"
+summary: "N-tuple tables of hex and portfolio patterns, learned by self-play, replace the hand-written leaf of expectimax-v2; a six-layout pilot picks hex plus portfolio tables, and the main run's screen follows."
+---
+
+# Lookup tables as the leaf of the search
+
+<ResearchCallout title="Status · pilot complete, main run training, screen pending">
+Six pattern layouts trained for eighteen minutes each. Played as the depth-2
+leaf against the hand-written leaf in the same search on 96 fixed games, tables
+of **hex windows plus portfolio patterns** finished with the largest margin,
+**+0.302 wins per game** (95% interval +0.141 to +0.464). Portfolio tables
+alone were positive, hex windows added to them, and the sparse intersection
+windows hurt. Those games chose the layout and confirm nothing; the main run
+and its registered fresh-seed screens are reported below as they complete.
+</ResearchCallout>
+
+<ResearchPlot asset="ntuple-pilot-margins" />
+
+## Why a learned leaf
+
+Every planned turn of `expectimax-v2` ends by asking a leaf how good the
+position is, and the [ablations](ablations.mdx) showed that the search's
+lookahead and dice scenarios matter far more than any single hand-written term.
+The [Drop7 n-tuple tables](https://github.com/keshavsaharia/drop7-bench)
+suggested the other route: keep the search, and replace the leaf with numbers
+learned from play. A lookup table can hold a distinct number for every small
+pattern the board can show, so it can learn that a city on a five-pip ore hex is
+worth more than its production rate says, or that a particular hand and building
+count is a dead end, without anyone writing the rule down.
+
+## What the tables read
+
+Each position is read from one seat's point of view through three families of
+windows, and every window reads only what that seat can see in a sampled world:
+the board and layout, its own hand and development cards, and public counts.
+
+| Family | Windows per position | Pattern | Entries |
+| --- | ---: | --- | ---: |
+| Hex | 19 | Resource, pips, robber, and the six corners (empty, own settlement, own city, other settlement, other city), canonical under the hex's twelve symmetries | 1,125,000 |
+| Intersection | 54 | The three touching hexes as a sorted triple, the building or blocked state, own and foreign road adjacency, the port | 8,509,704 |
+| Portfolio | 5 | Production pips per resource; hand, hand total, settlements and cities left; own and the two best opponent scores with the turn; knights, cards, army and road holders, own trail, roads left, deck; largest opponent hand, opponent production, opponent count, own production, best opponent | 2,456,718 |
+
+The value is the sum of the looked-up entries, in win-probability units. A hex
+window is shared by all nineteen hexes and an intersection window by all
+fifty-four corners, so one entry can be active several times in a position; the
+learning step weights each entry by that multiplicity. Inside the search the
+sum is scaled by 1,000 so that one win equals ten points on the hand-written
+currency, and nothing else changes: the same turn planner, the same opponents'
+round under common random scenarios, the same iterative deepening.
+
+## How the tables learn
+
+Thirty-two threads play self-play games on shared tables without locks. Every
+seat plans its turn with the depth-1 search over the tables on the true state;
+the leaf never sees a hidden hand, so the tables cannot learn from information a
+seated player would not have. At game end each seat's chain of end-of-turn
+positions is updated backward with TD(λ = 0.7) toward 1 for the winner and 0
+for everyone else, plus 0.05 per point gained, with temporal-coherence step
+sizes that shrink once an entry's errors stop pointing the same way.
+
+Blank tables cannot finish a game: every candidate looks equally good, nobody
+builds, every game reaches the turn cap, and the tables learn that everything is
+worth zero. The first 20,000 games are therefore played by the fast builder for
+every seat while the tables watch, at 15,000 games per second. Self-play then
+runs at 45 to 65 games per second, and every chunk the frozen tables play a
+validation tournament as the depth-2 leaf against the hand-written leaf in the
+same search with an ETA and a fast builder on fixed deterministic seeds. The
+validation point with the largest paired margin is the candidate.
+
+## The pilot
+
+Six layouts trained for eighteen minutes of wall time each, 20,000 builder games
+and about 44,000 self-play games, and were validated on 24 seeds in every
+rotation (96 games). The margin is the per-seed difference in wins between the
+tables and the hand-written leaf.
+
+| Layout | Tables wins | Hand wins | ETA | Fast | Margin (95% interval) |
+| --- | ---: | ---: | ---: | ---: | --- |
+| hex + portfolio | 56 | 27 | 5 | 8 | +0.302 (+0.141 to +0.464) |
+| hex + intersection + portfolio | 49 | 23 | 14 | 10 | +0.271 (+0.115 to +0.427) |
+| portfolio only | 43 | 23 | 14 | 16 | +0.208 (+0.056 to +0.361) |
+| full layout, no point reward | 47 | 29 | 12 | 8 | +0.188 (−0.030 to +0.405) |
+| intersection + portfolio | 33 | 45 | 9 | 9 | −0.125 (−0.327 to +0.077) |
+| hex + intersection, no portfolio | 26 | 43 | 14 | 13 | −0.177 (−0.326 to −0.028) |
+
+Two readings are clear even at this budget. The portfolio tables carry the
+mechanism: without them the board windows alone lose to the hand-written leaf,
+and alone they already beat it. The hex windows add to the portfolio tables,
+while the intersection windows, with eight and a half million entries and only
+tens of thousands of games, add noise. Every arm was still improving at its last
+validation point. The point reward helped the full layout by a margin inside
+the noise. The main run trains hex plus portfolio from scratch under a
+three-hour wall with a plateau rule.
+
+Compact records of every arm (configuration, progress rows, validation
+summaries, stop reason) are under `records/training/ntuple-pilot/`.
+
+## Limitations
+
+The pilot's validation seeds are reused at every point and chose the layout, so
+its margins are optimistic and confirm nothing. Tables trained by depth-1 play
+are validated inside a depth-2 search; whether they transfer to depth 3, where
+the protocol baseline plays, is a question for the screen. Self-play against
+copies of the tables could learn a style that beats itself; the builders at the
+validation table are the guard against that, and the registered screens keep
+them.

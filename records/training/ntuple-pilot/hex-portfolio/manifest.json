@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "arm": "hex-portfolio",
+  "layout": "hex,portfolio",
+  "created_at": "2026-09-09T16:41:41.745329+00:00",
+  "argv": [
+    "/home/keshav/settlers/server/target/release/train",
+    "--out",
+    "/home/keshav/settlers/research/runs/ntuple/hex-portfolio",
+    "--layout",
+    "hex,portfolio",
+    "--wall-seconds",
+    "1080",
+    "--threads",
+    "32",
+    "--chunk-games",
+    "16000",
+    "--validate-every",
+    "1",
+    "--validate-seeds",
+    "24",
+    "--no-direct",
+    "--warmup-games",
+    "20000",
+    "--no-checkpoint"
+  ],
+  "train_sha256": "edc4c73819445974db848d7376f637667f5370c314fa703ac72e370139465e54",
+  "server_git": {
+    "commit": "3e91357c4a0d958a5f931327bfba25e8136155a3",
+    "dirty": false
+  },
+  "research_git": {
+    "commit": "5dbfda6f52f4250d609b3a1537646f46d826acb9",
+    "dirty": true
+  },
+  "tier": "training (development); validation tournaments are engine-arena games on fixed seeds"
+}

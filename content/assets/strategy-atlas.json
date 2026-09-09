@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "atlas",
-  "caption": "Proposed and tested directions in resource planning, uncertainty, trading, and cooperation.",
+  "caption": "Proposed and tested directions in resource planning, uncertainty, learning, trading, and cooperation.",
   "items": [
     {
       "id": "opening",
@@ -58,6 +58,13 @@
       "family": "Uncertainty",
       "question": "When does a hidden option justify delaying a visible build?",
       "status": "tested"
+    },
+    {
+      "id": "patterns",
+      "title": "Learned pattern values",
+      "family": "Uncertainty",
+      "question": "Can lookup tables of small board patterns, learned from self-play, replace the hand-written leaf and save a ply of search?",
+      "status": "active"
     },
     {
       "id": "bargaining",

@@ -1,6 +1,6 @@
 ---
 title: Strategy atlas
-summary: Sixteen visual study briefs covering the island, uncertainty, conversation, and the whole table.
+summary: Seventeen visual study briefs covering the island, uncertainty, learning, conversation, and the whole table.
 ---
 
 # Strategy atlas

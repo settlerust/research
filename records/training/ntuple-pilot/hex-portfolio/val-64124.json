@@ -1,0 +1,24 @@
+{
+  "completed": 96,
+  "depth": 2,
+  "direct_margin": null,
+  "direct_wins": null,
+  "eta_wins": 5,
+  "fast_wins": 8,
+  "fingerprint": "5f42534e607cfb96",
+  "games_trained": 64124,
+  "hand_ms": 84.96887834865053,
+  "hand_points": 7.09375,
+  "hand_wins": 27,
+  "is_best": true,
+  "margin": 0.3020833333333333,
+  "margin_interval": [
+    0.1405912202236884,
+    0.4635754464429782
+  ],
+  "seeds": 24,
+  "tables_ms": 117.92688715813128,
+  "tables_points": 8.072916666666666,
+  "tables_wins": 56,
+  "touched": 427744
+}

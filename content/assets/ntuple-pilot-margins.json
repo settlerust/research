@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Pilot: which pattern families make a leaf",
+  "evidence": "measured",
+  "source": "Training runs under runs/ntuple/; the last validation tournament of each arm (24 fixed deterministic seeds, four rotations, depth 2, hand-written leaf in slot 1, ETA and fast builders).",
+  "caption": "Each arm trained for eighteen minutes of wall time (20,000 builder warm-up games then about 44,000 self-play games on 32 threads) and was then played as the depth-2 leaf against the hand-written leaf in the same search, with an ETA and a fast builder, on 24 fixed deterministic seeds in every rotation (96 games). Bars are the paired per-seed margin with a normal-approximation 95% interval. These games chose the layout and cannot confirm it.",
+  "x": {
+    "label": "Layout",
+    "min": 0,
+    "max": 5,
+    "ticks": [
+      "hex + portfolio",
+      "hex + vertex + portfolio",
+      "portfolio only",
+      "full, no point reward",
+      "vertex + portfolio",
+      "hex + vertex"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, tables minus hand leaf",
+    "min": -0.38,
+    "max": 0.51
+  },
+  "series": [
+    {
+      "label": "Validation margin after the pilot budget",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.3021,
+          "low": 0.1406,
+          "high": 0.4636
+        },
+        {
+          "x": 1,
+          "y": 0.2708,
+          "low": 0.115,
+          "high": 0.4267
+        },
+        {
+          "x": 2,
+          "y": 0.2083,
+          "low": 0.056,
+          "high": 0.3606
+        },
+        {
+          "x": 3,
+          "y": 0.1875,
+          "low": -0.0297,
+          "high": 0.4047
+        },
+        {
+          "x": 4,
+          "y": -0.125,
+          "low": -0.3272,
+          "high": 0.0772
+        },
+        {
+          "x": 5,
+          "y": -0.1771,
+          "low": -0.326,
+          "high": -0.0282
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

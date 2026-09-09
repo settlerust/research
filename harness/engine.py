@@ -45,6 +45,22 @@ def register(root, seats, seeds, hypothesis, decision_rule, *, study, points=10,
     return identifier
 
 
+def table_digests(seats):
+    """SHA-256 of every learned-table file a seat spec names, so a run pins the exact tables."""
+    out = {}
+    for seat in seats:
+        if ':' not in seat:
+            continue
+        leaf = json.loads(seat.split(':', 1)[1]).get('leaf') or {}
+        path = leaf.get('tables')
+        if path:
+            file = Path(path)
+            if not file.is_file():
+                raise ValueError(f'Learned tables not found: {path}')
+            out[path] = digest(file)
+    return out
+
+
 def load(root, experiment):
     if not re.fullmatch(r'[a-z0-9-]+', experiment):
         raise ValueError('Invalid experiment ID')
@@ -124,6 +140,7 @@ def run(root, experiment_id, server, threads=None):
             'max_turns': experiment['max_turns'], 'threads': threads, 'server': str(server),
             'deterministic': bool(experiment.get('deterministic')),
             'tournament_sha256': digest(binary), 'research_git': git_state(root), 'server_git': git_state(server),
+            'tables_sha256': table_digests(experiment['players']),
             'seed_policy': 'explicit engine seeds; every seed played once per lineup rotation; policies never see seeds',
             'runtime': {'python': sys.version, 'platform': sys.platform}}
     write_json(folder / 'manifest.json', plan)

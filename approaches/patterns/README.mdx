@@ -1,0 +1,62 @@
+---
+title: Learned pattern values
+summary: "Can lookup tables of small board patterns, learned from self-play, replace the hand-written leaf and save a ply of search?"
+status: active
+evidence: engine arena
+---
+
+# Learned pattern values
+
+Can lookup tables of small board patterns, learned from self-play, replace the hand-written leaf and save a ply of search?
+
+<StrategyFigure approach="patterns" />
+
+## The decision at the table
+
+Every search ends by asking a leaf evaluator how good a position is. The tunable search prices points, cards, production, and build targets with a dozen hand-written terms. Those terms cannot know that a city on an eight next to a six is worth more than its pips suggest, that a settlement hemmed in by two opponents' roads will never expand, or that a hand of five ore and no grain is a trap. A search can discover some of this by looking further ahead, at four to six times the cost per ply.
+
+## The mechanism to test
+
+Read the position through small windows and look each one up in a table of learned numbers, as the lookup-table evaluators of 2048 and the [Drop7 n-tuple tables](https://github.com/keshavsaharia/drop7-bench) do. Three families of windows share tables across the whole board, so one number serves every hex and every intersection:
+
+- **Hex windows.** A hex's resource and pips, whether the robber sits there, and its six corners, each empty, own settlement, own city, other settlement, or other city, canonicalized over the hex's twelve symmetries.
+- **Intersection windows.** The three hexes that meet at a corner as a sorted triple, the building or blocked status there, whether an own road or a foreign road reaches it, and the port.
+- **Portfolio tables.** Production pips per resource, the hand and buildings left, own and opponent scores with the turn, development and award status, and an opponent aggregate.
+
+The value is the sum of about eighty looked-up numbers from twelve million entries, in win-probability units. Every window reads only what the seat can see in a sampled world: the board, its own hand and cards, and public counts. No opponent hand, seed, or phase reaches a table, so the same tables serve the search's leaf and the training policy.
+
+The numbers are learned by self-play. Every seat plans its turn with the tunable search at depth 1 with the tables as the leaf, and at game end each seat's chain of end-of-turn positions is nudged toward 1 for the winner and 0 for everyone else, with a small reward per point gained and temporal-coherence step sizes per entry. Blank tables cannot finish a game, so the first twenty thousand games are played by the fast builder while the tables watch.
+
+## What has been built
+
+`settlers_expectimax::ntuple` holds the tables, the pattern extraction, and the file format. `SearchConfig.leaf.tables` names a table file and swaps the leaf inside the unchanged search; the arena and the remote protocol seat load it once per process. The server's `train` binary plays self-play games on shared tables with every thread of the machine and validates the frozen tables as the depth-2 leaf against the hand-written leaf on fixed seeds at each checkpoint. Tables stay server-side; the browser worker keeps the hand-written leaf.
+
+## Proposed experiment
+
+A pilot trains six layouts for eighteen minutes each: the full set, each pair of families, portfolio tables alone as the mechanism ablation, and the full set without the point reward. The layout with the largest final validation margin trains again from scratch for several hours with a plateau rule, and its best validation point is frozen.
+
+The frozen tables then play registered deterministic cohorts on fresh seeds, 256 games each, one contrast per cohort: the tables versus the hand-written leaf at depth 2 in the same search, the tables played one ply against the depth-2 search, and the tables at depth 2 against the hand-written leaf at depth 3. Hypothesis: the tables beat the hand-written leaf at equal depth, and match it one ply deeper. A protocol cohort against `expectimax-v2-plan` follows if the engine screen passes.
+
+## What could disprove it
+
+Self-play against copies of itself can learn a style that beats itself and loses to the builders; the validation lineup keeps two builders at the table for that reason. Tables trained on depth-1 play may not transfer to the deeper search that uses them. A margin on the fixed validation seeds chooses the candidate and cannot confirm it; only the fresh registered cohorts count.
+
+<AgentContext>
+
+Use the [shared experiment design](../../docs/experiment-program.md) to freeze candidate versions, full lineups, budgets, sample size, primary contrast, and stopping rules before collecting evidence. Training runs and their validation tournaments live under `runs/ntuple/` and are development-tier; `analysis/ntuple_train.py` drives them and records the binary digest and commits. Frozen tables are archived under `artifacts/ntuple/` with SHA-256 receipts in `records/artifacts/`.
+
+The deployable policy reads only its own observation and recipient-visible events; the training policy additionally uses the true state for its chance branches, never for the tables' inputs. Seat specs are `v2:{"leaf":{"tables":"PATH"}}` in the engine arena and the same JSON for the `remote` protocol seat.
+
+</AgentContext>
+
+[All approaches](../README.md) · [Player’s guide](../../docs/strategy-guide.mdx) · [Experiment program](../../docs/experiment-program.md)
+
+[research-studies:start]: #
+
+## Tracked investigations
+
+| Updated | Investigation | Status | Finding and next step |
+| --- | --- | --- | --- |
+| 2026-09-09 | [N-tuple tables as the search leaf](/research/reports/ntuple-leaf) | Active | Pilot: hex plus portfolio tables finished with the largest validation margin (+0.302 wins per game over the hand-written leaf on 96 fixed games); portfolio tables carry the mechanism and intersection windows hurt at this budget. Main run training; no registered cohort has completed. Next: Pick the layout by pilot validation margin, train the main run, freeze the best validation point, then register the fresh-seed screen and a protocol cohort against expectimax-v2-plan. [Log 2026-09-09](/research/log/2026-09-09) |
+
+[research-studies:end]: #
