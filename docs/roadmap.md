@@ -9,7 +9,9 @@ How do we build a player that handles both the island and the people around it? 
 
 ## Where the evidence stands
 
-The arena completes real ten-point games and retains public observations and event tapes. The first frozen [liquidity comparison](../reports/liquidity-baseline.mdx) completed 80/80 games: liquidity won 20 and ETA control won 26. The improvement rule failed, so ETA remains the baseline. That finding concerns one estimator at one fixed table; the broader questions below remain open.
+The arena completes real ten-point games and retains public observations and event tapes. The first frozen [liquidity comparison](../reports/liquidity-baseline.mdx) completed 80/80 games: liquidity won 20 and ETA control won 26. The improvement rule failed, so ETA remains the baseline. That finding concerns one estimator at one fixed table.
+
+An offline [engine arena](../reports/engine-arena-calibration.mdx) now plays paired-seed games in seconds and reproduces the protocol ordering. The [corrected tunable search](../reports/expectimax-v2-corrected.mdx) wins 50.4% of paired slot-games at depth 2 and 57.4% at depth 3 against ETA builders, development-tier evidence awaiting its protocol cohort, and the [tree-structure report](../reports/tree-structure.mdx) measures how wide a turn is and what each planned turn costs. The broader questions below remain open.
 
 ## 1. Make resources turn into points
 
