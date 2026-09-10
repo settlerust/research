@@ -94,6 +94,12 @@ under a 4 s budget with decision-aware deepening), [lost its protocol
 cohort](../reports/ntuple-leaf.mdx) against `ntuple-leaf` 27 to 43 (paired
 contrast −0.200, 95% interval −0.357 to −0.043), so it is not the baseline.
 
+The search's transposition tables were rebuilt with a verified key and a
+per-decision or per-turn lifetime ([report](../reports/transpositions.mdx)):
+identical decisions from 11.7% less time at equal nodes, and no strength
+change at equal time or through the protocol (27 to 36, interval crossing
+zero), so `ntuple-leaf` remains the baseline and the tables are a cost saving.
+
 ## The previous protocol-arena baseline: expectimax-v2-plan
 
 The corrected depth-3 candidate, frozen as `expectimax-v2-plan`, [won 47 of 80

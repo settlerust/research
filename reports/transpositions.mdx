@@ -6,15 +6,18 @@ summary: "Different orders of the same moves and dice that change nothing reach 
 
 # Transposition tables in the turn-level search
 
-<ResearchCallout title="Status · refactor built and verified, registered comparisons running">
+<ResearchCallout title="Finding · the tables are correct and cheaper, and they do not change the baseline">
 The information-set key is now a Zobrist-style combination with a second
 verification word, and the memos live in a table the seat owns with three
 lifetimes: fresh per depth pass, shared across the passes of one decision, or
-kept across the decisions of a turn. On replayed deterministic games the
-shared tables reproduce the fresh search bit for bit whenever no budget binds
-and decide 18% faster at depth 2; the turn-persistent tables decide 27% faster.
-The registered equal-nodes pair, equal-time cohort, and protocol cohort are
-reported below as they complete.
+kept across the decisions of a turn. On 128 registered games at equal nodes
+the shared tables reproduced the fresh search **move for move** and decided
+**11.7% faster**; at equal time the turn tables decided 15% faster at the
+same completed depth with no measurable strength change (−0.031, 95% interval
+−0.145 to +0.082); through the protocol arena `ntuple-leaf-tt` won 27 to 36
+against `ntuple-leaf` (−0.113, −0.265 to +0.040), inconclusive, so the
+baseline is unchanged. The tables are a cost saving, not a strength gain, in
+this search.
 </ResearchCallout>
 
 <SearchFigure concept="transpositions" />
@@ -83,4 +86,59 @@ their comparison is a strength cohort rather than an identity check.
 | Equal time, turn tables | `04515fd6` | Depth 3 under 1.5 s, tables kept across a turn against fresh tables, seeds 700 to 763 | not weaker; deeper completions |
 | Protocol | `77be5dcd` | `ntuple-leaf-tt` against `ntuple-leaf` through the server, seeds 764 to 783 | baseline changes only if the interval clears zero |
 
-Results are added here as the runs complete.
+### Equal nodes: identity and speed
+
+Runs `a278a790` (fresh tables) and `e02cf22e` (shared tables) played the same
+lineup, the learned-leaf search at depth 3 with no time budget and a node
+budget that never binds beside an ETA, a fast, and an ETA builder, on seeds
+668 to 699 in every rotation. All 128 games are identical in winner, turns,
+points, and action count ([comparison record](../records/structure/cache-compare-a278a790-e02cf22e.md)).
+The shared tables decided in 654 ms against 741 ms per decision, 11.7% less,
+with 16% fewer transitions (79,813 against 94,781 per decision). The
+registered rule asked for identity and at least 15% less time: identity is
+supported, the speed part is not met. At depth 3 the passes that can be
+reused, the depth-1 turn plans and the depth-2 opponents' round, are a small
+share of the depth-3 pass, which plans a whole second turn under every
+scenario; the saving is real but bounded by that share.
+
+### Equal time: do turn tables buy strength?
+
+Run `392cc1bc` seated the learned-leaf search at depth 3 under 1.5 s with
+tables kept across the decisions of a turn in slot 0 and the same search with
+fresh tables in slot 1, with an ETA and a fast builder, on seeds 700 to 763:
+107 wins to 115, a contrast of −0.031 (95% interval −0.145 to +0.082),
+inconclusive. The turn tables decided in 368 ms against 434 ms (15% less)
+with 19% fewer transitions per decision (47,068 against 58,170), and both
+seats completed the same depth on average (2.23 against 2.20) and aborted the
+same share of attempts (9% against 10%). The saved time did not turn into
+depth, because deepening past a completed depth 3 has nowhere to go under a
+cap of 3, and the time rule already stopped most attempts at the fourth pass;
+it turned into faster decisions of the same quality.
+
+### The protocol cohort
+
+`ntuple-leaf-tt` against `ntuple-leaf` with the two builders through the
+authoritative server on seeds 764 to 783 (`77be5dcd`, run `bd18246c`, all 80
+games valid, no timeout moves): 27 wins to 36, contrast −0.113 (95% interval
+−0.265 to +0.040). The interval crosses zero, so the registered rule leaves
+the baseline at `ntuple-leaf`. Twenty seeds cannot separate a small loss from
+none; the engine cohort on 64 seeds saw no difference either way.
+
+## What this settles
+
+The transpositions the game offers are real and the search now catches them
+correctly and verifiably, with less work: the same decisions from about 12%
+less time at equal nodes, and the same completed depth from about 15% less
+time under a clock. What the tables do not do, in this search, is convert
+saved time into strength. The depth-3 pass plans a whole second turn under
+every scenario and dominates the cost, and iterative deepening under the 30%
+time rule rarely has a fourth pass to spend the saving on. The cheaper key and
+the per-turn tables are kept as defaults for training, where the state is
+fully known and the reuse is exact; for seated play the mode stays a
+configuration choice, and the baseline configuration is unchanged.
+
+The remaining cost lever is inside the depth-3 pass: the opponents' round
+simulates every scenario from every afterstate of the chosen line, and its
+arrivals are now cached per afterstate, so the next step is sharing arrivals
+across afterstates that differ only in the player's own hand, which the
+builders never read.

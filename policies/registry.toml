@@ -63,4 +63,4 @@ description = "ntuple-leaf's search with a depth cap of 4 under a 4 s budget, a 
 [ntuple-leaf-tt]
 transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"cache\":\"turn\",\"leaf\":{{\"tables\":\"{root}/artifacts/ntuple/hex-portfolio-main.bin\"}}}}", "{token_file}", "{name}"]
-description = "ntuple-leaf with transposition tables kept across the decisions of a turn (cache: turn); braces are doubled for the harness placeholder syntax"
+description = "ntuple-leaf with transposition tables kept across the decisions of a turn (cache: turn); protocol cohort against ntuple-leaf inconclusive on 2026-09-09 (27 to 36), not the baseline; braces are doubled for the harness placeholder syntax"

@@ -336,3 +336,38 @@ million transitions, deepening while under 60% of the budget): the cap of 4
 won 60 to 52 against the cap of 3, contrast +0.062 (95% interval −0.105 to
 +0.230), inconclusive; the deep seat completed a mean depth of 2.85 against
 2.34 and spent 3.5 s per decision against 0.7 s, aborting 17% of its attempts.
+
+The gap rule alone (`0ce4a417-5521-4d5c-9478-fa2d0374176d`, run
+`a32e7819-1d3d-4dc0-9065-13eabc9f2a86`, seeds 604 to 667): the baseline
+configuration with `deepen_gap` 20 against without, 120 wins to 103, contrast
++0.066 (95% interval −0.044 to +0.177), at 262 ms per decision against 448 ms.
+The rule does not weaken the search and saves 42% of decision time.
+
+## Transposition tables
+
+The search's memos now live in a table the seat owns, keyed by a verified
+Zobrist-style information-set key, with three lifetimes (`cache: none`,
+`decision`, `turn`); the opponents' round arrivals are cached too, and
+indistinguishable positions are grouped in first-appearance order so sums no
+longer depend on the key. The grouping change is the one non-identical step:
+runs recorded before it stand as recorded and are not replayable move for move.
+The equal-nodes pair under `search/transpositions`
+(`968bb602-4742-472e-97ad-b77d6b83a1ab`, run
+`a278a790-1e12-435f-90ed-95c516a6a94f`, fresh tables; and
+`420a6324-b780-4998-b61c-c047e672cf7f`, run
+`e02cf22e-6cb2-4dba-a08d-ab45b1a4556a`, shared tables) played 128 identical
+games; the shared tables decided 11.7% faster (654 ms against 741 ms) with 16%
+fewer transitions, short of the 15% the rule asked for.
+The equal-time cohort (`04515fd6-3f1a-4d87-9baf-b603885badb9`, run
+`392cc1bc-8a64-4adc-825f-3058c66e006a`, seeds 700 to 763): turn tables against
+fresh tables at depth 3 under 1.5 s, 107 wins to 115, contrast −0.031 (95%
+interval −0.145 to +0.082), inconclusive; the turn tables decided in 368 ms
+against 434 ms at the same completed depth (2.23 against 2.20).
+The protocol cohort (`77be5dcd-ba5e-4fd8-8014-a9aec230ed07`, run
+`bd18246c-4161-49e7-9391-a2530bdb3434`, seeds 764 to 783): `ntuple-leaf-tt`
+27 wins to 36 for `ntuple-leaf`, contrast −0.113 (95% interval −0.265 to
++0.040), all games valid; inconclusive, and the baseline stays `ntuple-leaf`.
+The [transposition report](../reports/transpositions.mdx) has the concept
+figure, the key, and every run.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
