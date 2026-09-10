@@ -1,0 +1,12 @@
+id = "c36715d4-a947-4166-86a5-8ef0bca620c6"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "With the frozen tables as its leaf, a depth cap of 4 under a 4 s budget with decision-aware deepening (single-candidate positions stop at depth 1, deepening ends once the best move leads by 20 leaf units) beats the depth-3, 1.5 s configuration of the protocol baseline in the same search, with an ETA and a fast builder at the table."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero refutes it; otherwise inconclusive. Never extend or refill this cohort."
+players = ["v2:{\"depth\":4,\"time_budget_ms\":4000,\"node_budget\":5000000,\"deepen_gap\":20,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "468-531"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

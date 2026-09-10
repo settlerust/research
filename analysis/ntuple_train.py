@@ -20,7 +20,7 @@ SERVER = Path(os.environ.get('SETTLERS_SERVER_DIR', ROOT.parent / 'server')).res
 
 def run_arm(name, layout, extra, wall, out_root):
     binary = SERVER / 'target/release/train'
-    out = out_root / name
+    out = (out_root / name).resolve()
     out.mkdir(parents=True, exist_ok=True)
     argv = [str(binary), '--out', str(out), '--layout', layout, '--wall-seconds', str(wall)] + extra
     manifest = {'schema': 1, 'arm': name, 'layout': layout, 'created_at': now(), 'argv': argv,

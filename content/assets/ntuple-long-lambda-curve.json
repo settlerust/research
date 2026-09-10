@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Four-hour run, lambda 0.3: the tables against the hand-written leaf",
+  "evidence": "measured",
+  "source": "Training run runs/ntuple/long-lambda-0.3; every validation point is a tournament on fixed deterministic seeds against the hand-written leaf in the same search with the two builders.",
+  "caption": "The same run with lambda 0.3 in place of 0.7, trained concurrently on the other sixteen threads and validated on the same 192-game cohort. The point at 270,000 games is the frozen candidate long-lambda-0.3.",
+  "x": {
+    "label": "Self-play games trained (thousands)",
+    "min": 0,
+    "max": 271.0
+  },
+  "y": {
+    "label": "Wins per game, tables minus hand leaf",
+    "min": -0.26,
+    "max": 0.46
+  },
+  "series": [
+    {
+      "label": "Tables as the depth-2 leaf",
+      "points": [
+        {
+          "x": 30.0,
+          "y": -0.0885,
+          "low": -0.2136,
+          "high": 0.0365
+        },
+        {
+          "x": 60.0,
+          "y": 0.1875,
+          "low": 0.0582,
+          "high": 0.3168
+        },
+        {
+          "x": 90.0,
+          "y": 0.2552,
+          "low": 0.1399,
+          "high": 0.3705
+        },
+        {
+          "x": 120.1,
+          "y": 0.2865,
+          "low": 0.161,
+          "high": 0.412
+        },
+        {
+          "x": 150.1,
+          "y": 0.2448,
+          "low": 0.1232,
+          "high": 0.3664
+        },
+        {
+          "x": 180.1,
+          "y": 0.2865,
+          "low": 0.1698,
+          "high": 0.4032
+        },
+        {
+          "x": 210.1,
+          "y": 0.276,
+          "low": 0.1591,
+          "high": 0.393
+        },
+        {
+          "x": 240.1,
+          "y": 0.2708,
+          "low": 0.148,
+          "high": 0.3936
+        },
+        {
+          "x": 270.1,
+          "y": 0.2917,
+          "low": 0.1719,
+          "high": 0.4114
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

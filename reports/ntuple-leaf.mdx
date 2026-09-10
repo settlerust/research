@@ -280,6 +280,43 @@ intersection window is no better than none. Two four-hour runs, the defaults
 and λ 0.3, each on sixteen threads with a 192-game validation cohort, follow
 to ask whether longer training helps and whether the λ reading survives.
 
+## Two four-hour runs
+
+The second pilot could not separate any setting from noise, so two runs took
+the question to a longer budget with a validation cohort twice the size: the
+default settings and λ 0.3, each on sixteen threads for four hours of wall
+time, validated every 30,000 games on 48 seeds in every rotation (192 games)
+against the hand-written leaf in the same depth-2 search with the two builders.
+
+<ResearchPlot asset="ntuple-long-default-curve" />
+
+<ResearchPlot asset="ntuple-long-lambda-curve" />
+
+| Run | Games | Points | Best margin (at games) | Last margin | Frozen candidate |
+| --- | ---: | ---: | --- | --- | --- |
+| Default settings | 300,150 | 10 | +0.375 (150,075) | +0.219 | `long-default`, SHA-256 `7fefc641…` |
+| λ 0.3 | 270,135 | 9 | +0.292 (270,135) | +0.292 | `long-lambda-0.3`, SHA-256 `9c166eb4…` |
+
+The default run climbed to +0.375 at 150,000 games and then wandered between
++0.22 and +0.36; the λ 0.3 run reached +0.29 by 120,000 games and stayed
+there. On this larger cohort neither run's best point is clearly above the
+main run's candidate (+0.375 on 128 games at 96,000 games), and the intervals
+of the two runs overlap at every point after the first. Each best point was
+frozen and screened against the frozen 96,000-game tables on fresh seeds
+(340 to 403 for the earlier cohorts; 404 to 467 here), the only comparison
+that counts.
+
+| Screen | Registration | Run | Candidate wins | Frozen tables wins | Contrast (95% interval) | Reading |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| Default settings, four hours, vs frozen tables | `caf6e656` | `dee1f84c` | 109 | 101 | +0.031 (−0.082 to +0.145) | inconclusive |
+| λ 0.3, four hours, vs frozen tables | `714fa798` | `a144ba45` | 106 | 92 | +0.055 (−0.046 to +0.155) | inconclusive |
+
+Neither longer training nor the λ change produced tables measurably better
+than the ones frozen after 96,000 games. The plateau the first run stopped on
+was real: with these windows and this learning rule, the tables reach their
+level in about a hundred thousand games, and the remaining lever is the
+representation or the search around it, not more of the same games.
+
 ## More searches at the table
 
 Two follow-up cohorts on seeds 340 to 403 asked whether the margin depends on

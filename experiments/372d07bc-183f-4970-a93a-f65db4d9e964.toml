@@ -1,0 +1,12 @@
+id = "372d07bc-183f-4970-a93a-f65db4d9e964"
+study = "patterns/ntuple-followups"
+hypothesis = "ntuple-leaf-deep (the learned-leaf search with a depth cap of 4 under a 4 s budget, a 5,000,000-transition node budget, and decision-aware deepening) wins more often than ntuple-leaf (depth 3, 1.5 s) through the authoritative protocol arena, with an ETA and a fast builder, on deterministic paired seeds."
+decision_rule = "All 80 games must complete validly with no server timeout moves under an 8 s per-decision deadline. Primary contrast: per-seed difference in wins between the ntuple-leaf-deep slot and the ntuple-leaf slot over 20 deterministic seeds played once per rotation, with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero means the deeper configuration is weaker; otherwise inconclusive. Never extend or refill this cohort."
+players = ["ntuple-leaf-deep", "ntuple-leaf", "eta", "fast"]
+games = 80
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 8
+max_turns = 3000
+seeds = "532-551"
+deterministic = true

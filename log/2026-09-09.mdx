@@ -284,3 +284,20 @@ default node budget of 400,000 transitions aborts most depth-4 searches, so a
 depth-4 configuration needs a larger node budget. A depth-4 candidate under a
 4 s budget with the gap rule is registered against the depth-3 baseline once
 the long runs release the machine.
+
+## Two four-hour runs, and their screens
+
+The default-settings run (`records/training/ntuple-long/long-default/`)
+trained 300,150 games on sixteen threads and peaked at +0.375 on its 192-game
+validation cohort at 150,075 games; the λ 0.3 run reached +0.292 at 270,135
+games. Both best points were frozen (`records/artifacts/ntuple-long-*.md`)
+and screened against the frozen 96,000-game tables on seeds 404 to 467 under
+`patterns/ntuple-followups`: the default run's tables won 109 slot-games to
+101 (`caf6e656-fccc-424f-addf-f0ed62e384f8`, run
+`dee1f84c-7e07-4ae7-ac8c-e8ae30998e6b`, contrast +0.031, 95% interval −0.082
+to +0.145) and the λ 0.3 tables 106 to 92 (`714fa798-4f0c-469b-8d96-efaa71898aff`,
+run `a144ba45-27e3-46b5-8ad2-3e45525f4a17`, +0.055, −0.046 to +0.155). Both
+inconclusive: longer training and the λ change do not measurably improve on
+the frozen tables. The trainer's driver now resolves its output path; these
+runs' table files were written under the server checkout and moved back
+before freezing, with the digests recorded.

@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "line",
+  "title": "Four-hour run, default settings: the tables against the hand-written leaf",
+  "evidence": "measured",
+  "source": "Training run runs/ntuple/long-default; every validation point is a tournament on fixed deterministic seeds against the hand-written leaf in the same search with the two builders.",
+  "caption": "Hex plus portfolio tables trained from scratch for four hours of wall time on sixteen threads with the default learning settings, validated every 30,000 games on 48 fixed deterministic seeds in every rotation (192 games) as the depth-2 leaf against the hand-written leaf with the two builders. Bands are normal-approximation 95% intervals of the paired per-seed margin. The point at 150,000 games, the largest margin, is the frozen candidate long-default.",
+  "x": {
+    "label": "Self-play games trained (thousands)",
+    "min": 0,
+    "max": 301.0
+  },
+  "y": {
+    "label": "Wins per game, tables minus hand leaf",
+    "min": -0.16,
+    "max": 0.54
+  },
+  "series": [
+    {
+      "label": "Tables as the depth-2 leaf",
+      "points": [
+        {
+          "x": 30.0,
+          "y": 0.0208,
+          "low": -0.1111,
+          "high": 0.1528
+        },
+        {
+          "x": 60.0,
+          "y": 0.1979,
+          "low": 0.075,
+          "high": 0.3208
+        },
+        {
+          "x": 90.0,
+          "y": 0.2188,
+          "low": 0.0814,
+          "high": 0.3561
+        },
+        {
+          "x": 120.1,
+          "y": 0.2552,
+          "low": 0.1408,
+          "high": 0.3696
+        },
+        {
+          "x": 150.1,
+          "y": 0.375,
+          "low": 0.2556,
+          "high": 0.4944
+        },
+        {
+          "x": 180.1,
+          "y": 0.2708,
+          "low": 0.1349,
+          "high": 0.4068
+        },
+        {
+          "x": 210.1,
+          "y": 0.3594,
+          "low": 0.2474,
+          "high": 0.4714
+        },
+        {
+          "x": 240.1,
+          "y": 0.3333,
+          "low": 0.2268,
+          "high": 0.4399
+        },
+        {
+          "x": 270.1,
+          "y": 0.2917,
+          "low": 0.1822,
+          "high": 0.4012
+        },
+        {
+          "x": 300.1,
+          "y": 0.2188,
+          "low": 0.0944,
+          "high": 0.3431
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

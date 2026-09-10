@@ -1,0 +1,12 @@
+id = "6d9624c9-90bb-4427-8381-e706cec9389a"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "With the hand-written leaf, the same depth-4 configuration beats the depth-3, 1.5 s configuration, so the fourth ply can be compared between the two leaves on identical boards."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero refutes it; otherwise inconclusive. Never extend or refill this cohort."
+players = ["v2:{\"depth\":4,\"time_budget_ms\":4000,\"node_budget\":5000000,\"deepen_gap\":20,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "v2:{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "468-531"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
