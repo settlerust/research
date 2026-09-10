@@ -262,3 +262,25 @@ family at +0.167, and step size 0.5 (+0.042), point reward 0.1 (+0.094), and a
 100,000-game warm-up (+0.135) lowest; none separates from the floor. Two
 four-hour runs, the defaults and λ 0.3, are training concurrently on sixteen
 threads each with a 192-game validation cohort under `runs/ntuple-long/`.
+
+## Deepening where it matters, and an explain mode
+
+Two search changes, both behaviour-preserving for every registered
+configuration (recorded deterministic games replay bit for bit): iterative
+deepening now stops on settled decisions (a single-candidate position never
+deepens past the first depth, and `deepen_gap` ends deepening once the best
+candidate leads the runner-up by that many leaf units), and `explain: true`
+reports, for the chosen move, the distribution of end-of-turn positions it
+leads to at every planned level with probabilities and values, merged by what
+the player has by then. The exhibit `ntuple-explain-decision` shows one such
+decision; the search trace figure renders the panel. On 509 traced decisions
+of the tables at depth 2, 29% had a single candidate, and among the rest the
+median lead of the best move over the runner-up was 5.5 leaf units (half a
+percentage point of win probability), with a tenth above 38.
+
+Depth 4 with the tables costs a median of 3.5 s and a 90th percentile of 6.5 s
+per main-phase decision on sampled positions without deepening, and the
+default node budget of 400,000 transitions aborts most depth-4 searches, so a
+depth-4 configuration needs a larger node budget. A depth-4 candidate under a
+4 s budget with the gap rule is registered against the depth-3 baseline once
+the long runs release the machine.

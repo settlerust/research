@@ -1,0 +1,12 @@
+id = "caf6e656-fccc-424f-addf-f0ed62e384f8"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "The best validation point of a four-hour run with the default learning settings (hex plus portfolio, 192-game validation cohort) beats the frozen 96,000-game tables as the depth-2 leaf in the same search, with an ETA and a fast builder at the table: longer training helps."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero means the longer run is weaker than the frozen tables; otherwise inconclusive. Never extend or refill this cohort."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/long-default.bin\"}}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "404-467"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

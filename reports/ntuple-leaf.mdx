@@ -168,6 +168,27 @@ hex directly.
 
 <ResearchPlot asset="ntuple-hand-table" />
 
+## Looking into the search: expected outcomes
+
+The search can now say what it expects. In explain mode a report carries, for
+the chosen move, the distribution of end-of-turn positions it leads to at every
+planned level: each position's probability along the chosen move (from dice,
+purchases, thefts, the sampled hands, and the common random scenarios of the
+opponents' round), the value the leaf gave it, and what the player has by
+then. Positions are merged by their builds, cards, points, and whether the game
+has ended, so the reading is "a city at 19 and a road, with probability 0.4"
+rather than one entry per sampled hand. The decision itself is unchanged; only
+positions the search would have discarded are kept.
+
+<SearchTrace asset="ntuple-explain-decision" />
+
+In the recorded decision above the tables settle at 34 and then expect, by the
+end of their next turn, to have added nothing further with probability 0.56,
+one development card with 0.17, a road on 50 with 0.09, two cards with 0.06,
+and a fifth point in a few percent of futures. A researcher can read from this
+what the policy is playing for, and a disagreement between those expectations
+and what actually happens is the place to look for a leaf that is wrong.
+
 ## Why the tables spend more search time
 
 The tables are not the expensive part. One evaluation of the hex plus

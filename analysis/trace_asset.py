@@ -39,6 +39,32 @@ def describe(action):
     return kind.replace('_', ' ')
 
 
+def outcome_label(group):
+    parts = [f"settlement at {v}" for v in group['settlements']] + [f"city at {v}" for v in group['cities']]
+    parts += [f"road on {e}" for e in group['roads']]
+    if group['development']:
+        parts.append(f"{group['development']} development card" + ('s' if group['development'] > 1 else ''))
+    if group.get('won') is True:
+        parts.append('wins the game')
+    elif group.get('won') is False:
+        parts.append('game lost')
+    return ', '.join(parts) if parts else 'nothing more'
+
+
+def outcomes_of(entry):
+    """Explain-mode outcomes of a traced decision as the exhibit's display shape, or None."""
+    levels = entry.get('outcomes')
+    if not levels:
+        return None
+    out = []
+    for level in levels:
+        groups = [{'probability': round(g['probability'], 4), 'value': round(g['value'], 2), 'label': outcome_label(g),
+                   'points': g['points'], 'turn': g['turn']} for g in level['groups'][:12] if g['probability'] > 0]
+        if groups:
+            out.append({'level': level['level'], 'other': round(max(0.0, level['other']), 4), 'groups': groups})
+    return out or None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('games', help='games.jsonl produced by tournament --trace')
@@ -51,6 +77,7 @@ def main():
     parser.add_argument('--title', required=True)
     parser.add_argument('--caption', required=True)
     parser.add_argument('--source', required=True)
+    parser.add_argument('--policy', default='expectimax-v2', help='Policy name shown on the exhibit')
     args = parser.parse_args()
     rows = [json.loads(l) for l in Path(args.games).read_text().splitlines() if l.strip()]
     game = next(r for r in rows if r['seed'] == args.seed and r['rotation'] == args.rotation)
@@ -74,11 +101,14 @@ def main():
     position = entry['position']
     position['players'] = [{k: v for k, v in p.items() if k != 'victory_cards' or v is not None} for p in position['players']]
     data = {'schema': 1, 'kind': 'search', 'title': args.title, 'caption': args.caption, 'evidence': 'measured',
-            'source': args.source, 'policy': 'expectimax-v2', 'seat': entry['seat'], 'turn': entry['turn'],
+            'source': args.source, 'policy': args.policy, 'seat': entry['seat'], 'turn': entry['turn'],
             'phase': entry['phase']['type'], 'depth': entry['depth'], 'timeMs': round(entry['ms'], 1),
             'topology': json.loads(Path(args.topology).read_text()), 'position': position, 'hand': entry['hand'],
             'candidates': candidates, 'levels': levels,
             'statistics': statistics}
+    outcomes = outcomes_of(entry)
+    if outcomes:
+        data['outcomes'] = outcomes
     write_json(ROOT / 'content/assets' / f'{args.name}.json', data)
     print(ROOT / 'content/assets' / f'{args.name}.json', len(candidates), 'candidates')
 
