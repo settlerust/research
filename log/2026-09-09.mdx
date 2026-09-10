@@ -250,3 +250,15 @@ A stability digest over 303 positions now pins pattern extraction; a compact
 cost: one table evaluation takes 0.64 microseconds against 1.65 for the
 hand-written terms, and the tables seat's longer decisions come from a search
 that expands about twice as many nodes and chance branches under the tables.
+
+## Second pilot: learning settings
+
+Nine unregistered arms of eighteen minutes each (records under
+`records/training/ntuple-pilot2/`, asset `ntuple-pilot2-margins`): the
+defaults repeated as a control finished at +0.115 where the first pilot's
+identical run finished at +0.302, so the pilot's noise floor is about 0.2 wins
+per game. λ 0.3 (+0.354) and λ 0.9 (+0.281) finished highest, the corner
+family at +0.167, and step size 0.5 (+0.042), point reward 0.1 (+0.094), and a
+100,000-game warm-up (+0.135) lowest; none separates from the floor. Two
+four-hour runs, the defaults and λ 0.3, are training concurrently on sixteen
+threads each with a 192-game validation cohort under `runs/ntuple-long/`.

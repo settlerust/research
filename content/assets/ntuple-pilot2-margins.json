@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Second pilot: learning settings and the corner family",
+  "evidence": "measured",
+  "source": "Training runs under runs/ntuple/; the last validation tournament of each arm (24 fixed deterministic seeds, four rotations, depth 2, hand-written leaf in slot 1, ETA and fast builders).",
+  "caption": "Nine arms with the hex plus portfolio layout unless named otherwise, each trained for eighteen minutes of wall time on 32 threads and validated on the same 24 fixed deterministic seeds in every rotation (96 games) as the depth-2 leaf against the hand-written leaf with the two builders. Bars are the paired per-seed margin at the last validation point with a normal-approximation 95% interval. The control repeats the first pilot's hex plus portfolio arm, which finished at +0.302; the gap between the two identical runs is the noise floor of this pilot.",
+  "x": {
+    "label": "Layout",
+    "min": 0,
+    "max": 8,
+    "ticks": [
+      "defaults (control)",
+      "lambda 0.3",
+      "lambda 0.9",
+      "epsilon 0.02",
+      "optimistic 0.25",
+      "hex + corner + portfolio",
+      "warm-up 100k",
+      "alpha 0.5",
+      "point reward 0.1"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, tables minus hand leaf",
+    "min": -0.21,
+    "max": 0.55
+  },
+  "series": [
+    {
+      "label": "Validation margin after the pilot budget",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.1146,
+          "low": -0.0548,
+          "high": 0.284
+        },
+        {
+          "x": 1,
+          "y": 0.3542,
+          "low": 0.2099,
+          "high": 0.4984
+        },
+        {
+          "x": 2,
+          "y": 0.2812,
+          "low": 0.0679,
+          "high": 0.4946
+        },
+        {
+          "x": 3,
+          "y": 0.2292,
+          "low": 0.0359,
+          "high": 0.4224
+        },
+        {
+          "x": 4,
+          "y": 0.1875,
+          "low": 0.0484,
+          "high": 0.3266
+        },
+        {
+          "x": 5,
+          "y": 0.1667,
+          "low": -0.0119,
+          "high": 0.3453
+        },
+        {
+          "x": 6,
+          "y": 0.1354,
+          "low": 0.0104,
+          "high": 0.2605
+        },
+        {
+          "x": 7,
+          "y": 0.0417,
+          "low": -0.1576,
+          "high": 0.241
+        },
+        {
+          "x": 8,
+          "y": 0.0938,
+          "low": -0.1144,
+          "high": 0.3019
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

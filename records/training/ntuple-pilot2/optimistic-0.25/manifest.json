@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "arm": "optimistic-0.25",
+  "layout": "hex,portfolio",
+  "created_at": "2026-09-09T23:18:39.798069+00:00",
+  "argv": [
+    "/home/keshav/settlers/server/target/release/train",
+    "--out",
+    "/home/keshav/settlers/research/runs/ntuple-pilot2/optimistic-0.25",
+    "--layout",
+    "hex,portfolio",
+    "--wall-seconds",
+    "1080",
+    "--optimistic",
+    "0.25",
+    "--threads",
+    "32",
+    "--chunk-games",
+    "16000",
+    "--validate-every",
+    "1",
+    "--validate-seeds",
+    "24",
+    "--no-direct",
+    "--no-checkpoint"
+  ],
+  "train_sha256": "6f708d975c8c489cdc16e9c552013fdf1fc6a1ab291ce8f025c2430f9d0d2aff",
+  "server_git": {
+    "commit": "aebcc84a5310c3b19d4402f005655226403ce72f",
+    "dirty": false
+  },
+  "research_git": {
+    "commit": "47d6569f123a2f5f51d3a94d5cb0a4cca4d21e28",
+    "dirty": true
+  },
+  "tier": "training (development); validation tournaments are engine-arena games on fixed seeds"
+}

@@ -226,6 +226,39 @@ the two builders, on 20 deterministic seeds through the authoritative server:
 every game valid. The [protocol report](ntuple-leaf-protocol.mdx) records it
 and makes `ntuple-leaf` the protocol-arena baseline.
 
+## Second pilot: learning settings and a compact corner window
+
+Nine arms trained for eighteen minutes each under the first pilot's protocol,
+with the hex plus portfolio layout unless named otherwise: a repeat of the
+defaults as the control, step size 0.5, λ 0.9 and 0.3, point reward 0.1,
+2% random exploration, optimistic initialization at 0.25, a 100,000-game
+warm-up, and the hex plus corner plus portfolio layout, where a corner window
+is the three touching hexes and the building state only (303,918 entries).
+
+<ResearchPlot asset="ntuple-pilot2-margins" />
+
+| Arm | Last: tables / hand / ETA / fast | Last margin (95% interval) | Best margin |
+| --- | --- | --- | ---: |
+| defaults (control) | 44 / 33 / 9 / 10 | +0.115 (−0.055 to +0.284) | +0.219 |
+| λ 0.3 | 58 / 24 / 8 / 6 | +0.354 (+0.210 to +0.498) | +0.354 |
+| λ 0.9 | 58 / 31 / 3 / 4 | +0.281 (+0.068 to +0.495) | +0.281 |
+| ε 0.02 | 48 / 26 / 14 / 8 | +0.229 (+0.036 to +0.422) | +0.312 |
+| optimistic 0.25 | 48 / 30 / 9 / 9 | +0.188 (+0.048 to +0.327) | +0.281 |
+| hex + corner + portfolio | 45 / 29 / 13 / 9 | +0.167 (−0.012 to +0.345) | +0.167 |
+| warm-up 100,000 | 45 / 32 / 12 / 7 | +0.135 (+0.010 to +0.260) | +0.135 |
+| step size 0.5 | 40 / 36 / 11 / 9 | +0.042 (−0.158 to +0.241) | +0.219 |
+| point reward 0.1 | 44 / 35 / 12 / 5 | +0.094 (−0.114 to +0.302) | +0.094 |
+
+The control finished at +0.115 where the identical configuration finished at
++0.302 in the first pilot. Training on shared tables is not deterministic
+across runs, and 96 validation games have a wide interval, so two identical
+runs differ by about 0.2 wins per game; nothing in this pilot separates from
+that floor. λ 0.3 and 0.9 sit at the top and the corner family in the middle,
+which says the defaults are not obviously wrong and that the compact
+intersection window is no better than none. Two four-hour runs, the defaults
+and λ 0.3, each on sixteen threads with a 192-game validation cohort, follow
+to ask whether longer training helps and whether the λ reading survives.
+
 ## More searches at the table
 
 Two follow-up cohorts on seeds 340 to 403 asked whether the margin depends on
