@@ -1,0 +1,12 @@
+id = "968bb602-4742-472e-97ad-b77d6b83a1ab"
+study = "search/transpositions"
+arena = "engine"
+hypothesis = "Reference half of the equal-nodes pair: the learned-leaf search at depth 3 with no time budget and a node budget that never binds, with fresh tables per depth pass, on 32 deterministic seeds; its games are compared move for move with the shared-table half."
+decision_rule = "This registration is one half of a paired comparison; read with its partner. The analysis (analysis/cache_compare.py) must find every game identical in winner, turns, points, and action count between the two halves, and reports the mean decision time of slot 0 in each."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":0,\"node_budget\":50000000,\"cache\":\"none\",\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast", "eta"]
+seeds = "668-699"
+rotations = 4
+games = 128
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -329,3 +329,10 @@ configuration with a 4 s budget and a gap of 20 is weaker through the
 protocol, and the baseline stays `ntuple-leaf`. A gap-rule-only cohort
 (the baseline configuration with `deepen_gap` 20 against without) is
 registered to separate the deepening rule from the depth cap.
+
+The equal-time comparison (`8dc65a70-0b16-44fb-97b6-4fc7d4471ab8`, run
+`4e81a0cd-174e-42e3-aa5b-9c41be3c55cc`, seeds 572 to 603, 10 s budgets, 20
+million transitions, deepening while under 60% of the budget): the cap of 4
+won 60 to 52 against the cap of 3, contrast +0.062 (95% interval −0.105 to
++0.230), inconclusive; the deep seat completed a mean depth of 2.85 against
+2.34 and spent 3.5 s per decision against 0.7 s, aborting 17% of its attempts.

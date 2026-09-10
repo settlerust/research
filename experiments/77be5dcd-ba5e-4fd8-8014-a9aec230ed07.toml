@@ -1,0 +1,12 @@
+id = "77be5dcd-ba5e-4fd8-8014-a9aec230ed07"
+study = "search/transpositions"
+hypothesis = "ntuple-leaf-tt (the baseline search with transposition tables kept across the decisions of a turn) wins at least as often as ntuple-leaf through the authoritative protocol arena, with an ETA and a fast builder, on deterministic paired seeds."
+decision_rule = "All 80 games must complete validly with no server timeout moves. Primary contrast: per-seed difference in wins between the ntuple-leaf-tt slot and the ntuple-leaf slot over 20 deterministic seeds played once per rotation, with a normal-approximation 95% interval. The tables become the baseline only if the interval lies above zero; an interval below zero refutes them; otherwise the baseline is unchanged. Never extend or refill this cohort."
+players = ["ntuple-leaf-tt", "ntuple-leaf", "eta", "fast"]
+games = 80
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000
+seeds = "764-783"
+deterministic = true

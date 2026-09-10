@@ -1,0 +1,86 @@
+---
+date: "2026-09-09"
+title: "Transposition tables in the turn-level search"
+summary: "Different orders of the same moves and dice that change nothing reach one position; the search now remembers those positions across the depth passes of a decision and across a turn, with a verified key, and the registered comparisons measure what that saves."
+---
+
+# Transposition tables in the turn-level search
+
+<ResearchCallout title="Status · refactor built and verified, registered comparisons running">
+The information-set key is now a Zobrist-style combination with a second
+verification word, and the memos live in a table the seat owns with three
+lifetimes: fresh per depth pass, shared across the passes of one decision, or
+kept across the decisions of a turn. On replayed deterministic games the
+shared tables reproduce the fresh search bit for bit whenever no budget binds
+and decide 18% faster at depth 2; the turn-persistent tables decide 27% faster.
+The registered equal-nodes pair, equal-time cohort, and protocol cohort are
+reported below as they complete.
+</ResearchCallout>
+
+<SearchFigure concept="transpositions" />
+
+## Why Catan transposes so much
+
+A turn is a sequence of actions, and most sequences commute: a road then a
+city and a city then a road end in the same position. Dice that produce
+nothing for anyone, or produce only for opponents whose hands the player
+cannot see, leave the player's information unchanged, so several outcomes of
+one roll are the same position from that seat's point of view. The opponents'
+round under common random scenarios brings the player back to positions that
+differ only in what it could not observe. The tree-structure measurement
+counted the share of own-turn positions already seen at 21% at depth 1, 12%
+at depth 2, 7% at depth 3, and 5% at depth 4 with the original per-decision
+memo; in traced games of the learned-leaf search at depth 2, a contested
+decision expanded about 1,680 own nodes and hit the memo 270 times.
+
+<ResearchPlot asset="tree-transpositions" />
+
+## What changed
+
+**The key.** A position is identified by everything the seat's observation
+would show: board and roads, its own hand and cards, bank and deck count,
+robber, awards, phase, turn, and the other seats' public counts. Hidden hands,
+the deck's composition, and the random cursor never enter it. Each field's
+identity and value pass through a 64-bit mixing finalizer and the results
+combine by exclusive or, in two independently salted words; the first indexes
+the table and the second verifies the hit, so a collision cannot return
+another position's value. The old key hashed the same fields through SipHash
+field by field.
+
+**Grouping order.** Indistinguishable positions are merged at every branching
+point: dice outcomes, purchases, thefts, sampled hands, and the arrivals after
+the opponents' round. They were merged in key order, which made the order of
+every floating-point sum, and so the value bits, depend on the hash function;
+they are now merged in first-appearance order. This is the one change that is
+not bit-identical to games recorded before it: near-ties can resolve the other
+way, so the earlier cohorts stand as recorded with their binary digests and
+are not replayable move for move by the new binary.
+
+**Three tables, three lifetimes.** The turn plans (the static best line of a
+position, independent of depth), the lookahead values (keyed by position,
+level, and depth cap, since a value depends on how many more turns are
+planned below it), and the arrival positions of an opponents' round (keyed by
+position and level). With `cache: none` they are rebuilt for every depth pass,
+as before. With `decision` they are shared across the passes of one decision,
+so iterative deepening replans a turn and replays a round once. With `turn`
+they persist across the decisions of a turn, so after a move the next
+decision starts inside a subtree the previous one explored.
+
+**What is and is not identical.** Shared tables within a decision reproduce
+the fresh search bit for bit whenever no node or time budget binds; a test
+walks forty decisions of a game and checks every candidate's value bits.
+Under a binding budget the cached search completes more of the tree. The
+turn-persistent tables reuse values computed under the earlier decisions'
+sampled hands, an equally valid estimate but not the same bits, which is why
+their comparison is a strength cohort rather than an identity check.
+
+## The registered comparisons
+
+| Cohort | Registration | Question | Reading |
+| --- | --- | --- | --- |
+| Equal nodes, fresh half | `968bb602` | Depth 3, no time budget, node budget never binds, fresh tables, seeds 668 to 699 | reference games |
+| Equal nodes, shared half | `420a6324` | The same search with tables shared across depth passes | every game identical, decisions faster |
+| Equal time, turn tables | `04515fd6` | Depth 3 under 1.5 s, tables kept across a turn against fresh tables, seeds 700 to 763 | not weaker; deeper completions |
+| Protocol | `77be5dcd` | `ntuple-leaf-tt` against `ntuple-leaf` through the server, seeds 764 to 783 | baseline changes only if the interval clears zero |
+
+Results are added here as the runs complete.

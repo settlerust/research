@@ -1,0 +1,12 @@
+id = "04515fd6-3f1a-4d87-9baf-b603885badb9"
+study = "search/transpositions"
+arena = "engine"
+hypothesis = "At equal time (depth 3, 1.5 s), tables kept across the decisions of a turn make the learned-leaf search at least as strong as the same search with fresh tables, because the saved time completes more depth."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero refutes it; otherwise inconclusive, and the completed-depth and decision-time statistics are reported. Never extend or refill this cohort."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":1500,\"cache\":\"turn\",\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":3,\"time_budget_ms\":1500,\"cache\":\"none\",\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "700-763"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

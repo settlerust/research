@@ -1,0 +1,12 @@
+id = "420a6324-b780-4998-b61c-c047e672cf7f"
+study = "search/transpositions"
+arena = "engine"
+hypothesis = "With tables shared across the depth passes of a decision, the same search plays every game identically to the fresh-table half (same winner, turns, points, and actions on every seed and rotation) and decides faster."
+decision_rule = "Support only if every one of the 128 games matches the fresh-table half exactly and the mean decision time of slot 0 is at least 15% lower; a single differing game refutes bit-identity. Never extend or refill this cohort."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":0,\"node_budget\":50000000,\"cache\":\"decision\",\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast", "eta"]
+seeds = "668-699"
+rotations = 4
+games = 128
+points_to_win = 10
+max_turns = 500
+deterministic = true
