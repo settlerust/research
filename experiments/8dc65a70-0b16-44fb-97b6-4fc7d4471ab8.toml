@@ -1,0 +1,12 @@
+id = "8dc65a70-0b16-44fb-97b6-4fc7d4471ab8"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "At equal time (a 10 s budget, deepening allowed while under 60% of it, a 20,000,000-transition node budget), a depth cap of 4 beats a depth cap of 3 for the learned-leaf search, with an ETA and a fast builder at the table: the fourth planned turn is worth more than the same time spent completing depth 3."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 and slot 1 over 32 deterministic seeds (128 games) with a normal-approximation 95% interval. Support only if the interval lies above zero; an interval below zero refutes it; otherwise inconclusive. Never extend or refill this cohort."
+players = ["v2:{\"depth\":4,\"time_budget_ms\":10000,\"node_budget\":20000000,\"deepen_fraction\":0.6,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":3,\"time_budget_ms\":10000,\"node_budget\":20000000,\"deepen_fraction\":0.6,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "572-603"
+rotations = 4
+games = 128
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,12 @@
+id = "0ce4a417-5521-4d5c-9478-fa2d0374176d"
+study = "patterns/ntuple-followups"
+arena = "engine"
+hypothesis = "The decision-aware deepening rule alone (deepen_gap 20 on the baseline configuration, depth 3 under 1.5 s with the frozen tables) does not lower the win rate against the same configuration without it; if it does, the gap rule and not the depth cap explains the depth-4 protocol loss."
+decision_rule = "Primary outcome: per-seed difference in wins between slot 0 (gap rule on) and slot 1 (off) over 64 deterministic seeds (256 games) with a normal-approximation 95% interval. An interval below zero shows the gap rule hurts; above zero that it helps; otherwise no measurable effect. Never extend or refill this cohort."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":1500,\"deepen_gap\":20,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{\"tables\":\"../research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "604-667"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

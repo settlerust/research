@@ -58,4 +58,4 @@ description = "expectimax-v2-plan's search (depth 3, 1.5 s, 8 scenarios, 4 world
 [ntuple-leaf-deep]
 transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":4,\"time_budget_ms\":4000,\"node_budget\":5000000,\"deepen_gap\":20,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{{\"tables\":\"{root}/artifacts/ntuple/hex-portfolio-main.bin\"}}}}", "{token_file}", "{name}"]
-description = "ntuple-leaf's search with a depth cap of 4 under a 4 s budget, a 5,000,000-transition node budget, and decision-aware deepening (gap 20 leaf units); braces are doubled for the harness placeholder syntax"
+description = "ntuple-leaf's search with a depth cap of 4 under a 4 s budget, a 5,000,000-transition node budget, and decision-aware deepening (gap 20 leaf units); lost its protocol cohort against ntuple-leaf on 2026-09-09 and is not the baseline; braces are doubled for the harness placeholder syntax"

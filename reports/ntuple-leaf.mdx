@@ -317,6 +317,48 @@ was real: with these windows and this learning rule, the tables reach their
 level in about a hundred thousand games, and the remaining lever is the
 representation or the search around it, not more of the same games.
 
+## Depth 4 and deepening where it matters
+
+A planned turn ends at the leaf before the next round's dice, so a deeper cap
+keeps more of the resource dynamics inside the tree. Depth 4 with the tables
+costs a median of 3.5 s and a 90th percentile of 6.5 s per main-phase decision
+on sampled positions, and the default node budget of 400,000 transitions
+aborts most depth-4 searches, so a depth-4 configuration needs a larger node
+budget and a larger time budget. Two search changes make that budget go where
+decisions are close: a position with a single candidate never deepens past the
+first depth (29% of the tables' decisions), and with `deepen_gap` the search
+stops deepening once the best move leads the runner-up by that many leaf units
+(on 509 traced decisions the median lead was 5.5 units, half a percentage
+point of win probability, and a tenth exceeded 38).
+
+The first registered configuration, `ntuple-leaf-deep` (depth cap 4, 4 s
+budget, 5,000,000 transitions, gap 20), played the depth-3 baseline
+configuration on seeds 468 to 531:
+
+| Screen | Registration | Run | Deep wins | Depth-3 wins | Contrast (95% interval) | Reading |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| Tables, depth 4 (4 s, gap 20) vs depth 3 (1.5 s) | `c36715d4` | `57717b3e` | 129 | 109 | +0.078 (−0.039 to +0.196) | inconclusive |
+| Hand-written leaf, the same two configurations | `6d9624c9` | `90009612` | 89 | 102 | −0.051 (−0.176 to +0.074) | inconclusive |
+
+The effort counters say why the gain is small: with the time rule still at
+30% of the budget the deep seat completed depth 4 on few decisions (mean
+completed depth 1.98 against 2.18 for the baseline seat, which counts
+single-candidate positions as depth 1) and mostly spent its budget finishing
+depth 3 where the 1.5 s seat had to abort (858 ms against 447 ms per
+decision). The protocol cohort settled the question for this configuration. Through
+the authoritative server, `ntuple-leaf-deep` against `ntuple-leaf` with the
+two builders on 20 deterministic seeds (`372d07bc`, run `8f6dd1a7`, an 8 s
+deadline, no timeout moves): **27 wins to 43**, a contrast of **−0.200** (95%
+interval −0.357 to −0.043). The registered rule reads an interval below zero
+as a refutation, so the baseline stays `ntuple-leaf` and the depth-4
+configuration with a 4 s budget and the gap rule is weaker, not stronger,
+where it counts. Twelve matches ran at once, so both searches shared the
+machine; the deep seat pays for every depth-4 attempt it has to abort, and the
+gap rule may be settling decisions at depth 1 that deserve the lookahead. Two
+cohorts separate those causes: an equal-time comparison of a depth cap of 4
+against a cap of 3 under 10 s budgets, and the gap rule alone on the baseline
+configuration.
+
 ## More searches at the table
 
 Two follow-up cohorts on seeds 340 to 403 asked whether the margin depends on

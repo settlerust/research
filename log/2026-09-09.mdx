@@ -301,3 +301,31 @@ inconclusive: longer training and the λ change do not measurably improve on
 the frozen tables. The trainer's driver now resolves its output path; these
 runs' table files were written under the server checkout and moved back
 before freezing, with the digests recorded.
+
+## Depth 4, first screen
+
+`ntuple-leaf-deep` (depth cap 4, 4 s budget, 5,000,000 transitions, gap 20)
+against the depth-3 baseline configuration on seeds 468 to 531
+(`c36715d4-a947-4166-86a5-8ef0bca620c6`, run
+`57717b3e-f5ab-4fa2-85a4-d35bf41c2868`): 129 wins to 109, contrast +0.078
+(95% interval −0.039 to +0.196), inconclusive. The deep seat completed depth 4
+on few decisions (mean completed depth 1.98) because the 30% time rule stops
+deepening after a depth-3 completion that took longer than 1.2 s; it mostly
+bought depth-3 completions the 1.5 s seat had to abort. An equal-time
+comparison, a depth cap of 4 against a cap of 3 under 10 s budgets on seeds
+572 to 603, is registered as `8dc65a70-0b16-44fb-97b6-4fc7d4471ab8`.
+The same two configurations with the hand-written leaf
+(`6d9624c9-90bb-4427-8381-e706cec9389a`, run
+`90009612-234c-4b68-b2b3-fa93885f84b9`): 89 wins to 102, contrast −0.051 (95%
+interval −0.176 to +0.074), inconclusive. Under this budget the fourth ply
+buys nothing measurable for either leaf.
+
+The protocol cohort `372d07bc-183f-4970-a93a-f65db4d9e964`, run
+`8f6dd1a7-d354-4e5c-a590-7b23c2f9f2fd`, seated `ntuple-leaf-deep` against
+`ntuple-leaf` with the two builders on seeds 532 to 551 under an 8 s deadline:
+80 of 80 games valid with no timeout moves, 27 wins to 43, contrast −0.200 (95%
+interval −0.357 to −0.043). The rule reads that as a refutation: the depth-4
+configuration with a 4 s budget and a gap of 20 is weaker through the
+protocol, and the baseline stays `ntuple-leaf`. A gap-rule-only cohort
+(the baseline configuration with `deepen_gap` 20 against without) is
+registered to separate the deepening rule from the depth cap.

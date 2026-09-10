@@ -89,6 +89,11 @@ four-player table with the fixed builders. As before, the comparison is one
 lineup and one seat rotation scheme; strength against other searches, humans,
 or negotiation-aware opponents is not established.
 
+A deeper configuration of the same player, `ntuple-leaf-deep` (depth cap 4
+under a 4 s budget with decision-aware deepening), [lost its protocol
+cohort](../reports/ntuple-leaf.mdx) against `ntuple-leaf` 27 to 43 (paired
+contrast −0.200, 95% interval −0.357 to −0.043), so it is not the baseline.
+
 ## The previous protocol-arena baseline: expectimax-v2-plan
 
 The corrected depth-3 candidate, frozen as `expectimax-v2-plan`, [won 47 of 80
