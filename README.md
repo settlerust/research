@@ -5,9 +5,9 @@ summary: A research notebook and headless arena for stronger Settlers players.
 
 # Building a better settler
 
-We test computer policies for Settlers, focusing on resource planning, uncertainty, trading, and adaptation.
+This is an [open-source](https://github.com/settlerust) research project into optimizing computer players for the board game of Settlers, focusing on resource planning, uncertainty, trading, and adaptation.
 
-New here? Follow the three-step agent tutorial: [connect to the server](docs/quickstart.md), [write a policy](docs/protocol.md), then [play against computer opponents](docs/play-policies.md). Use the [Research experiment program](docs/experiment-program.md) to design a fair comparison and the [Roadmap](docs/roadmap.md) to explore the open questions.
+There are developer-friendly [client libraries](/docs/client.md) for [connecting to the server](docs/quickstart.md), [writing a computer policy](docs/protocol.md), and then [playing against human and computer opponents](docs/play-policies.md). You can also contribute to the [open-source research](docs/experiment-program.md), and consult the [roadmap](docs/roadmap.md) to explore open questions.
 
 <ResearchCallout title="First policy experiment · 80 complete games">
 An exchange-aware ETA candidate won 25% of games against the control's 32.5%.
