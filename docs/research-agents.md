@@ -74,6 +74,16 @@ time changes.
    `next_step`, `reports`, `logs`). Then `just notebook`, `just check`, and, when
    web is present, `just site-check`.
 
+A seating bias exists whenever two searches sit in slots 0 and 1: slot 1 is
+always one seat after slot 0, and the arena asks recipients in turn order
+after the offerer, so two identical default seats differ by +0.05 to +0.18
+wins per game (reports/bargaining-arms.mdx). Never claim an effect from one
+seating. Register every two-search contrast as a swapped pair on the same
+boards (candidate in slot 0 with the control in slot 1, then the control in
+slot 0 with the candidate in slot 1): the effect is half the difference of the
+two contrasts and the seating term half their sum. A null pair (identical
+seats in both slots) measures the bias directly when in doubt.
+
 Report the two tiers honestly: engine-arena results are development evidence;
 only the HTTP protocol arena confirms a frozen candidate. A screen is not a
 finding. A cohort that loses or is inconclusive is still filed.
