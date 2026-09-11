@@ -1,0 +1,12 @@
+id = "131bd98f-9842-4da4-9ce6-4f818f018982"
+study = "adaptation/prediction-tables"
+arena = "engine"
+hypothesis = "predict.opponents under the learned tables, confirmation stage on the builders lineup (slot 2 eta, slot 3 fast), fresh seeds.  Half A of a swapped pair: candidate in slot 0, control in slot 1, seeds 800-863, deterministic, 4 rotations. Hypothesis: the candidate wins more games; the seating-corrected effect is the per-seed half-difference of this half slot-0-minus-slot-1 contrast and half B registered immediately after."
+decision_rule = "All games complete. The seating-corrected effect (per-seed half-difference of the two halves slot-0-minus-slot-1 contrasts, analysis/seating_pair.py) with its 95 percent seed interval excludes zero in the candidate favour (support), excludes zero the other way (refutation), or neither (inconclusive). Worth-the-browser additionally requires the pooled effect after any extension to be at least +0.03 wins per game with the interval excluding zero and mean decision time within 25 percent of the control."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"predict\":{\"opponents\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

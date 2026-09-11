@@ -1,0 +1,12 @@
+id = "adaptation/prediction-tables"
+title = "Build prediction under the learned leaf"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "proposed"
+question = "Do the build-prediction switches (predicted opponent model, predicted space threat, and the denial leaf term on the blended leaf) change wins when the search evaluates with the learned n-tuple tables instead of the hand-written leaf?"
+outcome = "No experiment has been executed."
+next_step = "Register a fixed candidate, comparison, budget, and decision rule."
+attribution = "unknown"
+reports = []
+logs = []
+legacy_experiments = []
