@@ -1,0 +1,12 @@
+id = "7e2a2610-5074-48a6-82a2-961041593d44"
+study = "containment/robber-targeting-bias"
+arena = "engine"
+hypothesis = "Swapped pair for the threat arm on the same fresh seeds 64-127 as its confirmation under containment/robber-targeting. The unchanged depth-2 control sits in slot 0 and the threat arm in slot 1, with eta and fast in the other seats. The arena asks trade recipients in seat order after the offerer, which gives the slot-1 seat first refusal: the same-orientation confirmation measured +0.035 wins per game wins per game for the arm in slot 0, and the swapped orientation measures the same arm effect plus the reversed bias, so half the difference of the two contrasts is the bias-free effect."
+decision_rule = "The bias-free arm effect is half the per-seed difference between the confirmation contrast and this swapped contrast on the shared seeds 64-127; the arm is confirmed only if that estimate is positive with a 95% interval over the 64 seeds excluding zero and all 256 games complete."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"robber\":{\"threat\":true}}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

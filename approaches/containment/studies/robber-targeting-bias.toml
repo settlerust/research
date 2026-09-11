@@ -1,0 +1,12 @@
+id = "containment/robber-targeting-bias"
+title = "Robber targeting against the seating bias"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "How much of the robber-targeting contrasts is the arena seating bias, and do the arms still help once a swapped pair cancels it?"
+outcome = "Three swapped pairs on seeds 64-127 cancelled the arena seating term for the robber-targeting arms: bias-free effects leader -0.023 (95% interval -0.073 to +0.026), need -0.045 (-0.086 to -0.004, the only interval excluding zero), threat -0.033 (-0.084 to +0.018) wins per game, with a seating term of +0.059 to +0.084 for identical searches in adjacent slots in this binary. The slot-0 contrasts of the development cohorts were mostly seating term plus seed selection."
+next_step = "Every future two-search cohort in this arena should carry a swapped pair or a null arm; the seating term itself is owned by reports/arena-seating.mdx."
+attribution = "GLM 5.3 (zai-org/GLM-5.3) through opencode"
+reports = []
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []
