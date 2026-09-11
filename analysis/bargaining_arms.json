@@ -1,0 +1,12 @@
+{
+  "null": "948d095b-afd8-467c-ad8b-408b80280e65",
+  "arms": [
+    {"label": "null: two identical defaults", "experiment": "948d095b-afd8-467c-ad8b-408b80280e65"},
+    {"label": "threat pricing off", "experiment": "4f63e9ca-6a55-486f-931e-e892653a1d9c"},
+    {"label": "counters off", "experiment": "86f142ed-1caa-4dcb-a3e1-056928a02349"},
+    {"label": "asks off", "experiment": "07ef7d4d-f2cf-4d7b-98b5-b444e9a5175a"},
+    {"label": "all off (bargain false)", "experiment": "7f5703e0-9fed-46cf-931d-5b91bdf42e77"},
+    {"label": "stubborn partner", "experiment": "40a3b6ce-d0a4-4752-8866-297729c539f9", "flip": true}
+  ],
+  "pair": ["02dea57a-7696-497f-a35f-cd052cc62d60", "2f44e17b-0bbb-4206-b484-3b114de31139"]
+}

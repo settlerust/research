@@ -1,0 +1,12 @@
+id = "8402a48b-31fc-4654-9687-a1a4bf3bd403"
+study = "bargaining/threat-aware-pricing"
+arena = "engine"
+hypothesis = "The seating bias of cohort 948d095b holds on fresh boards: two identical default depth-2 seats in slots 0 and 1, with an ETA and a fast builder, differ by a positive contrast on boards 64-127. The swapped counters pair on the same boards estimated the seating term at -0.010, so a repeat near +0.176 would mean the bias needs both seats countering, and a repeat near zero would mean the boards 0-63 null was unusual."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. An interval excluding zero on fresh boards establishes the seating bias for two countering searches; an interval crossing zero leaves the bias unconfirmed and the boards 0-63 null stands as one cohort. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,12 @@
+id = "948d095b-afd8-467c-ad8b-408b80280e65"
+study = "bargaining/threat-aware-pricing"
+arena = "engine"
+hypothesis = "Calibration of the arm design: two identical default depth-2 seats in slots 0 and 1, with an ETA and a fast builder in the other seats, win the same number of paired games. Slot 1 always sits one seat after slot 0 and is asked first on its offers while slot 0 is asked last on slot 1 offers, so a nonzero contrast measures the turn-order asymmetry that every one-change arm at this table inherits."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. An interval crossing zero means the design is unbiased at this resolution; an interval excluding zero is a design bias that the one-change arms must be read against, and a confirmation should then seat the changed configuration in both slots. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

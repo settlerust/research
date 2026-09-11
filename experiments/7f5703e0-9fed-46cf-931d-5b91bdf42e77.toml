@@ -1,0 +1,12 @@
+id = "7f5703e0-9fed-46cf-931d-5b91bdf42e77"
+study = "bargaining/threat-aware-pricing"
+arena = "engine"
+hypothesis = "With the accept-side partner cost corrected and two-for-one asks part of the switch, the all-off control (bargain: false: plain margin, no counters, no asks) still wins fewer paired games than the default; this re-measures the total effect of cohort 0250ba3c under the corrected code, with an ETA and a fast builder in the other seats."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 (the changed seat) minus slot 1 (the unchanged default) wins per seed with a 95% seed interval. A negative interval excluding zero supports the mechanism and keeps it on; a positive interval excluding zero recommends switching it off by default; an interval crossing zero is inconclusive and the default stays. Development tier at a table of two searches and two builders."
+players = ["v2:{\"depth\":2,\"bargain\":false}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

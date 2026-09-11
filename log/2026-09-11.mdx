@@ -104,3 +104,76 @@ and block is untested; every cohort here is development tier against fixed
 builders. Counters and reasoned declines were not measured against a human.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+## Bargaining arms and a seating bias
+
+The three bargaining mechanisms of the morning cohort changed together, and
+the plain partner accepted every helpful counter, so the afternoon separated
+them. The server gained four `SearchConfig` switches, all on by default:
+`threat_pricing` (the margin premium and the partner cost), `counters`,
+`asks` (two-for-one asks to well-stocked partners), each effective only while
+`bargain` is on so that `bargain: false` is the all-off control, and
+`accept_asks`, which when false makes a seat refuse any offer or counter that
+asks it for more cards than it receives. Adding them exposed a defect: the
+accept-side partner cost priced the swap backwards, valuing the partner
+receiving what this seat received. It is fixed on the branch, so every cohort
+below runs the corrected default; the morning cohort ran the reversed cost.
+Tests for each switch are in `crates/expectimax/tests/bargain_arms.rs`.
+
+Unregistered screens on boards 0 to 15 seated the default in slot 0 and the
+changed seat in slot 1: the default beat threat pricing off by +0.06, counters
+off by +0.33, asks off by +0.30, the stubborn partner by +0.23, and all off by
++0.31. The registered cohorts on boards 0 to 63 seat the changed search in
+slot 0 and the default in slot 1, the ablation design, and pointed the other
+way: threat pricing off `4f63e9ca-6a55-486f-931e-e892653a1d9c` (run `42f26989-d3ee-4028-8e9b-94ed1721f2af`) +0.168 (95% interval
++0.073 to +0.263) for the changed seat, counters off `86f142ed-1caa-4dcb-a3e1-056928a02349` (run
+`41c28f22-84a4-4393-8af2-e87b1fce4503`) −0.023 (−0.109 to +0.062), asks off `07ef7d4d-f2cf-4d7b-98b5-b444e9a5175a` (run `dcc418a8-8823-440c-9a6e-1ad559cba001`)
++0.020 (−0.083 to +0.122), the default against the stubborn partner
+`40a3b6ce-d0a4-4752-8866-297729c539f9` (run `61c10388-f2ee-4a4e-9ef7-42d023b57199`) +0.117 (+0.015 to +0.219). A screen is not a
+finding, but every arm moving by 0.2 to 0.35 between the two seatings asked
+for a null.
+
+Cohort `948d095b-afd8-467c-ad8b-408b80280e65` (run `91ddb42d-82ab-460b-95c2-b8d340658369`) seats two identical defaults in slots 0
+and 1 with the builders: slot 0 won 128 of 256 against 83, contrast +0.176
+(+0.083 to +0.268). Slot 1 always sits one seat after slot 0, so it is asked
+first on every offer slot 0 makes, while slot 0 is asked last, after both
+builders, on every offer slot 1 makes; with counters and multi-seat offers
+that order is worth a sixth of a win. Read against the null
+on the same boards (not preregistered), threat pricing off is −0.008 (−0.103
+to +0.087), counters off −0.199 (−0.309 to −0.089), asks off −0.156 (−0.259 to
+−0.054), the stubborn seat +0.059 (+0.002 to +0.115) better than an identical
+default would be, and the morning cohort's +0.219 becomes +0.043 (−0.082 to
++0.168). All off `7f5703e0-9fed-46cf-931d-5b91bdf42e77` (run `a4db5f20-cece-4644-a9cf-a33311f8fd8d`): −0.121 (−0.210 to −0.032) registered, the one arm whose
+registered interval excludes zero in the direction of its hypothesis, and
+−0.297 (−0.429 to −0.165) against the null.
+
+Counters carry the largest effect, so they were registered again on boards
+64 to 127 as a swapped pair, `02dea57a-7696-497f-a35f-cd052cc62d60` (counters off in slot 0, run
+`223be9e1-3f6b-4211-8879-40ce3b8fc8c0`) and `2f44e17b-0bbb-4206-b484-3b114de31139` (counters off in slot 1, run `6d2867d4-df84-4e52-a6b5-9baaa2459e26`),
+with the effect defined as the per-board half-difference of the two contrasts,
+which averages the two seatings: counters off in slot 0 −0.105 (−0.206 to
+−0.005), counters off in slot 1 +0.086 (−0.006 to +0.177) for the default,
+effect of switching counters off −0.096 (−0.156 to −0.035). The rule is met
+and counters stay on. The pair's seating term, the per-board average of the
+two contrasts, is −0.010 (−0.084 to +0.065), not the +0.176 of the first
+null, so a second null `8402a48b-31fc-4654-9687-a1a4bf3bd403` (run
+`9d213ed0-a04f-442b-8d89-1dd3fdd99ab1`) was registered on boards 64 to 127
+to tell whether the bias needs both seats countering or the first null's
+boards were unusual: +0.051 (−0.046 to +0.148), 107 against 94. Pooled over
+the 128 boards the seating term is +0.113 (+0.046 to +0.181), an after-the-fact
+pooling; its direction holds and its size does not, so a two-search contrast
+must be measured in both seatings rather than corrected by a null.
+
+The default keeps every switch on; the [arms report](../reports/bargaining-arms.mdx)
+has the tables and the reasoning. The +0.219 strength claim of the morning is
+withdrawn in `docs/status.md`. Two things follow for the arena: a multi-seat
+offer should not always be put first to the seat after the offerer, and any
+two-search contrast needs a null arm or a swapped pair. The 2026-09-09
+ablation program used the same slot design under the earlier trade code and
+was not re-checked.
+
+Failures: none of the cohorts lost a game; the machine was shared with other
+agents at a load of 50 to 90 on 32 cores, so wall times (17 to 30 minutes per
+256-game cohort at eight threads) say nothing about search cost.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.

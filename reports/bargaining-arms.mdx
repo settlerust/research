@@ -1,0 +1,186 @@
+---
+date: "2026-09-11"
+title: "Which part of the bargaining pays"
+summary: "Two identical searches in the arm design's two slots differ by 0.18 wins per game, so the earlier fifth of a win was mostly seating; read against that null, counters and two-for-one asks carry the bargaining gain and threat pricing carries none."
+---
+
+# Which part of the bargaining pays
+
+<ResearchCallout title="Finding · a seating bias of +0.176, then counters and asks">
+Two identical default seats in slots 0 and 1, with an ETA and a fast builder
+in the other seats, differ by **+0.176 wins per game** (95% interval +0.083 to
++0.268) on boards 0 to 63 and by +0.051 (−0.046 to +0.148) on boards 64 to
+127: the search that sits one seat before the other search wins more. The earlier +0.219 for threat-aware bargaining over plain
+acceptance shrinks to **+0.043** (−0.082 to +0.168) against that null. Read the
+same way, switching counters off costs **−0.199** (−0.309 to −0.089) and
+switching two-for-one asks off costs **−0.156** (−0.259 to −0.054), while
+switching threat pricing off changes nothing (**−0.008**, −0.103 to +0.087).
+A swapped pair on fresh boards 64 to 127, which averages the two seatings,
+confirms counters at **−0.096** (−0.156 to −0.035) for the seat without them.
+Development tier.
+</ResearchCallout>
+
+## The arm design has a bias
+
+Every one-change arm in this notebook seats the changed search in slot 0 and
+the unchanged control in slot 1, with the builders in slots 2 and 3, and
+rotates the four slots through the four seats on every board. Each slot
+therefore sits in every seat once per board, but slot 1 always sits one seat
+after slot 0. That did not matter while the two searches only accepted or
+proposed swaps, but the bargaining code makes the order of the seats matter:
+an offer is put to the other seats in turn order starting after the offerer,
+and the first acceptance wins. Slot 1 is asked first on every offer slot 0
+makes and can counter it; slot 0 is asked last on every offer slot 1 makes,
+after both builders.
+
+Cohort `948d095b-afd8-467c-ad8b-408b80280e65`, run
+`91ddb42d-82ab-460b-95c2-b8d340658369`, seats two identical default searches
+this way. Slot 0 won 128 of 256 slot-games (50.0%) and slot 1 won 83 (32.4%),
+paired contrast +0.176 wins per game (95% interval +0.083 to +0.268). Wins are
+flat across seat positions for both slots (32, 31, 33, 32 and 20, 21, 22, 20),
+so the bias is the relative order of the two searches, not the seat. Slot 0
+accepted more of the others' offers (1.99 against 1.62 per game), made more
+bank trades (4.66 against 3.91), discarded fewer cards (8.5 against 9.3), and
+finished with 8.30 points against 7.37.
+
+Every registered contrast below is the changed seat in slot 0 minus the
+default in slot 1, as the arms were registered, and each carries this bias.
+The adjusted column subtracts the null cohort's per-board difference from the
+arm's on the same board; that analysis was not preregistered and the intervals
+are over the same 64 boards.
+
+## One switch at a time
+
+The four switches are documented in the server's `docs/expectimax.md` under
+Bargaining. `threat_pricing` applies the threat premium on the trade margin and
+the partner cost; `counters` lets the seat answer an open offer with a counter;
+`asks` lets it propose two for one to partners known to hold plenty; each is
+effective only while `bargain` is on, and `bargain: false` now turns all three
+off at once. While adding them, the accept-side partner cost turned out to
+price the swap backwards (it valued the partner receiving what this seat
+received), so the default of these cohorts charges the partner's actual gain;
+the earlier cohort ran with the reversed cost.
+
+<ResearchPlot asset="bargaining-arms-raw" />
+
+<ResearchPlot asset="bargaining-arms-adjusted" />
+
+| Arm | Changed seat | Default | Registered contrast (95% interval) | Against the null |
+| --- | ---: | ---: | --- | --- |
+| null: two identical defaults | 128 | 83 | +0.176 (+0.083 to +0.268) | |
+| threat pricing off | 127 | 84 | +0.168 (+0.073 to +0.263) | −0.008 (−0.103 to +0.087) |
+| counters off | 97 | 103 | −0.023 (−0.109 to +0.062) | −0.199 (−0.309 to −0.089) |
+| asks off | 105 | 100 | +0.020 (−0.083 to +0.122) | −0.156 (−0.259 to −0.054) |
+| all off (`bargain: false`) | 83 | 114 | −0.121 (−0.210 to −0.032) | −0.297 (−0.429 to −0.165) |
+
+Each row is 256 games on boards 0 to 63. By the registered rule, which reads
+the raw contrast, the all-off control loses to the default even from the
+favoured slot (−0.121, interval excluding zero), threat pricing off is a
+positive interval that would recommend switching it off, and the other two
+arms are inconclusive. By the null, the threat pricing arm reproduces the bias
+almost exactly and carries no effect of its own, the seat that never counters
+and the seat that never asks each lose about a sixth to a fifth of a win per
+game to the default that does, and the all-off seat loses about three tenths,
+close to the two effects added. The diagnostics agree: without counters the
+seat accepted the others' offers far more often (3.72 against 1.32 per game)
+and made a third fewer offers of its own (10.8 against 15.2), so a counter
+mostly replaces an acceptance with better terms; the all-off seat accepted
+4.14 of the others' offers per game against the default's 1.67 and finished
+with 7.41 points against 7.98.
+
+## A partner that refuses asks
+
+Cohort `40a3b6ce-d0a4-4752-8866-297729c539f9`, run
+`61c10388-f2ee-4a4e-9ef7-42d023b57199`, seats the default in slot 0 against
+the same search with `accept_asks: false` in slot 1, a seat that never accepts
+an offer or counter asking it for more cards than it receives. The default won
+120 of 256 (46.9%) against 90 (35.2%), contrast +0.117 (+0.015 to +0.219). That
+is below the null's +0.176: against the null the stubborn seat did +0.059
+(+0.002 to +0.115) better than an identical default in the same slot, so
+refusing every ask costs the refuser nothing at this table and may help a
+little. The asks are worth about a sixth of a win only because the partner
+takes them.
+
+## Confirmation on fresh boards
+
+The counters arm carries the largest effect against the null, so it was
+registered again on boards 64 to 127 as a swapped pair: cohort
+`02dea57a-7696-497f-a35f-cd052cc62d60` seats counters off in slot 0, cohort
+`2f44e17b-0bbb-4206-b484-3b114de31139` seats it in slot 1, and the effect is
+the per-board half-difference of the two contrasts, which averages the two
+seatings. With counters off in slot 0 (run
+`223be9e1-3f6b-4211-8879-40ce3b8fc8c0`) the changed seat won 89 of 256
+against 116, contrast −0.105 (−0.206 to −0.005); with counters off in slot 1
+(run `6d2867d4-df84-4e52-a6b5-9baaa2459e26`) the default in slot 0 won 114
+against 92, contrast +0.086 (−0.006 to +0.177). The effect of switching
+counters off is **−0.096 wins per game (95% interval −0.156 to −0.035)** over
+64 fresh boards, and the registered rule is met: counters stay on. The
+estimate is about half the adjusted −0.199 of boards 0 to 63; the two
+intervals overlap.
+
+The pair's other half, the per-board average of the two contrasts, is the
+seating term with one seat not countering: −0.010 (−0.084 to +0.065), none of
+the +0.176 the null showed on boards 0 to 63. A second null on the same fresh
+boards, cohort `8402a48b-31fc-4654-9687-a1a4bf3bd403`, run
+`9d213ed0-a04f-442b-8d89-1dd3fdd99ab1`, put two identical defaults at +0.051
+(−0.046 to +0.148), 107 against 94. The seating term is not one number:
++0.176 on boards 0 to 63, +0.051 on boards 64 to 127, and +0.113 (+0.046 to
++0.181) pooled over the 128 boards after the fact. Its direction holds on
+both board sets and its size does not, which is one more reason to measure
+any two-search contrast in both seatings rather than subtract a null.
+
+## What this changes
+
+The default keeps every switch on. Counters and asks are the part of the
+bargaining that wins games at a table of two searches, and threat pricing
+stays because it decides which seat is refused and why, which the earlier
+report showed in table talk, not because it wins games here: its effect at
+this table is zero within a tenth of a win. The all-off control `bargain:
+false` now means what its name says. The earlier claim of a fifth of a win for
+threat-aware bargaining over plain acceptance is withdrawn as a strength
+result; against the null on the same boards it is +0.043 with an interval that
+crosses zero, and with the pooled seating term it would be about +0.11, so
+what remains is between a twentieth and a tenth of a win, none of it confirmed.
+
+Every future one-change arm at a table of two searches needs either a null
+arm on the same boards or a swapped pair, and the engine arena should put a
+multi-seat offer to its recipients in an order that does not always favour the
+seat after the offerer. The ablation program of 2026-09-09 used the same slot
+design with the earlier trade code; whether its two-search tables carried a
+bias is untested.
+
+## What this does not show
+
+The partner in every arm is the same search, which accepts an ask when its
+own lookahead says the swap is worth more than waiting. People refuse more and
+counter back; the stubborn arm covers only the first. Threat pricing may still
+matter at a table where the partner is close to winning more often than a
+depth-2 search against two builders allows, which the race term never saw
+here. All cohorts are development tier at depth 2.
+
+<AgentContext>
+Cohorts on boards 0 to 63, each registered under this study and run with the
+engine arena at eight threads: the null `948d095b-afd8-467c-ad8b-408b80280e65`
+(run `91ddb42d-82ab-460b-95c2-b8d340658369`), threat pricing off
+`4f63e9ca-6a55-486f-931e-e892653a1d9c` (run
+`42f26989-d3ee-4028-8e9b-94ed1721f2af`), counters off
+`86f142ed-1caa-4dcb-a3e1-056928a02349` (run
+`41c28f22-84a4-4393-8af2-e87b1fce4503`), asks off
+`07ef7d4d-f2cf-4d7b-98b5-b444e9a5175a` (run
+`dcc418a8-8823-440c-9a6e-1ad559cba001`), all off
+`7f5703e0-9fed-46cf-931d-5b91bdf42e77` (run
+`a4db5f20-cece-4644-a9cf-a33311f8fd8d`), and the stubborn partner
+`40a3b6ce-d0a4-4752-8866-297729c539f9` (run
+`61c10388-f2ee-4a4e-9ef7-42d023b57199`). Confirmation pair on boards 64 to
+127: `02dea57a-7696-497f-a35f-cd052cc62d60` (run `223be9e1-3f6b-4211-8879-40ce3b8fc8c0`) and
+`2f44e17b-0bbb-4206-b484-3b114de31139` (run `6d2867d4-df84-4e52-a6b5-9baaa2459e26`), and the
+second null `8402a48b-31fc-4654-9687-a1a4bf3bd403` (run
+`9d213ed0-a04f-442b-8d89-1dd3fdd99ab1`). Records are under `records/runs/`. `analysis/bargaining_arms.py analysis/bargaining_arms.json`
+regenerates the two plot assets, the adjusted contrasts, and the pair effect
+from the retained run folders. The switches live in the server's
+`crates/expectimax/src/v2/mod.rs` (`SearchConfig`) with tests in
+`crates/expectimax/tests/bargain_arms.rs`; the seat order of offer resolution
+is in `crates/arena/src/table.rs`. Unregistered 16-board screens with the
+default in slot 0 and the changed seat in slot 1 preceded these cohorts and
+pointed the other way for every arm, which is what exposed the bias.
+</AgentContext>

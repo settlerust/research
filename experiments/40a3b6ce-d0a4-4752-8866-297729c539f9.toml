@@ -1,0 +1,12 @@
+id = "40a3b6ce-d0a4-4752-8866-297729c539f9"
+study = "bargaining/threat-aware-pricing"
+arena = "engine"
+hypothesis = "The bargaining gain depends on a partner that accepts asks: against the same search that refuses every offer or counter asking it for more cards than it receives (accept_asks: false), the default wins no more paired games than that stubborn partner, with an ETA and a fast builder in the other seats."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 (the default) minus slot 1 (the stubborn partner) wins per seed with a 95% seed interval. A positive interval excluding zero shows the default beats a partner that refuses asks; a negative interval excluding zero shows that refusing asks pays and recommends accept_asks: false as the default; an interval crossing zero is inconclusive. Development tier at a table of two searches and two builders."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"accept_asks\":false}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

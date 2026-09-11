@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "One-change bargaining arms against the null",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts on boards 0 to 63, each played once per rotation of four slots: a depth-2 search with one bargaining switch changed, the unchanged default, an ETA builder, and a fast builder. Run IDs are listed in the bargaining arms report.",
+  "caption": "Each point is the per-seed difference between an arm's contrast and the null cohort's on the same board, with its 95% interval over boards 0 to 63; this removes the slot-order bias but was not preregistered.",
+  "x": {
+    "label": "Arm",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "threat pricing off",
+      "counters off",
+      "asks off",
+      "all off (bargain false)",
+      "stubborn partner"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, changed seat minus default",
+    "min": -0.48,
+    "max": 0.17
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0078,
+          "low": -0.1029,
+          "high": 0.0873
+        },
+        {
+          "x": 1,
+          "y": -0.1992,
+          "low": -0.309,
+          "high": -0.0894
+        },
+        {
+          "x": 2,
+          "y": -0.1562,
+          "low": -0.2589,
+          "high": -0.0536
+        },
+        {
+          "x": 3,
+          "y": -0.2969,
+          "low": -0.4287,
+          "high": -0.1651
+        },
+        {
+          "x": 4,
+          "y": 0.0586,
+          "low": 0.0022,
+          "high": 0.115
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

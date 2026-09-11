@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "One-change bargaining arms as registered",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts on boards 0 to 63, each played once per rotation of four slots: a depth-2 search with one bargaining switch changed, the unchanged default, an ETA builder, and a fast builder. Run IDs are listed in the bargaining arms report.",
+  "caption": "Each point is the registered contrast, the changed seat in slot 0 minus the unchanged default in slot 1, with its 95% interval over boards 0 to 63; the null arm seats two identical defaults and shows the slot-order bias.",
+  "x": {
+    "label": "Arm",
+    "min": 0,
+    "max": 5,
+    "ticks": [
+      "null: two identical defaults",
+      "threat pricing off",
+      "counters off",
+      "asks off",
+      "all off (bargain false)",
+      "stubborn partner"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, changed seat minus default",
+    "min": -0.27,
+    "max": 0.32
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.1758,
+          "low": 0.0834,
+          "high": 0.2682
+        },
+        {
+          "x": 1,
+          "y": 0.168,
+          "low": 0.0734,
+          "high": 0.2625
+        },
+        {
+          "x": 2,
+          "y": -0.0234,
+          "low": -0.1092,
+          "high": 0.0623
+        },
+        {
+          "x": 3,
+          "y": 0.0195,
+          "low": -0.083,
+          "high": 0.1221
+        },
+        {
+          "x": 4,
+          "y": -0.1211,
+          "low": -0.2104,
+          "high": -0.0318
+        },
+        {
+          "x": 5,
+          "y": -0.1172,
+          "low": -0.219,
+          "high": -0.0154
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

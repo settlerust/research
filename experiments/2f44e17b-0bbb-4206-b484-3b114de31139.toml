@@ -1,0 +1,12 @@
+id = "2f44e17b-0bbb-4206-b484-3b114de31139"
+study = "bargaining/threat-aware-pricing"
+arena = "engine"
+hypothesis = "Confirmation on fresh boards, counters off in slot 1: the unchanged default wins more paired games than the depth-2 search that never counters once the slot-order bias is removed by the swapped half of this pair."
+decision_rule = "All 256 games complete. This cohort is one half of a swapped pair on fresh boards 64-127; the other half seats the same two searches in the opposite slots. The confirmation contrast is the per-seed average of (slot 0 minus slot 1 with counters off in slot 0) minus (slot 0 minus slot 1 with counters off in slot 1), halved, with a 95% seed interval over 64 seeds, which cancels the slot-order bias measured by cohort 948d095b. A negative interval excluding zero confirms that counters carry part of the bargaining gain and keeps them on; a positive interval excluding zero recommends switching them off; an interval crossing zero is inconclusive. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"counters\":false}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
