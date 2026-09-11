@@ -1,31 +1,33 @@
 ---
 date: "2026-09-11"
 title: "Endgame racing and stopping the leader"
-summary: "Three endgame switches for the tunable search, each one change on identical boards: all three won their development cohorts on seeds 0 to 63, and none survived its confirmation on fresh seeds."
+summary: "Three endgame switches looked worth a seventh to a sixth of a win per game in one seating; the arena's seating term explains those contrasts, and swapped pairs put the seating-corrected effects at +0.02 or less with intervals crossing zero."
 ---
 
 # Endgame racing and stopping the leader
 
-<ResearchCallout title="Finding · three endgame switches win on development seeds, none is confirmed">
-The search treats a seat at 8 points like one at 4 except through two linear
-weights. Three switches, each tested alone, changed that. A race leaf that
-replaces the opponent terms with the own-minus-leader margin plus the leader's
-expected points next turn won its development cohort by **+0.129 wins per
-game** (95% interval +0.029 to +0.228), counting expected hidden victory points
-by **+0.172** (+0.080 to +0.264), and a late robber and road bias toward the
-leader by **+0.168** (+0.073 to +0.263), all on 256 deterministic games on seeds
-0 to 63. On fresh seeds 64 to 127 the same three arms fell to **+0.078**
-(−0.010 to +0.166), **+0.039** (−0.049 to +0.127), and **+0.051** (−0.044 to
-+0.146): every direction held, every confirmation interval crossed zero. No
-switch is confirmed and the defaults stay unchanged.
+<ResearchCallout title="Finding · the single-seating contrasts were seating; the corrected effects are zero to +0.02">
+Three switches, each tested alone with the candidate in slot 0 and the
+unchanged depth-2 control in slot 1, looked strong: a race leaf against a
+near-winning leader **+0.129**, expected hidden victory points **+0.172**, and
+a late robber and road bias toward the leader **+0.168** wins per game on
+seeds 0 to 63. That slot design carries a measured seating term (slot 0 wins
+more than slot 1 by +0.05 to +0.18 between two identical searches), and the
+sizes matched it. Swapped pairs on fresh boards, which average the two
+seatings, put the seating-corrected effects at **+0.018** (95% interval
+−0.018 to +0.053) for the race leaf, **+0.006** (−0.030 to +0.041) for hidden
+points, and **+0.012** (−0.018 to +0.041) for the leader bias, each with an
+interval that crosses zero. The earlier strength claim is withdrawn: none of
+the three switches is confirmed, the defaults stay unchanged, and every
+effect larger than about +0.05 wins per game is excluded.
 </ResearchCallout>
 
 ## The three switches
 
 All three sit behind one `endgame` object in the seat configuration, off by
 default, so `v2:{"depth":2}` is unchanged. Each was tested with exactly one
-switch on, the unchanged depth-2 control in slot 1, and an ETA and a fast
-builder in the other seats.
+switch on, the unchanged depth-2 control in the other search slot, and an ETA
+and a fast builder in the other seats.
 
 The **race leaf** (`endgame.race`) arms once any opponent is within
 `endgame.trigger` points, two by default, of victory. It drops the plain
@@ -38,9 +40,9 @@ victory-card share. Blocked production counts for less, so moving the robber
 onto the leader's best hex also slows the estimate.
 
 The **hidden points** switch (`endgame.hidden_points`) keeps every term and
-only changes what counts as an opponent's score: the victory cards sampled into
-each hidden world from the remaining deck prior, on top of public points. A
-leaf averaged over sampled worlds therefore counts expected hidden victory
+only changes what counts as an opponent's score: the victory cards sampled
+into each hidden world from the remaining deck prior, on top of public points.
+A leaf averaged over sampled worlds therefore counts expected hidden victory
 points inferred from public purchases and plays, without seeing any private
 hand.
 
@@ -51,12 +53,17 @@ cards with extra weight, and a road that lengthens the leader's route to the
 best site both seats contest scores part of that site's value, a road the plain
 reach score never pays for.
 
-## The cohorts
+## The single-seating cohorts and why they do not count
 
-Each row is one registered cohort, 64 deterministic seeds played once per
-four-seat rotation, 256 games, the same lineup for treatment and control.
+The first six cohorts seated the candidate in slot 0 and the control in slot 1
+and rotated the four slots through the seats on every board, so both searches
+sat in every seat; but slot 1 always sits one seat after slot 0, and the
+bargaining code makes that order worth +0.05 to +0.18 wins per game to the
+earlier seat (null pairs `91ddb42d` and `689a1947` on boards 0 to 63, `9d213ed0`
+on boards 64 to 127, in the [bargaining arms report](../reports/bargaining-arms.mdx)).
+The contrasts below are the size of that term and are superseded.
 
-| Switch | Seeds | Treatment wins | Control wins | Contrast (95% interval) |
+| Switch | Seeds | Slot 0 wins | Slot 1 wins | Single-seating contrast |
 | --- | ---: | ---: | ---: | --- |
 | Race leaf | 0 to 63 | 121 | 88 | +0.129 (+0.029 to +0.228) |
 | Hidden points | 0 to 63 | 129 | 85 | +0.172 (+0.080 to +0.264) |
@@ -65,52 +72,60 @@ four-seat rotation, 256 games, the same lineup for treatment and control.
 | Hidden points | 64 to 127 | 107 | 97 | +0.039 (−0.049 to +0.127) |
 | Leader bias | 64 to 127 | 108 | 95 | +0.051 (−0.044 to +0.146) |
 
-The three development cohorts met their registered rules: the interval excluded
-zero and the mean reached +0.05 wins per game. The confirmations did not. Each
-direction stayed positive on fresh boards but with an interval that crosses
-zero, so each is inconclusive, not a refutation. Unregistered 16-seed screens
-on seeds 0 to 15 pointed the same way (+0.16, +0.25, +0.30 raw win
-differences) and carry no evidential weight.
+The fresh-board contrasts match the fresh-board seating term, so as filed they
+are consistent with no effect at all.
+
+## The swapped pairs
+
+Each switch was then registered again on boards 64 to 127 as a swapped pair
+under the follow-up study `containment/endgame-seating`: half A seats the
+candidate in slot 0, half B seats it in slot 1, both halves on the same seeds
+and the same engine. Both halves were played fresh because the engine no
+longer reproduces the earlier confirmations: the recipient-order change and
+the accept-side partner-cost fix landed after them, and on a 64-game sample of
+the race lineup 6 games differ between engines. The effect of a switch is the
+per-seed half-difference of the two contrasts and the seating term their
+half-sum (`analysis/seating_pair.py`).
+
+| Switch | Half A (candidate in 0) | Half B (candidate in 1) | Seating-corrected effect | Seating term |
+| --- | --- | --- | --- | --- |
+| Race leaf | candidate 114, control 86, +0.109 (+0.026 to +0.192) | candidate 94, control 113, +0.074 (−0.013 to +0.161) | **+0.018 (−0.018 to +0.053)** | +0.092 (+0.014 to +0.169) |
+| Hidden points | candidate 111, control 99, +0.047 (−0.048 to +0.141) | candidate 98, control 107, +0.035 (−0.060 to +0.130) | **+0.006 (−0.030 to +0.041)** | +0.041 (−0.047 to +0.129) |
+| Leader bias | candidate 111, control 93, +0.070 (−0.027 to +0.168) | candidate 97, control 109, +0.047 (−0.040 to +0.133) | **+0.012 (−0.018 to +0.041)** | +0.059 (−0.029 to +0.146) |
+
+Half A's contrast is candidate minus control, half B's is the registered
+slot-0-minus-slot-1, control minus candidate, so a real effect makes the two
+contrasts point opposite ways and the seating term the same way. Every pair
+points the same way: what the single-seating cohorts measured was the seating.
+The seating terms match the null pairs measured on the same boards. All three
+registered rules fail to confirm: every mean is below +0.05 wins per game and
+every interval crosses zero.
+
+The pair runs are `3e8ec893-c404-4a08-a15d-0c9bd7a3b656` and
+`8bacdaf4-8be4-47ea-93df-c0e26156f94d` (race),
+`6638df3f-4e04-41ac-881e-8fc11c12c4ce` and
+`26f98193-ebf6-4edb-bf34-a722052b9053` (hidden points), and
+`77b249a6-80a7-4a4d-98d9-a0a55d3006d6` and
+`e6e854a2-8469-4b76-acec-1942b96e2f17` (leader bias), each 256 of 256 games
+at eight threads on the current engine.
 
 ## Diagnostics
 
-The registered diagnostics come from the per-game records: games the treatment
-seat lost by exactly one point, how often the final-points leader was robbed
-(a game-level count over all four seats), and the final point gap.
-
-| Switch | Cohort | Lost by exactly one point | Leader robbed per game | Share of robberies on the leader | Winner minus treatment points |
-| --- | --- | ---: | ---: | ---: | ---: |
-| Race leaf | 0 to 63 | 16 of 135 losses | 4.18 | 0.297 | 1.77 |
-| Hidden points | 0 to 63 | 14 of 127 losses | 4.09 | 0.294 | 1.79 |
-| Leader bias | 0 to 63 | 11 of 129 losses | 4.25 | 0.299 | 1.88 |
-| Race leaf | 64 to 127 | 7 of 146 losses | 4.47 | 0.309 | 2.28 |
-| Hidden points | 64 to 127 | 6 of 149 losses | 4.56 | 0.312 | 2.37 |
-| Leader bias | 64 to 127 | 5 of 148 losses | 4.40 | 0.305 | 2.41 |
-
-The leader-bias switch did not measurably move the game-level robber
-statistics: about three robberies in ten land on the final-points leader
-across all six cohorts, whether or not any seat runs the bias. The diagnostics
-count every seat's robberies, so a one-seat switch is diluted by three seats
-that rob by their own lights, and the final-points leader is only a proxy for
-the seat that looked dangerous at the time. The one-point losses are the same
-story from the other side: the treatment seats lost fewer one-point games in
-the confirmations, but the counts are small.
+Across each pair the candidate seat lost 21, 22, and 25 one-point games out
+of about 300 losses, and the winner finished 2.3 points ahead of it on
+average, with no visible difference between the switches. As before, the
+game-level robber statistics are shared by all four seats and do not isolate
+a one-seat bias.
 
 ## What this says and what it does not
 
-Against two fixed builders and one identical search, all three mechanisms
-point the same way on the first 64 boards and shrink on the next 64. The
-pooled reading is that each switch is worth somewhere between nothing and
-about a tenth of a win per game, which 256 games cannot separate from zero.
-This is engine-arena evidence on one lineup; the opponents never retaliate,
-negotiate, or adjust, so a bias that the builders cannot punish may be easier
-to carry in this arena than at a real table. Nothing here tests the switches
-together, at the deeper confirmed configurations, or against the learned
-tables leaf, whose endgame value already includes opponent scores.
-
-The switches stay off by default and are ready for a follow-up: a combined
-arm, stronger race weights, or the race leaf under the depth-3 and
-`ntuple-leaf` configurations, registered on fresh seed ranges before any
-default change.
+After correcting for seating, each switch is worth between nothing and about
+two hundredths of a win per game against two fixed builders and one identical
+search, and the intervals exclude effects larger than about +0.05. This is
+engine-arena evidence on one lineup; the opponents never retaliate,
+negotiate, or adjust. Nothing here tests the switches together, at the deeper
+confirmed configurations, or against the learned tables leaf. The switches
+stay off by default and any future endgame cohort is registered as a swapped
+pair from the start.
 
 [All runs](../records/runs) · [Study](../approaches/containment) · [Log 2026-09-11](../log/2026-09-11)

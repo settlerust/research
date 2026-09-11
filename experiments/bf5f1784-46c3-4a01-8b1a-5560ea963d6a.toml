@@ -1,0 +1,12 @@
+id = "bf5f1784-46c3-4a01-8b1a-5560ea963d6a"
+study = "containment/endgame-seating"
+arena = "engine"
+hypothesis = "Swapped-pair half B for the block_leader switch, fresh boards: the unchanged depth-2 control in slot 0 against the candidate (endgame block_leader on the depth-2 search) in slot 1, with an ETA and a fast builder. Combined with half A (candidate in slot 0) on the same boards and engine, the seating-corrected effect is half the difference of the two per-seed contrasts and the seating term half their sum."
+decision_rule = "Primary contrast: the per-seed half-difference of the two half-cohort contrasts (candidate minus control, averaged over the two seatings) with a 95 percent interval over 64 seeds, computed identically for the pair. Confirmed if the interval excludes zero and the mean reaches +0.05 wins per game; refuted if the upper bound is below zero; inconclusive otherwise. Completion must be 256 of 256 in each half."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"endgame\":{\"block_leader\":true}}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

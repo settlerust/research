@@ -1,6 +1,6 @@
 ---
-title: An opening planner, threat-aware bargaining, and three endgame switches
-summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons; three endgame switches each win on development seeds and none survives its fresh-seed confirmation.
+title: An opening planner, threat-aware bargaining, and endgame switches in both seatings
+summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons; three endgame switches looked strong in one seating and swapped pairs show the arena's seating term carried it.
 ---
 
 # An opening planner and threat-aware bargaining
@@ -194,8 +194,8 @@ Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
 The tunable search penalizes the highest opponent score at 35 points per point
 and their production at 60 per card per roll, the same at 8 points as at 4.
 Three switches behind one `endgame` seat object, each one hypothesis, each off
-by default, were built in the server search and tested one at a time against
-the unchanged depth-2 control with an ETA and a fast builder:
+by default, were built in the server search and tested against the unchanged
+depth-2 control with an ETA and a fast builder:
 
 1. `race`: once any opponent is within two points of victory, the leaf drops
    the plain opponent terms and adds the own-minus-leader margin plus the
@@ -215,49 +215,80 @@ Unregistered 16-seed screens (64 games each, seeds 0 to 15) pointed the same
 way for all three: raw win differences of +0.16 (race), +0.25 (hidden points),
 and +0.30 (block leader). Screens carry no evidential weight.
 
-Registered on seeds 0 to 63, 256 deterministic games each, treatment in slot 0
-against the unchanged depth-2 control in slot 1, decision rule: the paired
-per-seed win difference must have a 95 percent interval excluding zero and a
-mean of at least +0.05 wins per game.
+The first cohorts seated the candidate in slot 0 and the control in slot 1 on
+seeds 0 to 63, then again on fresh seeds 64 to 127, 256 deterministic games
+each, with the rule that the paired per-seed win difference must have a 95
+percent interval excluding zero and a mean of at least +0.05 wins per game.
+All six completed 256 of 256 at eight threads:
 
-| Switch | Registration | Run | Treatment wins | Control wins | Contrast (95% interval) |
-| --- | --- | --- | ---: | ---: | --- |
-| race | `8e88ecc7-03f7-48a8-9b53-4a94605a3289` | `21339250-46ad-49ec-ae7e-b2580dabcfed` | 121 | 88 | +0.129 (+0.029 to +0.228) |
-| hidden_points | `7ac46868-0f78-4f10-bd6c-49c9437d24ad` | `7cc6f1aa-faad-448f-9224-6ffaecce53f0` | 129 | 85 | +0.172 (+0.080 to +0.264) |
-| block_leader | `21b4a965-c6f1-4e38-83aa-ecacd3187ecd` | `b5090959-bd26-4926-a9a6-bff17b9c5a87` | 127 | 84 | +0.168 (+0.073 to +0.263) |
+| Switch | Seeds | Registration | Run | Slot 0 wins | Slot 1 wins | Contrast (95% interval) |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| race | 0 to 63 | `8e88ecc7-03f7-48a8-9b53-4a94605a3289` | `21339250-46ad-49ec-ae7e-b2580dabcfed` | 121 | 88 | +0.129 (+0.029 to +0.228) |
+| hidden_points | 0 to 63 | `7ac46868-0f78-4f10-bd6c-49c9437d24ad` | `7cc6f1aa-faad-448f-9224-6ffaecce53f0` | 129 | 85 | +0.172 (+0.080 to +0.264) |
+| block_leader | 0 to 63 | `21b4a965-c6f1-4e38-83aa-ecacd3187ecd` | `b5090959-bd26-4926-a9a6-bff17b9c5a87` | 127 | 84 | +0.168 (+0.073 to +0.263) |
+| race | 64 to 127 | `b45005ae-66e6-4290-ae8a-7959a8d4d7c3` | `c7b6767b-1bc5-4f19-a2d5-b348c5e4959b` | 110 | 90 | +0.078 (-0.010 to +0.166) |
+| hidden_points | 64 to 127 | `350b4c24-02bf-4f36-a9d0-90ff71f25ae9` | `b8abe69e-c8b2-418b-a2fc-c70f9425afe9` | 107 | 97 | +0.039 (-0.049 to +0.127) |
+| block_leader | 64 to 127 | `4c43f642-044e-4b09-850a-e2cf38fb3b30` | `bbc86639-f6ef-4d40-9d26-604fa8a4573a` | 108 | 95 | +0.051 (-0.044 to +0.146) |
 
-All three met the rule. Confirmations were then registered on fresh seeds 64
-to 127 with the same lineup and the rule that the mean must reach +0.05 with a
-lower bound above zero:
+Those contrasts do not count as effects. The design seats the candidate in
+slot 0 and the control in slot 1, and null pairs measured a seating term of
+exactly that size and sign between two identical searches: +0.176 (+0.083 to
++0.268) and +0.180 (+0.075 to +0.285) on boards 0 to 63, +0.051 (-0.046 to
++0.148) on boards 64 to 127 (runs 91ddb42d, 689a1947, 9d213ed0, the
+[bargaining arms report](../reports/bargaining-arms.mdx)). My development
+contrasts are the size of the term and my confirmations match the fresh-board
+term, so as filed they were consistent with no effect at all. The strength
+reading is withdrawn.
 
-| Switch | Registration | Run | Treatment wins | Control wins | Contrast (95% interval) |
-| --- | --- | --- | ---: | ---: | --- |
-| race | `b45005ae-66e6-4290-ae8a-7959a8d4d7c3` | `c7b6767b-1bc5-4f19-a2d5-b348c5e4959b` | 110 | 90 | +0.078 (-0.010 to +0.166) |
-| hidden_points | `350b4c24-02bf-4f36-a9d0-90ff71f25ae9` | `b8abe69e-c8b2-418b-a2fc-c70f9425afe9` | 107 | 97 | +0.039 (-0.049 to +0.127) |
-| block_leader | `4c43f642-044e-4b09-850a-e2cf38fb3b30` | `bbc86639-f6ef-4d40-9d26-604fa8a4573a` | 108 | 95 | +0.051 (-0.044 to +0.146) |
+## Swapped pairs for the endgame switches
 
-Every direction held on fresh boards and every interval crossed zero, so all
-three confirmations are inconclusive and no default changes. The pooled
-reading is somewhere between nothing and a tenth of a win per game per switch,
-which 256 games cannot separate from zero.
+Each switch was then registered as a swapped pair on boards 64 to 127 under
+the follow-up study `containment/endgame-seating`: half A seats the candidate
+in slot 0, half B seats it in slot 1, the effect is the per-seed
+half-difference of the two contrasts and the seating term their half-sum
+(`analysis/seating_pair.py`). Both halves were played fresh on the current
+engine rather than pairing half B with the earlier confirmations, because the
+engine no longer reproduces those games: the recipient-order change and the
+accept-side partner-cost fix landed after them, and on a 64-game sample of
+the race lineup 6 games differ between engines. Every half completed 256 of
+256 at eight threads:
 
-Diagnostics from the run records (`analysis/endgame.py`): the treatment seat
-lost 16, 14, and 11 one-point games in the development cohorts and 7, 6, and
-5 in the confirmations; the final-points leader was robbed about 4.1 to 4.6
-times per game with a 0.29 to 0.31 share of all robberies, essentially the
-same with and without the leader-bias switch, because three of the four seats
-rob by their own lights and the count is game-level.
+| Switch | Half | Registration | Run | Slot 0 wins | Slot 1 wins | Contrast (95% interval) |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| race | A | `232a0fe5-bf9f-4654-972f-fd5614f0c627` | `3e8ec893-c404-4a08-a15d-0c9bd7a3b656` | 114 | 86 | +0.109 (+0.026 to +0.192) |
+| race | B | `80e8871e-a41f-4af4-9abd-c5d148c6b729` | `8bacdaf4-8be4-47ea-93df-c0e26156f94d` | 113 | 94 | +0.074 (-0.013 to +0.161) |
+| hidden_points | A | `c0222de1-d17f-4c7a-8c62-812290209546` | `6638df3f-4e04-41ac-881e-8fc11c12c4ce` | 111 | 99 | +0.047 (-0.048 to +0.141) |
+| hidden_points | B | `e4bba171-b024-48b5-a89e-cdd9f335a2d8` | `26f98193-ebf6-4edb-bf34-a722052b9053` | 107 | 98 | +0.035 (-0.060 to +0.130) |
+| block_leader | A | `6a26ed39-a56c-4c50-8bb8-b80f06e230c0` | `77b249a6-80a7-4a4d-98d9-a0a55d3006d6` | 111 | 93 | +0.070 (-0.027 to +0.168) |
+| block_leader | B | `bf5f1784-46c3-4a01-8b1a-5560ea963d6a` | `e6e854a2-8469-4b76-acec-1942b96e2f17` | 109 | 97 | +0.047 (-0.040 to +0.133) |
 
-One registration had a clerical error, a mistyped UUID in the block_leader
-confirmation's hypothesis text, corrected in `experiments/4c43f642-044e-4b09-850a-e2cf38fb3b30.toml`
-before its run started; no completed experiment was rewritten. No run failed,
-no game was censored, and all six cohorts completed 256 of 256 games at eight
-threads.
+Half B's contrast is control minus candidate, so a real effect makes the two
+contrasts point opposite ways. Every pair points the same way: the
+single-seating numbers were the seating. Seating-corrected effects over the 64
+boards, with the seating terms beside them:
 
-The switches stay opt-in. The [report](../reports/endgame-race.mdx) has the
-mechanisms, the tables, and the limits: one lineup, fixed builders that never
-retaliate, engine tier only, and nothing tested in combination or under the
-depth-3 and ntuple-leaf configurations.
+| Switch | Effect (95% interval) | Seating term (95% interval) |
+| --- | --- | --- |
+| race | +0.018 (-0.018 to +0.053) | +0.092 (+0.014 to +0.169) |
+| hidden_points | +0.006 (-0.030 to +0.041) | +0.041 (-0.047 to +0.129) |
+| block_leader | +0.012 (-0.018 to +0.041) | +0.059 (-0.029 to +0.146) |
+
+The seating terms match the null pairs measured on the same boards. Every
+effect mean is below the +0.05 of the registered rule and every interval
+crosses zero, so all three are inconclusive and consistent with no effect;
+each interval excludes effects above about +0.05 wins per game. The switches
+stay off by default. The [report](../reports/endgame-race.mdx) is rewritten
+with the corrected reading.
+
+Diagnostics across each pair (`analysis/endgame.py`): the candidate seat lost
+21, 22, and 25 one-point games out of about 300 losses, the winner finished
+2.3 points ahead of it on average, and the game-level robber statistics again
+do not isolate a one-seat bias. One earlier registration had a clerical
+error, a mistyped UUID in the block_leader confirmation's hypothesis text,
+corrected in `experiments/4c43f642-044e-4b09-850a-e2cf38fb3b30.toml` before
+its run started; no completed experiment was rewritten. No run failed, no
+game was censored, and all twelve cohorts completed 256 of 256 games at
+eight threads.
 
 Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
 

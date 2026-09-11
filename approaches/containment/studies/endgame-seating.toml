@@ -1,0 +1,12 @@
+id = "containment/endgame-seating"
+title = "Endgame switches in both seatings"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "After the arena seating term was measured, do the three endgame switches keep any effect once each is measured as a swapped pair: candidate and control in both slot orders on the same fresh boards?"
+outcome = "Swapped pairs on seeds 64 to 127, both halves on the current engine (it no longer reproduces the original confirmations): race leaf +0.018 wins per game (95% interval -0.018 to +0.053), hidden points +0.006 (-0.030 to +0.041), leader bias +0.012 (-0.018 to +0.041), each with an interval crossing zero. The seating terms were +0.092 (+0.014 to +0.169), +0.041 (-0.047 to +0.129), and +0.059 (-0.029 to +0.146). The single-seating contrasts of containment/endgame-race were seating; the corrected effects are consistent with none and exclude anything above about +0.05."
+next_step = "No further cohorts for the switches at depth 2 against this lineup; re-open only with a swapped-pair registration, a different lineup, or the deeper confirmed configurations."
+attribution = "GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode"
+reports = []
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []
