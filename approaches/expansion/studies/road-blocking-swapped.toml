@@ -1,0 +1,12 @@
+id = "expansion/road-blocking-swapped"
+title = "Road-blocking switches as swapped pairs"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "What is the seating-corrected effect of the opponent_expansion and road_contention_gate switches? The single-seating confirmations of expansion/road-blocking sit at the size of the turn-order term."
+outcome = "On boards 64-127 with the control in slot 0, the swapped halves gave +0.016 (−0.080 to +0.111) for opponent_expansion 0.5 (run c6201b2c) and +0.039 (−0.057 to +0.135) for road_contention_gate 1.0 (run 86fa73ec). Halving the contrast differences against the candidate-in-slot-0 runs 2fd1cb5e and ee7d78c7: the blocking term's corrected effect is +0.008 wins per game (95% interval −0.053 to +0.069), the gate's is −0.004 (−0.061 to +0.053). Both are consistent with no effect; the single-seating numbers were the seating term."
+next_step = "No further work on these two switches at depth 2; the intervals rule out effects beyond about 0.07 wins per game. Trail breaks are already enumerated and credited. If blocking is retested, use a lineup with a contested site race and a registered swapped pair from the start."
+attribution = "Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode"
+reports = []
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

@@ -1,0 +1,12 @@
+id = "6503cc10-9a5f-4a0d-b509-71cb4fcd0f9d"
+study = "expansion/road-blocking-swapped"
+arena = "engine"
+hypothesis = "Swapped half of the contention-gate confirmation on boards 64-127 (control in slot 0, candidate in slot 1): combined with run ee7d78c7, which had the candidate in slot 0 on the same boards, the seating-corrected effect of road_contention_gate 1.0 is half the difference of the two contrasts and is positive."
+decision_rule = "All 256 games complete. Per board over the 64 boards: the corrected effect is half the difference of contrast A (run ee7d78c7, candidate in slot 0) and contrast B (this run), with a 95% interval over boards; above zero supports the gate, below zero refutes it, crossing zero is inconclusive. Half the sum estimates the seating term. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"weights\":{\"road_contention_gate\":1.0}}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

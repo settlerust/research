@@ -644,37 +644,60 @@ check. The arena's seat records gained road diagnostics: awards gained and
 held at game end, final trail length, and per-road counts of builds that
 raise the leading expander's distance to its best site.
 
+Both win contrasts below were first measured with the candidate in slot 0
+and the control in slot 1, and both came out the size of the turn-order
+seating term between two adjacent searches ([the seating
+report](../reports/arena-seating.mdx): +0.10 to +0.18 on boards 0 to 63,
+about +0.05 on boards 64 to 127). The corrected readings come from the
+registered swapped halves on boards 64 to 127 under
+`expansion/road-blocking-swapped`, where the control sits in slot 0: the
+effect is half the difference of the two contrasts and the seating term
+half their sum (`analysis/road_blocking_swapped.py`). The single-seating
+numbers were the seating term, not screening luck; corrected, both
+switches are consistent with no effect, and the defaults stay off.
+
 **Cutting the leading opponent's expansion path.** A new leaf weight
 `opponent_expansion` charges the leading opponent's best reachable site,
 discounted by its road distance, over the remaining rolls; candidate roads
 are credited for the same quantity, so a road that cuts the opponent's
-shortest path is enumerated and valued. A 16-seed screen gave +0.250 wins
-per game (+0.055 to +0.445). Registered cohort
-`8124d197-95fd-4a7f-a889-65138713cc70`, run
-`274e5330-a5e4-4270-952b-adc3b86a4cce`, seeds 0 to 63: 127 wins to 84,
-paired contrast +0.168 (95% interval +0.070 to +0.266), supported. The
-registered confirmation `36f5f80e-352f-4062-b962-fbde755828be`, run
-`2fd1cb5e-f0be-4ef1-b216-7a97973b9239`, on fresh seeds 64 to 127: 112 to
-104, +0.031 (−0.078 to +0.140), inconclusive, so the default stays off.
-Diagnostics on the development cohort: the candidate built 5.12 roads per
-game against 4.68 and held the longest-road award at the end in 55% of
-games against 39%; blocking builds stayed rare (0.078 against 0.035 per
-game) and the denied site value was small. The term costs about a third
-more decision time (314 ms against 232 ms per decision on the
-confirmation), which a confirmed candidate would have to justify.
+shortest path is enumerated and valued. Single-seating numbers, candidate
+in slot 0: a 16-seed screen gave +0.250 wins per game, the registered
+cohort `8124d197-95fd-4a7f-a889-65138713cc70` (run
+`274e5330-a5e4-4270-952b-adc3b86a4cce`, boards 0 to 63) gave +0.168 (95%
+interval +0.070 to +0.266), and the confirmation
+`36f5f80e-352f-4062-b962-fbde755828be` (run
+`2fd1cb5e-f0be-4ef1-b216-7a97973b9239`, boards 64 to 127) gave +0.031
+(−0.078 to +0.140). The swapped half
+`248620fd-8baa-49ab-aee8-d545d8380770` (run
+`c6201b2c-9c97-499d-a23d-8954e60f0820`, same boards, control in slot 0)
+gave +0.016 (−0.080 to +0.111). **Corrected effect: +0.008 wins per game
+(95% interval −0.053 to +0.069)**; the pair's seating term is +0.023
+(−0.059 to +0.106). Any real effect of the term is under about 0.07 wins
+per game at depth 2 on these boards. Diagnostics on the development cohort:
+the candidate built 5.12 roads per game against 4.68 and held the
+longest-road award at the end in 55% of games against 39%; blocking builds
+stayed rare (0.078 against 0.035 per game) and the denied site value was
+small. The term also costs about a third more decision time (314 ms against
+232 ms per decision on the confirmation).
 
 **Committing to the award only with the road production for it.**
 `road_contention_gate` 1.0 restricts the contention credit, in the leaf and
 in road enumeration, to seats tying or leading the table in brick plus
-lumber production. A 16-seed screen gave +0.062 (−0.102 to +0.227).
-Registered cohort `fac6a2ec-dc86-4f18-affa-bc50338e88d8`, run
-`95d0f056-afc9-4a7b-b291-c864e0f93a29`, seeds 0 to 63: 119 wins to 90,
-+0.113 (+0.027 to +0.200), supported. The registered confirmation
-`74e56afc-84ef-4910-af5f-725348e0f954`, run
-`ee7d78c7-ec04-4d43-a01e-57af22420d70`, on fresh seeds 64 to 127: 106 to
-98, +0.031 (−0.060 to +0.122), inconclusive. The gate does what it says:
-the gated seat held the award at the end in 39% of games against the
-control's 48%, without a measurable win change. The default stays off.
+lumber production. Single-seating numbers, candidate in slot 0: a 16-seed
+screen gave +0.062, the registered cohort
+`fac6a2ec-dc86-4f18-affa-bc50338e88d8` (run
+`95d0f056-afc9-4a7b-b291-c864e0f93a29`, boards 0 to 63) gave +0.113
+(+0.027 to +0.200), and the confirmation
+`74e56afc-84ef-4910-af5f-725348e0f954` (run
+`ee7d78c7-ec04-4d43-a01e-57af22420d70`, boards 64 to 127) gave +0.031
+(−0.060 to +0.122). The swapped half
+`6503cc10-9a5f-4a0d-b509-71cb4fcd0f9d` (run
+`86fa73ec-aa37-40fb-a23c-4fefb28fcaa3`, same boards, control in slot 0)
+gave +0.039 (−0.057 to +0.135). **Corrected effect: −0.004 wins per game
+(95% interval −0.061 to +0.053)**; the pair's seating term is +0.035
+(−0.039 to +0.109). The gate does what it says: the gated seat held the
+award at the end in 39% of games against the control's 48%, but the
+awards given up do not cost wins, and the races declined do not gain them.
 
 **Breaking an opponent's longest road with a settlement.** Already present:
 every legal settlement is a root candidate, and the leaf credits the lost
@@ -685,14 +708,6 @@ No switch or cohort was needed; `crates/expectimax/tests/road_break.rs`
 pins the behaviour. A road toward a not-yet-reachable break vertex is still
 only weakly enumerated; that gap is a separate hypothesis.
 
-Both development cohorts look optimistic next to their confirmations. The
-screens ran on seeds 0 to 15, inside the registered 0 to 63 range, so the
-development estimates were partly selected on the same boards; the fresh
-seeds are the unbiased readings, and both are inconclusive at 64 seeds.
-Future screens in this program should use seeds outside the registered
-cohort. Neither mechanism is refuted: each fresh estimate is near +0.03,
-and a larger confirmation could resolve a small effect.
-
 Failures: the first run of the gate cohort,
 `12fb1efb-23d5-4a32-ad87-ed63fb3efcd5`, was interrupted after 11 of 256
 games when its controlling shell was killed; it is filed as interrupted and
@@ -701,8 +716,11 @@ pooled. Separately, the new arena award counter I added fired on every
 award event that carried a road holder, not only on gains, and shadowed the
 army counter on the same events; the win records, the held-at-end flags,
 and the trail lengths are unaffected, but the per-game award-gain counts
-quoted above from these four runs are inflated. The merged fix counts both
-awards in one arm with a change guard, and the default configuration was
-re-verified bit for bit against the pre-merge build afterwards.
+quoted above from the four slot-0-candidate runs are inflated. The merged
+fix counts both awards in one arm with a change guard, and the default
+configuration was re-verified bit for bit against the pre-merge build
+afterwards. My first reading of the development cohorts blamed screening on
+shared seeds; the swapped pairs show the seating term was the real account,
+and that reading was wrong.
 
 Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.

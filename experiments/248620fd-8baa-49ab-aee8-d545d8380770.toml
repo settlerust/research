@@ -1,0 +1,12 @@
+id = "248620fd-8baa-49ab-aee8-d545d8380770"
+study = "expansion/road-blocking-swapped"
+arena = "engine"
+hypothesis = "Swapped half of the road-blocking confirmation on boards 64-127 (control in slot 0, candidate in slot 1): combined with run 2fd1cb5e, which had the candidate in slot 0 on the same boards, the seating-corrected effect of opponent_expansion 0.5 is half the difference of the two contrasts and is positive."
+decision_rule = "All 256 games complete. Per board over the 64 boards: the corrected effect is half the difference of contrast A (run 2fd1cb5e, candidate in slot 0) and contrast B (this run), with a 95% interval over boards; above zero supports the term, below zero refutes it, crossing zero is inconclusive. Half the sum estimates the seating term. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"weights\":{\"opponent_expansion\":0.5}}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
