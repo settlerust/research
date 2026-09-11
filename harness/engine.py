@@ -90,7 +90,8 @@ def summarize(rows, seats):
             'builds': {k: sum(s.get(k, 0) for s in recs) / len(recs) if recs else None for k in
                        ['settlements_built', 'cities_built', 'roads_built', 'development_bought',
                         'knights_played', 'army_awards', 'bank_trades',
-                        'player_trades', 'cards_discarded', 'times_robbed', 'offers', 'offers_accepted']},
+                        'player_trades', 'cards_discarded', 'times_robbed', 'turns_over_limit',
+                        'offers', 'offers_accepted']},
             'first_city_turn_mean': sum(first_cities) / len(first_cities) if first_cities else None,
             'first_city_games': len(first_cities),
             'invalid': sum(s['invalid'] for s in recs), 'stalls': sum(s['stalls'] for s in recs),

@@ -1,0 +1,12 @@
+id = "a78e5220-68c6-4726-a1cc-3a6849ac19f6"
+study = "risk/hand-management"
+arena = "engine"
+hypothesis = "Hand-risk weight sweep: the expected-discard-loss term at weight 0 (default 1, risk inclination fixed at 0.5) changes results against the unchanged depth-2 control on paired deterministic boards; the direction of the contrast says whether the default under- or over-charges discard exposure."
+decision_rule = "Primary contrast: slot 0 minus slot 1 paired win difference over 64 seeds with a 95% interval. An interval excluding zero means the default weight is mis-set in the indicated direction; crossing zero leaves the default unchanged. Diagnostics: cards discarded per game, turns ended over the limit, times robbed."
+players = ["v2:{\"depth\":2,\"weights\":{\"hand_risk\":0.0}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

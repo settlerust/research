@@ -1,0 +1,12 @@
+id = "945e89c0-4928-421b-82d3-f003526cb7ed"
+study = "risk/hand-management"
+arena = "engine"
+hypothesis = "Swapped half of the discard-projection pair: the unchanged control sits in slot 0 and the candidate in slot 1 on the same boards as the first half (experiment d09eaccb-ab3b-4d1f-9b2e-904cf4cf89e9, run dd2a5d1f-f204-4389-9e89-5acb6f97932f). The candidate effect is half the difference of the two halves paired contrasts and the seating term half their sum; a single seating cannot separate the effect from the turn-order term."
+decision_rule = "Seating-corrected effect over the 64 shared seeds with a 95% interval: above zero supports ranking discards by the target preserved after expected production, below zero refutes it, crossing zero is inconclusive."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"discard_projection\":true}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

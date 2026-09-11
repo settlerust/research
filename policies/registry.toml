@@ -50,6 +50,11 @@ transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}}", "{token_file}", "{name}"]
 description = "expectimax-v2 after the turn-planning fix: depth 3, 1.5 s budget, 8 scenarios, 4 sampled worlds (frozen 2026-09-09); braces are doubled for the harness placeholder syntax"
 
+[expectimax-v2-hand-risk]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":2,\"spend_down\":true,\"discard_projection\":true}}", "{token_file}", "{name}"]
+description = "Hand-management study (risk/hand-management) smoke candidate: depth 2 with spend-down candidates and projected discard ranking; braces are doubled for the harness placeholder syntax"
+
 [ntuple-leaf]
 transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{{\"tables\":\"{root}/artifacts/ntuple/hex-portfolio-main.bin\"}}}}", "{token_file}", "{name}"]

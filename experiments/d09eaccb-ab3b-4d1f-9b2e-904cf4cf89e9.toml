@@ -1,0 +1,12 @@
+id = "d09eaccb-ab3b-4d1f-9b2e-904cf4cf89e9"
+study = "risk/hand-management"
+arena = "engine"
+hypothesis = "Projected discards: ranking each discard by the build deficits of the kept hand plus the expected production before the next own turn (instead of the current hand alone) changes outcomes; the candidate wins more games than the unchanged depth-2 control on paired deterministic boards."
+decision_rule = "Primary contrast: slot 0 minus slot 1 paired win difference over 64 seeds with a 95% interval. Interval above zero supports projection; below zero refutes it; crossing zero is inconclusive. Diagnostics: cards discarded per game, turns ended over the limit, times robbed."
+players = ["v2:{\"depth\":2,\"discard_projection\":true}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
