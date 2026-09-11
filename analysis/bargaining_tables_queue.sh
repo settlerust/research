@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Run registered engine experiments one after another at eight threads, recording each run ID.
+#   analysis/bargaining_tables_queue.sh QUEUE_LOG EXPERIMENT...
+set -u
+export PATH="$HOME/.cargo/bin:$PATH"
+export SETTLERS_SERVER_DIR="${SETTLERS_SERVER_DIR:-$HOME/settlers/.worktrees/server-bargaining-tables}"
+log="$1"
+shift
+cd "$(dirname "$0")/.."
+for experiment in "$@"; do
+    echo "start $experiment $(date -u +%FT%TZ)" >> "$log"
+    python3 -m harness.engine run "$experiment" --threads 8 > "runs/queue-$experiment.log" 2>&1
+    status=$?
+    run=$(grep -m1 '^run_id=' "runs/queue-$experiment.log" | cut -d= -f2)
+    echo "done $experiment run=$run exit=$status $(date -u +%FT%TZ)" >> "$log"
+done
+echo "queue finished $(date -u +%FT%TZ)" >> "$log"

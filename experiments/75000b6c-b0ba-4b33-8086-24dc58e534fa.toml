@@ -1,0 +1,12 @@
+id = "75000b6c-b0ba-4b33-8086-24dc58e534fa"
+study = "bargaining/tables-arms"
+arena = "engine"
+hypothesis = "Under the learned n-tuple leaf at depth 2, `counters: false` (counters to open offers off) loses to the unchanged tables baseline: the seating-corrected effect of the arm is negative, so the default mechanism helps under the tables as it did under the hand-written leaf. Lineup L2, the population lineup (a third tables search in slot 2, ETA in slot 3), seeds 800-863, four rotations, deterministic. Half B of the swapped pair: the control in slot 0, the arm in slot 1; the partner half A is experiment 4fd7a980-53a4-40f3-84ee-8b9b86bf3761."
+decision_rule = "All 256 games complete. The seating-corrected effect of the arm over the swapped pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, analysis/seating_pair.py) has a 95% seed interval that excludes zero below (support: the mechanism helps under the tables), excludes zero above (refutation: the mechanism hurts), or neither (inconclusive). The half-sum is the seating term."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"counters\":false}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,140 @@
+{
+ "base": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+ "pairs": [
+  {
+   "arm": "all-off",
+   "switch": "bargain",
+   "stage": "l2-800",
+   "lineup": "L2",
+   "seeds": "800-863",
+   "half_a": "e4610302-84a7-4cbf-9153-8c1d817d1bd3",
+   "half_b": "4f4b8a5f-4437-4594-b85d-c6e06ac9a55e"
+  },
+  {
+   "arm": "threat-off",
+   "switch": "threat_pricing",
+   "stage": "l2-800",
+   "lineup": "L2",
+   "seeds": "800-863",
+   "half_a": "717eae4e-b949-42fa-a1ab-3c086bdc8f3c",
+   "half_b": "7c9ffb4c-ce6a-4064-98d8-817702445f8d"
+  },
+  {
+   "arm": "counters-off",
+   "switch": "counters",
+   "stage": "l2-800",
+   "lineup": "L2",
+   "seeds": "800-863",
+   "half_a": "4fd7a980-53a4-40f3-84ee-8b9b86bf3761",
+   "half_b": "75000b6c-b0ba-4b33-8086-24dc58e534fa"
+  },
+  {
+   "arm": "asks-off",
+   "switch": "asks",
+   "stage": "l2-800",
+   "lineup": "L2",
+   "seeds": "800-863",
+   "half_a": "e2d48aa8-cdcc-4123-82de-2d3b8fac502f",
+   "half_b": "b0dbf209-97de-4881-b7ae-e8d1b7381b3d"
+  },
+  {
+   "arm": "stubborn",
+   "switch": "accept_asks",
+   "stage": "l2-800",
+   "lineup": "L2",
+   "seeds": "800-863",
+   "half_a": "b77486f2-da1f-4b29-b5b7-7843de5ca87d",
+   "half_b": "ab3a7230-393a-4b82-889f-d516413afebf"
+  },
+  {
+   "arm": "all-off",
+   "switch": "bargain",
+   "stage": "l1-0",
+   "lineup": "L1",
+   "seeds": "0-63",
+   "half_a": "937e19ae-2569-4472-9ea6-d964769aaaf1",
+   "half_b": "6c92dd71-3397-4c84-abaa-fe37371bd8e7"
+  },
+  {
+   "arm": "threat-off",
+   "switch": "threat_pricing",
+   "stage": "l1-0",
+   "lineup": "L1",
+   "seeds": "0-63",
+   "half_a": "13fc34cb-16ff-41ca-a87e-7b212e0461d9",
+   "half_b": "9b87ce41-b6ec-4985-ab9e-52d3b2ead900"
+  },
+  {
+   "arm": "counters-off",
+   "switch": "counters",
+   "stage": "l1-0",
+   "lineup": "L1",
+   "seeds": "0-63",
+   "half_a": "335728e0-245f-46e4-b345-8121f246dc44",
+   "half_b": "d5d25a63-fef6-44ca-9a4e-48c3251c14a4"
+  },
+  {
+   "arm": "asks-off",
+   "switch": "asks",
+   "stage": "l1-0",
+   "lineup": "L1",
+   "seeds": "0-63",
+   "half_a": "1c2e9a7f-fdfd-4385-9cb3-cc136ee01eeb",
+   "half_b": "1a34b4e4-0905-4d0a-a8b3-913c4a12a0f8"
+  },
+  {
+   "arm": "stubborn",
+   "switch": "accept_asks",
+   "stage": "l1-0",
+   "lineup": "L1",
+   "seeds": "0-63",
+   "half_a": "c9f1ac2b-d49c-41b7-9782-29359c0382f4",
+   "half_b": "9fe81446-d3fc-4434-99be-f0963253c955"
+  },
+  {
+   "arm": "all-off",
+   "switch": "bargain",
+   "stage": "l1-800",
+   "lineup": "L1",
+   "seeds": "800-863",
+   "half_a": "1d79b24f-6236-48e4-b2b1-0b0b5f53202d",
+   "half_b": "95171f06-d8fc-4ffa-b168-e277748022fe"
+  },
+  {
+   "arm": "threat-off",
+   "switch": "threat_pricing",
+   "stage": "l1-800",
+   "lineup": "L1",
+   "seeds": "800-863",
+   "half_a": "e07a3371-6b64-4823-9c7f-e0bedec181cb",
+   "half_b": "2729dfb5-b152-4d3a-b5bd-b89e7b9374c2"
+  },
+  {
+   "arm": "counters-off",
+   "switch": "counters",
+   "stage": "l1-800",
+   "lineup": "L1",
+   "seeds": "800-863",
+   "half_a": "598fb4ba-3c1a-469c-9668-ecef054cec53",
+   "half_b": "60dabae0-77de-4783-8ef0-60c9f81fd7cb"
+  },
+  {
+   "arm": "asks-off",
+   "switch": "asks",
+   "stage": "l1-800",
+   "lineup": "L1",
+   "seeds": "800-863",
+   "half_a": "37ca0f2e-c5fe-4c7f-aa8a-453a277bfbf7",
+   "half_b": "67853977-498a-480d-a2ad-c545e3847b1f"
+  },
+  {
+   "arm": "stubborn",
+   "switch": "accept_asks",
+   "stage": "l1-800",
+   "lineup": "L1",
+   "seeds": "800-863",
+   "half_a": "ff90bfd6-bab6-4ae2-8ee4-e766cdff7e0e",
+   "half_b": "e390230c-9b4e-421d-9b57-eeacf8ef2d76"
+  }
+ ]
+}

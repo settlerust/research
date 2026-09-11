@@ -1,0 +1,12 @@
+id = "bargaining/tables-arms"
+title = "Bargaining switches under the learned leaf"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "active"
+question = "Does each bargaining mechanism (threat pricing, counters, two-for-one asks, and accepting asks) still win games when the depth-2 search evaluates with the learned n-tuple tables, measured as swapped pairs at a population table and at the builder table?"
+outcome = "No experiment has been executed."
+next_step = "Register a fixed candidate, comparison, budget, and decision rule."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = []
+logs = []
+legacy_experiments = []
