@@ -1,0 +1,12 @@
+id = "development/knight-timing"
+title = "When to buy and play development cards"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "Do contextual development-card decisions beat flat ones for expectimax-v2 on deterministic paired boards: (1) valuing a knight play by the production it unblocks and the largest-army distance rather than a flat weight, (2) buying a card only when no build is affordable within the next own turn, (3) holding a knight to play before the roll when the robber sits on this seat's best hex?"
+outcome = "No. Three one-switch arms against the unchanged depth-2 control, 256 deterministic games each: single-seating contrasts of +0.145, +0.043, and +0.098 on boards 0-63 and +0.074 and +0.066 on boards 64-127, all the size of the turn-order seating term between adjacent search slots. The knight_play_value arm re-measured as a swapped pair on boards 64-127 corrects to +0.004 (95% interval -0.061 to +0.069); the pair's seating term is +0.070 (+0.005 to +0.136). The diagnostics show the mechanisms work (the tempo rule halves purchases, holding knights forgoes army awards) without winning. All switches stay off by default."
+next_step = "Retest contextual card valuation under the ntuple-leaf baseline if a card question opens there; any future two-search contrast in this arena is registered as a swapped pair."
+attribution = "Kimi K3 (moonshotai/Kimi-K3) through OpenCode"
+reports = ["reports/knight-timing.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

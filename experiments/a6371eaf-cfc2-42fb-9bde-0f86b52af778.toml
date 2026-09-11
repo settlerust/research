@@ -1,0 +1,12 @@
+id = "a6371eaf-cfc2-42fb-9bde-0f86b52af778"
+study = "development/knight-timing"
+arena = "engine"
+hypothesis = "Swapped half of the knight_play_value pair on boards 64-127: with the control in slot 0 and the candidate in slot 1 the seating term enters with the opposite sign, so the knight_play_value effect is half the difference between this contrast and the same-board contrast of experiment 20360d5d-f450-4102-8af0-83a3797f7891."
+decision_rule = "All 256 games complete. Combined rule for the pair: effect = (c1 - c2) / 2 with c1 the candidate-minus-control contrast of 20360d5d and c2 the control-minus-candidate contrast here, each per seed with a 95% interval; the pair interval is the two independent intervals combined (standard errors in quadrature, halved). The effect is supported only if that interval excludes zero. The seating term is (c1 + c2) / 2."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"knight_play_value\":true}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

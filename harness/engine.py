@@ -80,15 +80,19 @@ def summarize(rows, seats):
         pts = [r['game']['seats'][i]['points'] for r, i in games]
         recs = [r['game']['seats'][i] for r, i in games]
         decisions = sum(s['decisions'] for s in recs)
+        first_cities = [s['first_city_turn'] for s in recs if s.get('first_city_turn') is not None]
         slots.append({
             'slot': slot, 'seat': seat, 'wins': wins, 'losses': len(games) - wins, 'completed': len(games),
             'win_rate': wins / len(games) if games else None, 'wilson95': wilson(wins, len(games)),
             'mean_points': sum(pts) / len(pts) if pts else None,
             'mean_decision_ms': sum(s['decision_ms'] for s in recs) / decisions if decisions else None,
             'max_decision_ms': max((s['max_decision_ms'] for s in recs), default=None),
-            'builds': {k: sum(s[k] for s in recs) / len(recs) if recs else None for k in
-                       ['settlements_built', 'cities_built', 'roads_built', 'development_bought', 'bank_trades',
+            'builds': {k: sum(s.get(k, 0) for s in recs) / len(recs) if recs else None for k in
+                       ['settlements_built', 'cities_built', 'roads_built', 'development_bought',
+                        'knights_played', 'army_awards', 'bank_trades',
                         'player_trades', 'cards_discarded', 'times_robbed', 'offers', 'offers_accepted']},
+            'first_city_turn_mean': sum(first_cities) / len(first_cities) if first_cities else None,
+            'first_city_games': len(first_cities),
             'invalid': sum(s['invalid'] for s in recs), 'stalls': sum(s['stalls'] for s in recs),
             'forced': sum(s['forced'] for s in recs), 'search_errors': sum(s['effort']['errors'] for s in recs),
         })

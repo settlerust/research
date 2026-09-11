@@ -1,0 +1,12 @@
+id = "20360d5d-f450-4102-8af0-83a3797f7891"
+study = "development/knight-timing"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: the knight_play_value leaf (army-distance schedule plus unblock credit) keeps its development-cohort advantage over the flat knight weight."
+decision_rule = "All 256 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes; the 95% seed interval decides support (excludes zero in the stated direction), refutation (excludes zero the other way), or inconclusive. Fresh-seed confirmation of experiment 000e59d2-beb5-4ad4-aeac-4210c7e6d282; treatment and control share every other setting."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"knight_play_value\":true}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

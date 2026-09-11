@@ -1,0 +1,12 @@
+id = "8f739fd6-446d-4dfc-bd2d-80c838b82ec1"
+study = "development/knight-timing"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: holding knights for the before-the-roll unblock keeps its development-cohort advantage over free knight timing."
+decision_rule = "All 256 games complete. Primary contrast: treatment slot (0) minus control slot (1) wins per seed on deterministic tapes; the 95% seed interval decides support (excludes zero in the stated direction), refutation (excludes zero the other way), or inconclusive. Fresh-seed confirmation of experiment 119cbcf2-9791-4dd5-a1f7-c3766b60e44d; treatment and control share every other setting."
+players = ["v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"hold_knight\":true}", "v2:{\"depth\":2,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
