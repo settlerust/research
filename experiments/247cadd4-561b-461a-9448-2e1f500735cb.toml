@@ -1,0 +1,12 @@
+id = "247cadd4-561b-461a-9448-2e1f500735cb"
+study = "containment/robber-targeting"
+arena = "engine"
+hypothesis = "Fresh-seed confirmation of the supported leader arm. On seeds 0-63 the leader arm won 124 of 256 paired slot-games against 92 for the unchanged depth-2 control, contrast +0.125 wins per game (95% interval +0.021 to +0.229). Prediction: the contrast stays positive on seeds 64-127."
+decision_rule = "Confirm if the paired slot-0 minus slot-1 contrast over the 64 fresh seeds 64-127 is positive with its 95% interval excluding zero and all 256 games complete. Only a confirmed arm is a candidate for a default change; otherwise it stays a research switch and the development result is not extended."
+players = ["v2:{\"depth\":2,\"robber\":{\"leader\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

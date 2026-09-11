@@ -1,0 +1,61 @@
+---
+date: "2026-09-11"
+title: "Robber placement and victim choice"
+summary: "Three robber-targeting switches each beat the default shortlist on 256 paired development boards, but none held that strength on fresh seeds: blocking the leader's best hex, stealing the card this seat needs, and sparing trade partners all point the same positive direction (+0.035 to +0.039 wins per game) without confirming."
+---
+
+# Robber placement and victim choice
+
+<ResearchCallout title="Finding · three targeting rules beat the default robber shortlist on development boards, none confirms on fresh seeds">
+On seeds 0 to 63, one search with `robber.leader` won 124 of 256 paired slot-games against 92 for the unchanged depth-2 control (**+0.125** wins per game, 95% interval +0.021 to +0.229); `robber.need` won 130 against 89 (**+0.160**, +0.057 to +0.263); `robber.threat` won 122 against 92 (**+0.117**, +0.022 to +0.212). On the fresh seeds 64 to 127 all three intervals crossed zero: leader **+0.035** (−0.047 to +0.117), need **+0.039** (−0.062 to +0.140), threat **+0.035** (−0.056 to +0.126). The default stays; the three switches stay research knobs, and the consistent fresh-seed direction suggests a real effect near the resolution limit of 256 games.
+</ResearchCallout>
+
+<ResearchPlot asset="robber-targeting-contrasts" />
+
+## What each arm changes
+
+The search shortlists four robber placements by a static score and lets the lookahead choose among them. The score adds, per hex, the pips blocked at every rival building (cities double, weighted by the blocked seat's public points), and per victim a bonus for hand size and public points. Each arm changes exactly one part of that score, everything else held fixed:
+
+| Switch | Change | What it tests |
+| --- | --- | --- |
+| `robber.leader` | The hex score counts the points leader's blocked pips in full and every other seat's at a tenth | Blocking the leader's best hex beats blocking the most pips overall |
+| `robber.need` | The victim bonus replaces hand size with 2.8 times the expected share of the resource this seat most needs, from its resource knowledge | Stealing the card this seat needs beats stealing from the biggest hand |
+| `robber.threat` | Blocked pips are weighted by `1 + 2 ×` the seat's bargain threat, and a victim with threat below 0.5 is never robbed while a threatening victim exists | Sparing trade partners and preferring the top threat beats ignoring threats |
+
+Every cohort seats the arm in slot 0 and the unchanged control `v2:{"depth":2}` in slot 1, with `eta` and `fast` in the other seats, on 64 deterministic seeds played once per rotation (256 games). All 1,536 games completed; there were no invalid moves, stalls, or interruptions.
+
+| Arm | Seeds | Arm wins | Control wins | Contrast (95% interval) | Run |
+| --- | --- | ---: | ---: | --- | --- |
+| leader | 0-63 | 124 | 92 | +0.125 (+0.021 to +0.229) | `ccf05c4f-15a1-4774-a273-40b7d5491873` |
+| need | 0-63 | 130 | 89 | +0.160 (+0.057 to +0.263) | `9109daab-18d0-4a2a-94e3-a7fa11c94a7a` |
+| threat | 0-63 | 122 | 92 | +0.117 (+0.022 to +0.212) | `0ce9ecc0-7374-4c7c-8178-4d99db3ed0e1` |
+| leader | 64-127 | 112 | 103 | +0.035 (−0.047 to +0.117) | `a722f475-8cc5-4e2a-896b-4167764b2456` |
+| need | 64-127 | 109 | 99 | +0.039 (−0.062 to +0.140) | `e214be7c-f184-4840-af3e-e82e7c23ffad` |
+| threat | 64-127 | 110 | 101 | +0.035 (−0.056 to +0.126) | `1d943a44-ffb0-459d-b487-733d26d50189` |
+
+## Where the robber actually goes
+
+The arena records every robber placement together with the points leader among the mover's rivals and that seat's highest-pip hex, cities counting double. Over the six cohorts, the default search landed the robber on that leader's best hex on about 25 percent of its robber moves and robbed the leader on about 42 percent. The leader arm moved both numbers up (32 percent of hexes, 56 percent of victims). The need arm changed victims instead of hexes, and the threat arm robbed the leader on about half its moves while sparing its low-threat partners; neither moved the hex share. The builder policies behind `eta` and `fast` block the leader's best hex on about a third of their robber moves, so the default search was the least leader-aware robber at this table.
+
+| Seat | On the leader's best hex | Robbed the leader |
+| --- | ---: | ---: |
+| default search (control slots, six cohorts) | 1,517 of 5,967 (25.4%) | 2,538 of 5,967 (42.5%) |
+| leader arm | 621 of 1,951 (31.8%) | 1,085 of 1,951 (55.6%) |
+| need arm | 510 of 1,994 (25.6%) | 854 of 1,994 (42.8%) |
+| threat arm | 502 of 1,984 (25.3%) | 971 of 1,984 (48.9%) |
+| eta builders | 1,706 of 4,842 (35.2%) | 2,495 of 4,842 (51.5%) |
+| fast builders | 1,764 of 5,338 (33.0%) | 2,720 of 5,338 (51.0%) |
+
+## Failures and limits
+
+The screens on 16 seeds (unregistered, 64 games each) read +0.312, +0.219, and +0.203, all larger than their registered cohorts on seeds 0 to 63. Part of that gap is selection: the screens chose the arms, and the development cohorts share their seeds with the screens, so the fresh-seed contrasts near +0.035 are the unbiased estimates. Three arms sharing one mechanism may also overlap; a seat cannot run them independently, and their sum is not their combined effect.
+
+Everything here is engine-arena evidence at one lineup: two searches and the two fixed builders, depth 2, deterministic tapes. A candidate frozen from this tier still needs a protocol-arena cohort before the evidence boundary moves, and none of these arms is confirmed even at this tier.
+
+<AgentContext>
+Implementation: `SearchConfig.robber` (`leader`, `need`, `threat`) in `crates/expectimax/src/v2`, documented in `docs/expectimax.md` under "Robber targeting". The static score lives in `Search::robber_rows`; the need bonus reads `ResourceKnowledge` expected hands taken at the root of the decision, and the need itself is the largest missing-card gap toward the builds the seat is closest to affording. All switches off reproduce the previous scoring bit for bit: 32 deterministic games played by the dev and changed binaries are identical apart from timing and the new per-move diagnostic. The arena's `GameRecord` now carries one compact row per robber placement (`player`, `hex`, `victim`, the leader among the mover's rivals, and that seat's highest-pip hex, cities double); `analysis/robber_obvious.py` computes the shares above and `analysis/robber_assets.py` builds the plot from the retained run summaries.
+
+Reproduction: `python3 -m harness.engine run EXPERIMENT --threads 8` in the research checkout with `SETTLERS_SERVER_DIR` pointing at a server worktree containing the switches. Experiments `15173b9c` (leader), `6c2d07c6` (need), `0c77ef63` (threat) on seeds 0-63; `247cadd4`, `af5f61b5`, `e36e5562` are the matching confirmations on seeds 64-127. Arm seat: `v2:{"depth":2,"robber":{"leader":true}}` (and `need`, `threat`); control `v2:{"depth":2}`. Focused tests in `crates/expectimax/tests/internal/v2_robber.rs`.
+</AgentContext>
+
+[All studies](../approaches/README.md) · [Leader containment](../approaches/containment) · [Experiment log](../log/experiments.mdx)

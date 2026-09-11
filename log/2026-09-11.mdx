@@ -337,3 +337,62 @@ No protocol smoke was run: the switches are off by default, the deployable
 protocol path is unchanged, and the engine cohorts exercise the same seat
 specification surface the remote seats use. Attribution: GLM-5.3
 (baseten/zai-org/GLM-5.3) through opencode.
+
+## Robber placement and victim choice
+
+The search shortlists four robber placements by a static score (blocked
+opponent pips weighted by their public points, plus a victim bonus for hand
+size and points) and lets the lookahead choose among them. Three switches
+under `SearchConfig.robber` change one part of that score each:
+`leader` counts only the points leader's blocked pips in full (everyone
+else's at a tenth), `need` replaces the victim's hand size with 2.8 times the
+expected share of the card this seat most needs (from `ResourceKnowledge`
+expected hands), and `threat` weights blocked pips by the bargain threat and
+never robs a victim with threat below 0.5 while a threatening victim exists.
+All switches off reproduce the previous scoring bit for bit: 32 deterministic
+games played by the dev and changed binaries are identical apart from timing.
+The arena record now carries one compact row per robber placement, so the
+shortlist's behaviour can be measured; the default search lands on the points
+leader's best hex (their highest-pip hex, cities double) on 25.4 percent of
+its robber moves and robs the leader on 42.5 percent, pooled over the six
+cohorts below.
+
+Unregistered screens on 16 seeds (64 games each) read leader +0.312, need
++0.219, threat +0.203 wins per game, each interval excluding zero. All three
+looked promising, so all three were registered on seeds 0-63 against the
+unchanged depth-2 control with eta and fast builders, 256 deterministic games
+each, and every cohort completed:
+
+| Arm | Run | Arm wins | Control wins | Contrast (95% interval) |
+| --- | --- | ---: | ---: | --- |
+| leader | `ccf05c4f-15a1-4774-a273-40b7d5491873` | 124 | 92 | +0.125 (+0.021 to +0.229) |
+| need | `9109daab-18d0-4a2a-94e3-a7fa11c94a7a` | 130 | 89 | +0.160 (+0.057 to +0.263) |
+| threat | `0ce9ecc0-7374-4c7c-8178-4d99db3ed0e1` | 122 | 92 | +0.117 (+0.022 to +0.212) |
+
+The registered rule was met three times, so each arm got a fresh-seed
+confirmation on seeds 64-127 (256 games each, all completed). None confirmed;
+all three point the same direction just above zero:
+
+| Arm | Run | Arm wins | Control wins | Contrast (95% interval) |
+| --- | --- | ---: | ---: | --- |
+| leader | `a722f475-8cc5-4e2a-896b-4167764b2456` | 112 | 103 | +0.035 (−0.047 to +0.117) |
+| need | `e214be7c-f184-4840-af3e-e82e7c23ffad` | 109 | 99 | +0.039 (−0.062 to +0.140) |
+| threat | `1d943a44-ffb0-459d-b487-733d26d50189` | 110 | 101 | +0.035 (−0.056 to +0.126) |
+
+The [robber-targeting report](../reports/robber-targeting.mdx) carries the
+mechanism, the plot, and where the robber actually went. The default stays
+off for all three switches: nothing is confirmed, the arms share one
+mechanism so their effects probably overlap, and this is one engine-arena
+lineup at depth 2.
+
+Failures and limits: the screens were optimistic by roughly 0.1 wins per
+game, and the development cohorts share their seeds with the screens, so the
+fresh-seed contrasts near +0.035 are the unbiased estimates. The obvious-hex
+measurement shows the leader arm raising the share of robber moves on the
+leader's best hex from 25.4 to 31.8 percent and the share of steals from the
+leader from 42.5 to 55.6 percent; the need and threat arms move victims, not
+hexes. The need arm reads expected hands at the root of the decision, so
+inner-search estimates go stale within a turn; a hand that affords every
+build falls back to the hand-size bonus.
+
+Attribution: GLM 5.3 (zai-org/GLM-5.3) through opencode.
