@@ -522,3 +522,59 @@ attributed the seating term to the arms. The run records and registrations
 stand as filed.
 
 Attribution: GLM 5.3 (zai-org/GLM-5.3) through opencode.
+## Development-card timing: three switches, all inside the seating term
+
+Study `development/knight-timing` tested three one-switch candidates for the
+depth-2 search's development-card decisions, each against the unchanged control
+in slot 1 with an ETA and a fast builder beside them, 256 deterministic games
+per cohort. `knight_play_value` replaces the flat per-knight leaf weight with a
+largest-army distance schedule (half weight three or more away, full at two,
+1.75 at one, 1.25 while holding) and credits a held playable knight with one
+roll of the production it would unblock; the production a play unblocks was
+already priced through the afterstate's production term, so the switch isolates
+the schedule. `buy_tempo` offers a purchase only when no road, settlement, or
+city is affordable within the next own turn at current production.
+`hold_knight` offers main-phase knight plays only when the robber sits on this
+seat's best hex, keeping the roll-phase choice, so knights are held for the
+before-the-roll unblock. Unregistered screens on boards 0 to 15 (64 games each,
+kept under `runs/screens-knight-timing/`) read +0.188, +0.156, and +0.172 and
+overstated all three, as the seating work elsewhere in this log also found.
+
+Development cohorts on boards 0 to 63, single seating: `knight_play_value`
+`000e59d2-beb5-4ad4-aeac-4210c7e6d282` (run `ef72f172-c6c1-48d5-ab06-b178b4cea9e9`)
++0.145 (+0.050 to +0.240); `buy_tempo` `0b22df5c-bcdf-40cd-923e-2e484dae499d`
+(run `647d321b-b370-4abe-b50c-2300404474d7`) +0.043 (-0.066 to +0.152);
+`hold_knight` `119cbcf2-9791-4dd5-a1f7-c3766b60e44d` (run
+`30038304-768f-4892-8d0c-c734885a92e4`) +0.098 (+0.003 to +0.193). Fresh-board
+cohorts on 64 to 127, still single seating: `knight_play_value`
+`20360d5d-f450-4102-8af0-83a3797f7891` (run `e79ea358-e2e6-4d09-88e1-2a773c0002c8`)
++0.074 (-0.021 to +0.170); `hold_knight` `8f739fd6-446d-4dfc-bd2d-80c838b82ec1`
+(run `f83b1214-86de-4614-ba06-6f97d0f04aba`) +0.066 (-0.020 to +0.153).
+
+These five registrations predate the seating rule in my brief: two searches in
+adjacent slots differ by +0.05 to +0.18 wins per game from turn order alone
+(reports/arena-seating.mdx), so every one of these contrasts is the size of the
+term and none is an effect. The `knight_play_value` arm was re-registered as a
+swapped pair on boards 64 to 127, control in slot 0:
+`a6371eaf-cfc2-42fb-9bde-0f86b52af778` (run `1d91dbfa-e2ba-4186-9232-ece1102d4557`),
++0.066 (-0.022 to +0.155) slot 0 minus slot 1. Combined with the forward
+cohort: seating-corrected effect +0.004 (-0.061 to +0.069), seating term +0.070
+(+0.005 to +0.136), consistent with the +0.051 null on these boards. The
+mechanisms bite (the tempo rule halves purchases to 1.54 cards per game against
+2.55 and advances the first city by a turn; holding knights forgoes a third of
+knight plays and half the army awards) without winning. No default changes; the
+switches stay off and documented. The [report](../reports/knight-timing.mdx)
+carries the table and the plot.
+
+Failures and notes: no failed or incomplete games in any cohort (256 of 256
+each). The first session of this work stopped on a provider error after the
+first cohort; no run was affected, and the remaining cohorts ran after the
+restart. The five single-seating registrations stand as filed even though their
+decision rules read two of them as "supported"; the seating correction supersedes
+that reading, as it did for the endgame and robber arms. The harness engine
+summary now aggregates `knights_played`, `army_awards`, and the first city turn
+from the arena's per-game records (harness/engine.py): the study's registered
+diagnostics had to be visible in the retained run summaries, and the change is
+additive with defaults so records from older binaries still parse.
+
+Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.

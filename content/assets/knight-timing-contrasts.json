@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Development-card timing arms against the unchanged control",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts of 256 games on deterministic boards played once per rotation, the candidate and the unchanged depth-2 control in the named slots with an ETA and a fast builder. Runs ef72f172, 647d321b, 30038304 on boards 0-63 and e79ea358, f83b1214, 1d91dbfa on boards 64-127; the corrected point is half the difference of the two knight-value pair contrasts and the turn-order point half their sum.",
+  "caption": "Each point is one cohort\u2019s slot-0-minus-slot-1 wins per game with its 95% interval over boards; single-seating points carry the turn-order term and the swapped-pair combination removes it.",
+  "x": {
+    "label": "Cohort",
+    "min": 0,
+    "max": 7,
+    "ticks": [
+      "knight value, boards 0-63",
+      "knight value, boards 64-127",
+      "knight value, boards 64-127, seats swapped",
+      "buy tempo, boards 0-63",
+      "hold knight, boards 0-63",
+      "hold knight, boards 64-127",
+      "knight value, seating-corrected (boards 64-127)",
+      "turn-order term measured by the pair"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, slot 0 minus slot 1",
+    "min": -0.1,
+    "max": 0.27
+  },
+  "series": [
+    {
+      "label": "Single-seating contrast (slot 0 minus slot 1)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.1445,
+          "low": 0.0495,
+          "high": 0.2395
+        },
+        {
+          "x": 1,
+          "y": 0.0742,
+          "low": -0.0213,
+          "high": 0.1698
+        },
+        {
+          "x": 2,
+          "y": 0.0664,
+          "low": -0.0224,
+          "high": 0.1552
+        },
+        {
+          "x": 3,
+          "y": 0.043,
+          "low": -0.0659,
+          "high": 0.1519
+        },
+        {
+          "x": 4,
+          "y": 0.0977,
+          "low": 0.0028,
+          "high": 0.1926
+        },
+        {
+          "x": 5,
+          "y": 0.0664,
+          "low": -0.0204,
+          "high": 0.1532
+        }
+      ]
+    },
+    {
+      "label": "Swapped-pair combination",
+      "points": [
+        {
+          "x": 6,
+          "y": 0.0039,
+          "low": -0.0613,
+          "high": 0.0691
+        },
+        {
+          "x": 7,
+          "y": 0.0703,
+          "low": 0.0051,
+          "high": 0.1355
+        }
+      ]
+    }
+  ]
+}
