@@ -1,0 +1,12 @@
+id = "6c2d07c6-e7f0-4f91-8e75-43e590f1b1f1"
+study = "containment/robber-targeting"
+arena = "engine"
+hypothesis = "Seat 0 plays the depth-2 search with robber.need on: the victim bonus in the robber shortlist replaces hand size with 2.8 times the expected share of the resource this seat most needs, from this seat's resource knowledge. Seats 1-3 are the unchanged depth-2 control, eta, and fast on the same deterministic boards. Prediction: choosing the victim by the needed card wins more games than choosing by hand size."
+decision_rule = "Support if the paired slot-0 minus slot-1 contrast over 64 seeds is positive with its 95% interval excluding zero and all 256 games complete; otherwise keep the default ordering. A supported arm then needs a fresh confirmation on seeds 64-127 before any default change."
+players = ["v2:{\"depth\":2,\"robber\":{\"need\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

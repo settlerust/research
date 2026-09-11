@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Robber-targeting contrasts",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts under containment/robber-targeting: the arm in slot 0 against the unchanged depth-2 control in slot 1 with an ETA and a fast builder, 64 deterministic seeds each played once per rotation (256 games per point). Run IDs are listed in the robber-targeting report.",
+  "caption": "Each arm's paired win difference against the default robber shortlist, on the development seeds and on the fresh confirmation seeds.",
+  "x": {
+    "label": "Arm and seed range",
+    "min": 0,
+    "max": 5,
+    "ticks": [
+      "leader (0-63)",
+      "need (0-63)",
+      "threat (0-63)",
+      "leader (64-127)",
+      "need (64-127)",
+      "threat (64-127)"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, arm minus control",
+    "min": -0.11,
+    "max": 0.31
+  },
+  "series": [
+    {
+      "label": "Paired seed contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.125,
+          "low": 0.0215,
+          "high": 0.2285
+        },
+        {
+          "x": 1,
+          "y": 0.1602,
+          "low": 0.057,
+          "high": 0.2633
+        },
+        {
+          "x": 2,
+          "y": 0.1172,
+          "low": 0.0221,
+          "high": 0.2123
+        },
+        {
+          "x": 3,
+          "y": 0.0352,
+          "low": -0.0471,
+          "high": 0.1175
+        },
+        {
+          "x": 4,
+          "y": 0.0391,
+          "low": -0.0617,
+          "high": 0.1398
+        },
+        {
+          "x": 5,
+          "y": 0.0352,
+          "low": -0.0561,
+          "high": 0.1264
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}
