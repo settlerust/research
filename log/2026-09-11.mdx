@@ -261,3 +261,17 @@ depth-3 and ntuple-leaf configurations.
 
 Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
 
+## A rotating recipient order does not remove the seating term
+
+The arena now asks the recipients of an offer starting from a rotating seat
+(seed plus version) instead of always the seat after the offerer, the
+mechanism the arms report suspected. A null pair of identical default seats in
+slots 0 and 1 with the rotation, experiment
+`e1913588-7c22-4573-88e2-04728f60c820`, run
+`689a1947-ee7a-4767-ac08-d8302f407c50` on boards 0 to 63, still differs by
++0.180 wins per game (95% interval +0.075 to +0.285), against +0.176 before
+the change on the same boards. The recipient order is not the cause, or not
+the whole cause; the swapped-pair rule stands and a diagnosis of the seating
+term is filed as the next step of `log/arena-seating`.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
