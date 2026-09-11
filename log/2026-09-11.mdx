@@ -275,3 +275,65 @@ the whole cause; the swapped-pair rule stands and a diagnosis of the seating
 term is filed as the next step of `log/arena-seating`.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+## Predicting opponents next builds
+
+Study `adaptation/build-prediction`. One function in
+`crates/expectimax/src/v2/predict.rs` reads a seat's next build from a hand
+and the public board: it runs the builders' own greedy target choice on that
+hand, names the next piece the line completes, the site that line ends up
+taking, and how many turns the piece and the whole line are from affordable.
+Three switches use it, each off by default: a `denial` leaf weight that
+discounts open sites opponents are heading for, `predict.opponents` which
+makes the lookahead's opponent model execute the predicted build instead of
+the builder's greedy policy, and `predict.threat` which makes the bargaining
+`space` threat key on the predicted target site. Screens on seeds 0 to 15
+suggested all three were ahead of the control; the screens were wrong for a
+reason worth recording below.
+
+Every cohort ran as a mirrored pair, treatment slot 0 against control slot 1
+and then the same two searches with slots swapped, deterministic, depth 2,
+with an ETA and a fast builder, 64 seeds and 256 games per cohort. The
+average of the two order-paired per-seed contrasts is the mechanism estimate.
+Development on seeds 0 to 63: denial +0.061 wins per game (95% interval
++0.009 to +0.112, runs `9801640c-86d1-4ff9-9b3d-b3e678eff974` and
+`26be0a08-5536-4ede-a294-64c3b842a62e`), predicted opponents +0.043 (-0.007
+to +0.093, runs `8a6c5cac-24f6-450f-85b4-7147ba36cbc8` and
+`f00bca4c-d10a-442a-9b71-de1b547e886d`), predicted space threat +0.039 (-0.006
+to +0.084, runs `3ef05abf-d45e-420d-a200-8a11422b8561` and
+`ed6fda8e-4978-410b-9f86-6d293757d0c1`). Confirmations on fresh seeds 64 to
+127: denial -0.025 (-0.071 to +0.020, runs
+`c03af686-e267-44b8-830a-49493ea40694` and
+`ca8a57d3-f537-4f95-9442-88f36efd53ad`), predicted opponents -0.039 (-0.100 to
++0.022, runs `bf40e515-3c42-4635-be06-668e61087efa` and
+`7588d518-7364-4dc0-af7c-33b393087c35`), predicted space threat +0.031 (-0.024
+to +0.087, runs `96b8dc30-943e-45f9-9f81-d73b832fbc70` and
+`ff737612-3d3c-4874-b501-eab99d897b90`). Every game completed; no censoring.
+Only the denial term met its development rule, and it did not survive the
+fresh seeds, so no switch becomes a default. The [report](../reports/build-prediction.mdx)
+collects the numbers.
+
+Diagnostics: from one observer seat's public knowledge the predictor named an
+opponent's next completed build in 70% of turns against the fast builder, 53%
+against ETA, and 28% against another depth-2 search, so it reads builders but
+not searches. The denial seat lost about 0.1 fewer frontier sites per game
+than its control in every cohort (1.75 against 1.85 or so), so the term does
+change the board without changing the result enough to measure at this scale.
+
+The mirrored design was necessary because of a slot asymmetry in the paired
+ablation lineup. Slot 1 always sits immediately after slot 0 in engine seat
+order, and on seeds 0 to 63 that order alone is worth a lot: a control
+(control, eta, fast) cohort split 129 to 85 for slot 0, +0.172 wins per game
+(95% interval +0.083 to +0.261), while on seeds 64 to 79 the same pair of
+identical twins split 30 to 29. Single-order
+treatment-minus-control contrasts on seeds 0 to 63 therefore carry roughly a
+sixth of a win per game of slot advantage, and past single-order ablation
+contrasts on those seeds, including the near-zero arms in the ablation report,
+should be read with that in mind. Screens and this control-control cohort are
+unregistered diagnostics; the raw JSONL stays under
+`runs/screens-build-prediction/` in the integrating checkout.
+
+No protocol smoke was run: the switches are off by default, the deployable
+protocol path is unchanged, and the engine cohorts exercise the same seat
+specification surface the remote seats use. Attribution: GLM-5.3
+(baseten/zai-org/GLM-5.3) through opencode.

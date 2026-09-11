@@ -1,0 +1,12 @@
+id = "bdbf5110-bb6a-49a4-9e17-78ca7052b660"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "The control-first mirror of the denial confirmation on seeds 64-127."
+decision_rule = "Paired with its treatment-first mirror: confirm only if the average of the two order-paired per-seed contrasts on seeds 64-127 is positive with a 95 percent interval excluding zero and every game valid."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"weights\":{\"denial\":0.5}}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

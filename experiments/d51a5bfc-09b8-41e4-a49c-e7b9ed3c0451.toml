@@ -1,0 +1,12 @@
+id = "d51a5bfc-09b8-41e4-a49c-e7b9ed3c0451"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "Making the bargaining space threat use the opponents predicted target site instead of scanning this seats best three sites for reachability changes trade and blocking decisions in contested positions in the treatments favor. This is the treatment-first half of a mirrored pair; the mechanism estimate is the average of the two order-paired per-seed contrasts."
+decision_rule = "Support only if the average of the two order-paired per-seed contrasts (treatment minus control) on seeds 0-63 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid; report smaller effects as inconclusive. A fresh confirmation on seeds 64-127 with the same mirrored design is required before any default change."
+players = ["v2:{\"depth\":2,\"predict\":{\"threat\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

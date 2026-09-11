@@ -1,0 +1,12 @@
+id = "42c91742-1171-4d99-abb8-50c7ce2c744f"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "The control-first mirror of the predicted space threat reading on seeds 64-127."
+decision_rule = "Paired with its treatment-first mirror: support only if the average of the two order-paired per-seed contrasts on seeds 64-127 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"predict\":{\"threat\":true}}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

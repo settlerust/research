@@ -1,0 +1,12 @@
+id = "14e83d31-1700-4dcd-a662-8a4b078204b0"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "The control-first mirror of the predicted-space-threat cohort: control slot 0, treatment (predict.threat) slot 1, eta and fast unchanged. The mechanism estimate is the average of the two order-paired per-seed contrasts."
+decision_rule = "Paired with its treatment-first mirror: support only if the average of the two order-paired per-seed contrasts on seeds 0-63 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"predict\":{\"threat\":true}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

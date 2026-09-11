@@ -1,0 +1,12 @@
+id = "4a4806b6-2637-4b07-8f23-f3f8cc166f66"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "Making the lookaheads opponent model execute each opponents predicted next build instead of the builders greedy step-by-step policy changes decisions in contested positions in the treatments favor. This is the treatment-first half of a mirrored pair; the mechanism estimate is the average of the two order-paired per-seed contrasts."
+decision_rule = "Support only if the average of the two order-paired per-seed contrasts (treatment minus control) on seeds 0-63 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid; report smaller effects as inconclusive. A fresh confirmation on seeds 64-127 with the same mirrored design is required before any default change."
+players = ["v2:{\"depth\":2,\"predict\":{\"opponents\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

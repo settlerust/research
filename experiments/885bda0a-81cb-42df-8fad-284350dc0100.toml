@@ -1,0 +1,12 @@
+id = "885bda0a-81cb-42df-8fad-284350dc0100"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "Fresh-seed reading of the predicted opponent model (predict.opponents), inconclusive at +0.043 on seeds 0-63. Treatment-first half of a mirrored pair."
+decision_rule = "Support only if the average of the two order-paired per-seed contrasts on seeds 64-127 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid; otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"predict\":{\"opponents\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
