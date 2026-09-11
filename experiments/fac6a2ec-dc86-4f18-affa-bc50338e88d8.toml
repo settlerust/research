@@ -1,0 +1,12 @@
+id = "fac6a2ec-dc86-4f18-affa-bc50338e88d8"
+study = "expansion/road-blocking"
+arena = "engine"
+hypothesis = "Contending for the longest road only while holding the table\u2019s best brick plus lumber production (road_contention_gate 1.0) beats contending whenever within two roads of the award: the gate stops road races the seat cannot feed, and the saved cards win more than the forgone awards lose."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval; support requires the interval above zero, below zero refutes, crossing zero is inconclusive. Development tier."
+players = ["v2:{\"depth\":2,\"weights\":{\"road_contention_gate\":1.0}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,12 @@
+id = "expansion/road-blocking"
+title = "Road blocking and longest-road commitment"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "Does valuing roads that cut an opponent’s expansion path, committing to longest road only with the best road production, and enumerating trail-breaking settlements pay off at depth 2?"
+outcome = "Development cohorts supported the blocking term (+0.168, 95% interval +0.070 to +0.266) and the production-gated contention credit (+0.113, +0.027 to +0.200), but neither replicated on fresh seeds 64-127 (+0.031, −0.078 to +0.140; +0.031, −0.060 to +0.122): both inconclusive, defaults unchanged. Trail-breaking settlements are already enumerated and credited; a probe test pins this."
+next_step = "If retested, screen on seeds outside the registered cohort and resolve the near-zero fresh estimates with a larger seed count, or test blocking where it should matter most: a lineup with a contested site race against another search seat."
+attribution = "Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode"
+reports = []
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

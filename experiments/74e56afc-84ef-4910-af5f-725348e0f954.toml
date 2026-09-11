@@ -1,0 +1,12 @@
+id = "74e56afc-84ef-4910-af5f-725348e0f954"
+study = "expansion/road-blocking"
+arena = "engine"
+hypothesis = "Confirmation on fresh boards: the road_contention_gate 1.0 candidate beats the unchanged depth-2 search again, after the seeds 0-63 development cohort gave +0.113 (95% interval +0.027 to +0.200)."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval; the gate is confirmed only if the interval excludes zero and favors it. Development tier; no default change without this confirmation."
+players = ["v2:{\"depth\":2,\"weights\":{\"road_contention_gate\":1.0}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

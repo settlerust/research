@@ -1,0 +1,12 @@
+id = "36f5f80e-352f-4062-b962-fbde755828be"
+study = "expansion/road-blocking"
+arena = "engine"
+hypothesis = "Confirmation on fresh boards: the opponent_expansion 0.5 candidate beats the unchanged depth-2 search again, after the seeds 0-63 development cohort gave +0.168 (95% interval +0.070 to +0.266)."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval; the candidate is confirmed only if the interval excludes zero and favors it. Development tier; no default change without this confirmation."
+players = ["v2:{\"depth\":2,\"weights\":{\"opponent_expansion\":0.5}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

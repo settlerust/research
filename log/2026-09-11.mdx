@@ -1,6 +1,6 @@
 ---
-title: An opening planner, threat-aware bargaining, and endgame switches in both seatings
-summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons; three endgame switches looked strong in one seating and swapped pairs show the arena's seating term carried it.
+title: An opening planner, threat-aware bargaining, endgame switches, and road blocking
+summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons; three endgame switches looked strong in one seating and swapped pairs show the arena's seating term carried it. Two road-blocking switches win their development cohorts but not on fresh boards.
 ---
 
 # An opening planner and threat-aware bargaining
@@ -633,3 +633,70 @@ fixture in the fresh server worktree (`openssl pkey -pubout` regenerates it).
 Server worktree setup needed `cargo` on PATH from `~/.cargo/bin`.
 
 Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.
+## Road blocking and the longest road
+
+Three mechanisms from the expansion brief, tested one at a time under
+`expansion/road-blocking` against the unchanged depth-2 search with an ETA
+and a fast builder, all engine-arena development tier on deterministic
+paired boards. Each switch defaults to the unchanged behaviour, and the
+default configuration replays the base build bit for bit on a two-seed
+check. The arena's seat records gained road diagnostics: awards gained and
+held at game end, final trail length, and per-road counts of builds that
+raise the leading expander's distance to its best site.
+
+**Cutting the leading opponent's expansion path.** A new leaf weight
+`opponent_expansion` charges the leading opponent's best reachable site,
+discounted by its road distance, over the remaining rolls; candidate roads
+are credited for the same quantity, so a road that cuts the opponent's
+shortest path is enumerated and valued. A 16-seed screen gave +0.250 wins
+per game (+0.055 to +0.445). Registered cohort
+`8124d197-95fd-4a7f-a889-65138713cc70`, run
+`274e5330-a5e4-4270-952b-adc3b86a4cce`, seeds 0 to 63: 127 wins to 84,
+paired contrast +0.168 (95% interval +0.070 to +0.266), supported. The
+registered confirmation `36f5f80e-352f-4062-b962-fbde755828be`, run
+`2fd1cb5e-f0be-4ef1-b216-7a97973b9239`, on fresh seeds 64 to 127: 112 to
+104, +0.031 (−0.078 to +0.140), inconclusive, so the default stays off.
+Diagnostics on the development cohort: the candidate built 5.12 roads per
+game against 4.68 and held the longest-road award at the end in 55% of
+games against 39%; blocking builds stayed rare (0.078 against 0.035 per
+game) and the denied site value was small. The term costs about a third
+more decision time (314 ms against 232 ms per decision on the
+confirmation), which a confirmed candidate would have to justify.
+
+**Committing to the award only with the road production for it.**
+`road_contention_gate` 1.0 restricts the contention credit, in the leaf and
+in road enumeration, to seats tying or leading the table in brick plus
+lumber production. A 16-seed screen gave +0.062 (−0.102 to +0.227).
+Registered cohort `fac6a2ec-dc86-4f18-affa-bc50338e88d8`, run
+`95d0f056-afc9-4a7b-b291-c864e0f93a29`, seeds 0 to 63: 119 wins to 90,
++0.113 (+0.027 to +0.200), supported. The registered confirmation
+`74e56afc-84ef-4910-af5f-725348e0f954`, run
+`ee7d78c7-ec04-4d43-a01e-57af22420d70`, on fresh seeds 64 to 127: 106 to
+98, +0.031 (−0.060 to +0.122), inconclusive. The gate does what it says:
+the gated seat held the award at the end in 39% of games against the
+control's 48%, without a measurable win change. The default stays off.
+
+**Breaking an opponent's longest road with a settlement.** Already present:
+every legal settlement is a root candidate, and the leaf credits the lost
+award through the opponent-points term. A synthetic probe (seat 1 holding a
+five-road trail, seat 0 able to settle on it) has the break ranked first of
+seven candidates, with the trail cut to at most 3 and the award removed.
+No switch or cohort was needed; `crates/expectimax/tests/road_break.rs`
+pins the behaviour. A road toward a not-yet-reachable break vertex is still
+only weakly enumerated; that gap is a separate hypothesis.
+
+Both development cohorts look optimistic next to their confirmations. The
+screens ran on seeds 0 to 15, inside the registered 0 to 63 range, so the
+development estimates were partly selected on the same boards; the fresh
+seeds are the unbiased readings, and both are inconclusive at 64 seeds.
+Future screens in this program should use seeds outside the registered
+cohort. Neither mechanism is refuted: each fresh estimate is near +0.03,
+and a larger confirmation could resolve a small effect.
+
+Failure: the first run of the gate cohort,
+`12fb1efb-23d5-4a32-ad87-ed63fb3efcd5`, was interrupted after 11 of 256
+games when its controlling shell was killed; it is filed as interrupted and
+the cohort was rerun from scratch as `95d0f056`. The partial games were not
+pooled.
+
+Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.

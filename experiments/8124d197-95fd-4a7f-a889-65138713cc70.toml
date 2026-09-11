@@ -1,0 +1,12 @@
+id = "8124d197-95fd-4a7f-a889-65138713cc70"
+study = "expansion/road-blocking"
+arena = "engine"
+hypothesis = "Valuing a road that cuts the leading opponent\u2019s path to their best site (leaf weight opponent_expansion 0.5) wins more than the unchanged depth-2 search on identical boards, because the search buys denial when it is cheap."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval; support requires the interval above zero, a drop below zero refutes. Development tier."
+players = ["v2:{\"depth\":2,\"weights\":{\"opponent_expansion\":0.5}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
