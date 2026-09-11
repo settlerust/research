@@ -453,3 +453,41 @@ inner-search estimates go stale within a turn; a hand that affords every
 build falls back to the hand-size bonus.
 
 Attribution: GLM 5.3 (zai-org/GLM-5.3) through opencode.
+
+## Robber targeting: the gains were the arena seating term
+
+The confirmations above were read as a small positive direction, but the
+[seating diagnosis](../reports/arena-seating.mdx) published while those runs
+finished showed that two identical searches in adjacent slots of this arena
+differ by a seating term of turn-order adjacency, and every robber-targeting
+cohort seats the arm and the control adjacently. Three swapped pairs were
+registered under `containment/robber-targeting-bias` on the same fresh seeds
+64-127, control in slot 0 and the arm in slot 1, to cancel the term: the
+bias-free effect is half the per-seed difference between the same-orientation
+and swapped contrasts. All 256 games completed in each.
+
+| Arm | Same-orientation | Swapped run | Bias-free effect (95% interval) | Seating term |
+| --- | ---: | ---: | --- | ---: |
+| leader | +0.035 | `10834001-571d-439c-83d2-9e31e1d5997b` | −0.023 (−0.073 to +0.026) | +0.059 |
+| need | +0.039 | `165a28ac-94d3-4ebb-bbdf-989abb243bea` | −0.045 (−0.086 to −0.004) | +0.084 |
+| threat | +0.035 | `cb91296b-ac8d-4f86-9ad6-5ba4d57af8ec` | −0.033 (−0.084 to +0.018) | +0.068 |
+
+The corrected reading: none of the three switches beats the default robber
+shortlist once the seating term is cancelled, and the need rule is measurably
+worse than choosing the victim by hand size, the only interval excluding zero
+and on the wrong side. The development-cohort contrasts of +0.117 to +0.160
+were the seating term plus the seed selection of the screens, and the
+fresh-seed contrasts near +0.035 were mostly the term. The switches stay off
+by default. The [robber-targeting report](../reports/robber-targeting.mdx)
+was revised to carry all nine cohorts, the bias-free effects, and the
+pooled robber-placement measurement. Any future two-search cohort in this
+arena needs a swapped pair or a null arm, and the dev-seed contrasts of
+every adjacent-slot arm measured so far deserve the same suspicion.
+
+Failures: the screens overstated every effect by 0.1 to 0.2 wins per game,
+the development cohorts shared their seeds with the screens, and the first
+published reading of the confirmations ("consistent positive direction")
+attributed the seating term to the arms. The run records and registrations
+stand as filed.
+
+Attribution: GLM 5.3 (zai-org/GLM-5.3) through opencode.

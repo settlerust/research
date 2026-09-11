@@ -4,24 +4,27 @@
   "variant": "scatter",
   "title": "Robber-targeting contrasts",
   "evidence": "measured",
-  "source": "Engine-arena cohorts under containment/robber-targeting: the arm in slot 0 against the unchanged depth-2 control in slot 1 with an ETA and a fast builder, 64 deterministic seeds each played once per rotation (256 games per point). Run IDs are listed in the robber-targeting report.",
-  "caption": "Each arm's paired win difference against the default robber shortlist, on the development seeds and on the fresh confirmation seeds.",
+  "source": "Engine-arena cohorts under containment/robber-targeting and containment/robber-targeting-bias: the arm against the unchanged depth-2 control with an ETA and a fast builder, 64 deterministic seeds each played once per rotation (256 games per point). The bias-free points pair the same-orientation confirmation with its swapped cohort on the same seeds. Run IDs are listed in the robber-targeting report.",
+  "caption": "Each arm's paired win difference with the arm in slot 0 on the development and fresh seeds, and the seating-bias-free effect from the swapped pairs.",
   "x": {
-    "label": "Arm and seed range",
+    "label": "Arm and measurement",
     "min": 0,
-    "max": 5,
+    "max": 8,
     "ticks": [
-      "leader (0-63)",
-      "need (0-63)",
-      "threat (0-63)",
-      "leader (64-127)",
-      "need (64-127)",
-      "threat (64-127)"
+      "leader, 0-63",
+      "leader, 64-127",
+      "leader, bias-free",
+      "need, 0-63",
+      "need, 64-127",
+      "need, bias-free",
+      "threat, 0-63",
+      "threat, 64-127",
+      "threat, bias-free"
     ]
   },
   "y": {
     "label": "Wins per game, arm minus control",
-    "min": -0.11,
+    "min": -0.14,
     "max": 0.31
   },
   "series": [
@@ -36,21 +39,21 @@
         },
         {
           "x": 1,
-          "y": 0.1602,
-          "low": 0.057,
-          "high": 0.2633
-        },
-        {
-          "x": 2,
-          "y": 0.1172,
-          "low": 0.0221,
-          "high": 0.2123
-        },
-        {
-          "x": 3,
           "y": 0.0352,
           "low": -0.0471,
           "high": 0.1175
+        },
+        {
+          "x": 2,
+          "y": -0.0234,
+          "low": -0.0731,
+          "high": 0.0262
+        },
+        {
+          "x": 3,
+          "y": 0.1602,
+          "low": 0.057,
+          "high": 0.2633
         },
         {
           "x": 4,
@@ -60,9 +63,27 @@
         },
         {
           "x": 5,
+          "y": -0.0449,
+          "low": -0.0855,
+          "high": -0.0043
+        },
+        {
+          "x": 6,
+          "y": 0.1172,
+          "low": 0.0221,
+          "high": 0.2123
+        },
+        {
+          "x": 7,
           "y": 0.0352,
           "low": -0.0561,
           "high": 0.1264
+        },
+        {
+          "x": 8,
+          "y": -0.0332,
+          "low": -0.0845,
+          "high": 0.0181
         }
       ]
     }
