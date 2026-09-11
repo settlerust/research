@@ -1,0 +1,12 @@
+id = "d1bdca03-d27f-475c-b1ee-a8caf70937fe"
+study = "opening/draft-planner"
+arena = "engine"
+hypothesis = "The planner-decided opening (default) wins more paired slot-games than the same search ranking the planner shortlist by lookahead (opening: search), on fresh deterministic boards 64-127 after a 0-63 development sweep of +0.09 to +0.12 wins per game."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval; support the hypothesis only if the interval excludes zero on the positive side. Development tier confirmation on fresh seeds; not a protocol result."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"opening\":\"search\"}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

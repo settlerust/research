@@ -1,0 +1,101 @@
+---
+date: "2026-09-11"
+title: "A draft-aware opening planner, calibrated to the leaf"
+summary: "Scoring the two setup sites as a portfolio and predicting the draft beats the search's own placement once the valuation uses the leaf's currency; a player's sense of balance lost thirty points until it did."
+---
+
+# A draft-aware opening planner, calibrated to the leaf
+
+<ResearchCallout title="Finding · the currency decides, the draft prediction helps at the margin">
+On 64 deterministic boards played once per seat rotation, a planner that
+valued setup sites in pips with a player's sense of balance lost to the
+search's own placement by **−0.301 wins per game** (95% interval −0.414 to
+−0.188). The same planner with its production term calibrated to the leaf's
+resource values, its structural terms shrunk to tie-breakers, and its discrete
+strategies switched off won by **+0.094** and **+0.117** in two screens, and by
+**+0.062** (−0.036 to +0.161) on fresh boards 64 to 127 in the registered
+confirmation. The direction is consistent; the fresh-seed interval crosses
+zero, so this is development-tier evidence that the planner is not worse and
+probably a little better.
+</ResearchCallout>
+
+## What changed
+
+The tunable search used to rank setup sites by the static leaf, keep six, and
+value each through a two-turn lookahead that includes the first rolls. That
+ranking is dominated by raw production, so the pairs it chose covered the
+island badly: eleven brick pips and no grain on one traced board, no ore on two
+others. The planner in `crates/expectimax/src/v2/opening.rs` replaces it. It
+scores a pair of sites as a portfolio with seven terms: production per
+resource with a scarcity markup, coverage of distinct dice numbers, a penalty
+for resources left thin, the time to afford a settlement with a road and a
+city with surplus converting at bank and port ratios, ports, expansion within
+two or three roads, and the value lost to the draft. A first placement is
+valued by the best pair it still leaves after the seats ahead in the snake
+draft have picked, predicted with the same scoring; the last seat plans both
+placements at once; roads head for the best site that survives the remaining
+picks. Every candidate carries its terms, the strategy that values it, and the
+expected partner site, so a report explains a placement rather than only
+choosing it.
+
+## The calibration
+
+Each row is one unregistered screen of 256 games (boards 0 to 63, four
+rotations) with the planner-decided seat against the previous placement at
+depth 2, plus an ETA and a fast builder.
+
+| Setting | Planner | Search | Contrast |
+| --- | ---: | ---: | ---: |
+| pip weights, expansion 0.5 (first draft) | 23.4% | 53.5% | −0.301 |
+| leaf weights, specialize 0.5, scarcity 0.5, expansion 0.15 | 28.5% | 44.9% | −0.164 |
+| calibrated, specialize 0, scarcity 0 | 47.3% | 37.9% | +0.094 |
+| calibrated, specialize 1, scarcity 0 | 31.6% | 47.7% | −0.161 |
+| calibrated, specialize 0, scarcity 1 | 46.9% | 35.2% | +0.117 |
+| calibrated, specialize 0.5, scarcity 0.5 | 42.2% | 42.6% | −0.004 |
+| calibrated, coverage 0.4, balance 0.5 | 46.1% | 37.1% | +0.090 |
+
+Two lessons. First, the leaf's preference for ore and grain, which the search
+had learned to win with against builders, is right in this arena, and a
+valuation that rewards spreading production across all five resources is
+wrong by a wide margin. Second, the five discrete strategies (coverage,
+cities, roads, ports, cards), blended in by `specialize`, hurt at every
+strength because taking the best specialized valuation inflates concentrated
+pairs of the wrong kind. The strategies remain in the code as a research knob
+with the default at zero.
+
+## Registered confirmation
+
+Experiment `d1bdca03-d27f-475c-b1ee-a8caf70937fe`, run
+`08fdd9a7-6e0a-4e2a-a1cc-8124294feae2`, boards 64 to 127, four rotations, all
+256 games complete.
+
+| Slot | Wins | Win rate | Interval |
+| --- | ---: | ---: | --- |
+| planner (default) | 110 | 43.0% | 37.1% to 49.1% |
+| previous placement (`opening: search`) | 94 | 36.7% | 31.1% to 42.8% |
+| ETA | 29 | 11.3% | 8.0% to 15.8% |
+| fast | 23 | 9.0% | 6.1% to 13.1% |
+
+Paired contrast +0.062 wins per game (95% interval −0.036 to +0.161). The
+registered rule asked for an interval excluding zero and was not met. Pooled
+with the two calibrated screens on boards 0 to 63 the estimate is about +0.09
+over 128 boards; a larger fresh cohort would settle it.
+
+## What could still be wrong
+
+Every game here is against fixed builders that never block and rarely trade,
+which is exactly the setting where an ore-and-grain start is safest. Against
+opponents who contest ground the coverage and expansion terms may deserve
+more weight than this calibration gives them; the knobs exist for that study.
+The draft prediction assumes opponents place by the same planner, which is
+exact for the builders and the search but not for a person.
+
+<AgentContext>
+Screens were run with `cargo run --release -p settlers-arena --bin tournament
+-- --seat 'v2:{"depth":2,"opening_weights":{...}}' --seat
+'v2:{"depth":2,"opening":"search"}' --seat eta --seat fast --seeds 0-63
+--rotations 4 --deterministic` and are not filed as records. The confirmation
+is filed under `records/runs/08fdd9a7-6e0a-4e2a-a1cc-8124294feae2.md`. The
+planner's terms and settings are documented in the server's
+`docs/expectimax.md` under Opening placement.
+</AgentContext>

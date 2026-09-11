@@ -1,0 +1,76 @@
+---
+date: "2026-09-11"
+title: "Pricing trades by who you are trading with"
+summary: "A search that prices every swap by the partner's threat, counters thin offers, asks two for one from stocked partners, and declines with a reason wins a fifth of a game more than the same search accepting any helpful swap."
+---
+
+# Pricing trades by who you are trading with
+
+<ResearchCallout title="Finding · +0.219 wins per game at a table of two searches">
+On 64 deterministic boards played once per seat rotation, the depth-2 search
+with threat-aware bargaining won **137 of 256** slot-games (53.5%) against
+**81** (31.6%) for the identical search with plain acceptance and proposals,
+paired contrast **+0.219 wins per game** (95% interval +0.124 to +0.314), with
+an ETA and a fast builder in the other seats. This is development-tier
+evidence from run `4228f4f7-4427-42a4-8c0f-3976e1d26c76`; the plain seat
+accepts any swap that reduces its build deficit, which is a generous partner.
+</ResearchCallout>
+
+## The decision that changed
+
+Before, the search took an open offer whenever the accepted continuation beat
+waiting by the trade margin, and proposed one- or two-for-one swaps toward its
+next build with a fixed willingness model. It never asked for more, never
+refused for a reason, and treated the leader like anyone else.
+
+Now every other seat carries a threat in `[0, 1]` built from public
+information: how far ahead they are or how close to the finish (`race`), how
+much of this seat's best reachable ground they can reach as fast (`space`),
+and whether the longest road or largest army is a live contest between the two
+(`awards`). The threat raises the margin a swap must clear by up to thirty
+leaf points and charges a share of what the partner gains from it, so a swap
+that completes a city for the leader is refused while the same swap with a
+trailing seat goes through. Proposals skip seats above a threat of 0.75, carry
+a message with the reason (the build the swap completes, spare cards, or a
+block of the top threat's next site), and go to every safe seat at once when
+more than one was worth asking.
+
+An open offer addressed to the search draws three kinds of answer. Accepting
+is valued as before less the partner's threat cost. A counter asks for more of
+what was offered, an extra card the seat is short of, a different resource, or
+gives one card less, priced by the offerer's public eagerness: a build the swap
+completes under their minimum known hand, a large hand, an explicit request.
+When neither beats waiting, the seat declines explicitly and says why, from the
+most specific ground: the offerer leads the race, the swap completes their
+build, they compete for the same ground, the terms are thin, or the cards are
+needed for the seat's own next build.
+
+## Diagnosis
+
+| Slot | Wins | Win rate | Mean points | Decision |
+| --- | ---: | ---: | ---: | ---: |
+| threat-aware (default) | 137 | 53.5% | 8.43 | 111 ms |
+| plain (`bargain: false`) | 81 | 31.6% | 7.27 | 71 ms |
+| ETA | 22 | 8.6% | 6.72 | 0.1 ms |
+| fast | 16 | 6.2% | 6.48 | 0.1 ms |
+
+The bargaining seat spends 40 ms more per decision on counters and the
+threat model. The builders' share fell from about a quarter of games in earlier
+cohorts to 15%, so the two searches took the games from the builders as well
+as from each other.
+
+## What this does not show
+
+The plain seat is a soft partner: it accepts a counter or a two-for-one ask
+whenever the cards reduce its deficit, and never counters back. A person will
+refuse most of those asks, so the gain against people is smaller and may come
+mostly from the refusals and the threat pricing rather than the asks. The three
+mechanisms were changed together; one-change arms are the next step, along
+with a fresh-seed confirmation and a partner that never accepts an ask.
+
+<AgentContext>
+The cohort is filed under `records/runs/4228f4f7-4427-42a4-8c0f-3976e1d26c76.md`
+from experiment `0250ba3c-1631-427e-bddc-9930a1504334`. The mechanism is
+documented in the server's `docs/expectimax.md` under Bargaining; the switch
+`bargain: false` reproduces the plain control.
+</AgentContext>

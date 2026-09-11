@@ -1,0 +1,106 @@
+---
+title: An opening planner and threat-aware bargaining
+summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons.
+---
+
+# An opening planner and threat-aware bargaining
+
+Playing against the depth-3 browser search, the user found its setup placements
+poor and its trading passive: it took one-for-one swaps it could have improved
+and never blocked a rival. A four-game trace confirmed the placement diagnosis
+in numbers: the search ranked sites by raw production and produced pairs with
+eleven brick pips and no grain, or no ore at all.
+
+## Opening planner
+
+`crates/expectimax/src/v2/opening.rs` scores the two setup sites as a
+portfolio (production, dice-number coverage, thin-resource balance, time to
+afford a settlement and a city, ports, expansion), predicts the picks the seats
+ahead in the snake draft will make, and values a first placement by the best
+pair it still leaves. The last seat plans both placements together. Roads head
+for the best surviving site. The same planner opens the opponents inside the
+lookahead, the fast and ETA builders, and the browser builders.
+
+The first version valued pips with hand-set weights and a large expansion term.
+On 64 deterministic boards, four rotations, the planner-decided seat lost to the
+previous search placement by 0.30 wins per game (23% against 54%): its pairs
+covered the island but held no ore, while the search's ore and grain pairs won.
+Calibrating the production weights to the leaf's resource values, cutting
+coverage, balance, and expansion to tie-breaker size, and switching the
+discrete strategies off turned the contrast around. Unregistered screens, each
+256 games against the same control seat, planner minus search wins per game:
+
+| Setting | Planner | Search | Contrast |
+| --- | ---: | ---: | ---: |
+| pip weights, expansion 0.5 (first draft) | 23.4% | 53.5% | −0.301 |
+| leaf weights, specialize 0.5, scarcity 0.5, expansion 0.15 | 28.5% | 44.9% | −0.164 |
+| calibrated, specialize 0, scarcity 0 | 47.3% | 37.9% | +0.094 |
+| calibrated, specialize 1, scarcity 0 | 31.6% | 47.7% | −0.161 |
+| calibrated, specialize 0, scarcity 1 | 46.9% | 35.2% | +0.117 |
+| calibrated, specialize 0.5, scarcity 0.5 | 42.2% | 42.6% | −0.004 |
+| calibrated, coverage 0.4, balance 0.5 | 46.1% | 37.1% | +0.090 |
+
+Specialization (five discrete strategies blended in by `specialize`) hurts at
+every strength; the scarcity markup at full strength is the best setting; the
+coverage and balance weights are neutral in this range. The defaults are the
+calibrated weights with `specialize` 0 and `scarcity` 1.
+
+Registered confirmation `d1bdca03-d27f-475c-b1ee-a8caf70937fe`, run
+`08fdd9a7-6e0a-4e2a-a1cc-8124294feae2`, on fresh boards 64 to 127: the planner
+seat won 110 of 256 (43.0%) against 94 (36.7%) for the previous placement,
+paired contrast +0.062 wins per game (95% interval −0.036 to +0.161). The
+direction holds on fresh boards but the interval crosses zero, so the
+registered rule is not met; pooled with the two calibrated screens on boards 0
+to 63 the estimate is about +0.09. The planner stays the default because it is
+never worse in these cohorts, its placements are balanced and explained (each
+candidate carries the strategy, the expected partner site, and the draft cost),
+and it answers the user's request; the strength claim is development-tier and
+not yet confirmed.
+
+## Bargaining
+
+`crates/expectimax/src/v2/bargain.rs` gives every other seat a threat from the
+race, shared ground, and award contests. The threat raises the margin a swap
+must clear and charges a share of what the partner gains. Proposals avoid
+threatening seats, carry a message with the reason, and may go to every safe
+seat at once. An open offer to the search draws counters (more of what was
+offered, an extra card it is short of, a different resource, or one card less)
+priced by the offerer's public eagerness, and when neither accepting nor
+countering beats waiting the seat declines explicitly with a reason: the
+offerer leads, the swap completes their build, they compete for the same
+ground, the terms are thin, or the cards are needed. The arena resolves counters
+and records declines; the browser worker sends the search's speech for accepts
+and declines and keeps the offer's message inside the offer.
+
+Registered cohort `0250ba3c-1631-427e-bddc-9930a1504334`, run
+`4228f4f7-4427-42a4-8c0f-3976e1d26c76`, seated the default against the same
+search with plain acceptance (`bargain: false`) and two builders on boards 0 to
+63: the bargaining seat won 137 of 256 (53.5%) against 81 (31.6%), paired
+contrast +0.219 wins per game (95% interval +0.124 to +0.314), at 111 ms per
+decision against 71 ms. At a table where the other search accepts any swap that
+reduces its build deficit, pricing by threat, countering thin offers, and asking
+two for one from a well-stocked partner is worth about a fifth of a win per
+game. This says nothing yet about a table of people, who will not accept every
+counter.
+
+Registered cohort `b1fd194e-f308-448e-8acb-21b8087abf43`, run
+`42f60c41-b5f2-42ee-94f4-9675c09aa3a1`, seated the new default against ETA,
+fast, and ETA on boards 0 to 63, the lineup of run
+`77928683-3ef2-4ee7-90f0-04f7b2885c53`: 170 of 256 slot-games (66.4%, interval
+60.4% to 71.9%), mean 9.00 points, against the compared ETA slot's 9.0%, paired
+contrast +0.574 (interval +0.500 to +0.648). The registration cited the 34.0%
+of run 77928683, which predates the planning fix of 2026-09-09; the corrected
+search's 50.4% in run `a0c91849-4abf-4f1c-9de1-6255e1ef73e6` is the fairer
+comparison, and the new default is 16 points above it. The builders now open
+with the same planner, so this compares versions on the same boards rather
+than pairing a single change.
+
+## Failures and limits
+
+The pip-based first draft is the main failure: an evaluator that looks
+balanced to a player lost thirty points to the leaf's ore-and-grain preference
+against builders. Whether that preference survives against opponents who trade
+and block is untested; every cohort here is development tier against fixed
+builders. Counters and reasoned declines were not measured against a human.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.

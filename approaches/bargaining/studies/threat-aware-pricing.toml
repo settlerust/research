@@ -1,0 +1,12 @@
+id = "bargaining/threat-aware-pricing"
+title = "Threat-aware pricing, counters, and reasoned declines"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "active"
+question = "Does pricing every swap by the partner threat, answering thin offers with counters, and declining explicitly change the paired win rate of an otherwise identical depth-2 search?"
+outcome = "Run 4228f4f7 on boards 0-63: the threat-aware seat won 53.5% of paired slot-games against 31.6% for the same search with plain acceptance, paired contrast +0.219 wins per game (95% interval +0.124 to +0.314). Development tier at a table of two searches and two builders."
+next_step = "Confirm on fresh boards 64-127, then separate the three mechanisms (threat pricing, counters, two-for-one asks) in one-change arms and measure against a partner that refuses counters."
+attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
+reports = ["reports/threat-aware-bargaining.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

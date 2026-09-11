@@ -29,6 +29,10 @@ Plot own versus partner estimated gain for proposed, accepted, and rejected trad
 
 Never proposing a trade changed the contrast by -0.027 wins per game (95% interval -0.132 to +0.077); removing the trade margin (trade slider at 1) changed it by -0.094 wins per game (95% interval -0.192 to +0.005) with more trades completed. The margin arm is registered again on fresh seeds. On 192 fresh seeds removing the margin was -0.016 (95% interval -0.075 to +0.043): no effect. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
 
+## Second round: threat-aware pricing
+
+Every other seat now carries a threat from the race, shared ground, and award contests; the threat raises the margin a swap must clear and charges a share of the partner's gain, thin offers draw priced counters, and refusals are explicit with a reason (the server's `docs/expectimax.md`, Bargaining). Against the same search with plain acceptance the threat-aware seat won 53.5% to 31.6%, +0.219 wins per game (interval +0.124 to +0.314), on 64 deterministic boards. The partner accepted every helpful counter, so the [bargaining report](../../reports/threat-aware-bargaining.mdx) treats this as development evidence and names the one-change arms and the refusing partner as the next test.
+
 ## What could disprove it
 
 Acceptance is selective: completed trades are not a random sample of offers. More offers can also win through scheduling advantages. Equalize response windows and limits. An uncalibrated partner model can reject almost every good deal.
@@ -53,5 +57,6 @@ The deployable policy reads only its own observation and recipient-visible event
 | --- | --- | --- | --- |
 | 2026-09-09 | [Proposing trades versus never proposing](/research/approaches/bargaining) | Active | Round one, 256 deterministic games: contrast -0.027 wins per game (95% interval -0.132 to +0.077). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
 | 2026-09-09 | [Maximal trade openness](/research/approaches/bargaining) | Complete | Screen -0.094 then confirmation -0.016 (95% interval -0.075 to +0.043): removing the trade margin makes no measurable difference against builders. Next: Test the margin against another search seat that prices trades. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-11 | [Threat-aware pricing, counters, and reasoned declines](/research/reports/threat-aware-bargaining) | Active | Run 4228f4f7 on boards 0-63: the threat-aware seat won 53.5% of paired slot-games against 31.6% for the same search with plain acceptance, paired contrast +0.219 wins per game (95% interval +0.124 to +0.314). Development tier at a table of two searches and two builders. Next: Confirm on fresh boards 64-127, then separate the three mechanisms (threat pricing, counters, two-for-one asks) in one-change arms and measure against a partner that refuses counters. [Log 2026-09-11](/research/log/2026-09-11) |
 
 [research-studies:end]: #

@@ -1,0 +1,12 @@
+id = "b1fd194e-f308-448e-8acb-21b8087abf43"
+study = "opening/draft-planner"
+arena = "engine"
+hypothesis = "With the planner opening and threat-aware bargaining, the depth-2 search wins at least as many slot-games against ETA and fast builders (which now open with the same planner) as the registered run 77928683 (34.0%) did before the change on the same 64 deterministic boards."
+decision_rule = "All 256 games complete. Report the slot-0 win rate with its Wilson interval and the paired contrast slot 0 minus slot 1. Support only if the slot-0 win rate interval does not lie below 34.0%. Development tier; unpaired across versions because the builders also changed."
+players = ["v2:{\"depth\":2}", "eta", "fast", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

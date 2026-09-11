@@ -1,0 +1,12 @@
+id = "0250ba3c-1631-427e-bddc-9930a1504334"
+study = "bargaining/threat-aware-pricing"
+arena = "engine"
+hypothesis = "Threat-aware bargaining (default) does not lower, and may raise, the paired win rate of the depth-2 search against the same search with plain acceptance and proposals (bargain: false) at a table of two searches and two builders."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. A negative interval excluding zero rejects the default; an interval crossing zero is inconclusive and the default stays because it changes table talk and refusals, not strength. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"bargain\":false}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

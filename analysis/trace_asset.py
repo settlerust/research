@@ -91,7 +91,9 @@ def main():
     chosen = json.dumps(entry['chosen'], sort_keys=True)
     candidates = []
     for c in entry['candidates'][:8]:
+        note = c.get('note')
         candidates.append({'label': describe(c['action']), 'value': round(c['value'], 2),
+                           **({'note': note} if isinstance(note, str) and note else {}),
                            'chosen': json.dumps(c['command'], sort_keys=True) == chosen,
                            'contributions': {k: round(v, 2) for k, v in c['contributions'].items()}})
     if not any(c['chosen'] for c in candidates):
