@@ -1,0 +1,12 @@
+id = "containment/robber-targeting"
+title = "Robber placement and victim choice"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "active"
+question = "Does the search win more games by blocking the points leader, stealing the card this seat needs, or sparing its trade partners, instead of blocking the most pips and robbing the biggest hand?"
+outcome = "Work started: three robber-targeting switches implemented behind SearchConfig.robber (leader, need, threat), default behaviour bit-for-bit unchanged; screens and cohorts pending."
+next_step = "Screen each arm on 16 seeds, register the promising ones on seeds 0-63 against the depth-2 control, confirm any winner on seeds 64-127."
+attribution = "unknown"
+reports = []
+logs = []
+legacy_experiments = []
