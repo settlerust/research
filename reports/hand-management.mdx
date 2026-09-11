@@ -1,0 +1,127 @@
+---
+date: "2026-09-11"
+title: "Hand-size risk: spending down, projected discards, and the risk weight"
+summary: "Three discard-risk mechanisms for the tunable search, measured against the unchanged depth-2 control on deterministic boards: every single-seating contrast is the size of the turn-order seating term, and the one swapped pair corrects to zero. No default changes."
+---
+
+# Hand-size risk: spending down, projected discards, and the risk weight
+
+<ResearchCallout title="Finding · nothing beyond the turn-order seating term">
+The tunable search prices discard exposure with a leaf term (`hand_risk`) and
+ranks discards by the build cards they keep. Three hypotheses were tested as
+one-change arms against the unchanged depth-2 control: spending down when the
+hand passes the discard limit (`spend_down` adds bank trades and roads chosen
+only to shed cards), ranking discards by the target they preserve after the
+next expected production (`discard_projection`), and moving the `hand_risk`
+weight to 0, 2, or 4. The single-seating contrasts were +0.066 to +0.129 wins
+per game, the size of the seating term between two adjacent searches on these
+boards. The best arm, `discard_projection`, was re-measured as a swapped pair
+and corrects to **−0.029 wins per game** (95% interval −0.073 to +0.015).
+Nothing here pays; every default stays.
+</ResearchCallout>
+
+## The three mechanisms
+
+Each arm is one switch or weight on the otherwise unchanged depth-2 search,
+off or unchanged by default. `spend_down` acts only when the hand exceeds the
+discard limit: the candidate list then also carries up to three bank trades
+and two roads picked only to shed cards before another seat's roll, so the
+leaf's `hand_risk` term can price spending down against holding. The control
+never considers a trade that reduces no build deficit or a road toward
+nothing. `discard_projection` changes the discard ranking: each legal multiset
+is still enumerated, but the kept hand is credited with the seat's expected
+production over the rolls before its next turn, so a discard is valued by the
+target it preserves after that production rather than by the current hand
+alone. The weight sweep sets `weights.hand_risk` to 0, 2, or 4 (default 1)
+with the `risk` inclination fixed at 0.5.
+
+## The measurements
+
+Every cohort is 256 games in the engine arena, deterministic, each board 0 to
+63 played once per rotation of the four slots, with an ETA and a fast builder
+beside the two searches. All 256 games completed in every cohort. The five
+arms were registered as single-seating contrasts, candidate in slot 0 against
+the control in slot 1. The [seating diagnosis](arena-seating.mdx) then showed
+that two identical searches in adjacent slots differ by +0.05 to +0.18 wins
+per game from turn order alone: the seat directly before another acts first
+after three of the four rolls in a round. Every contrast below is that size,
+so none of them is an effect. The `discard_projection` arm was re-registered
+with the seats swapped on the same boards, and the pair separates the effect
+from the term.
+
+| Arm | Slot 0 | Slot 1 | Wins 0 / 1 | Contrast, slot 0 minus slot 1 (95% interval) |
+| --- | --- | --- | ---: | --- |
+| `spend_down` | candidate | control | 118 / 101 | +0.066 (−0.020 to +0.153) |
+| `discard_projection` | candidate | control | 124 / 92 | +0.125 (+0.021 to +0.229) |
+| `discard_projection` | control | candidate | 131 / 84 | +0.184 (+0.086 to +0.281) |
+| `hand_risk` 0 | candidate | control | 112 / 93 | +0.074 (−0.024 to +0.173) |
+| `hand_risk` 2 | candidate | control | 124 / 91 | +0.129 (+0.039 to +0.219) |
+| `hand_risk` 4 | candidate | control | 116 / 96 | +0.078 (−0.028 to +0.184) |
+
+The pair combines the two projection contrasts per board: the effect is half
+their difference, **−0.029 (−0.073 to +0.015)**, and the seating term is half
+their sum, +0.154 (+0.064 to +0.245), consistent with the +0.176 to +0.180
+measured for identical seats on these boards in the seating report. The other
+four rows are single-seating readings, each at or below that term, so they are
+consistent with zero rather than measured effects. The weight sweep is flat:
+0, 1, 2, and 4 are the same weight inside the seating noise.
+
+<ResearchPlot asset="hand-management-contrasts" />
+
+## The mechanisms fire without winning
+
+The diagnostics show the switches do what they claim. Per-game means for the
+candidate against the control; the projection row pools both seatings of the
+pair, the others are single-seating.
+
+| Arm | Cards discarded | Turns ended over the limit | Times robbed | Bank trades |
+| --- | ---: | ---: | ---: | ---: |
+| `spend_down` | 8.70 / 8.59 | 0.91 / 0.99 | 3.62 / 3.73 | 4.73 / 4.13 |
+| `discard_projection` (pair) | 8.72 / 8.76 | 1.03 / 0.95 | 3.70 / 3.67 | 4.29 / 4.23 |
+| `hand_risk` 0 | 10.00 / 9.24 | 1.41 / 0.98 | 3.52 / 3.79 | 4.52 / 4.01 |
+| `hand_risk` 2 | 7.85 / 8.58 | 0.82 / 1.05 | 3.55 / 3.67 | 4.66 / 4.02 |
+| `hand_risk` 4 | 8.07 / 8.62 | 0.82 / 0.98 | 3.65 / 3.48 | 4.35 / 4.03 |
+
+Removing the risk term raises discards by three quarters of a card per game
+and turns ended over the limit from 1.0 to 1.4; doubling or quadrupling it
+cuts both. Spending down adds half a bank trade per game and ends fewer turns
+over the limit. The projected discard changes which cards go (the candidate
+discards a little less) without changing the exposure counts. All of this
+moves the dial the term is supposed to measure, and none of it moves the win
+rate once seating is removed. Holding eight cards is apparently rare enough,
+and the half-hand penalty small enough, that pricing it differently buys
+nothing at this depth.
+
+## Limits
+
+This is engine-arena evidence at depth 2 with the hand-written leaf, two
+builders at the table, and one lineup; the protocol-arena baseline is the
+learned-tables leaf, which prices hands from self-play and may already encode
+discard exposure. The screens that preceded the cohorts (16 boards each,
+unregistered, kept under `runs/screen-risk/`) read +0.156 to +0.250 for the
+five arms and +0.219 for a control-against-control pair on the same boards:
+they overstated everything and were the reason the seating question came up in
+this study. The switches remain in the search, off by default, documented in
+`docs/expectimax.md`. A protocol smoke of both switches together (run
+`1b8775f4`) completed four of four games; it is a plumbing check, not
+evidence.
+
+<AgentContext>
+
+Candidate and control seats are `v2:{"depth":2}` plus the named switch or
+weight. Registrations and runs, all boards 0-63 deterministic: `47486c2e` /
+`901f81f4` (spend_down), `d09eaccb` / `dd2a5d1f` (discard_projection),
+`a78e5220` / `2bae826e` (hand_risk 0), `e79ff8a3` / `2f8fae6e` (hand_risk 2),
+`1a506239` / `af6fcb03` (hand_risk 4), and `945e89c0` / `43215190`
+(discard_projection, swapped seats). The pair's decision rule is in
+registration `945e89c0`; per the seating report the effect is half the
+per-board difference of the two slot-0-minus-slot-1 contrasts and the seating
+term half their sum, with 95% intervals over boards. All runs used server
+commit `9980af2` (branch `research/risk`), which predates the rotating
+recipient order; the seating report found the term unchanged by that fix, and
+the pair cancels it regardless. The arena counted `turns_over_limit` from this
+study onward; older records lack the field. `python3
+analysis/hand_management.py` recomputes every number and the plot asset from
+the retained run folders.
+
+</AgentContext>

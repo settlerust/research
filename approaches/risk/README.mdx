@@ -29,6 +29,8 @@ Show outcome distributions and a heatmap of decisions by estimated race position
 
 Switching the discard-exposure term off changed the contrast by -0.023 wins per game (95% interval -0.134 to +0.087); halving its weight through the risk slider changed it by -0.062 wins per game (95% interval -0.175 to +0.050). Neither is distinguishable from zero; the slider arm is registered again on fresh seeds. On 192 fresh seeds the slider arm was -0.055 (95% interval -0.118 to +0.008): leaning harmful, unresolved. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
 
+A follow-up on discard decisions tested spending down when over the limit, ranking discards by the target preserved after expected production, and the risk weight at 0, 2, and 4: every contrast sat inside the turn-order seating term, and the swapped pair for the projected-discard arm corrects to -0.029 wins per game (95% interval -0.073 to +0.015). The mechanisms move the discard counts they target without changing results. See the [hand-management report](../../reports/hand-management.mdx).
+
 ## What could disprove it
 
 Trailing positions are selected by earlier policy choices. A naive comparison of only trailing turns can confound risk choice with how the player got behind. Whole-game randomized arms remain the strength test.
@@ -53,5 +55,6 @@ The [dice exhibit](../../docs/strategy-guide.mdx) is an exact probability calcul
 | --- | --- | --- | --- |
 | 2026-09-09 | [The discard-exposure term](/research/approaches/risk) | Active | Round one, 256 deterministic games: contrast -0.023 wins per game (95% interval -0.134 to +0.087). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
 | 2026-09-09 | [A maximally risk-seeking style](/research/approaches/risk) | Complete | Screen -0.062 then confirmation -0.055 (95% interval -0.118 to +0.008): leaning harmful, not resolved by 768 games. Next: A larger cohort or a position-dependent test (trailing versus leading) before changing the default. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-11 | [Hand-size risk: spend-down, projected discards, and the hand_risk weight](/research/reports/hand-management) | Complete | Single-seating contrasts on boards 0-63 were +0.066 to +0.129 wins per game, the size of the turn-order seating term; the best arm (discard_projection) re-measured as a swapped pair corrects to -0.029 (95% interval -0.073 to +0.015). No effect anywhere; defaults unchanged. The diagnostics move as the mechanisms predict. Next: No default change. Any retest belongs at depth 3 or under the learned-tables leaf, registered as swapped pairs from the start. [Log 2026-09-11](/research/log/2026-09-11) |
 
 [research-studies:end]: #

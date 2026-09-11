@@ -578,3 +578,58 @@ diagnostics had to be visible in the retained run summaries, and the change is
 additive with defaults so records from older binaries still parse.
 
 Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.
+## Hand-size risk: five arms, all inside the seating term
+
+Study `risk/hand-management` tested three discard-risk hypotheses as one-change
+arms of the depth-2 search against the unchanged control in slot 1, with an ETA
+and a fast builder beside them, 256 deterministic games per cohort on boards 0
+to 63. `spend_down` (server branch `research/risk`, commit `9980af2`) adds bank
+trades and roads chosen only to shed cards when the hand is over the limit;
+`discard_projection` ranks each discard by the build deficits of the kept hand
+plus the expected production before the next own turn; the third arm sweeps
+`weights.hand_risk` to 0, 2, and 4 with the `risk` inclination fixed at 0.5.
+Unregistered screens on boards 0 to 15 (64 games each, kept under
+`runs/screen-risk/`) read +0.156 to +0.250 for the five arms and +0.219 for a
+control-against-control pair on the same boards, and a 64-to-79 control pair
+read +0.016: the screens measured board luck, not the arms.
+
+Development cohorts, candidate in slot 0: `spend_down`
+`47486c2e-9555-4c4f-a444-7a0097dce271` (run `901f81f4-922e-4de7-8269-f78f342f362b`)
++0.066 (-0.020 to +0.153); `discard_projection`
+`d09eaccb-ab3b-4d1f-9b2e-904cf4cf89e9` (run `dd2a5d1f-f204-4389-9e89-5acb6f97932f`)
++0.125 (+0.021 to +0.229); `hand_risk` 0 `a78e5220-68c6-4726-a1cc-3a6849ac19f6`
+(run `2bae826e-cea8-4de8-b39f-a72efcdebf55`) +0.074 (-0.024 to +0.173);
+`hand_risk` 2 `e79ff8a3-f22e-4590-b9cc-67e17a2b0c20` (run
+`2f8fae6f-5212-4cde-801b-ffd9be58445a`) +0.129 (+0.039 to +0.219); `hand_risk` 4
+`1a506239-e401-4340-a08c-8c948248fc30` (run `af6fcb03-64fb-4aaf-9639-d1ccaad5f1a3`)
++0.078 (-0.028 to +0.184). All 256 of 256 games completed in every cohort.
+
+These registrations predate the seating rule in my brief, and every contrast is
+the size of the turn-order term on these boards. The strongest arm,
+`discard_projection`, was re-registered as a swapped pair on the same boards,
+control in slot 0: `945e89c0-4928-421b-82d3-f003526cb7ed` (run
+`43215190-c80d-44e6-a8d5-e922c344392c`), +0.184 (+0.086 to +0.281) slot 0 minus
+slot 1. The seating-corrected effect is -0.029 wins per game (95% interval
+-0.073 to +0.015) and the term measured by the pair is +0.154 (+0.064 to
++0.245), matching the nulls in the seating report. The projection switch does
+not pay, and the other four single-seating contrasts are consistent with zero
+rather than measured effects; the weight sweep is flat, so `hand_risk` stays at
+1 and both switches stay off. The diagnostics confirm the mechanisms fire:
+removing the term raises discards from 9.2 to 10.0 cards per game and turns
+ended over the limit from 1.0 to 1.4, quadrupling it cuts both, and
+`spend_down` adds half a bank trade per game. The
+[report](../reports/hand-management.mdx) carries the table, the diagnostics,
+and the plot.
+
+Failures and notes: no failed or incomplete games. This session stalled for
+over an hour after the third cohort and was restarted; no run was affected. The
+screens shared their boards with the development cohorts and overstated every
+arm, as the knight-timing screens did. A protocol smoke of both switches
+(experiment `e0f2620a-a77a-4bb8-8a65-f1a7358333b7`, run
+`1b8775f4-f51c-45f2-b3b8-ee30590aee96`) completed four of four games; plumbing
+only. The arena now counts `turns_over_limit` per seat and the harness
+aggregates it; the arena change also resolved a missing git-ignored JWT test
+fixture in the fresh server worktree (`openssl pkey -pubout` regenerates it).
+Server worktree setup needed `cargo` on PATH from `~/.cargo/bin`.
+
+Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.
