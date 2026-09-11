@@ -1,0 +1,117 @@
+{
+  "cohorts": [
+    {
+      "label": "default, old recipient order",
+      "experiment": "948d095b-afd8-467c-ad8b-408b80280e65",
+      "slots": [
+        0,
+        1
+      ]
+    },
+    {
+      "label": "default, rotating order",
+      "experiment": "e1913588-7c22-4573-88e2-04728f60c820",
+      "slots": [
+        0,
+        1
+      ]
+    },
+    {
+      "label": "bargain off",
+      "experiment": "f6c4c5d3-583e-4984-9a69-e4bec3c2e81a",
+      "slots": [
+        0,
+        1
+      ],
+      "reference": "e1913588-7c22-4573-88e2-04728f60c820"
+    },
+    {
+      "label": "propose off",
+      "experiment": "e339df5d-42d1-4e92-a188-74119b970e19",
+      "slots": [
+        0,
+        1
+      ],
+      "reference": "e1913588-7c22-4573-88e2-04728f60c820"
+    },
+    {
+      "label": "counters off",
+      "experiment": "db5a667c-7cae-4899-b927-d73f486384cf",
+      "slots": [
+        0,
+        1
+      ],
+      "reference": "e1913588-7c22-4573-88e2-04728f60c820"
+    },
+    {
+      "label": "asks off",
+      "experiment": "a82a26b5-2000-457e-8f23-8b90ff85944f",
+      "slots": [
+        0,
+        1
+      ],
+      "reference": "e1913588-7c22-4573-88e2-04728f60c820"
+    },
+    {
+      "label": "two ETAs beside them",
+      "experiment": "488ce26d-2aa8-4c46-a1bc-ee0f3a352be8",
+      "slots": [
+        0,
+        1
+      ],
+      "reference": "e1913588-7c22-4573-88e2-04728f60c820"
+    },
+    {
+      "label": "two ETAs: ETA before a search minus ETA after one (slots 3 and 2)",
+      "experiment": "488ce26d-2aa8-4c46-a1bc-ee0f3a352be8",
+      "slots": [
+        3,
+        2
+      ],
+      "plot": false
+    },
+    {
+      "label": "fast then ETA beside them",
+      "experiment": "d85b0adc-f745-4aa5-b1fd-bc04d7e7bdb8",
+      "slots": [
+        0,
+        1
+      ],
+      "reference": "e1913588-7c22-4573-88e2-04728f60c820"
+    },
+    {
+      "label": "ETA between (slots 0 and 2)",
+      "experiment": "6ad995b4-dfe4-41a6-8c67-c8d0bf35af8e",
+      "slots": [
+        0,
+        2
+      ]
+    },
+    {
+      "label": "one search: ETA after minus before",
+      "experiment": "34c7f33a-d0d1-4ede-a424-3f45281535d3",
+      "slots": [
+        1,
+        3
+      ]
+    },
+    {
+      "label": "one search, slots 1 and 2",
+      "experiment": "34c7f33a-d0d1-4ede-a424-3f45281535d3",
+      "slots": [
+        1,
+        2
+      ],
+      "plot": false
+    },
+    {
+      "label": "one search, slots 2 and 3",
+      "experiment": "34c7f33a-d0d1-4ede-a424-3f45281535d3",
+      "slots": [
+        2,
+        3
+      ],
+      "plot": false
+    }
+  ]
+}

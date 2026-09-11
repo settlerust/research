@@ -1,0 +1,12 @@
+id = "f6c4c5d3-583e-4984-9a69-e4bec3c2e81a"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "The seating term between slots 0 and 1 does not need the threat-aware bargaining: two identical depth-2 seats with bargain off (plain acceptance and proposals, no threat pricing, counters, or asks) still differ, with the same sign as the default null (+0.180, +0.075 to +0.285, run 689a1947 on these boards)."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. The term exists without bargaining if the interval excludes zero and the estimate is above +0.05; if the interval includes zero and the estimate is below +0.05, the bargaining is necessary for the term. Development tier."
+players = ["v2:{\"depth\":2,\"bargain\":false}", "v2:{\"depth\":2,\"bargain\":false}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

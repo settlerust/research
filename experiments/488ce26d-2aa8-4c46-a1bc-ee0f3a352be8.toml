@@ -1,0 +1,12 @@
+id = "488ce26d-2aa8-4c46-a1bc-ee0f3a352be8"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "The seating term is the adjacency of the two searches, not the type of builder beside each: with two identical ETA builders in slots 2 and 3, so that the only asymmetry between slots 0 and 1 is that slot 1 follows slot 0 in turn order, two identical depth-2 seats still differ with the same sign as the default null on these boards."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. The adjacency term exists if the interval excludes zero and the estimate is above +0.05; if the interval includes zero and the estimate is below +0.05, the builder types beside the searches are necessary for the term. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2}", "eta", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

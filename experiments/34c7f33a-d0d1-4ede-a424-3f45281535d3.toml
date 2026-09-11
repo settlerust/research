@@ -1,0 +1,12 @@
+id = "34c7f33a-d0d1-4ede-a424-3f45281535d3"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "One depth-2 search with three identical ETA builders: the builder that follows the search in turn order (slot 1) wins less than the builder that precedes it (slot 3) if the seat directly after a search suffers in turn-order races, and the three builders do not differ if the term needs two searches."
+decision_rule = "All 256 games complete. Contrasts computed by analysis/arena_seating.py: slot 1 minus slot 3 and slot 1 minus slot 2 wins per seed with 95% seed intervals (the run record reports slot 0 minus slot 1, search minus ETA, which is not the contrast of interest). A builder term exists if the slot 1 minus slot 3 interval excludes zero. Development tier."
+players = ["v2:{\"depth\":2}", "eta", "eta", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

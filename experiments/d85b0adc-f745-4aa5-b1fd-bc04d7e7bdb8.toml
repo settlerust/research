@@ -1,0 +1,12 @@
+id = "d85b0adc-f745-4aa5-b1fd-bc04d7e7bdb8"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "The seating term does not depend on which builder sits beside each search: with the fast builder in slot 2 and the ETA in slot 3, two identical depth-2 seats in slots 0 and 1 differ by about as much as in the default null (+0.180) on these boards."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval, and the per-seed difference from the default null run 689a1947 on the same boards with its interval. The builder order matters if that difference interval excludes zero. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2}", "fast", "eta"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

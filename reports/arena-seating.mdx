@@ -1,0 +1,207 @@
+---
+date: "2026-09-11"
+title: "The seating term is turn order, not the arena"
+summary: "Two identical searches in adjacent slots differ by a tenth of a win per game with every trade switch off and with identical builders beside them, and by nothing once a builder sits between them; full bargaining roughly doubles the term. The seat directly before another acts first after three of the four rolls in a round, which is the game, not the arena."
+---
+
+# The seating term is turn order, not the arena
+
+<ResearchCallout title="Finding · adjacency in turn order, present without any trading, doubled by bargaining">
+Two identical depth-2 searches in slots 0 and 1 differ by **+0.102 wins per
+game** (95% interval +0.020 to +0.183) with `bargain: false` on both seats,
+by +0.074 (−0.008 to +0.156) when neither may propose, by +0.090 (−0.013 to
++0.192) with counters off, by +0.008 (−0.083 to +0.099) with asks off, and by
+**+0.141** (+0.051 to +0.230) with two identical ETA builders beside them.
+With an ETA between the two searches (slots 0 and 2) the difference is
+**+0.039** (−0.048 to +0.126), and one search with three ETAs leaves the three
+builders within ±0.03 of each other. The term needs the two searches to be
+adjacent in turn order. The four trade-switch nulls pooled give +0.068
+(+0.015 to +0.122), and the default null's +0.180 is −0.111 (−0.217 to
+−0.005) above them on the same boards, so the bargaining adds to a term it
+does not create. Neither the arena's offer handling nor any other seat-order
+rule in the table code is the cause: the seat directly before another acts
+first after three of the four rolls in every round, in the protocol arena and
+at any table. Swapped pairs remain the rule. Development tier, boards 0 to 63.
+</ResearchCallout>
+
+## What was suspected and what was tested
+
+The [arms report](bargaining-arms.mdx) found that two identical default
+searches in slots 0 and 1 differ by +0.176 wins per game (run `91ddb42d`) and
+blamed the arena's offer resolution, which asked the recipients of an offer in
+turn order after the offerer, so that slot 1 was asked first on every offer
+slot 0 made. The arena now asks recipients from a rotating seat (server commit
+`68c9842`, the `order.rotate_left(shift)` line in `crates/arena/src/table.rs`),
+and the same null on the same boards still differs by +0.180 (+0.075 to
++0.285, run `689a1947`). The recipient order was not the cause.
+
+Every cohort below is 256 games on deterministic boards 0 to 63, each board
+played once per rotation of the four slots, every search at depth 2 with the
+default configuration except the named switch. A contrast is the wins per
+game of one slot minus another, per board, with a 95% interval over boards;
+the two slots are named because the run record only reports slot 0 minus
+slot 1. Each cohort was registered with its own rule before it ran.
+
+<ResearchPlot asset="arena-seating-nulls" />
+
+| Cohort | Slots | Wins | Contrast (95% interval) |
+| --- | --- | ---: | --- |
+| default, recipients asked after the offerer (run `91ddb42d`) | 0 − 1 | 128 / 83 | +0.176 (+0.083 to +0.268) |
+| default, rotating recipient order (run `689a1947`) | 0 − 1 | 130 / 84 | +0.180 (+0.075 to +0.285) |
+| both seats `bargain: false` | 0 − 1 | 107 / 81 | +0.102 (+0.020 to +0.183) |
+| both seats `propose: false` | 0 − 1 | 100 / 81 | +0.074 (−0.008 to +0.156) |
+| both seats `counters: false` | 0 − 1 | 111 / 88 | +0.090 (−0.013 to +0.192) |
+| both seats `asks: false` | 0 − 1 | 102 / 100 | +0.008 (−0.083 to +0.099) |
+| default, ETA and ETA in slots 2 and 3 | 0 − 1 | 122 / 86 | +0.141 (+0.051 to +0.230) |
+| default, fast and ETA in slots 2 and 3 | 0 − 1 | 125 / 91 | +0.133 (+0.040 to +0.226) |
+| default, ETA between the searches (search, ETA, search, fast) | 0 − 2 | 107 / 97 | +0.039 (−0.048 to +0.126) |
+| one search, three ETAs: the ETA after the search minus the ETA before it | 1 − 3 | 30 / 37 | −0.027 (−0.084 to +0.029) |
+
+By the registered rules the term exists without bargaining, with identical
+builders, and with the builders swapped; the `propose: false` and
+`counters: false` cohorts are inconclusive (estimates above +0.05, intervals
+touching zero); and the `asks: false` cohort meets its rule for "asks are
+necessary", which the `bargain: false` cohort, whose seats never ask either,
+contradicts. Read together against the default null on the same boards the
+switch cohorts are −0.078 (−0.202 to +0.046) for bargaining off, −0.105
+(−0.239 to +0.029) for proposals off, −0.090 (−0.227 to +0.047) for counters
+off, and −0.172 (−0.288 to −0.055) for asks off; pooled, the four sit at
++0.068 (+0.015 to +0.122) and −0.111 (−0.217 to −0.005) below the default.
+That pooling was not preregistered. Two identical seats that never bargain
+still differ by about a fourteenth of a win, and two that bargain in full by
+about a sixth. In every cohort the wins of each search are flat across the
+four engine seats, so the term is the order of the two searches, not the seat
+either sits at.
+
+## Adjacency
+
+The lineup with an ETA between the two searches puts them opposite each other.
+There the earlier search won 107 and the later 97, +0.039 (−0.048 to +0.126),
+and the registered rule for "adjacency is the cause" is met: the interval
+includes zero and the estimate is below +0.05. The two searches in that lineup
+still have different builders before them (fast before slot 0, ETA before
+slot 2), so a small builder term could sit inside that interval.
+
+The builders show the same order effect, smaller. With one search and three
+ETAs the builder directly after the search won 30, the one opposite 35, and
+the one directly before it 37: −0.027 (−0.084 to +0.029) for after minus
+before, no term by its rule. With two searches and two ETAs the ETA directly
+after a search won 16 and the ETA directly before one won 32, +0.062 (+0.010
+to +0.115) for the seat before, an after-the-fact contrast. Swapping the two
+builders (fast then ETA) leaves the searches' term at +0.133 (+0.040 to
++0.226), −0.047 (−0.180 to +0.086) from the default null, so which builder
+sits beside a search does not matter.
+
+## Why the earlier seat wins
+
+In a four-player round the seat directly before another acts first after
+three of the four rolls: its own roll and the two rolls of the other seats.
+Only the later seat's own roll gives it the first move. When two identical
+searches can afford the same thing after the same roll, the earlier one takes
+it three times in four. As an exact calculation on a toy model, with each seat
+waiting for its own card that arrives with the same chance on every roll, the
+earlier of two adjacent seats builds first 55% of the time at one card in ten
+rolls and 63% at three in ten, and seats opposite each other split evenly.
+That is a calculation, not a measurement. Two identical searches want the
+same things because they value positions the same way; a builder wants
+something else most of the time, so a search gains little from sitting before
+one and loses little from sitting after one, which is what the three-ETA
+table shows.
+
+An unregistered traced screen of the default lineup on boards 0 to 15 (64
+games, slot 0 won 30 and slot 1 16) did not show the channel in the two counts
+it could make. Settlement sites that both searches had a road touching were
+taken five times by each; sites where the other search was one road away, 12
+by slot 0 and 13 by slot 1. Offers between the two searches closed at similar
+rates in both directions (asks 0.42 against 0.34 per game, one-for-ones 0.57
+against 0.85, counting counters the offerer took). The two searches' public
+points are equal through turn 40 and diverge after it (5.08 against 4.66 at
+turn 50, 5.84 against 5.35 at turn 60), and the wins slot 0 takes are more
+often by wide margins: in the rotating null, when the losing search finished
+at 4 points slot 0 had won 24 games and slot 1 seven, at 7 points 29 against
+13, while at 9 points the split was 3 against 5. The earlier seat's edge
+accumulates in the second half of the game rather than at the finish line or
+in the opening; which of the mid-game races it wins is not resolved here.
+
+The term therefore belongs to the game. The protocol arena, the browser, and a
+table of people all have it: the player who moves right before a strong
+player acts first on shared production and, with the bargaining on, trades
+with a partner whose turn comes right after. Its size depends on the boards,
+which is why the same lineup gave +0.176 on boards 0 to 63 and +0.051 on
+boards 64 to 127.
+
+## The arena code paths that were checked
+
+Each place in `crates/arena/src/table.rs` and the engine that could treat the
+seat after the current player specially was read, and none explains a term
+that survives `bargain: false` and disappears with a builder between the
+searches.
+
+The recipient order of an offer now rotates with the seed and the table
+version, and the term did not change. A counter that the offerer declines
+leaves the original offer open to the remaining recipients; a counter that is
+taken closes it. Both searches offer to single partners in the same way and
+accepted the others' offers at the same rate (2.00 against 1.82 per game in
+the rotating null). Discards on a seven are asked from the lowest engine seat
+first, which is rotation-dependent and puts slot 0 before slot 1 in three of
+the four rotations; the discarding seat sees nothing it can use and the order
+consumes no randomness. Robber victims are enumerated by engine seat and the
+searches score them by cards and points, so ties fall to the lower seat, again
+by rotation rather than by adjacency, and in the direction that would hurt
+slot 0. The deterministic dice, theft, and deck tapes are indexed by count,
+so every rotation of a board sees the same dice in the same order, and each
+slot rolls each residue of that order once. Setup is placed by the same
+planner for every seat, so each slot gets each pick position once and the
+setup positions of a board are identical across its rotations.
+
+## What this changes
+
+Nothing in the arena code. The rotating recipient order stays because an
+arena should not favour the seat after an offerer, but it does not touch the
+term. The rule for evidence stands: any contrast between two searches at one
+table is measured as a swapped pair on the same boards, and the seating term
+is half the sum of the two contrasts. A lineup that seats the two searches
+opposite each other (slots 0 and 2, a builder in each of slots 1 and 3)
+removes the adjacency term and is a reasonable screen, but it still leaves a
+different builder before each search, so it is not a substitute for the pair.
+The bargaining arms report's explanation of the term is corrected by this
+one; its numbers stand, and its adjusted contrasts are still read against a
+null on the same boards. The build-prediction study's mirrored pairs and the
+opening planner's swapped pairs were the right design for a reason that is
+now known. The agent brief and the server's `docs/expectimax.md` now name
+turn order rather than the recipient order.
+
+<AgentContext>
+Cohorts under `log/arena-seating`, boards 0 to 63, four rotations,
+deterministic, engine arena at sixteen threads from the server worktree
+`research/seating` (commit `c21bdf1`, which carries the rotating recipient
+order). Rotating-order null `e1913588-7c22-4573-88e2-04728f60c820` (run
+`689a1947-ee7a-4767-ac08-d8302f407c50`); `bargain: false`
+`f6c4c5d3-583e-4984-9a69-e4bec3c2e81a` (run
+`dc30070d-8a95-4de3-b9ec-0724f051687f`); `propose: false`
+`e339df5d-42d1-4e92-a188-74119b970e19` (run
+`98fce06c-8028-4b01-9622-cd2325af5b7b`); `counters: false`
+`db5a667c-7cae-4899-b927-d73f486384cf` (run
+`dbd08f29-7fc4-4c8e-8ae4-42f510046e37`); `asks: false`
+`a82a26b5-2000-457e-8f23-8b90ff85944f` (run
+`cbc642ff-acd5-4133-bf6a-f8ee013cf6ce`); two ETAs
+`488ce26d-2aa8-4c46-a1bc-ee0f3a352be8` (run
+`e62b248e-ea38-4c6d-b1bb-0ce3ec935284`); fast then ETA
+`d85b0adc-f745-4aa5-b1fd-bc04d7e7bdb8` (run
+`8acd42de-4681-4869-8fc9-e837206aaff7`); ETA between the searches
+`6ad995b4-dfe4-41a6-8c67-c8d0bf35af8e` (run
+`8dfca00b-69c3-4e54-a8dd-b90ee75e63d5`); one search with three ETAs
+`34c7f33a-d0d1-4ede-a424-3f45281535d3` (run
+`796fe469-7624-4629-8141-7fcd4bd214ac`). The pre-rotation null is
+`948d095b-afd8-467c-ad8b-408b80280e65` (run
+`91ddb42d-82ab-460b-95c2-b8d340658369`) from the bargaining study.
+`analysis/arena_seating.py analysis/arena_seating.json` regenerates the plot
+asset and prints every contrast, the wins by engine seat, and the per-slot
+build and trade counters from the retained run folders; it takes the two
+slots of each contrast from the registry. The traced screen was
+`tournament --seat 'v2:{"depth":2}' --seat 'v2:{"depth":2}' --seat eta --seat
+fast --seeds 0-15 --rotations 4 --deterministic --trace`; its site and offer
+counts read each search decision's board and hand from the trace; the JSONL
+and the two counting scripts are kept under `runs/screens-arena-seating/` in
+the integrating checkout.
+</AgentContext>

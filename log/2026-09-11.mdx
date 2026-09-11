@@ -276,6 +276,63 @@ term is filed as the next step of `log/arena-seating`.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
 
+## The seating term is turn order, not the arena
+
+Study `log/arena-seating`. The rotating recipient order left the null pair
+at +0.180, so eight more null cohorts on boards 0 to 63 (256 games each,
+deterministic, depth 2, sixteen threads) asked what the term needs. Two
+identical seats in slots 0 and 1 with `bargain: false`
+(`f6c4c5d3-583e-4984-9a69-e4bec3c2e81a`, run
+`dc30070d-8a95-4de3-b9ec-0724f051687f`): +0.102 (+0.020 to +0.183), the
+term exists without bargaining. `propose: false`
+(`e339df5d-42d1-4e92-a188-74119b970e19`, run
+`98fce06c-8028-4b01-9622-cd2325af5b7b`): +0.074 (−0.008 to +0.156),
+inconclusive by its rule. `counters: false`
+(`db5a667c-7cae-4899-b927-d73f486384cf`, run
+`dbd08f29-7fc4-4c8e-8ae4-42f510046e37`): +0.090 (−0.013 to +0.192),
+inconclusive. `asks: false` (`a82a26b5-2000-457e-8f23-8b90ff85944f`, run
+`cbc642ff-acd5-4133-bf6a-f8ee013cf6ce`): +0.008 (−0.083 to +0.099), which
+meets its rule for asks being necessary and is contradicted by the
+`bargain: false` cohort whose seats never ask either; pooled, the four
+switch-off nulls are +0.068 (+0.015 to +0.122) and −0.111 (−0.217 to −0.005)
+below the default null on the same boards, an after-the-fact pooling. Two
+ETAs in slots 2 and 3 (`488ce26d-2aa8-4c46-a1bc-ee0f3a352be8`, run
+`e62b248e-ea38-4c6d-b1bb-0ce3ec935284`): +0.141 (+0.051 to +0.230), and the
+ETA before a search beat the ETA after one by +0.062 (+0.010 to +0.115).
+Fast then ETA (`d85b0adc-f745-4aa5-b1fd-bc04d7e7bdb8`, run
+`8acd42de-4681-4869-8fc9-e837206aaff7`): +0.133 (+0.040 to +0.226). An ETA
+between the two searches, slots 0 and 2
+(`6ad995b4-dfe4-41a6-8c67-c8d0bf35af8e`, run
+`8dfca00b-69c3-4e54-a8dd-b90ee75e63d5`): +0.039 (−0.048 to +0.126) for slot
+0 minus slot 2, the rule for adjacency met. One search with three ETAs
+(`34c7f33a-d0d1-4ede-a424-3f45281535d3`, run
+`796fe469-7624-4629-8141-7fcd4bd214ac`): the ETA after the search minus the
+ETA before it −0.027 (−0.084 to +0.029), no builder term.
+
+The cause is adjacency in turn order, a property of the game: the seat
+directly before another acts first after three of the four rolls in a round,
+and two identical searches race for the same things. It is not the arena's
+offer handling, and every other seat-order rule in `table.rs` and the engine
+(discard order by lowest seat, robber ties by seat, count-indexed tapes, the
+shared setup planner) is rotation-symmetric or points the other way. Full
+bargaining roughly doubles the term, so the seat after a bargaining search
+also loses something in the trades, though an unregistered traced screen on
+boards 0 to 15 (kept under `runs/screens-arena-seating/`) found offers between
+the two searches closing at similar rates in both directions and direct site
+races split five to five; the searches' points diverge only after turn 40.
+The [seating report](../reports/arena-seating.mdx) has the table and the
+reasoning. Swapped pairs remain the rule; a lineup with the two searches
+opposite each other removes the adjacency term for a screen. The agent brief,
+`docs/status.md`, the arms report, and the server's `docs/expectimax.md` now
+name turn order rather than the recipient order; the rotating order stays.
+
+Failures: none; every cohort completed all 256 games. The clippy run in the
+server worktree first failed on the gitignored `jwt-test-public.pem` fixture,
+which the worktree did not carry; copying it from the canonical checkout
+fixed the build and nothing in the code changed.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
 ## Predicting opponents next builds
 
 Study `adaptation/build-prediction`. One function in

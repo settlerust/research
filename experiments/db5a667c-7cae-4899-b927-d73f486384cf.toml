@@ -1,0 +1,12 @@
+id = "db5a667c-7cae-4899-b927-d73f486384cf"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "The seating term does not need counters: two identical depth-2 seats with counters off still differ, with the same sign as the default null on these boards."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. The term exists without counters if the interval excludes zero and the estimate is above +0.05; if the interval includes zero and the estimate is below +0.05, counters are necessary for the term. Development tier."
+players = ["v2:{\"depth\":2,\"counters\":false}", "v2:{\"depth\":2,\"counters\":false}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

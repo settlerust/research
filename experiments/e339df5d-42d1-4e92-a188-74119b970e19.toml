@@ -1,0 +1,12 @@
+id = "e339df5d-42d1-4e92-a188-74119b970e19"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "The seating term does not need any offer made by the searches: two identical depth-2 seats that never propose (only the builders offer; the searches still accept and counter) still differ, with the same sign as the default null on these boards."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. The term exists without search offers if the interval excludes zero and the estimate is above +0.05; if the interval includes zero and the estimate is below +0.05, the search offers are necessary for the term. Development tier."
+players = ["v2:{\"depth\":2,\"propose\":false}", "v2:{\"depth\":2,\"propose\":false}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

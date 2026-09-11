@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Identical seats at different distances in turn order",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts on boards 0 to 63, each board played once per rotation of four slots, depth-2 searches with fixed builders. Run IDs are listed in the arena seating report.",
+  "caption": "Each point is the wins per game of the named earlier seat minus the identical later seat, with its 95% interval over boards 0 to 63; the term needs the two seats to be adjacent in turn order and survives every trade switch.",
+  "x": {
+    "label": "Cohort",
+    "min": 0,
+    "max": 9,
+    "ticks": [
+      "default, old recipient order",
+      "default, rotating order",
+      "bargain off",
+      "propose off",
+      "counters off",
+      "asks off",
+      "two ETAs beside them",
+      "fast then ETA beside them",
+      "ETA between (slots 0 and 2)",
+      "one search: ETA after minus before"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, earlier seat minus later seat",
+    "min": -0.13,
+    "max": 0.33
+  },
+  "series": [
+    {
+      "label": "Paired board contrast (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.1758,
+          "low": 0.0834,
+          "high": 0.2682
+        },
+        {
+          "x": 1,
+          "y": 0.1797,
+          "low": 0.0747,
+          "high": 0.2846
+        },
+        {
+          "x": 2,
+          "y": 0.1016,
+          "low": 0.0201,
+          "high": 0.183
+        },
+        {
+          "x": 3,
+          "y": 0.0742,
+          "low": -0.0079,
+          "high": 0.1564
+        },
+        {
+          "x": 4,
+          "y": 0.0898,
+          "low": -0.0127,
+          "high": 0.1924
+        },
+        {
+          "x": 5,
+          "y": 0.0078,
+          "low": -0.0835,
+          "high": 0.0991
+        },
+        {
+          "x": 6,
+          "y": 0.1406,
+          "low": 0.0514,
+          "high": 0.2299
+        },
+        {
+          "x": 7,
+          "y": 0.1328,
+          "low": 0.0396,
+          "high": 0.226
+        },
+        {
+          "x": 8,
+          "y": 0.0391,
+          "low": -0.0477,
+          "high": 0.1258
+        },
+        {
+          "x": 9,
+          "y": -0.0273,
+          "low": -0.0842,
+          "high": 0.0295
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

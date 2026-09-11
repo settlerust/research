@@ -1,0 +1,12 @@
+id = "6ad995b4-dfe4-41a6-8c67-c8d0bf35af8e"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "With a builder between the two searches (slots 0 and 2, ETA in slot 1, fast in slot 3) the term between the two identical depth-2 seats disappears: neither search follows the other in turn order, so their contrast is within noise of zero."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 2 wins per seed with a 95% seed interval, computed by analysis/arena_seating.py (the run record reports slot 0 minus slot 1, search minus ETA, which is not the contrast of interest). Adjacency is the cause if the interval includes zero and the estimate is below +0.05 in size; a residual term means the builder beside each search (fast before slot 0, ETA before slot 2) also matters. Development tier."
+players = ["v2:{\"depth\":2}", "eta", "v2:{\"depth\":2}", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

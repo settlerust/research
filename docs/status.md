@@ -67,10 +67,14 @@ showed no measurable effect at depth 2.
 ## Two searches at one table
 
 The one-change arm design seats the changed search in slot 0 and the control in
-slot 1, and slot 1 always sits one seat after slot 0. With the bargaining code
-that order matters: two identical default searches differ by +0.176 wins per
-game (95% interval +0.083 to +0.268) on boards 0 to 63 (run `91ddb42d`) and by
-+0.051 (−0.046 to +0.148) on boards 64 to 127 (run `9d213ed0`). The
+slot 1, and slot 1 always sits one seat after slot 0. That order matters: two
+identical default searches differ by +0.176 wins per game (95% interval
++0.083 to +0.268) on boards 0 to 63 (run `91ddb42d`) and by +0.051 (−0.046 to
++0.148) on boards 64 to 127 (run `9d213ed0`). The cause is the game's turn
+order, not the arena's trade handling: the seat directly before another acts
+first after three of the four rolls in a round, the term survives every trade
+switch and identical builders, and it disappears with a builder between the
+two searches ([seating report](../reports/arena-seating.mdx)). The
 [bargaining arms report](../reports/bargaining-arms.mdx) reads its arms against
 the first null and confirms the counters effect with a swapped pair on fresh
 boards, −0.096 (−0.156 to −0.035) for the seat without counters. Any contrast
