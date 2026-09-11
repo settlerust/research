@@ -1,0 +1,12 @@
+id = "999f2ab3-a3b1-40c6-bf3f-0fb7f8ad3ceb"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "Fresh-seed confirmation of the denial leaf term (weights.denial 0.5) that the development pair on seeds 0-63 supported at +0.061 wins per game. Same mirrored design: this is the treatment-first half; its control-first mirror seats the same two searches with slots swapped."
+decision_rule = "Confirm the denial term only if the average of the two order-paired per-seed contrasts on seeds 64-127 is positive with a 95 percent interval excluding zero and every game valid; a recommended default change additionally requires the development estimate to hold."
+players = ["v2:{\"depth\":2,\"weights\":{\"denial\":0.5}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

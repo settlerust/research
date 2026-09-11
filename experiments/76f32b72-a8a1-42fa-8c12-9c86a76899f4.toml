@@ -1,0 +1,12 @@
+id = "76f32b72-a8a1-42fa-8c12-9c86a76899f4"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "The control-first mirror of the denial cohort: control slot 0, treatment (weights.denial 0.5) slot 1, eta and fast unchanged. The mechanism estimate is the average of the two order-paired per-seed contrasts."
+decision_rule = "Paired with its treatment-first mirror: support the denial term only if the average of the two order-paired per-seed contrasts on seeds 0-63 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"weights\":{\"denial\":0.5}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

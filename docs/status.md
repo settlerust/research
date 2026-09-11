@@ -79,6 +79,15 @@ counts as evidence; the +0.219 for threat-aware bargaining over plain
 acceptance (run `4228f4f7`) is withdrawn as a strength claim, corrected
 estimate +0.043 (−0.082 to +0.168) on the same boards.
 
+The build-prediction [study](../reports/build-prediction.mdx) corroborates the
+seating term with a different lineup: two identical depth-2 searches with ETA
+and fast split +0.172 wins per game (95% interval +0.083 to +0.261) for slot 0
+on seeds 0 to 63, and evenly on seeds 64 to 79. The single-order ablation
+cohorts on the development seeds therefore lean positive by about that much,
+and their near-zero arms may be slightly negative. That study ran its three
+prediction switches as mirrored pairs in both seatings; none was confirmed on
+fresh seeds.
+
 ## A learned leaf beats the hand-written leaf
 
 Lookup tables of hex and portfolio patterns, learned by self-play in under two

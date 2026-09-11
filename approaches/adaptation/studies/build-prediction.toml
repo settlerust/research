@@ -1,0 +1,12 @@
+id = "adaptation/build-prediction"
+title = "Predicting opponents next builds"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "Does predicting each opponents next build from public information, and valuing the denial of the site they are about to take, beat the current opponent terms at depth 2?"
+outcome = "Not confirmed. A denial leaf term reached +0.061 wins per game on development seeds 0-63 (95% interval +0.009 to +0.112) and fell to -0.025 (-0.071 to +0.020) on fresh seeds 64-127; the predicted opponent model and predicted space threat never separated from zero. The predictor matched 70% of the fast builder's next builds and 53% of ETA's, but only 28% of another search's, and the search is the rival that wins these tables. The denial seat did lose about 0.1 fewer frontier sites per game in every cohort. The same cohorts measured a slot-order asymmetry in the paired ablation lineup: +0.172 wins per game for slot 0 on seeds 0-63 with identical twins."
+next_step = "Keep all three switches off. Future paired contrasts should run mirrored slot orders or report the twin-seat baseline; retesting builder-directed terms needs a table where builders are the real rivals, and any retest of the denial term should use the ntuple-leaf baseline and fresh seeds only."
+attribution = "GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode"
+reports = ["reports/build-prediction.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

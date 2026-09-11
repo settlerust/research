@@ -1,0 +1,12 @@
+id = "48659df2-7b49-4990-813b-7b13bab0fd0f"
+study = "adaptation/build-prediction"
+arena = "engine"
+hypothesis = "A denial leaf term (weights.denial 0.5) that discounts open sites this seat could take or block which an opponents predicted build is heading for beats the unchanged depth-2 search. This is the treatment-first half of a mirrored pair: its control-first mirror seats the same two searches with slots swapped. The mechanism estimate is the average of the two order-paired per-seed contrasts."
+decision_rule = "Support only if the average of the two order-paired per-seed contrasts (treatment minus control) on seeds 0-63 reaches at least +0.05 wins per game with a 95 percent interval excluding zero and every game valid; report smaller effects as inconclusive. A fresh confirmation on seeds 64-127 with the same mirrored design is required before any default change."
+players = ["v2:{\"depth\":2,\"weights\":{\"denial\":0.5}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
