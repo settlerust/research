@@ -1,0 +1,12 @@
+id = "containment/endgame-race"
+title = "Endgame racing and stopping the leader"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "When an opponent is within two points of victory, does a race leaf, expected hidden victory points, or a late robber and road bias toward the leader change the endgame decisions and the win rate?"
+outcome = "Three one-switch cohorts on seeds 0 to 63 met their rules: race leaf +0.129 (+0.029 to +0.228), hidden victory points +0.172 (+0.080 to +0.264), late leader bias +0.168 (+0.073 to +0.263) wins per game over the unchanged depth-2 control. On fresh seeds 64 to 127 all three fell to inconclusive: +0.078 (-0.010 to +0.166), +0.039 (-0.049 to +0.127), +0.051 (-0.044 to +0.146). The switches stay off by default."
+next_step = "Open a follow-up for the combined arm and stronger race weights (tempo, trigger), or the race leaf under the depth-3 and ntuple-leaf configurations, registered on fresh seed ranges before any default change."
+attribution = "GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode"
+reports = ["reports/endgame-race.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

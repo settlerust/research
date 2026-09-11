@@ -1,0 +1,12 @@
+id = "7ac46868-0f78-4f10-bd6c-49c9437d24ad"
+study = "containment/endgame-race"
+arena = "engine"
+hypothesis = "Counting opponents expected hidden victory points, from the development cards sampled into each hidden world under the remaining deck prior, in every opponent point term of the leaf (endgame.hidden_points on the depth-2 search, everything else unchanged) wins more paired-seed games than the unchanged depth-2 control in slot 1."
+decision_rule = "Primary contrast: paired per-seed slot-0 minus slot-1 win difference with a 95 percent interval over 64 seeds. Support if the interval excludes zero and the mean is at least +0.05 wins per game; refuted if the upper bound is below zero; inconclusive otherwise. Completion must be 256 of 256."
+players = ["v2:{\"depth\":2,\"endgame\":{\"hidden_points\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

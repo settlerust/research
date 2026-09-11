@@ -1,0 +1,116 @@
+---
+date: "2026-09-11"
+title: "Endgame racing and stopping the leader"
+summary: "Three endgame switches for the tunable search, each one change on identical boards: all three won their development cohorts on seeds 0 to 63, and none survived its confirmation on fresh seeds."
+---
+
+# Endgame racing and stopping the leader
+
+<ResearchCallout title="Finding · three endgame switches win on development seeds, none is confirmed">
+The search treats a seat at 8 points like one at 4 except through two linear
+weights. Three switches, each tested alone, changed that. A race leaf that
+replaces the opponent terms with the own-minus-leader margin plus the leader's
+expected points next turn won its development cohort by **+0.129 wins per
+game** (95% interval +0.029 to +0.228), counting expected hidden victory points
+by **+0.172** (+0.080 to +0.264), and a late robber and road bias toward the
+leader by **+0.168** (+0.073 to +0.263), all on 256 deterministic games on seeds
+0 to 63. On fresh seeds 64 to 127 the same three arms fell to **+0.078**
+(−0.010 to +0.166), **+0.039** (−0.049 to +0.127), and **+0.051** (−0.044 to
++0.146): every direction held, every confirmation interval crossed zero. No
+switch is confirmed and the defaults stay unchanged.
+</ResearchCallout>
+
+## The three switches
+
+All three sit behind one `endgame` object in the seat configuration, off by
+default, so `v2:{"depth":2}` is unchanged. Each was tested with exactly one
+switch on, the unchanged depth-2 control in slot 1, and an ETA and a fast
+builder in the other seats.
+
+The **race leaf** (`endgame.race`) arms once any opponent is within
+`endgame.trigger` points, two by default, of victory. It drops the plain
+`opponent_progress` and `opponent_production` terms and adds two: the
+own-minus-leader margin, and the leader's expected new points next turn,
+estimated as the best of a city, a reachable settlement, and a development
+purchase, each times the share of its cost their hand plus one roll of their
+production covers, with the purchase priced at the deck's remaining
+victory-card share. Blocked production counts for less, so moving the robber
+onto the leader's best hex also slows the estimate.
+
+The **hidden points** switch (`endgame.hidden_points`) keeps every term and
+only changes what counts as an opponent's score: the victory cards sampled into
+each hidden world from the remaining deck prior, on top of public points. A
+leaf averaged over sampled worlds therefore counts expected hidden victory
+points inferred from public purchases and plays, without seeing any private
+hand.
+
+The **leader bias** (`endgame.block_leader`) touches only the candidate
+shortlists, never the leaf, and only after two thirds of the estimated game
+length. Robber placements score the leader's blocked production and stolen
+cards with extra weight, and a road that lengthens the leader's route to the
+best site both seats contest scores part of that site's value, a road the plain
+reach score never pays for.
+
+## The cohorts
+
+Each row is one registered cohort, 64 deterministic seeds played once per
+four-seat rotation, 256 games, the same lineup for treatment and control.
+
+| Switch | Seeds | Treatment wins | Control wins | Contrast (95% interval) |
+| --- | ---: | ---: | ---: | --- |
+| Race leaf | 0 to 63 | 121 | 88 | +0.129 (+0.029 to +0.228) |
+| Hidden points | 0 to 63 | 129 | 85 | +0.172 (+0.080 to +0.264) |
+| Leader bias | 0 to 63 | 127 | 84 | +0.168 (+0.073 to +0.263) |
+| Race leaf | 64 to 127 | 110 | 90 | +0.078 (−0.010 to +0.166) |
+| Hidden points | 64 to 127 | 107 | 97 | +0.039 (−0.049 to +0.127) |
+| Leader bias | 64 to 127 | 108 | 95 | +0.051 (−0.044 to +0.146) |
+
+The three development cohorts met their registered rules: the interval excluded
+zero and the mean reached +0.05 wins per game. The confirmations did not. Each
+direction stayed positive on fresh boards but with an interval that crosses
+zero, so each is inconclusive, not a refutation. Unregistered 16-seed screens
+on seeds 0 to 15 pointed the same way (+0.16, +0.25, +0.30 raw win
+differences) and carry no evidential weight.
+
+## Diagnostics
+
+The registered diagnostics come from the per-game records: games the treatment
+seat lost by exactly one point, how often the final-points leader was robbed
+(a game-level count over all four seats), and the final point gap.
+
+| Switch | Cohort | Lost by exactly one point | Leader robbed per game | Share of robberies on the leader | Winner minus treatment points |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Race leaf | 0 to 63 | 16 of 135 losses | 4.18 | 0.297 | 1.77 |
+| Hidden points | 0 to 63 | 14 of 127 losses | 4.09 | 0.294 | 1.79 |
+| Leader bias | 0 to 63 | 11 of 129 losses | 4.25 | 0.299 | 1.88 |
+| Race leaf | 64 to 127 | 7 of 146 losses | 4.47 | 0.309 | 2.28 |
+| Hidden points | 64 to 127 | 6 of 149 losses | 4.56 | 0.312 | 2.37 |
+| Leader bias | 64 to 127 | 5 of 148 losses | 4.40 | 0.305 | 2.41 |
+
+The leader-bias switch did not measurably move the game-level robber
+statistics: about three robberies in ten land on the final-points leader
+across all six cohorts, whether or not any seat runs the bias. The diagnostics
+count every seat's robberies, so a one-seat switch is diluted by three seats
+that rob by their own lights, and the final-points leader is only a proxy for
+the seat that looked dangerous at the time. The one-point losses are the same
+story from the other side: the treatment seats lost fewer one-point games in
+the confirmations, but the counts are small.
+
+## What this says and what it does not
+
+Against two fixed builders and one identical search, all three mechanisms
+point the same way on the first 64 boards and shrink on the next 64. The
+pooled reading is that each switch is worth somewhere between nothing and
+about a tenth of a win per game, which 256 games cannot separate from zero.
+This is engine-arena evidence on one lineup; the opponents never retaliate,
+negotiate, or adjust, so a bias that the builders cannot punish may be easier
+to carry in this arena than at a real table. Nothing here tests the switches
+together, at the deeper confirmed configurations, or against the learned
+tables leaf, whose endgame value already includes opponent scores.
+
+The switches stay off by default and are ready for a follow-up: a combined
+arm, stronger race weights, or the race leaf under the depth-3 and
+`ntuple-leaf` configurations, registered on fresh seed ranges before any
+default change.
+
+[All runs](../records/runs) · [Study](../approaches/containment) · [Log 2026-09-11](../log/2026-09-11)

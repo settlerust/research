@@ -1,0 +1,12 @@
+id = "4c43f642-044e-4b09-850a-e2cf38fb3b30"
+study = "containment/endgame-race"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: the late leader bias of experiment 21b4a965-c6f1-4e38-83aa-ecacd3187ecd (+0.168 wins per game on seeds 0-63) keeps a positive paired-seed win difference against the unchanged depth-2 control in slot 1."
+decision_rule = "Primary contrast: paired per-seed slot-0 minus slot-1 win difference with a 95 percent interval over 64 fresh seeds. Confirmed if the mean is at least +0.05 wins per game and the lower bound is above zero; refuted if the upper bound is below zero; inconclusive otherwise. Completion must be 256 of 256."
+players = ["v2:{\"depth\":2,\"endgame\":{\"block_leader\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

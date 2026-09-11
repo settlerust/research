@@ -1,0 +1,12 @@
+id = "b45005ae-66e6-4290-ae8a-7959a8d4d7c3"
+study = "containment/endgame-race"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: the race leaf of experiment 8e88ecc7-03f7-48a8-9b53-4a94605a3289 (+0.129 wins per game on seeds 0-63) keeps a positive paired-seed win difference against the unchanged depth-2 control in slot 1."
+decision_rule = "Primary contrast: paired per-seed slot-0 minus slot-1 win difference with a 95 percent interval over 64 fresh seeds. Confirmed if the mean is at least +0.05 wins per game and the lower bound is above zero; refuted if the upper bound is below zero; inconclusive otherwise. Completion must be 256 of 256."
+players = ["v2:{\"depth\":2,\"endgame\":{\"race\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

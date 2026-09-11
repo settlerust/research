@@ -29,6 +29,10 @@ Use a public timeline of robber moves, lost production, award transfers, and win
 
 Switching every opponent term off changed the contrast by +0.000 wins per game (95% interval -0.105 to +0.105), and raising them by half through the aggression slider by +0.020 wins per game (95% interval -0.084 to +0.123): against builders that do not retaliate, containment terms neither help nor hurt at depth 2. Details and every run ID are in the [ablation report](../../reports/ablations.mdx); this is a development-tier result on one lineup.
 
+## Endgame racing
+
+Three switches that treat the late game differently from the middle won their development cohorts and none survived confirmation. When an opponent came within two points of victory, replacing the opponent terms with the own-minus-leader margin plus the leader's expected points next turn won by +0.129 wins per game on 64 seeds (+0.029 to +0.228); counting the victory cards inferred from public purchases won by +0.172 (+0.080 to +0.264); and biasing the robber and blocking roads toward the leader after two thirds of the game won by +0.168 (+0.073 to +0.263). On fresh seeds 64 to 127 all three contrasts fell to +0.078, +0.039, and +0.051 with intervals crossing zero, so the switches stay off by default. The [endgame report](../../reports/endgame-race.mdx) has the mechanisms, the six run IDs, and the diagnostics; this is development-tier evidence on one lineup of fixed builders.
+
 ## What could disprove it
 
 Targeting the visually strongest player can miss hidden points. Successful containment is not necessarily a personal success. Keep kingmaking, spite, and rational self-interested blocking as hypotheses rather than labels inferred from one move.
@@ -53,5 +57,6 @@ See [the experiment program](../../docs/experiment-program.md) for fixed tables,
 | --- | --- | --- | --- |
 | 2026-09-09 | [Maximal aggression](/research/approaches/containment) | Active | Round one, 256 deterministic games: contrast +0.020 wins per game (95% interval -0.084 to +0.123). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
 | 2026-09-09 | [Opponent progress and production terms](/research/approaches/containment) | Active | Round one, 256 deterministic games: contrast +0.000 wins per game (95% interval -0.105 to +0.105). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
+| 2026-09-11 | [Endgame racing and stopping the leader](/research/reports/endgame-race) | Complete | Three one-switch cohorts on seeds 0 to 63 met their rules: race leaf +0.129 (+0.029 to +0.228), hidden victory points +0.172 (+0.080 to +0.264), late leader bias +0.168 (+0.073 to +0.263) wins per game over the unchanged depth-2 control. On fresh seeds 64 to 127 all three fell to inconclusive: +0.078 (-0.010 to +0.166), +0.039 (-0.049 to +0.127), +0.051 (-0.044 to +0.146). The switches stay off by default. Next: Open a follow-up for the combined arm and stronger race weights (tempo, trigger), or the race leaf under the depth-3 and ntuple-leaf configurations, registered on fresh seed ranges before any default change. [Log 2026-09-11](/research/log/2026-09-11) |
 
 [research-studies:end]: #

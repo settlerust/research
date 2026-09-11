@@ -1,6 +1,6 @@
 ---
-title: An opening planner and threat-aware bargaining
-summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons.
+title: An opening planner, threat-aware bargaining, and three endgame switches
+summary: Setup placement moves from the lookahead to a draft-aware portfolio planner calibrated to the leaf currency; trades are priced by partner threat, thin offers draw counters, and refusals give reasons; three endgame switches each win on development seeds and none survives its fresh-seed confirmation.
 ---
 
 # An opening planner and threat-aware bargaining
@@ -188,3 +188,76 @@ agents at a load of 50 to 90 on 32 cores, so wall times (17 to 30 minutes per
 256-game cohort at eight threads) say nothing about search cost.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+## Endgame racing and stopping the leader
+
+The tunable search penalizes the highest opponent score at 35 points per point
+and their production at 60 per card per roll, the same at 8 points as at 4.
+Three switches behind one `endgame` seat object, each one hypothesis, each off
+by default, were built in the server search and tested one at a time against
+the unchanged depth-2 control with an ETA and a fast builder:
+
+1. `race`: once any opponent is within two points of victory, the leaf drops
+   the plain opponent terms and adds the own-minus-leader margin plus the
+   leader's expected new points next turn, estimated from the share of their
+   best build's cost their sampled hand plus one roll of production covers,
+   with development purchases priced at the deck's remaining victory-card
+   share.
+2. `hidden_points`: opponent terms count expected hidden victory points, the
+   victory cards sampled into each hidden world from the deck prior left by
+   public purchases and plays.
+3. `block_leader`: after two thirds of the estimated game length, robber
+   placements, stolen cards, and road shortlists score the points leader with
+   extra weight, including a denial bonus for roads that lengthen the
+   leader's route to a contested site.
+
+Unregistered 16-seed screens (64 games each, seeds 0 to 15) pointed the same
+way for all three: raw win differences of +0.16 (race), +0.25 (hidden points),
+and +0.30 (block leader). Screens carry no evidential weight.
+
+Registered on seeds 0 to 63, 256 deterministic games each, treatment in slot 0
+against the unchanged depth-2 control in slot 1, decision rule: the paired
+per-seed win difference must have a 95 percent interval excluding zero and a
+mean of at least +0.05 wins per game.
+
+| Switch | Registration | Run | Treatment wins | Control wins | Contrast (95% interval) |
+| --- | --- | --- | ---: | ---: | --- |
+| race | `8e88ecc7-03f7-48a8-9b53-4a94605a3289` | `21339250-46ad-49ec-ae7e-b2580dabcfed` | 121 | 88 | +0.129 (+0.029 to +0.228) |
+| hidden_points | `7ac46868-0f78-4f10-bd6c-49c9437d24ad` | `7cc6f1aa-faad-448f-9224-6ffaecce53f0` | 129 | 85 | +0.172 (+0.080 to +0.264) |
+| block_leader | `21b4a965-c6f1-4e38-83aa-ecacd3187ecd` | `b5090959-bd26-4926-a9a6-bff17b9c5a87` | 127 | 84 | +0.168 (+0.073 to +0.263) |
+
+All three met the rule. Confirmations were then registered on fresh seeds 64
+to 127 with the same lineup and the rule that the mean must reach +0.05 with a
+lower bound above zero:
+
+| Switch | Registration | Run | Treatment wins | Control wins | Contrast (95% interval) |
+| --- | --- | --- | ---: | ---: | --- |
+| race | `b45005ae-66e6-4290-ae8a-7959a8d4d7c3` | `c7b6767b-1bc5-4f19-a2d5-b348c5e4959b` | 110 | 90 | +0.078 (-0.010 to +0.166) |
+| hidden_points | `350b4c24-02bf-4f36-a9d0-90ff71f25ae9` | `b8abe69e-c8b2-418b-a2fc-c70f9425afe9` | 107 | 97 | +0.039 (-0.049 to +0.127) |
+| block_leader | `4c43f642-044e-4b09-850a-e2cf38fb3b30` | `bbc86639-f6ef-4d40-9d26-604fa8a4573a` | 108 | 95 | +0.051 (-0.044 to +0.146) |
+
+Every direction held on fresh boards and every interval crossed zero, so all
+three confirmations are inconclusive and no default changes. The pooled
+reading is somewhere between nothing and a tenth of a win per game per switch,
+which 256 games cannot separate from zero.
+
+Diagnostics from the run records (`analysis/endgame.py`): the treatment seat
+lost 16, 14, and 11 one-point games in the development cohorts and 7, 6, and
+5 in the confirmations; the final-points leader was robbed about 4.1 to 4.6
+times per game with a 0.29 to 0.31 share of all robberies, essentially the
+same with and without the leader-bias switch, because three of the four seats
+rob by their own lights and the count is game-level.
+
+One registration had a clerical error, a mistyped UUID in the block_leader
+confirmation's hypothesis text, corrected in `experiments/4c43f642-044e-4b09-850a-e2cf38fb3b30.toml`
+before its run started; no completed experiment was rewritten. No run failed,
+no game was censored, and all six cohorts completed 256 of 256 games at eight
+threads.
+
+The switches stay opt-in. The [report](../reports/endgame-race.mdx) has the
+mechanisms, the tables, and the limits: one lineup, fixed builders that never
+retaliate, engine tier only, and nothing tested in combination or under the
+depth-3 and ntuple-leaf configurations.
+
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+

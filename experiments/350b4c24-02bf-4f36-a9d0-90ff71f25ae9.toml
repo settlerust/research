@@ -1,0 +1,12 @@
+id = "350b4c24-02bf-4f36-a9d0-90ff71f25ae9"
+study = "containment/endgame-race"
+arena = "engine"
+hypothesis = "Confirmation on fresh seeds: the expected hidden victory points of experiment 7ac46868-0f78-4f10-bd6c-49c9437d24ad (+0.172 wins per game on seeds 0-63) keeps a positive paired-seed win difference against the unchanged depth-2 control in slot 1."
+decision_rule = "Primary contrast: paired per-seed slot-0 minus slot-1 win difference with a 95 percent interval over 64 fresh seeds. Confirmed if the mean is at least +0.05 wins per game and the lower bound is above zero; refuted if the upper bound is below zero; inconclusive otherwise. Completion must be 256 of 256."
+players = ["v2:{\"depth\":2,\"endgame\":{\"hidden_points\":true}}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "64-127"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
