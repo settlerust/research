@@ -693,10 +693,16 @@ Future screens in this program should use seeds outside the registered
 cohort. Neither mechanism is refuted: each fresh estimate is near +0.03,
 and a larger confirmation could resolve a small effect.
 
-Failure: the first run of the gate cohort,
+Failures: the first run of the gate cohort,
 `12fb1efb-23d5-4a32-ad87-ed63fb3efcd5`, was interrupted after 11 of 256
 games when its controlling shell was killed; it is filed as interrupted and
 the cohort was rerun from scratch as `95d0f056`. The partial games were not
-pooled.
+pooled. Separately, the new arena award counter I added fired on every
+award event that carried a road holder, not only on gains, and shadowed the
+army counter on the same events; the win records, the held-at-end flags,
+and the trail lengths are unaffected, but the per-game award-gain counts
+quoted above from these four runs are inflated. The merged fix counts both
+awards in one arm with a change guard, and the default configuration was
+re-verified bit for bit against the pre-merge build afterwards.
 
 Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.
