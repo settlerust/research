@@ -48,14 +48,25 @@ calibrated weights with `specialize` 0 and `scarcity` 1.
 Registered confirmation `d1bdca03-d27f-475c-b1ee-a8caf70937fe`, run
 `08fdd9a7-6e0a-4e2a-a1cc-8124294feae2`, on fresh boards 64 to 127: the planner
 seat won 110 of 256 (43.0%) against 94 (36.7%) for the previous placement,
-paired contrast +0.062 wins per game (95% interval −0.036 to +0.161). The
-direction holds on fresh boards but the interval crosses zero, so the
-registered rule is not met; pooled with the two calibrated screens on boards 0
-to 63 the estimate is about +0.09. The planner stays the default because it is
-never worse in these cohorts, its placements are balanced and explained (each
-candidate carries the strategy, the expected partner site, and the draft cost),
-and it answers the user's request; the strength claim is development-tier and
-not yet confirmed.
+paired contrast +0.062 wins per game (95% interval −0.036 to +0.161); the
+registered rule was not met.
+
+The bargaining arms later in the day showed a seating term between two
+searches in slots 0 and 1, so the comparison was re-registered as swapped pairs
+(experiments `9183b787-3f41-42c4-b275-2501bbde6cf4` and
+`0fa24829-d9d8-42c3-b2b5-bf4c79f7e263` on boards 0 to 63, runs
+`b698064e-39e8-4d73-9844-ac3d5afefce6` and `da0b1591-e74e-4e56-96b1-1ece9b37900f`;
+experiments `8dfbb264-338f-48e1-8fda-9b00d7bc865c` and
+`54d3e49d-185d-4a40-945c-8ddafc20c5ef` on boards 64 to 127, runs
+`5e3c4985-251d-441f-bea8-512dfe3224b4` and `d89ea4de-913b-4255-af42-ba2f18309e87`).
+Planner effect after removing the seating term: −0.006 (−0.087 to +0.075) on
+boards 0 to 63, −0.027 (−0.111 to +0.057) on 64 to 127, pooled −0.017 (−0.075
+to +0.042) over 128 boards, with a seating term of +0.063 (+0.008 to +0.119).
+The calibrated planner matches the search's placement in strength and does not
+beat it; the screens' +0.09 to +0.12 were seating. The planner stays the
+default for what it adds without costing strength: balanced pairs, an
+explanation per candidate, the draft prediction, and one placement rule shared
+by every seat.
 
 ## Bargaining
 

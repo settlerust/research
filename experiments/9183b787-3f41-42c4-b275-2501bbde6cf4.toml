@@ -1,0 +1,12 @@
+id = "9183b787-3f41-42c4-b275-2501bbde6cf4"
+study = "opening/draft-planner"
+arena = "engine"
+hypothesis = "Two bargaining searches in slots 0 and 1 differ by seating alone (the recipient asked first accepts first), so the planner versus previous-placement contrast must be measured in both seatings. Hypothesis: the planner-decided opening wins more than the previous placement after the seating term is removed."
+decision_rule = "All 256 games complete. This cohort is one half of a swapped-seating pair on the same boards: the planner effect is half the difference between the planner-in-slot-0 contrast and the search-in-slot-0 contrast, and the seating term is half their sum. Support the planner only if the seating-corrected effect has a 95% seed interval excluding zero on the positive side. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2,\"opening\":\"search\"}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

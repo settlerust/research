@@ -1,0 +1,12 @@
+id = "e1913588-7c22-4573-88e2-04728f60c820"
+study = "log/arena-seating"
+arena = "engine"
+hypothesis = "With the arena asking offer recipients from a rotating seat, two identical default depth-2 searches in slots 0 and 1 no longer differ: the null contrast is within noise of zero, against +0.176 (+0.083 to +0.268) measured on the same boards before the change (run 91ddb42d)."
+decision_rule = "All 256 games complete. Primary contrast: slot 0 minus slot 1 wins per seed with a 95% seed interval. The fix is supported if the interval includes zero and the point estimate is below +0.05; a residual above that is reported as an unfixed seating term. Development tier."
+players = ["v2:{\"depth\":2}", "v2:{\"depth\":2}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
