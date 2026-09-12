@@ -80,6 +80,8 @@ def slot_means(rows, slot):
         decisions += seat['decisions']
     out = {k: totals[k] / len(rows) for k in COUNTS}
     out['decision_ms'] = ms / decisions if decisions else 0.0
+    out['decisions'] = decisions / len(rows)
+    out['seconds'] = ms / 1000 / len(rows)
     out['games'] = len(rows)
     return out
 
@@ -87,7 +89,8 @@ def slot_means(rows, slot):
 def combine(a, b):
     """Pool two per-slot diagnostic means by their game counts."""
     n = a['games'] + b['games']
-    out = {k: (a[k] * a['games'] + b[k] * b['games']) / n for k in a if k != 'games'}
+    out = {k: (a[k] * a['games'] + b[k] * b['games']) / n for k in a if k not in ('games', 'decision_ms')}
+    out['decision_ms'] = out['seconds'] * 1000 / out['decisions']
     out['games'] = n
     return out
 
@@ -198,8 +201,8 @@ def main():
                   f"{cell('player_trades')} | {cell('bank_trades')} | {cell('points')} | {a['decision_ms']:.0f} / {c['decision_ms']:.0f} ms |")
     if args.tables:
         print('== markdown: pooled after the fact')
-        print('| Arm | L1, both seed sets | L2 | Every stage | Decision time, arm / control |')
-        print('| --- | --- | --- | --- | --- |')
+        print('| Arm | L1, both seed sets | L2 | Every stage | Decision time, arm / control | Decisions per game | Search seconds per game |')
+        print('| --- | --- | --- | --- | --- | --- | --- |')
         for arm in ARM_NAMES:
             rs = [r for r in results if r['arm'] == arm]
             if not rs:
@@ -212,7 +215,8 @@ def main():
                 a = r['arm_diag'] if a is None else combine(a, r['arm_diag'])
                 c = r['control_diag'] if c is None else combine(c, r['control_diag'])
             print(f"| {ARM_NAMES[arm]} | {cell(l1)} | {cell(l2)} | **{cell(rs)}** | "
-                  f"{a['decision_ms']:.0f} / {c['decision_ms']:.0f} ms ({a['decision_ms'] / c['decision_ms'] - 1:+.0%}) |")
+                  f"{a['decision_ms']:.0f} / {c['decision_ms']:.0f} ms ({a['decision_ms'] / c['decision_ms'] - 1:+.0%}) | "
+                  f"{a['decisions']:.0f} / {c['decisions']:.0f} | {a['seconds']:.0f} / {c['seconds']:.0f} |")
         print('== extension rule (L1 pooled positive, interval within 0.03 of zero)')
         for arm in ARM_NAMES:
             l1 = [r for r in results if r['arm'] == arm and r['lineup'] == 'L1']
