@@ -144,6 +144,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('registry')
     parser.add_argument('--assets', action='store_true', help='write the plot assets under content/assets/')
+    parser.add_argument('--tables', action='store_true', help='print the report tables as markdown')
     args = parser.parse_args()
     registry = json.load(open(args.registry))
     results = [p for p in (pair(e) for e in registry['pairs']) if p]
@@ -170,6 +171,31 @@ def main():
         if l1:
             print(f"{ARM_NAMES[arm]:24} L1 pooled {fmt(pooled(l1))} over {pooled(l1)['seeds']} seeds; "
                   f"all stages {fmt(pooled(every))} over {pooled(every)['seeds']} seeds")
+    if args.tables:
+        print('== markdown: cohorts')
+        print('| Stage | Arm | Half | Registration | Run | Arm wins | Control wins | Contrast (95% interval) |')
+        print('| --- | --- | --- | --- | --- | ---: | ---: | --- |')
+        for r in results:
+            for half, exp, run, c, arm_slot in (('A', r['half_a'], r['runs'][0], r['contrast_a'], 0),
+                                                ('B', r['half_b'], r['runs'][1], r['contrast_b'], 1)):
+                s = r['summaries'][0 if half == 'A' else 1]['slots']
+                print(f"| {STAGE_NAMES.get(r['stage'], r['stage'])} | {ARM_NAMES[r['arm']]} | {half} | `{exp}` | `{run}` | "
+                      f"{s[arm_slot]['wins']} | {s[1 - arm_slot]['wins']} | {fmt(c)} |")
+        print('== markdown: effects')
+        print('| Stage | Arm | Effect (95% interval) | Seating term (95% interval) | Arm wins | Control wins |')
+        print('| --- | --- | --- | --- | ---: | ---: |')
+        for r in results:
+            print(f"| {STAGE_NAMES.get(r['stage'], r['stage'])} | {ARM_NAMES[r['arm']]} | **{fmt(r['effect'])}** | "
+                  f"{fmt(r['seating'])} | {r['arm_wins']} | {r['control_wins']} |")
+        print('== markdown: diagnostics (arm / control, per game, both halves pooled)')
+        print('| Stage | Arm | Offers | Accepted | Counters | Taken | Declined | Took others | Trades | Bank | Points | Decision |')
+        print('| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |')
+        for r in results:
+            a, c = r['arm_diag'], r['control_diag']
+            cell = lambda k, p=2: f"{a[k]:.{p}f} / {c[k]:.{p}f}"  # noqa: E731
+            print(f"| {STAGE_NAMES.get(r['stage'], r['stage'])} | {ARM_NAMES[r['arm']]} | {cell('offers', 1)} | {cell('offers_accepted')} | "
+                  f"{cell('counters')} | {cell('counters_accepted')} | {cell('declined', 1)} | {cell('accepted_others')} | "
+                  f"{cell('player_trades')} | {cell('bank_trades')} | {cell('points')} | {a['decision_ms']:.0f} / {c['decision_ms']:.0f} ms |")
     if args.assets and results:
         source = ('Engine-arena swapped pairs under bargaining/tables-arms: the depth-2 search with learned tables and one '
                   'bargaining switch off against the unchanged tables baseline, 64 deterministic seeds per stage played once '

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 # Run registered engine experiments one after another at eight threads, recording each run ID.
+# An experiment whose run has already started (its runs/queue-EXPERIMENT.log names a run) is
+# skipped, so two queues can share a list without playing a cohort twice. WAIT_RUN, when set,
+# names a run directory the queue waits on before starting.
 #   analysis/bargaining_tables_queue.sh QUEUE_LOG EXPERIMENT...
 set -u
 export PATH="$HOME/.cargo/bin:$PATH"
@@ -7,7 +10,15 @@ export SETTLERS_SERVER_DIR="${SETTLERS_SERVER_DIR:-$HOME/settlers/.worktrees/ser
 log="$1"
 shift
 cd "$(dirname "$0")/.."
+if [ -n "${WAIT_RUN:-}" ]; then
+    until [ -f "runs/$WAIT_RUN/summary.json" ]; do sleep 30; done
+    echo "waited for run $WAIT_RUN $(date -u +%FT%TZ)" >> "$log"
+fi
 for experiment in "$@"; do
+    if [ -f "runs/queue-$experiment.log" ] && grep -q '^run_id=' "runs/queue-$experiment.log"; then
+        echo "skip $experiment (already started) $(date -u +%FT%TZ)" >> "$log"
+        continue
+    fi
     echo "start $experiment $(date -u +%FT%TZ)" >> "$log"
     python3 -m harness.engine run "$experiment" --threads 8 > "runs/queue-$experiment.log" 2>&1
     status=$?

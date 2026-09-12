@@ -1,0 +1,40 @@
+---
+date: "2026-09-11"
+title: "Bargaining switches under the learned leaf"
+summary: "PLACEHOLDER"
+---
+
+# Bargaining switches under the learned leaf
+
+<ResearchCallout title="Finding · PLACEHOLDER">
+PLACEHOLDER
+</ResearchCallout>
+
+## The five arms
+
+Every arm is the tables baseline seat, `v2:{"depth":2,"leaf":{"tables":"artifacts/ntuple/hex-portfolio-main.bin"}}`, with one bargaining switch turned off, against the unchanged baseline. `bargain: false` is the all-off control: plain acceptance and proposals with the reference willingness model, no threat costs, no counters, no asks. `threat_pricing: false` removes the threat premium on the trade margin and the partner-gain cost. `counters: false` stops the seat answering an open offer with a counter. `asks: false` stops it proposing two for one to partners known to hold plenty. `accept_asks: false` is a stubborn seat that refuses any offer or counter asking it for more cards than it receives; it changes what the seat accepts, never what it proposes. Under the hand-written leaf on the builder lineup, counters off cost −0.096 (−0.156 to −0.035) on a swapped pair, asks off −0.156 against a null, threat pricing off nothing, all off −0.121 in one seating, and the stubborn seat was +0.059 better than an identical default ([arms report](bargaining-arms.mdx)).
+
+Each arm is a swapped pair on the same seeds: half A seats the arm in slot 0 and the control in slot 1, half B the reverse, and the effect is the per-seed half-difference of the two slot-0-minus-slot-1 contrasts, which cancels the [seating term](arena-seating.mdx) between two adjacent searches; the half-sum is the term itself. The population lineup L2 ran first, because bargaining needs partners that trade and the builders rarely do: a third tables search in slot 2 and an ETA in slot 3, seeds 800 to 863. The builder lineup L1 seats an ETA and a fast builder in slots 2 and 3 on seeds 0 to 63, the boards of the hand-leaf arms, and on seeds 800 to 863. Every cohort is 256 deterministic games at depth 2; every pair is 512.
+
+PLACEHOLDER_RESULTS
+
+## The thresholds are the same size under both leaves
+
+The bargaining thresholds are fixed numbers in the hand-written currency: a swap must beat the plain alternative by the trade margin, 12 leaf units at the default slider, a partner's threat adds up to 30 to that margin, and every swap pays a share of the partner's gain priced with the hand-written card and point values (20 and 100). The tables value a position in win probability times `leaf.scale`, 1000 by default, so one win is ten hand-leaf points and the question is whether one swap moves the tables by as much as it moves the hand-written terms.
+
+A traced screen answers it: 16 boards, four rotations, the tables seat and the hand-leaf seat at one table with the two builders, every search decision recorded with its top candidates and, after an arena change, every answer to an offer and reply to a counter. A proposal's gross gain is the value of the accepted continuation minus the best plain alternative before any threshold; an accept's is its value with the margin and partner cost added back minus the value of waiting.
+
+| Quantity from the trace | Tables seat | Hand-leaf seat |
+| --- | ---: | ---: |
+| Best plain candidate per decision, median | 448 | 967 |
+| Gross gain of a proposal, median (quartiles) | 35 (13 to 71) | 31 (2 to 80) |
+| Gross gain of a counter, median (quartiles) | −0.4 (−24 to 28) | −1.2 (−39 to 31) |
+| Accept minus wait before thresholds, median (quartiles) | −19 (−44 to 0) | −18 (−56 to 6) |
+| Proposals with a positive gross gain that the margin alone blocks | 1,580 of 4,666 (34%) | 1,364 of 4,204 (32%) |
+| Accepts the lookahead liked that the thresholds blocked | 179 of 303 (59%) | 184 of 379 (49%) |
+| Of those, blocked by the plain margin alone | 137 | 126 |
+| Threat premium plus partner cost on a priced accept, median (quartiles) | 9.6 (5.6 to 15.0) | 9.0 (5.2 to 15.1) |
+
+One swap is worth about the same number of leaf units under both leaves, 30 to 35 for a proposal the lookahead likes and 9 to 10 of threat pricing on an accept, and the plain margin blocks about a third of liked proposals under both. The tables' absolute level is half the hand leaf's, but a threshold compares differences, not levels, so nothing is mis-sized: `leaf.scale` 1000 puts a card at roughly 20 units in both currencies. The thresholds stay as they are and no knob was added; the [decision cost](#decision-cost) and the arms above are the evidence that matters. The scripts and the two traced screens (identical winners with and without the response trace) are under `runs/screens-bargaining-tables/`.
+
+PLACEHOLDER_REST
