@@ -1,0 +1,12 @@
+id = "45db85c1-1e68-4d90-a82e-29e19ae2acf8"
+study = "risk/hand-tables"
+arena = "engine"
+hypothesis = "Stage 2 (confirmation, builders lineup, fresh seeds 800-863) of risk/hand-tables. Under the learned n-tuple leaf at depth 2, the discard_projection switch wins more games than the unchanged tables search. Half B of the swapped pair whose half A is experiment stage2-discard-projection-A cd34b338-7485-4ff9-bc83-f401c08bc6e8: control in slot 0, candidate in slot 1, eta slot 2, fast slot 3, same seeds."
+decision_rule = "Pair decision rule: both halves complete all games (512 across the pair); the seating-corrected effect is the per-seed half-difference of the two halves slot-0-minus-slot-1 contrasts and the seating term their half-sum (analysis/seating_pair.py); its 95 percent seed interval excluding zero in the hypothesized direction supports the switch, excluding zero the other way refutes it, and anything else is inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"discard_projection\":true}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

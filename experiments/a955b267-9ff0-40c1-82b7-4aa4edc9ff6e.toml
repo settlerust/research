@@ -1,0 +1,12 @@
+id = "a955b267-9ff0-40c1-82b7-4aa4edc9ff6e"
+study = "risk/hand-tables"
+arena = "engine"
+hypothesis = "Stage 1 (development, builders lineup, seeds 0-63) of risk/hand-tables. Under the learned n-tuple leaf at depth 2, the spend_down switch (over the discard limit, also consider bank trades and roads chosen only to shed cards) wins more games than the unchanged tables search. Half A of a swapped pair: candidate in slot 0, control in slot 1, eta slot 2, fast slot 3; half B, registered immediately after this one, swaps the two searches on the same seeds."
+decision_rule = "Pair decision rule: both halves complete all games (512 across the pair); the seating-corrected effect is the per-seed half-difference of the two halves slot-0-minus-slot-1 contrasts and the seating term their half-sum (analysis/seating_pair.py); its 95 percent seed interval excluding zero in the hypothesized direction supports the switch, excluding zero the other way refutes it, and anything else is inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"spend_down\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

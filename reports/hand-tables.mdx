@@ -1,0 +1,213 @@
+---
+date: "2026-09-12"
+title: "Hand management under the learned leaf"
+summary: "The three discard-risk mechanisms retested as swapped pairs with the learned n-tuple tables as the search leaf: spend_down, discard_projection, and the hand_risk weight on the quarter blend all correct to zero across development, confirmation, and population lineups, and none meets the browser rule. Defaults unchanged."
+---
+
+# Hand management under the learned leaf
+
+<ResearchCallout title="Finding · under the learned tables, all three hand-management switches are worth nothing">
+Three mechanisms from the hand-written-leaf study were re-registered as swapped
+pairs with the learned n-tuple tables as the leaf, 512 games per stage per arm
+on deterministic boards. Pooled after the fixed stages, `spend_down` reads
+**−0.020 wins per game** over 192 seeds (95% interval −0.049 to +0.010) and
+costs 19% more decision time, `discard_projection` reads **+0.006** over 320
+seeds (−0.009 to +0.022) at no measurable cost, and removing the `hand_risk`
+term on the quarter blend reads **−0.001** over 192 seeds (−0.029 to +0.028).
+Every per-stage interval crosses zero and no arm comes close to the +0.03
+browser threshold. The defaults stay: both switches off, `hand_risk` at 1.
+</ResearchCallout>
+
+## The arms
+
+The baseline seat is the arena's tables configuration,
+`v2:{"depth":2,"leaf":{"tables":".../hex-portfolio-main.bin"}}`, and each
+candidate adds one switch. `spend_down` and `discard_projection` act on the
+candidate lists, so they run under the tables alone. `spend_down` offers up to
+three bank trades and two roads chosen only to shed cards when the hand is over
+the discard limit; `discard_projection` ranks each legal discard by the build
+deficits of the kept hand plus the production expected before the next own
+turn.
+
+The third arm is the leaf's seven-risk pricing, `weights.hand_risk` 0 against
+the default 1. A leaf term is inert under the tables alone (`leaf.hand` 0 skips
+the hand-written terms), so it must be measured on a blend. The program first
+registered it on the full blend (`hand` 1.0 in both seats), then a program-wide
+screen measured the full blend itself at −0.207 wins per game against the
+tables alone (95% interval −0.284 to −0.130) while the quarter blend read
++0.074 (+0.011 to +0.138). A switch measured on a configuration that much
+weaker than the baseline says little about anything anyone would run, so the
+six full-blend registrations were withdrawn before running and the arm was
+re-registered on the quarter blend (`hand` 0.25 in both seats). The withdrawn
+registrations are listed in the AgentContext.
+
+## Design
+
+Every contrast is a swapped pair on the same seeds: half A seats the candidate
+in slot 0 and the control in slot 1, half B swaps them, and the effect is the
+per-seed half-difference of the two slot-0-minus-slot-1 contrasts (the seating
+term is their half-sum), computed by `analysis/seating_pair.py` from the
+retained games. Each half is 64 seeds played once per rotation of the four
+slots, 256 games, deterministic. The builders lineup puts an ETA and a fast
+builder in slots 2 and 3, matching the hand-leaf cohorts; the population lineup
+puts the tables baseline seat in slot 2 and ETA in slot 3, so three searches
+sit at the table. Stages: development on seeds 0 to 63, confirmation on seeds
+800 to 863 (unused by any earlier experiment), population on seeds 800 to 863,
+and an extension on seeds 864 to 927 in both lineups only when the pooled
+builders-lineup effect over 128 seeds is positive with its interval's lower
+bound within 0.03 of zero. The registered decision rule for every pair: the
+seating-corrected effect's 95% seed interval excludes zero in the hypothesized
+direction (support), excludes it the other way (refutation), or neither
+(inconclusive). Pooled estimates across stages are after-the-fact pooling.
+
+All 22 cohorts completed 256 of 256 games. One earlier attempt at the first
+cohort was interrupted after 3 games by an operator mistake (the queue driver
+was not session-detached) and is filed as interrupted; its games were not
+pooled and the cohort was rerun from scratch.
+
+## spend_down
+
+| Stage | Half A run (candidate in slot 0) | Half B run (candidate in slot 1) | Wins A, cand/ctrl | Wins B, cand/ctrl | Seating-corrected effect | Seating term |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| Development, builders, 0-63 | `88f22330-1c27-4be3-a7e3-2eb79f205c20` | `f2a31547-7285-4186-9c53-60d962f01ead` | 116/112 | 109/121 | −0.016 (−0.065 to +0.034) | +0.031 |
+| Confirmation, builders, 800-863 | `11b5c63b-e5d9-4faf-ae82-3ec1310fc9b5` | `8d0a219e-73f3-4e2f-8e83-1ba173a4d9b6` | 123/104 | 107/124 | +0.004 (−0.048 to +0.055) | +0.070 |
+| Population, 800-863 | `8a032ed5-7e98-45bf-9282-7dab74eb1782` | `794969fe-edda-46cc-a755-a7c7179aeacf` | 71/85 | 80/90 | −0.047 (−0.098 to +0.004) | −0.008 |
+
+Pooled over the two builders pairs (after-the-fact): −0.006 (−0.042 to +0.030),
+so the extension was not triggered. The population pair leans negative; with
+the interval's upper end at +0.004 the switch is at best neutral there, and it
+costs about a fifth more decision time (814 ms against 682 ms per decision,
+ratio 1.19 pooled over stages).
+
+## discard_projection
+
+| Stage | Half A run | Half B run | Wins A, cand/ctrl | Wins B, cand/ctrl | Seating-corrected effect | Seating term |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| Development, builders, 0-63 | `d2933fc8-9955-41b9-a292-9c344a821bd4` | `881f42b8-03a7-42ab-b342-8a7118ef9919` | 122/103 | 103/119 | +0.006 (−0.033 to +0.044) | +0.068 |
+| Confirmation, builders, 800-863 | `96aaa590-93a9-4c59-89a8-9017995081ca` | `c18fccae-57cd-4e53-ad4a-e8e4d5825f29` | 125/99 | 105/123 | +0.016 (−0.028 to +0.059) | +0.086 |
+| Population, 800-863 | `50ca4d19-152d-4863-9407-417c3c42c51c` | `55ef800b-f8d8-431d-8870-4132723c79dd` | 82/87 | 88/83 | +0.000 (−0.029 to +0.029) | −0.020 |
+| Extension, builders, 864-927 | `f4462a76-5bdf-419f-a926-7b487b7f02be` | `b6a1c336-028d-4f22-b0b2-41f95dc29203` | 133/98 | 102/130 | +0.014 (−0.018 to +0.046) | +0.123 |
+| Extension, population, 864-927 | `0ac1cd70-24da-4ec9-a76a-e070f9ca37e5` | `29d0fc33-4113-4c67-8b5a-b884ce104e55` | 95/79 | 77/95 | −0.004 (−0.034 to +0.026) | +0.066 |
+
+The pooled builders reading over 128 seeds was +0.011 (−0.018 to +0.040):
+positive with the lower bound inside 0.03 of zero, so the extension ran. With
+it, the builders estimate over 192 seeds is +0.012 (−0.010 to +0.034) and the
+population estimate over 128 seeds is −0.002 (−0.023 to +0.019), both
+after-the-fact pooling. The switch costs nothing measurable in decision time
+(ratio 1.00). The builders intervals still allow a small gain, up to about
++0.03 wins per game; the population interval caps it at +0.019.
+
+## hand_risk 0 on the quarter blend
+
+| Stage | Half A run | Half B run | Wins A, cand/ctrl | Wins B, cand/ctrl | Seating-corrected effect | Seating term |
+| --- | --- | --- | ---: | ---: | --- | --- |
+| Development, builders, 0-63 | `2275903a-1549-44e3-8cbb-2a53b16ea8fa` | `7ce522da-775b-43e0-a051-9e96ef3d8c18` | 131/106 | 104/127 | +0.004 (−0.043 to +0.051) | +0.094 |
+| Confirmation, builders, 800-863 | `0808617f-771f-43d9-b83b-ad4eb2a45e54` | `96902436-9d8c-44ac-8233-e722730e2c02` | 118/111 | 106/122 | −0.018 (−0.067 to +0.031) | +0.045 |
+| Population, 800-863 | `4c417894-9fd2-4243-b477-c0750a5a86d0` | `fce730d6-75bc-47a7-826b-eb7e179ebc79` | 99/80 | 80/93 | +0.012 (−0.040 to +0.063) | +0.062 |
+
+Pooled over all three stages (after-the-fact): −0.001 (−0.029 to +0.028) over
+192 seeds. The term's presence or absence is invisible at this scale, in either
+lineup.
+
+<ResearchPlot asset="hand-tables-effects" />
+
+## The mechanisms fire, and it does not matter
+
+Per-game means for the candidate against the control, pooled over each arm's
+stages. Hand size at the roll is the arena's new per-seat counter, the hand
+summed over the game's rolls before each roll's production and discards.
+
+| Arm | Cards discarded | Turns over the limit | Times robbed | Bank trades | Hand at the roll | Decision ms |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| `spend_down` | 4.69 / 5.12 | 0.40 / 0.47 | 3.75 / 3.78 | 4.63 / 4.44 | 4.80 / 4.80 | 814 / 682 |
+| `discard_projection` | 5.03 / 4.98 | 0.45 / 0.45 | 3.87 / 3.89 | 4.49 / 4.53 | 4.79 / 4.80 | 615 / 616 |
+| `hand_risk` 0 (blend) | 6.09 / 5.96 | 0.56 / 0.54 | 4.14 / 4.18 | 4.84 / 4.89 | 4.88 / 4.85 | 855 / 866 |
+
+The switches move the counts they target. Spending down ends fewer turns over
+the limit (0.40 against 0.47) and discards less; removing the risk term on the
+blend raises discards a little; the projection changes which cards go without
+changing the counts. None of it moves the win rate.
+
+The comparison with the hand-written leaf explains why. Under that leaf the
+control discarded 8.6 to 9.2 cards per game and ended about 1.0 turn per game
+over the limit; under the tables the control discards about 5 and ends 0.4 to
+0.5 turns over the limit, holding 4.8 cards at the roll. The tables were
+trained by self-play with the same fixed discard rule, so they already value a
+held card by what it becomes, and the play they induce rarely reaches eight
+cards. The situation all three mechanisms address comes up half as often, and
+the earlier study had already shown pricing it differently buys nothing at this
+depth even when it does come up: under the hand-written leaf on the same
+development seeds, `spend_down` read +0.066 in one seating (the size of the
+seating term), `discard_projection` corrected to −0.029 (−0.073 to +0.015),
+and the `hand_risk` sweep over 0, 2, and 4 was flat
+([hand-management report](hand-management.mdx)).
+
+## What could still be wrong
+
+Everything here is engine-arena development tier at depth 2 on deterministic
+boards, with two fixed lineups. The projection's builders-lineup intervals do
+not exclude a gain under +0.034, so a small effect there is possible; the
+population lineup and the pooled 320-seed reading make anything at or above the
++0.03 browser threshold unlikely. The blend the risk arm sits on was chosen by
+a screen, and the quarter strength also quarters the term's influence, so the
+arm answers "does the term matter at the strength anyone would run it" rather
+than "does seven-risk pricing matter at full strength"; at full strength under
+the hand-written leaf the sweep was already flat. Decision times were measured
+on a heavily shared machine, so the absolute milliseconds are inflated and only
+the within-run ratios carry meaning. The seating terms these pairs measured
+(+0.03 to +0.12) match the null pairs in the seating report, so the correction
+is behaving as expected. Finally, the tables were trained with the fixed
+discard rule; a leaf trained with a different rule could price these situations
+differently.
+
+## What this means for the browser
+
+The browser build runs the hand-written leaf at depth 3 under a one-second
+budget, and the program's rule for adopting a switch there is a pooled effect
+of at least +0.03 wins per game with the interval excluding zero and a decision
+cost within 25% of the control's. No arm comes close. `spend_down` is at best
+neutral under the tables, leans negative at a search-heavy table, and costs
+19% more decision time; under the hand-written leaf its only reading was the
+seating term. `discard_projection` is free and never negative, but its best
+pooled reading is +0.012 and the population lineup caps it at +0.019. The
+`hand_risk` weight was flat across 0, 1, 2, and 4 under the hand-written leaf
+the browser actually runs, and removing it on the blend under the tables is
+worth −0.001. Enable nothing; keep `hand_risk` at 1.
+
+<AgentContext>
+
+Seat specs: the baseline is
+`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}`;
+the `spend_down` and `discard_projection` candidates add `"spend_down":true` or
+`"discard_projection":true` to it; the risk arm's control adds `"hand":0.25` to
+the leaf object and its candidate adds `"hand":0.25` plus
+`"weights":{"hand_risk":0.0}`. All cohorts are engine-arena tournaments with
+`--rotations 4 --deterministic --threads 6`, registered before running under
+study `risk/hand-tables`. Experiment UUIDs, in table order: spend_down
+`a955b267-9ff0-40c1-82b7-4aa4edc9ff6e` / `c492642c-4347-480a-b2ff-29b8f21578ab`,
+`36feacf1-4e3e-4a42-95dc-c04e5c876c51` / `f9d49130-b3c8-45a6-a08e-6d5bb0c61073`,
+`25cf8f50-1d9c-4327-bd46-74773339355a` / `b05633ce-e0f4-472b-a07c-5aa348f292af`;
+discard_projection `3937f009-a9ac-4402-941d-5e549525e838` /
+`30413802-3438-4da7-801a-1930b12b8933`, `cd34b338-7485-4ff9-bc83-f401c08bc6e8` /
+`45db85c1-1e68-4d90-a82e-29e19ae2acf8`, `107448ed-68a4-4ee9-876d-08c78ba7d576` /
+`5330c9c8-a119-446e-8ed6-bfdbd20d2f5b`, `3c319637-e3da-420d-a9c8-381a469036cf` /
+`8dad3d8b-5636-41d1-8c19-bf02370cbf42`, `316cb7a7-5b95-42bf-ade4-f7356f9ef6e1` /
+`dcd15bb4-deb1-4726-a63b-da6e0e83120d`; hand_risk on the quarter blend
+`826a6d8e-1b8a-4797-addc-f5454fa4d954` / `525aa23e-6191-4ae8-aabf-b1082da41b2d`,
+`dce23ad1-0f66-417e-8a07-56fc52e26992` / `72f45c36-9c85-419c-b41a-de7f2d761eec`,
+`1547ca49-dffd-4e2e-bd52-41934ae1180f` / `93304090-43f2-49e9-b30a-8cfc6bbe9d45`.
+Each half's hypothesis names its partner; run UUIDs are in the tables above.
+Withdrawn before running (the full blend measured too weak to sit an arm on):
+`8482a56b-7a41-430f-9d4f-19dcfed08e3a`, `8dfff424-e403-47c4-89ec-029b203d89e4`,
+`9249ab83-c0b0-485a-a08e-e734b82b4cdc`, `198621cf-57ef-4e5b-a892-3989fe65650c`,
+`d2f026f6-aaaf-4173-ac65-f39e52d27a2d`, `a1d96405-f132-45d1-825f-2117844deea7`.
+The interrupted first attempt at the development spend_down half A is run
+`ac02ff67-a456-42ba-bc81-9434c69054d6` (3 of 256 games, not pooled). Three
+unregistered 8-game smokes of the seat specs are under
+`runs/smoke-hand-tables/`; they are plumbing checks, not evidence. The arena
+gained `hand_at_roll_sum` and `hand_at_roll_count` seat counters on the server
+branch `research/hand-tables`; the change is recording only and does not touch
+any decision. `python3 analysis/hand_tables.py --json --asset` recomputes every
+number in this report and the plot from the retained run folders.
+
+</AgentContext>

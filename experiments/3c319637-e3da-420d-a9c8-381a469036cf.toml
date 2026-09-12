@@ -1,0 +1,12 @@
+id = "3c319637-e3da-420d-a9c8-381a469036cf"
+study = "risk/hand-tables"
+arena = "engine"
+hypothesis = "Stage 4 (extension, builders lineup, seeds 864-927) of risk/hand-tables, registered because the pooled L1 effect of discard_projection over 128 seeds was positive (+0.011) with the 95 percent interval lower bound within 0.03 of zero (-0.018). Under the learned n-tuple leaf at depth 2, the discard_projection switch wins more games than the unchanged tables search. Half A of a swapped pair: candidate in slot 0, control in slot 1, eta slot 2, fast slot 3; half B, registered immediately after this one, swaps the two searches on the same seeds."
+decision_rule = "Pair decision rule: both halves complete all games (512 across the pair); the seating-corrected effect is the per-seed half-difference of the two halves slot-0-minus-slot-1 contrasts and the seating term their half-sum (analysis/seating_pair.py); its 95 percent seed interval excluding zero in the hypothesized direction supports the switch, excluding zero the other way refutes it, and anything else is inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"discard_projection\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "864-927"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

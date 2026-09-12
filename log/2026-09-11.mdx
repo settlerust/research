@@ -802,3 +802,117 @@ under `artifacts/timing-tables/` with receipts in `records/artifacts/`.
 plot asset from the retained runs.
 
 Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.
+
+## Hand management under the learned leaf: nothing pays
+
+Study `risk/hand-tables` retested the three discard-risk mechanisms of
+`risk/hand-management` with the learned n-tuple tables as the search leaf,
+following the program's three-stage swapped-pair design (development on seeds
+0 to 63, confirmation on seeds 800 to 863, population with a third tables
+search in slot 2 on seeds 800 to 863, extension on seeds 864 to 927 only when
+the pooled builders reading over 128 seeds is positive with its interval's
+lower bound within 0.03 of zero). Every pair's decision rule: the
+seating-corrected effect's 95 percent seed interval excludes zero in the
+hypothesized direction, the other way, or neither. The baseline seat is
+`v2:{"depth":2,"leaf":{"tables":".../hex-portfolio-main.bin"}}`; each candidate
+adds one switch. The arena gained two recording-only seat counters on server
+branch `research/hand-tables`, `hand_at_roll_sum` and `hand_at_roll_count`, so
+the mean hand size at the roll is measurable from the games records.
+
+Hypotheses: `spend_down` (over the limit, also consider bank trades and roads
+chosen only to shed cards) and `discard_projection` (rank discards by the kept
+hand plus expected production before the next own turn) each win more games
+than the unchanged tables search; and removing the leaf's seven-risk pricing
+(`weights.hand_risk` 0 against the default 1) wins more because the tables
+already price discard exposure. The risk term is inert under the tables alone,
+so its arm sits on a blend in both seats. The blend choice changed mid-program:
+the six registrations on the full blend (`hand` 1.0) were withdrawn before
+running after the orchestrator's screen measured the full blend at -0.207 wins
+per game against the tables alone, and the arm was re-registered on the quarter
+blend (`hand` 0.25). Withdrawn, never run: `8482a56b-7a41-430f-9d4f-19dcfed08e3a`,
+`8dfff424-e403-47c4-89ec-029b203d89e4`, `9249ab83-c0b0-485a-a08e-e734b82b4cdc`,
+`198621cf-57ef-4e5b-a892-3989fe65650c`, `d2f026f6-aaaf-4173-ac65-f39e52d27a2d`,
+`a1d96405-f132-45d1-825f-2117844deea7`.
+
+Registrations and runs, half A then half B per pair, each 256 of 256 games
+completed at six threads unless noted:
+
+- spend_down, development 0-63: `a955b267-9ff0-40c1-82b7-4aa4edc9ff6e` (run
+  `88f22330-1c27-4be3-a7e3-2eb79f205c20`), `c492642c-4347-480a-b2ff-29b8f21578ab`
+  (run `f2a31547-7285-4186-9c53-60d962f01ead`). Effect -0.016 (-0.065 to +0.034),
+  seating +0.031.
+- spend_down, confirmation 800-863: `36feacf1-4e3e-4a42-95dc-c04e5c876c51` (run
+  `11b5c63b-e5d9-4faf-ae82-3ec1310fc9b5`), `f9d49130-b3c8-45a6-a08e-6d5bb0c61073`
+  (run `8d0a219e-73f3-4e2f-8e83-1ba173a4d9b6`). Effect +0.004 (-0.048 to +0.055),
+  seating +0.070.
+- spend_down, population 800-863: `25cf8f50-1d9c-4327-bd46-74773339355a` (run
+  `8a032ed5-7e98-45bf-9282-7dab74eb1782`), `b05633ce-e0f4-472b-a07c-5aa348f292af`
+  (run `794969fe-edda-46cc-a755-a7c7179aeacf`). Effect -0.047 (-0.098 to +0.004),
+  seating -0.008.
+- discard_projection, development 0-63: `3937f009-a9ac-4402-941d-5e549525e838`
+  (run `d2933fc8-9955-41b9-a292-9c344a821bd4`), `30413802-3438-4da7-801a-1930b12b8933`
+  (run `881f42b8-03a7-42ab-b342-8a7118ef9919`). Effect +0.006 (-0.033 to +0.044),
+  seating +0.068.
+- discard_projection, confirmation 800-863: `cd34b338-7485-4ff9-bc83-f401c08bc6e8`
+  (run `96aaa590-93a9-4c59-89a8-9017995081ca`), `45db85c1-1e68-4d90-a82e-29e19ae2acf8`
+  (run `c18fccae-57cd-4e53-ad4a-e8e4d5825f29`). Effect +0.016 (-0.028 to +0.059),
+  seating +0.086.
+- discard_projection, population 800-863: `107448ed-68a4-4ee9-876d-08c78ba7d576`
+  (run `50ca4d19-152d-4863-9407-417c3c42c51c`), `5330c9c8-a119-446e-8ed6-bfdbd20d2f5b`
+  (run `55ef800b-f8d8-431d-8870-4132723c79dd`). Effect +0.000 (-0.029 to +0.029),
+  seating -0.020.
+- discard_projection, extension builders 864-927 (triggered: pooled builders
+  +0.011, lower bound -0.018): `3c319637-e3da-420d-a9c8-381a469036cf` (run
+  `f4462a76-5bdf-419f-a926-7b487b7f02be`), `8dad3d8b-5636-41d1-8c19-bf02370cbf42`
+  (run `b6a1c336-028d-4f22-b0b2-41f95dc29203`). Effect +0.014 (-0.018 to +0.046),
+  seating +0.123.
+- discard_projection, extension population 864-927:
+  `316cb7a7-5b95-42bf-ade4-f7356f9ef6e1` (run `0ac1cd70-24da-4ec9-a76a-e070f9ca37e5`),
+  `dcd15bb4-deb1-4726-a63b-da6e0e83120d` (run `29d0fc33-4113-4c67-8b5a-b884ce104e55`).
+  Effect -0.004 (-0.034 to +0.026), seating +0.066.
+- hand_risk 0 on the quarter blend, development 0-63:
+  `826a6d8e-1b8a-4797-addc-f5454fa4d954` (run `2275903a-1549-44e3-8cbb-2a53b16ea8fa`),
+  `525aa23e-6191-4ae8-aabf-b1082da41b2d` (run `7ce522da-775b-43e0-a051-9e96ef3d8c18`).
+  Effect +0.004 (-0.043 to +0.051), seating +0.094.
+- hand_risk 0 on the quarter blend, confirmation 800-863:
+  `dce23ad1-0f66-417e-8a07-56fc52e26992` (run `0808617f-771f-43d9-b83b-ad4eb2a45e54`),
+  `72f45c36-9c85-419c-b41a-de7f2d761eec` (run `96902436-9d8c-44ac-8233-e722730e2c02`).
+  Effect -0.018 (-0.067 to +0.031), seating +0.045.
+- hand_risk 0 on the quarter blend, population 800-863:
+  `1547ca49-dffd-4e2e-bd52-41934ae1180f` (run `4c417894-9fd2-4243-b477-c0750a5a86d0`),
+  `93304090-43f2-49e9-b30a-8cfc6bbe9d45` (run `fce730d6-75bc-47a7-826b-eb7e179ebc79`).
+  Effect +0.012 (-0.040 to +0.063), seating +0.062.
+
+Pooled readings, all after-the-fact pooling: spend_down -0.006 (-0.042 to
++0.030) over the 128 builders seeds and -0.020 (-0.049 to +0.010) over all 192;
+discard_projection +0.012 (-0.010 to +0.034) over the 192 builders seeds, -0.002
+(-0.023 to +0.019) over the 128 population seeds, +0.006 (-0.009 to +0.022)
+over all 320; hand_risk on the quarter blend -0.007 (-0.041 to +0.027) over the
+128 builders seeds and -0.001 (-0.029 to +0.028) over all 192. Decision-time
+ratios against the control: spend_down 1.19, discard_projection 1.00, hand_risk
+0.99. Every registered rule lands on inconclusive, and no arm meets the +0.03
+browser threshold; defaults are unchanged. The mechanisms still fire:
+spend_down ends 0.40 turns per game over the limit against the control's 0.47
+and discards 4.7 cards against 5.1, and removing the risk term on the blend
+raises discards from 5.96 to 6.09. Under the tables the control holds 4.8 cards
+at the roll, discards about 5 per game, and ends 0.4 to 0.5 turns over the
+limit, against about 9 discards and 1.0 over-limit turns under the hand-written
+leaf: the tables were trained with the same discard rule and the play they
+induce rarely reaches eight cards, so the situation these mechanisms price
+comes up half as often. The [report](../reports/hand-tables.mdx) has the
+tables, diagnostics, and the browser section.
+
+Failures: the first attempt at the development spend_down half A, run
+`ac02ff67-a456-42ba-bc81-9434c69054d6`, stopped after 3 of 256 games when the
+queue driver I had launched without session detachment was killed with its
+shell; it is filed as interrupted, its games were not pooled, and the cohort
+was rerun from scratch. A second operational mistake: one queue worker started
+from the canonical checkout instead of the worktree and failed at preflight
+before playing a game (no run created); it was restarted correctly. The six
+withdrawn full-blend registrations stand as filed with no runs. No tournament
+lost or censored a game. Three unregistered 8-game smokes of the seat specs
+(plumbing only) are kept under `runs/smoke-hand-tables/`. The machine ran at a
+load of 125 to 165 all day from the ten-agent program, so absolute decision
+times are inflated and only within-run ratios are quoted.
+
+Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.
