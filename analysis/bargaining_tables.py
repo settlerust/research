@@ -196,6 +196,30 @@ def main():
             print(f"| {STAGE_NAMES.get(r['stage'], r['stage'])} | {ARM_NAMES[r['arm']]} | {cell('offers', 1)} | {cell('offers_accepted')} | "
                   f"{cell('counters')} | {cell('counters_accepted')} | {cell('declined', 1)} | {cell('accepted_others')} | "
                   f"{cell('player_trades')} | {cell('bank_trades')} | {cell('points')} | {a['decision_ms']:.0f} / {c['decision_ms']:.0f} ms |")
+    if args.tables:
+        print('== markdown: pooled after the fact')
+        print('| Arm | L1, both seed sets | L2 | Every stage | Decision time, arm / control |')
+        print('| --- | --- | --- | --- | --- |')
+        for arm in ARM_NAMES:
+            rs = [r for r in results if r['arm'] == arm]
+            if not rs:
+                continue
+            l1 = [r for r in rs if r['lineup'] == 'L1']
+            l2 = [r for r in rs if r['lineup'] == 'L2']
+            cell = lambda xs: f"{fmt(pooled(xs))}, {pooled(xs)['seeds']} seeds" if xs else ''  # noqa: E731
+            a = c = None
+            for r in rs:
+                a = r['arm_diag'] if a is None else combine(a, r['arm_diag'])
+                c = r['control_diag'] if c is None else combine(c, r['control_diag'])
+            print(f"| {ARM_NAMES[arm]} | {cell(l1)} | {cell(l2)} | **{cell(rs)}** | "
+                  f"{a['decision_ms']:.0f} / {c['decision_ms']:.0f} ms ({a['decision_ms'] / c['decision_ms'] - 1:+.0%}) |")
+        print('== extension rule (L1 pooled positive, interval within 0.03 of zero)')
+        for arm in ARM_NAMES:
+            l1 = [r for r in results if r['arm'] == arm and r['lineup'] == 'L1']
+            if l1:
+                p = pooled(l1)
+                near = p['mean'] > 0 and min(abs(p['low']), abs(p['high'])) <= 0.03
+                print(f"{ARM_NAMES[arm]:24} {fmt(p)} over {p['seeds']} seeds: {'EXTEND' if near else 'no extension'}")
     if args.assets and results:
         source = ('Engine-arena swapped pairs under bargaining/tables-arms: the depth-2 search with learned tables and one '
                   'bargaining switch off against the unchanged tables baseline, 64 deterministic seeds per stage played once '
