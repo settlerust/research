@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "bar",
+  "title": "Search speed in WASM",
+  "evidence": "measured",
+  "source": "70 main-phase positions sampled from builder games on seeds 100 to 103 by the structure tool (every ninth decision after setup with more than one legal action), each analysed in WASM under Node 26 at depths 2 and 3 with iterative deepening off and no clock, three repeats with the fastest kept; the machine carried a load average near 88 on 32 logical CPUs from other tournaments, so wall-clock rates are a loaded-machine floor and CPU-time rates the closer proxy for an idle browser worker.",
+  "caption": "Median transitions per second in WASM on 70 sampled main-phase positions with the 10th to 90th percentile, by wall clock and by CPU time; one second of CPU at the median position is 83,000 transitions at depth 3.",
+  "x": {
+    "label": "Search",
+    "min": 0,
+    "max": 1,
+    "ticks": [
+      "depth 2",
+      "depth 3"
+    ]
+  },
+  "y": {
+    "label": "Thousand transitions per second",
+    "min": 0,
+    "max": 154.0
+  },
+  "series": [
+    {
+      "label": "WASM in Node, wall clock",
+      "points": [
+        {
+          "x": 0,
+          "y": 54.0,
+          "low": 25.5,
+          "high": 127.3
+        },
+        {
+          "x": 1,
+          "y": 41.9,
+          "low": 23.6,
+          "high": 86.9
+        }
+      ]
+    },
+    {
+      "label": "WASM in Node, cpu time",
+      "points": [
+        {
+          "x": 0,
+          "y": 101.2,
+          "low": 65.9,
+          "high": 133.7
+        },
+        {
+          "x": 1,
+          "y": 82.8,
+          "low": 55.3,
+          "high": 124.9
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+---
+date: "2026-09-11"
+title: "Search settings for the browser budget"
+summary: "One second of WASM is about 83,000 engine transitions at the median main-phase position on a loaded machine; equal-budget swapped pairs then ask which search settings win more games under that budget with the hand-written leaf."
+---
+
+# Search settings for the browser budget
+
+<ResearchCallout title="Finding · TODO">
+TODO
+</ResearchCallout>
+
+## What one second buys
+
+<ResearchPlot asset="search-rate-wasm" />
+
+The browser worker asks for depth 3 under a one-second clock, so the question
+behind every arm is how many engine transitions that second buys. The
+structure tool sampled 70 main-phase positions from builder games on seeds 100
+to 103 (every ninth decision after setup with more than one legal action,
+seats and turns mixed), each carrying the seat's own event history. The
+current WASM package, rebuilt from the server's `dev` branch and identical
+byte for byte to the one the web checkout carries, analysed every position in
+Node at depth 2 and depth 3 with iterative deepening off, no clock, and a node
+budget that never binds, three times each with the fastest repeat kept. A
+depth-2 analysis is 16,976 transitions at the median position (9,189 at the
+25th percentile, 31,890 at the 75th, 71,404 at the 90th); a depth-3 analysis
+is 65,677 (35,907, 122,926, and 235,562), so the cost of the third planned
+turn varies by a factor of seven across the middle 80% of positions.
+
+The machine carried a load average between 88 and 160 on 32 logical CPUs
+from other agents' tournaments throughout, which decides how the rate must be
+read. By wall clock the search ran 41.9 thousand transitions per second at the
+median depth-3 position (28.1 thousand at the 25th percentile), and the native
+release binary measured on the same positions under the same load ran 45.9
+thousand: a ratio of 1.03 where the idle measurement of 2026-09-09 found 1.38,
+so the wall clock was measuring contention, not the runtime. By CPU time,
+which counts only the moments the worker's thread was scheduled, the rate is
+82.8 thousand transitions per second at the median position and 64.5 thousand
+at the 25th percentile, at depth 3; depth 2 runs about a fifth faster per
+transition because its trees stay in cache. An idle worker on this processor
+would run faster still, since a fully loaded chip shares each core between two
+threads and drops its clock; the 2026-09-09 idle timings put a depth-3
+analysis at 312 ms on positions of similar cost, roughly twice the CPU rate
+measured here. A laptop browser sits somewhere between the two.
+
+The budget for the cohorts is therefore **N = 83,000 transitions**, one second
+of CPU at the median position, with 65,000 as the 25th-percentile reading. At
+N the depth-3 pass fits in 61% of the sampled positions and the depth-2 pass in
+96%; at the 25th-percentile budget the depth-3 pass fits in 49%.
+
+## The arms
+
+Every arm is a swapped pair on the same deterministic boards with an ETA and a
+fast builder in the other two seats: half A seats the candidate in slot 0 and
+the control in slot 1, half B the other way round, and the effect is half the
+per-seed difference of the two slot-0-minus-slot-1 contrasts, which cancels the
+[turn-order seating term](arena-seating.mdx) exactly. The control is the
+browser's search with the clock replaced by the budget:
+`v2:{"depth":3,"time_budget_ms":0,"node_budget":83000}`, the hand-written
+leaf, four sampled worlds, eight scenarios, four inner scenarios, iterative
+deepening. With the clock off the node budget bounds each depth pass, so a
+depth-3 pass that needs more than N transitions is abandoned and the depth-2
+answer is played, which is what the browser does when its second runs out.
+Each candidate changes one setting of that control. The two deepening-share
+arms need a budget that all passes of a decision share, since the 30% rule
+reads how much of the budget the earlier passes used; a new `total_budget`
+switch in the search counts the node budget the way the clock is counted, and
+both seats of those two arms carry it, so their control differs from the
+others' by that switch alone.
+
+Games are deterministic, so the same budget binds the same way for both seats
+whatever the machine is doing, and wall-clock decision times below are only
+comparable within a pair: the machine carried a load average between 120 and
+170 throughout, three to five times the idle cost.
+
+### Screens on 16 boards
+
+Eleven arms were more than the machine could carry through two stages of 512
+games each while nine other agents ran their own cohorts, so every arm was
+first screened as an unregistered swapped pair on boards 0 to 15 (64 games per
+half, 128 per arm). A screen resolves about ±0.15 wins per game and is not a
+finding; it decides which arms go on to the registered stages. Depth-3
+completion and abort shares are over every search the seat answered, including
+the roll-phase and single-candidate positions that stop at depth 1 by rule;
+the four setup placements per game are decided by the opening planner and count
+as depth 0.
+
+| Arm | Candidate wins | Control wins | Screen effect (95% interval) | Seating term | Depth 3 completed | Aborted | Decision time |
+| --- | ---: | ---: | --- | ---: | --- | --- | --- |
+| depth 2 | 47 | 58 | −0.086 (−0.230 to +0.059) | +0.117 | 0.0% vs 48.4% | 0.7% vs 13.3% | 400 vs 1354 ms |
+| cache decision | 62 | 51 | +0.086 (−0.062 to +0.234) | +0.102 | 55.4% vs 49.1% | 6.6% vs 13.4% | 1597 vs 1922 ms |
+| samples 2 | 58 | 48 | +0.078 (−0.011 to +0.167) | +0.062 | 59.3% vs 49.6% | 2.7% vs 12.4% | 1096 vs 1674 ms |
+| inner scenarios 2 | 55 | 52 | +0.023 (−0.080 to +0.126) | +0.055 | 57.3% vs 49.1% | 5.1% vs 12.6% | 1215 vs 1541 ms |
+| scenarios 4 | 18 | 79 | −0.477 (−0.624 to −0.330) | −0.039 | 61.0% vs 49.9% | 2.7% vs 13.2% | 830 vs 1492 ms |
+| deepen 1.0 (total budget) | 54 | 52 | +0.016 (−0.047 to +0.078) | +0.109 | 42.4% vs 41.6% | 19.9% vs 5.8% | 1191 vs 921 ms |
+| deepen 0.5 (total budget) | 54 | 52 | +0.016 (−0.047 to +0.078) | +0.109 | 42.4% vs 41.6% | 13.7% vs 5.8% | 1214 vs 1005 ms |
+
+Three things are already clear at this resolution. Halving the common random
+scenarios is ruinous: the seat with four scenarios won 18 games to the
+control's 79, an effect of −0.477 whose interval sits far from zero, matching
+the −0.410 that two scenarios cost at depth 2 in the 2026-09-09 ablations, and
+the depth-3 completions it buys (61% against 50%) do not come close to paying
+for the noisier opponents' round. Under a budget shared by every pass, letting
+the search attempt depth 3 whenever budget remains changes almost nothing:
+attempts rise (aborts 20% against 6%) but completions barely move (42.4%
+against 41.6%), because a third pass that starts with less than 70% of the
+budget almost never finishes, so the 0.5 and 1.0 arms played the same games
+as each other. The two arms that cut the cost of a pass, two sampled worlds and
+tables shared across passes, each raised the depth-3 completion share by six to
+ten points, cut aborts by half or more, and screened positive; they went on to
+the registered stages with the depth-2 question, and the inner-scenario arm
+followed as a weaker version of the same mechanism.
+
+### Registered stages
+
+TODO stage tables
+
+## What could still be wrong
+
+TODO
+
+## What this means for the browser
+
+TODO
+
+<AgentContext>
+TODO
+</AgentContext>

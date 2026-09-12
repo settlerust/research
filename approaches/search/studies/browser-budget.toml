@@ -1,0 +1,12 @@
+id = "search/browser-budget"
+title = "Search settings for the browser budget"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "proposed"
+question = "Which search settings make the hand-written-leaf browser player strongest under a one-second WASM budget, measured as an equal node budget in the engine arena?"
+outcome = "No experiment has been executed."
+next_step = "Register a fixed candidate, comparison, budget, and decision rule."
+attribution = "unknown"
+reports = []
+logs = []
+legacy_experiments = []
