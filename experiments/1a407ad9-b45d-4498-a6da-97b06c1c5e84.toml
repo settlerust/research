@@ -1,0 +1,12 @@
+id = "1a407ad9-b45d-4498-a6da-97b06c1c5e84"
+study = "search/browser-budget"
+arena = "engine"
+hypothesis = "Equal deterministic node budget of 83000 transitions per depth pass (one second of WASM at the median sampled position), hand-written leaf, iterative deepening, against the depth-3 control with the same budget. Capping the search at depth 2 loses wins: the third planned turn pays under this budget. Half B of a swapped pair (confirmation, seeds 800-863): control in slot 0, candidate in slot 1; partner half A is experiment fdf4213a-e634-4fa8-8390-9519bfb38174."
+decision_rule = "All games of both halves complete. The seating-corrected effect, half the per-seed difference of the two slot-0-minus-slot-1 win contrasts, has a 95% seed interval that excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive); the seating term is half their sum."
+players = ["v2:{\"depth\":3,\"time_budget_ms\":0,\"node_budget\":83000}", "v2:{\"depth\":2,\"time_budget_ms\":0,\"node_budget\":83000}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
