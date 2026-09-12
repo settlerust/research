@@ -1,0 +1,12 @@
+id = "risk/hand-tables"
+title = "Hand management under the learned-tables leaf"
+created = "2026-09-11"
+updated = "2026-09-12"
+status = "complete"
+question = "Do the discard-risk mechanisms change results when the search evaluates with the learned n-tuple tables: spend_down and discard_projection under the tables alone, and the hand_risk weight at 0 against 1 on the blended leaf?"
+outcome = "All three arms correct to zero in swapped pairs. spend_down: -0.006 (95% interval -0.042 to +0.030) pooled over the 128 builders seeds and -0.047 (-0.098 to +0.004) in the population lineup, at 1.19 times the decision time. discard_projection: +0.012 (-0.010 to +0.034) over 192 builders seeds after the triggered extension and -0.002 (-0.023 to +0.019) over 128 population seeds, at no cost. hand_risk 0 on the quarter blend: -0.001 (-0.029 to +0.028) over 192 seeds. Every per-stage rule lands inconclusive; no arm meets the +0.03 browser threshold. Under the tables the search holds 4.8 cards at the roll and discards half as often as under the hand-written leaf, so the situation these mechanisms price comes up half as often."
+next_step = "No default change: both switches stay off and hand_risk stays at 1. Nothing here transfers to the browser. If the leaf or the discard rule ever changes, the question deserves one retest on the new configuration."
+attribution = "Kimi K3 (moonshotai/Kimi-K3) through OpenCode"
+reports = ["reports/hand-tables.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

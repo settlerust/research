@@ -1,0 +1,12 @@
+id = "1547ca49-dffd-4e2e-bd52-41934ae1180f"
+study = "risk/hand-tables"
+arena = "engine"
+hypothesis = "Stage 3 (population lineup, seeds 800-863) of risk/hand-tables: slot 2 is the tables baseline seat and slot 3 is eta, so three searches sit at the table. The hand_risk leaf term is inert under the tables alone, so this arm is measured on the quarter blend (tables plus the hand-written terms at hand 0.25 in both seats): removing the seven-risk pricing (weights.hand_risk 0 against the default 1) wins more games because the tables already price discard exposure. Half A of a swapped pair: candidate in slot 0, control in slot 1; half B, registered immediately after this one, swaps the two searches on the same seeds."
+decision_rule = "Pair decision rule: both halves complete all games (512 across the pair); the seating-corrected effect is the per-seed half-difference of the two halves slot-0-minus-slot-1 contrasts and the seating term their half-sum (analysis/seating_pair.py); its 95 percent seed interval excluding zero in the hypothesized direction supports the switch, excluding zero the other way refutes it, and anything else is inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25},\"weights\":{\"hand_risk\":0.0}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
