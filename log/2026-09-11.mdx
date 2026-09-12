@@ -1523,3 +1523,112 @@ throwaway seeds (kept under `/tmp/opencode/roads-tables-smoke/`) verified the
 seat specifications before registration; plumbing only, not evidence. All 29 runs are archived with verified receipts under `records/artifacts/`.
 
 Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.
+## Build prediction under the learned leaf
+
+Study `adaptation/prediction-tables`. The three build-prediction switches of
+the hand-leaf study (a denial leaf weight, the predicted opponent model, and
+the predicted space threat) were retested under the learned n-tuple tables
+leaf, each as a swapped pair (candidate in slot 0 against the unchanged
+tables-baseline control in slot 1, then the same two searches with slots
+swapped) at depth 2, deterministic, four rotations, 256 games per half, six
+threads. The denial weight is a leaf term and is inert under the tables alone,
+so that arm runs on a blended leaf. Its first registrations used the full blend
+(`leaf hand 1.0` in both seats); the `patterns/leaf-blend` screen then measured
+that blend 0.207 wins per game below the tables alone, so all six were
+withdrawn before any of them ran and the arm was registered again on the
+quarter blend (`hand 0.25`, which the screen measured +0.074 above the
+tables). Withdrawn before running: `2324c88f-9407-455f-a76c-daafd52bf7e1`,
+`adb816b7-c2f2-4a47-a545-60b035870e45`,
+`d160d8e0-2d2a-45cb-ba12-f5fa82956d3a`,
+`6f0f27f8-286c-424a-9786-7b43875e62cb`,
+`c62b41d6-5c90-447a-8196-6acb9b6200f1`, and
+`ff104571-dcc2-48f0-9dd5-0bae29a7cff5`.
+
+The predicted space threat ran its population stage first, as directed, because
+the switch only changes trades and the builders lineup trades less. Population
+lineup: candidate and control in slots 0 and 1, a second tables-baseline search
+in slot 2, eta in slot 3. Builders lineup: eta in slot 2, fast in slot 3.
+
+Predicted space threat, under the tables alone:
+
+| Stage | Half A experiment and run | Half B experiment and run | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- | --- |
+| Population, seeds 800-863 | `2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166`, `98b12730-0997-4f13-932a-671536080240` | `078dc121-0ee7-44f2-80c6-25b150fe5c14`, `5d4485eb-5a7d-4525-8d5e-83b059633c39` | +0.047 (-0.004 to +0.098) | -0.027 |
+| Development, seeds 0-63 | `7a37ead7-5990-4ced-8ea6-cc139c14d3cb`, `2fb51aa4-ec78-441a-ac88-4f3a1a1b077d` | `e8ed1b4d-9b55-41c0-b81a-72ca3446a6f0`, `7c07bce7-df9f-4bfb-b95c-73f1cc1a0f54` | +0.014 (-0.037 to +0.064) | +0.150 |
+| Confirmation, seeds 800-863 | `721e6d22-cda9-4bbd-920f-a4c97caa1293`, `97c2c3c7-f23c-484f-8316-d8ef40f35728` | `d9e60b56-b687-4452-8a44-8e7a342a1f97`, `e6694d7e-7ca2-4a3c-b63a-7f98ad345a59` | -0.006 (-0.057 to +0.045) | +0.100 |
+
+Pooled over the 128 builders-lineup seeds, an after-the-fact pooling: +0.004
+(-0.032 to +0.040). The extension rule asks for a positive mean and an interval
+that comes within 0.03 of zero; the mean is positive but the nearest endpoint
+is 0.032 away, so no extension runs, and 64 more seeds could not separate
++0.004 from zero anyway.
+
+Predicted opponent model, under the tables alone:
+
+| Stage | Half A experiment and run | Half B experiment and run | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- | --- |
+| Development, seeds 0-63 | `0f311f07-69b0-43a2-b00d-e65260e78c68`, `cd0eef08-680b-4639-9dba-8eb9e98ff79a` | `f7646e35-5a6e-4923-92eb-8ed00c0dbc55`, `4dc942bd-5343-444d-aef8-9e89b60cc004` | -0.010 (-0.066 to +0.046) | +0.096 |
+| Confirmation, seeds 800-863 | `131bd98f-9842-4da4-9ce6-4f818f018982`, `596e8dd0-957e-49e8-bd30-47df5d0a6312` | `906aeeee-fb36-4c4c-8e4c-bfb515c8e3b9`, `26be7683-0b30-4cdb-a27a-1900a11adcc4` | +0.000 (-0.063 to +0.063) | +0.055 |
+| Population, seeds 800-863 | `832402a0-649a-4afe-a6b5-0120eafe42f7`, `3e1db769-42a7-48e3-842e-311d45776d32` | `7bed7450-6301-44bb-81cb-bafb69a54399`, `15282f9d-520d-4290-8931-bf0739e88983` | -0.004 (-0.060 to +0.052) | -0.012 |
+
+Pooled over the 128 builders-lineup seeds: -0.005 (-0.047 to +0.037). The mean
+is not positive, so no extension runs.
+
+Denial leaf weight 0.5, on the quarter blend (`hand 0.25` in both seats):
+
+| Stage | Half A experiment and run | Half B experiment and run | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- | --- |
+| Development, seeds 0-63 | `39f22891-3b02-4f8b-9d2a-54a68ecf8d65`, `3bbbfea8-c08e-4910-9926-566ba647d534` | `ad623e9c-d09c-4328-8f90-868cc0cc719c`, `b0c63544-f1ba-4a4c-924d-03ef381c4dbb` | +0.002 (-0.040 to +0.044) | +0.123 |
+| Confirmation, seeds 800-863 | `3b404013-a489-4f0f-8c72-d5139030896a`, `106ab3c6-89e2-47f5-a17b-50f4e91ecbc8` | `f454b374-037c-4ea9-9dcc-34b9222d3fe6`, `591c905a-0d87-4216-8b35-df28b3256109` | -0.037 (-0.071 to -0.003) | +0.057 |
+| Population, seeds 800-863 | `1fda980d-5933-4182-8629-bb38219163ef`, `5463cc1a-fd0f-467b-a33a-63992e8ebe08` | `29355633-9630-484b-893c-5fa59b8bd158`, `ec5e3a3e-e989-40a6-bc77-701a2bbfc519` | +0.023 (-0.009 to +0.056) | -0.004 |
+
+The confirmation interval excludes zero on the wrong side: the denial term is
+refuted on fresh seeds, repeating the hand-leaf study's fall from +0.061 to
+-0.025. Pooled over the 128 builders-lineup seeds: -0.018 (-0.045 to +0.010),
+so no extension runs. The term also costs: the denial seat's mean decision time
+was about double its control's in every half (1257 against 600 ms, 922
+against 454, 199 against 105, and the mirrors), because the predictor runs at
+every leaf it evaluates.
+
+Diagnostics from the retained games: the threat candidate made about 1.5 more
+offers per game than its control (16.3 against 14.8 on the population lineup)
+and declined about 1.4 fewer, so the switch does change who the seat trades
+with. The opponents candidate's own counters (trades, offers, builds, robber
+shares) match its control within noise. The denial candidate lost slightly
+fewer frontier sites per game than its control on the builders lineup (1.78
+against 1.84, from `sites_lost`), as it did under the hand leaf, without
+turning the board into wins.
+
+Prediction accuracy, from one observer seat's public knowledge on the
+population lineup (unregistered diagnostic, seeds 800 to 815, 64 games,
+`--predict-diag 0`): the predictor named eta's next completed build in 59.0
+percent of turns (256 of 434) and a tables-baseline search's in 20.0 percent
+(348 of 1739). Under the hand leaf it scored 52.7 against eta and 28.5 against
+the hand-leaf search, so the learned leaf is a less predictable opponent, not
+a more predictable one, and builder-directed terms have even less to read at a
+table of searches.
+
+Interpretation: none of the three switches separates from zero under the
+learned tables. The threat switch is the only arm with a positive-leaning
+reading anywhere (+0.047 on the population lineup, -0.004 to +0.098, matching
+its hand-leaf fresh reading of +0.031), but no interval excludes zero, its
+builders-lineup estimate is +0.004, and the worth-the-browser rule needs at
+least +0.03 pooled with the interval excluding zero. The denial term is
+refuted on fresh seeds for the second time at double the decision cost. All
+three switches stay off under both leaves; the baseline and the evidence
+boundary do not change. The [report](../reports/prediction-tables.mdx) has the
+tables and the browser reading.
+
+Failures: run `83989250-85e2-4fe5-a9fd-c2a1c5aedef7` (experiment
+`2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166`) was interrupted after 6 of 256 games
+when my session tooling killed the detached process; the six completed games
+are retained and not pooled, the run is filed as interrupted, and the half was
+rerun from scratch as `98b12730-0997-4f13-932a-671536080240`. One pair's
+effect was first computed with the halves reversed in a scratch note and
+corrected before anything was filed. The machine was shared with nine other
+agents, so wall times (about 1.5 to 2 hours per 256-game half at six threads)
+say nothing about decision cost; the within-run decision times above do. All
+18 completed halves finished 256 of 256 games with no invalid, stalled,
+forced, or failed decision.
+
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
