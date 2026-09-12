@@ -76,15 +76,16 @@ comparable within a pair: the machine carried a load average between 120 and
 
 ### Screens on 16 boards
 
-Eleven arms were more than the machine could carry through two stages of 512
-games each while nine other agents ran their own cohorts, so every arm was
-first screened as an unregistered swapped pair on boards 0 to 15 (64 games per
-half, 128 per arm). A screen resolves about ±0.15 wins per game and is not a
-finding; it decides which arms go on to the registered stages. Depth-3
-completion and abort shares are over every search the seat answered, including
-the roll-phase and single-candidate positions that stop at depth 1 by rule;
-the four setup placements per game are decided by the opening planner and count
-as depth 0.
+Eleven arms were planned. Seven were screened as unregistered swapped pairs
+on boards 0 to 15 (64 games per half, 128 per arm); depth 4, tables kept for
+the whole turn (`cache: turn`), and two settled-decision gaps were dropped
+unscreened because the machine could not carry them through two registered
+stages beside nine other agents' cohorts. A screen resolves about ±0.15 wins
+per game and is not a finding; it decides which arms go on to the registered
+stages. Depth-3 completion and abort shares are over every search the seat
+answered, including the roll-phase and single-candidate positions that stop at
+depth 1 by rule; the four setup placements per game are decided by the opening
+planner and count as depth 0.
 
 | Arm | Candidate wins | Control wins | Screen effect (95% interval) | Seating term | Depth 3 completed | Aborted | Decision time |
 | --- | ---: | ---: | --- | ---: | --- | --- | --- |
@@ -114,16 +115,144 @@ followed as a weaker version of the same mechanism.
 
 ### Registered stages
 
-TODO stage tables
+Each arm that passed the screen was registered as a swapped pair on boards 0
+to 63 (development) and again on boards 800 to 863 (confirmation), 512 games
+per stage. Every game of every stage completed. The seating term is the part of
+each half's contrast that belongs to the slots, not the arm; it ran about +0.1
+on the development boards and near zero on the confirmation boards, which is
+why the single halves looked so different from the corrected effects.
+
+| Arm | Stage | Candidate wins | Control wins | Effect (95% interval) | Seating term | Depth 3 completed | Aborted | Decision time |
+| --- | --- | ---: | ---: | --- | ---: | --- | --- | --- |
+| depth 2 | development | 211 | 222 | −0.021 (−0.090 to +0.047) | +0.107 | 0.0% vs 49.6% | 0.8% vs 13.2% | 474 vs 1629 ms |
+| depth 2 | confirmation | 187 | 238 | **−0.100 (−0.163 to −0.037)** | +0.018 | 0.0% vs 50.4% | 0.8% vs 13.3% | 432 vs 1515 ms |
+| cache decision | development | 236 | 212 | +0.047 (−0.005 to +0.099) | +0.129 | 56.5% vs 49.7% | 6.4% vs 13.4% | 1315 vs 1568 ms |
+| cache decision | confirmation | 225 | 222 | +0.006 (−0.048 to +0.059) | −0.014 | 57.0% vs 50.3% | 6.6% vs 13.3% | 1121 vs 1291 ms |
+| samples 2 | development | 221 | 216 | +0.010 (−0.045 to +0.064) | +0.088 | 60.5% vs 50.0% | 2.7% vs 13.0% | 821 vs 1247 ms |
+| samples 2 | confirmation | 220 | 226 | −0.012 (−0.070 to +0.046) | +0.023 | 60.9% vs 49.9% | 3.0% vs 13.5% | 660 vs 997 ms |
+| inner scenarios 2 | development | 205 | 236 | **−0.061 (−0.116 to −0.005)** | +0.115 | 58.2% vs 49.8% | 5.0% vs 12.8% | 766 vs 980 ms |
+| inner scenarios 2 | confirmation | TODO_INNER_CONF_ROW |
+
+Decision times are wall clock on a machine at a load average near 90 to 170
+and compare only within a row. Pooling the two stages after the fact, over 128
+disjoint boards (1,024 games per arm):
+
+| Arm | Candidate wins | Control wins | Pooled effect (95% interval) | Seating term |
+| --- | ---: | ---: | --- | ---: |
+| depth 2 | 398 | 460 | **−0.061 (−0.107 to −0.014)** | +0.062 |
+| cache decision | 461 | 434 | +0.026 (−0.011 to +0.064) | +0.058 |
+| samples 2 | 441 | 442 | −0.001 (−0.041 to +0.039) | +0.056 |
+| inner scenarios 2 | TODO_INNER_POOLED_ROW |
+
+Capping the search at depth 2 is the one arm whose confirmation settles it:
+the depth-2 seat decides three times faster and never aborts, and it loses
+0.100 wins per game on the fresh boards and 0.061 pooled. The third planned
+turn pays at this budget even though half the searches that attempt it run out
+and fall back to the depth-2 answer.
+
+The three arms that make depth 3 cheaper all did what they were built to do
+and none of it turned into wins. Shared tables, two sampled worlds, and two
+inner scenarios raised the depth-3 completion share by seven to eleven points
+and cut the abort share by half or more, on both sets of boards. Two samples
+and two inner scenarios pay for those completions with a noisier estimate of
+every pass, and the development stage shows what that costs for inner
+scenarios: −0.061 with an interval that excludes zero. Two samples broke even.
+Shared tables are the only arm that buys completions without changing any
+estimate, since with no budget binding they reproduce the search bit for bit;
+their pooled effect is positive but its interval crosses zero, and the
+confirmation stage alone read +0.006.
+
+TODO_COMBINATION
+
+## In WASM
+
+The same settings were run in the browser package under Node on the 70
+sampled views, first at the arena's budget (83,000 transitions per depth pass,
+clock off) and then under the browser's real one-second clock, on the loaded
+machine. The node-budget columns are deterministic in transitions and depth;
+their CPU times carry the load.
+
+| Search request | Depth 3 completed | Aborted | Median CPU | 90th percentile CPU |
+| --- | --- | --- | ---: | ---: |
+| current browser request | 61% | 39% | 1037 ms | 2169 ms |
+| depth 2 | 0% | 4% | 206 ms | 980 ms |
+| cache decision | 74% | 26% | 820 ms | 2035 ms |
+| samples 2 | 87% | 13% | 638 ms | 1760 ms |
+| inner scenarios 2 | 81% | 19% | 578 ms | 1870 ms |
+| cache decision and samples 2 | 93% | 7% | 542 ms | 1406 ms |
+
+Under the real clock the picture shifts, because the search stops deepening as
+soon as 30% of the budget has passed and a loaded core runs the worker at a
+fraction of its speed:
+
+| Search request, 1000 ms clock | Median time | 90th percentile time | Median CPU | Mean depth | Depth 3 completed | Aborted |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| current browser request | 472 ms | 1001 ms | 266 ms | 1.94 | 16% | 19% |
+| cache decision | 426 ms | 1001 ms | 241 ms | 2.04 | 24% | 11% |
+
+TODO_WASM_NOTE
 
 ## What could still be wrong
 
-TODO
+The budget rests on one rate measurement taken while other agents'
+tournaments held the machine at a load average of 88 to 160 on 32 logical CPUs.
+CPU time removes most of the contention, but a loaded chip runs each core at a
+lower clock and shares it between two threads, so 83,000 transitions probably
+understates what an idle desktop browser gets and may overstate what a phone
+gets. The real-clock check above ran on the same loaded machine, where the
+worker was scheduled for about half of each wall-clock millisecond; an idle
+browser completes depth 3 far more often than its 16%. If the true budget is
+nearer twice N, the arms that exist to make depth 3 fit matter less; if it is
+nearer the 25th-percentile reading of 65,000, they matter more.
+
+A node budget stands in for the clock, and the two differ in two ways. Work is
+not equally expensive per counted transition: a table hit costs almost nothing,
+while sampled-world setup and leaf evaluation cost more, so an arm that changes
+the mix of work, such as shared tables, can look different at equal nodes than
+at equal time. And the control's budget bounds each depth pass on its own, so it
+starts depth 3 whenever depth 2 finished, while the browser's clock also stops
+deepening once 30% of the second has passed. The two deepening screens under
+the shared `total_budget`, which does apply the 30% rule, moved the depth-3
+completion share by under one point and the result by +0.016, so this
+difference is small at this budget, but it is not zero.
+
+The development boards contain the screen boards (0 to 15), so the development
+effects carry the selection that chose these arms; the confirmation boards 800
+to 863 were never used before and carry none. The opponents are two fixed
+builders, and every seat evaluates with the hand-written leaf; a setting that
+helps against `eta` and `fast` may help less against people or other searches,
+and nothing here says what the same settings do under the learned tables.
 
 ## What this means for the browser
 
-TODO
+TODO_BROWSER
 
 <AgentContext>
-TODO
+Seats. Control: `v2:{"depth":3,"time_budget_ms":0,"node_budget":83000}`
+(hand-written leaf, four samples, eight scenarios, four inner scenarios,
+iterative deepening). Candidates change one setting: `"depth":2`,
+`"cache":"decision"`, `"samples":2`, or `"inner_scenarios":2`. Slots 2 and 3
+are `eta` and `fast`. Every experiment is deterministic, four rotations, 256
+games. Registrations, runs, and the pooled numbers are listed in the daily log
+of 2026-09-11.
+
+Server. The arena binary was built from the server branch
+`research/browser-budget` (the `total_budget` switch and per-depth completion
+counts in the seat effort, merged into server `dev`), SHA-256
+`01016f3b34824d3e7d943fa5577cceb6de48190ea2d14a573741ca0c30549b38` for every
+registered run. Deterministic games reproduce exactly: two identical
+registrations of the cache-decision half A, played hours apart under different
+load, gave the same 256 games in winner, points, turns, and decisions.
+
+Analysis. `python3 analysis/browser_budget.py pairs PAIRS.json --pool` reads
+each pair with its depth-completion and abort shares and decision times and
+prints the after-the-fact pooled estimate; `analysis/seating_pair.py` gives the
+same effects. The rate and budget measurements use
+`node analysis/browser_budget_wasm.mjs rate|budget VIEWS.jsonl OUT.json --wasm
+DIR` on the WASM package built from server `dev`, byte-identical to the one in
+the web checkout, over 70 views from the server's `structure --views` tool on
+builder games with seeds 100 to 103; `analysis/browser_budget.py rate|budget`
+summarises them. `analysis/browser_budget_queue.sh` ran the registered halves
+two at a time. Run folders are archived under `artifacts/` with receipts in
+`records/artifacts/`.
 </AgentContext>
