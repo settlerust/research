@@ -1,0 +1,762 @@
+{
+  "buy_tempo|L1|0-63|hand 0": {
+    "effect": {
+      "mean": -0.060546875,
+      "se": 0.027838625189192716,
+      "low": -0.11511058037081773,
+      "high": -0.005983169629182279,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.076171875,
+      "se": 0.036682684236048715,
+      "low": 0.0042738138973445194,
+      "high": 0.14806993610265548,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.015625,
+      "se": 0.04785678193716072,
+      "low": -0.078174292596835,
+      "high": 0.109424292596835,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.13671875,
+      "se": 0.044169505011841276,
+      "low": 0.050146520176791096,
+      "high": 0.2232909798232089,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "f97d8683-79fd-4109-a1ef-7b106f8b3956",
+      "B": "176f12e2-d391-4402-9b7a-7fa5cc470570"
+    },
+    "experiments": {
+      "A": "b6b12fdd-9cff-47c9-9140-7a6330feabf4",
+      "B": "7385ffd6-017d-41dc-9cb9-bdbfe192e1b5"
+    },
+    "candidate": {
+      "development_bought": 3.193359375,
+      "knights_played": 1.673828125,
+      "army_awards": 0.2734375,
+      "cities_built": 1.39453125,
+      "roads_built": 5.474609375,
+      "player_trades": 3.828125,
+      "cards_discarded": 5.34765625,
+      "first_city_turn": 34.454522014586345,
+      "first_city_games": 202.0,
+      "points": 7.384765625,
+      "decision_ms": 458.29741023551617,
+      "wins": 103.5
+    },
+    "control": {
+      "development_bought": 3.98046875,
+      "knights_played": 2.0625,
+      "army_awards": 0.3828125,
+      "cities_built": 1.203125,
+      "roads_built": 5.28125,
+      "player_trades": 3.72265625,
+      "cards_discarded": 5.31640625,
+      "first_city_turn": 34.719134770739316,
+      "first_city_games": 189.5,
+      "points": 7.583984375,
+      "decision_ms": 673.2030542988967,
+      "wins": 119.0
+    },
+    "wins": {
+      "A": [
+        115,
+        111
+      ],
+      "B": [
+        127,
+        92
+      ]
+    }
+  },
+  "buy_tempo|L1|800-863|hand 0": {
+    "effect": {
+      "mean": -0.005859375,
+      "se": 0.032755133088488486,
+      "low": -0.07005943585343744,
+      "high": 0.058340685853437435,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.076171875,
+      "se": 0.03883786476402022,
+      "low": 4.966006252037081e-05,
+      "high": 0.15229408993747962,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.0703125,
+      "se": 0.047070936394715976,
+      "low": -0.02194653533364331,
+      "high": 0.16257153533364332,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.08203125,
+      "se": 0.05428520897141722,
+      "low": -0.024367759583977744,
+      "high": 0.18843025958397774,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "3292674f-249b-44d7-967c-5481ac3045f1",
+      "B": "a86a5e49-0165-4c3d-ac6a-1a301a4cc496"
+    },
+    "experiments": {
+      "A": "750b7ebc-9428-492f-9b5f-b2d4de9d992a",
+      "B": "be7df6ce-1a7c-4943-bf38-fd6b8ae5d513"
+    },
+    "candidate": {
+      "development_bought": 3.18359375,
+      "knights_played": 1.66796875,
+      "army_awards": 0.28125,
+      "cities_built": 1.4453125,
+      "roads_built": 5.4140625,
+      "player_trades": 3.974609375,
+      "cards_discarded": 5.255859375,
+      "first_city_turn": 34.386185983827495,
+      "first_city_games": 211.0,
+      "points": 7.521484375,
+      "decision_ms": 507.9787180247748,
+      "wins": 111.5
+    },
+    "control": {
+      "development_bought": 3.916015625,
+      "knights_played": 1.9140625,
+      "army_awards": 0.337890625,
+      "cities_built": 1.224609375,
+      "roads_built": 5.19140625,
+      "player_trades": 3.974609375,
+      "cards_discarded": 5.23046875,
+      "first_city_turn": 34.69890323768443,
+      "first_city_games": 195.0,
+      "points": 7.521484375,
+      "decision_ms": 749.4387981722343,
+      "wins": 113.0
+    },
+    "wins": {
+      "A": [
+        121,
+        103
+      ],
+      "B": [
+        123,
+        102
+      ]
+    }
+  },
+  "buy_tempo|L2|800-863|hand 0": {
+    "effect": {
+      "mean": -0.052734375,
+      "se": 0.029172603496017684,
+      "low": -0.10991267785219466,
+      "high": 0.004443927852194655,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": -0.041015625,
+      "se": 0.031256780948327616,
+      "low": -0.10227891565872213,
+      "high": 0.020247665658722123,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": -0.09375,
+      "se": 0.0429490169335173,
+      "low": -0.1779300731896939,
+      "high": -0.009569926810306092,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.01171875,
+      "se": 0.0425609709055097,
+      "low": -0.07170075297479901,
+      "high": 0.09513825297479901,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "ea42e55d-da88-4794-a3b7-08c580473ee8",
+      "B": "64bbd775-5639-4bfe-bd5f-b0bcb0cef057"
+    },
+    "experiments": {
+      "A": "afb09868-6c8a-416c-bfbf-1d39fd4b3536",
+      "B": "5e75db43-2be3-4c8c-ab00-f7346fed7297"
+    },
+    "candidate": {
+      "development_bought": 3.3515625,
+      "knights_played": 1.7421875,
+      "army_awards": 0.26171875,
+      "cities_built": 1.26953125,
+      "roads_built": 5.3515625,
+      "player_trades": 3.537109375,
+      "cards_discarded": 5.0,
+      "first_city_turn": 32.70133688495753,
+      "first_city_games": 199.5,
+      "points": 6.876953125,
+      "decision_ms": 414.17747690257147,
+      "wins": 72.5
+    },
+    "control": {
+      "development_bought": 4.181640625,
+      "knights_played": 2.05859375,
+      "army_awards": 0.31640625,
+      "cities_built": 1.236328125,
+      "roads_built": 5.251953125,
+      "player_trades": 3.564453125,
+      "cards_discarded": 5.171875,
+      "first_city_turn": 34.0937291698713,
+      "first_city_games": 197.5,
+      "points": 7.072265625,
+      "decision_ms": 580.8775022399072,
+      "wins": 86.0
+    },
+    "wins": {
+      "A": [
+        68,
+        92
+      ],
+      "B": [
+        80,
+        77
+      ]
+    }
+  },
+  "hold_knight|L1|0-63|hand 0": {
+    "effect": {
+      "mean": -0.029296875,
+      "se": 0.02133731686775147,
+      "low": -0.07111801606079288,
+      "high": 0.012524266060792877,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.091796875,
+      "se": 0.040844016943526566,
+      "low": 0.011742601790687937,
+      "high": 0.17185114820931208,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.0625,
+      "se": 0.043842023400762604,
+      "low": -0.0234303658654947,
+      "high": 0.14843036586549468,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.12109375,
+      "se": 0.04821728534999474,
+      "low": 0.02658787071401031,
+      "high": 0.2155996292859897,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "c5ffb6cf-45d1-48a1-a2d8-3b2fa3be7666",
+      "B": "4a18f4f2-f9cf-4f33-97e6-26e471bf6654"
+    },
+    "experiments": {
+      "A": "b7467b5e-5b69-4bf8-b7b5-76ae177131f7",
+      "B": "75774a6d-7398-4336-8711-5bdba1e206fc"
+    },
+    "candidate": {
+      "development_bought": 3.86328125,
+      "knights_played": 1.84375,
+      "army_awards": 0.306640625,
+      "cities_built": 1.203125,
+      "roads_built": 5.25390625,
+      "player_trades": 3.85546875,
+      "cards_discarded": 4.916015625,
+      "first_city_turn": 35.22069361632296,
+      "first_city_games": 191.5,
+      "points": 7.279296875,
+      "decision_ms": 704.9642042914531,
+      "wins": 110.5
+    },
+    "control": {
+      "development_bought": 3.9375,
+      "knights_played": 2.048828125,
+      "army_awards": 0.384765625,
+      "cities_built": 1.236328125,
+      "roads_built": 5.28515625,
+      "player_trades": 3.818359375,
+      "cards_discarded": 4.740234375,
+      "first_city_turn": 34.50757575757576,
+      "first_city_games": 195.5,
+      "points": 7.580078125,
+      "decision_ms": 717.1048366390455,
+      "wins": 118.0
+    },
+    "wins": {
+      "A": [
+        122,
+        106
+      ],
+      "B": [
+        130,
+        99
+      ]
+    }
+  },
+  "hold_knight|L1|800-863|hand 0": {
+    "effect": {
+      "mean": -0.025390625,
+      "se": 0.02599395741355304,
+      "low": -0.07633878153056395,
+      "high": 0.025557531530563955,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.060546875,
+      "se": 0.04716282233243536,
+      "low": -0.0318922567715733,
+      "high": 0.1529860067715733,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.03515625,
+      "se": 0.051595088757591744,
+      "low": -0.06597012396487982,
+      "high": 0.13628262396487983,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.0859375,
+      "se": 0.05601769435502656,
+      "low": -0.023857180935852054,
+      "high": 0.19573218093585204,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "30180b9b-3de5-46d8-ae0e-30e259e21c4d",
+      "B": "e6c5fbd4-7f3d-4639-a41e-caac6e6c9022"
+    },
+    "experiments": {
+      "A": "4d8b27cc-edc5-483b-94e6-f543e97eca5b",
+      "B": "56cb999e-5a1c-4852-b06b-74d93f91c692"
+    },
+    "candidate": {
+      "development_bought": 3.826171875,
+      "knights_played": 1.78125,
+      "army_awards": 0.30078125,
+      "cities_built": 1.25,
+      "roads_built": 5.2265625,
+      "player_trades": 4.01953125,
+      "cards_discarded": 5.146484375,
+      "first_city_turn": 34.09114583333333,
+      "first_city_games": 200.0,
+      "points": 7.4140625,
+      "decision_ms": 721.4555275586137,
+      "wins": 108.5
+    },
+    "control": {
+      "development_bought": 3.900390625,
+      "knights_played": 1.958984375,
+      "army_awards": 0.353515625,
+      "cities_built": 1.240234375,
+      "roads_built": 5.17578125,
+      "player_trades": 4.009765625,
+      "cards_discarded": 5.111328125,
+      "first_city_turn": 33.93050454533615,
+      "first_city_games": 196.0,
+      "points": 7.53515625,
+      "decision_ms": 739.4259327160751,
+      "wins": 115.0
+    },
+    "wins": {
+      "A": [
+        116,
+        107
+      ],
+      "B": [
+        123,
+        101
+      ]
+    }
+  },
+  "hold_knight|L2|800-863|hand 0": {
+    "effect": {
+      "mean": -0.05078125,
+      "se": 0.023903072592038825,
+      "low": -0.09763127228039609,
+      "high": -0.003931227719603907,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": -0.03515625,
+      "se": 0.03634855389711819,
+      "low": -0.10639941563835165,
+      "high": 0.036086915638351647,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": -0.0859375,
+      "se": 0.043207646680267435,
+      "low": -0.17062448749332415,
+      "high": -0.0012505125066758355,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.015625,
+      "se": 0.043797805514170944,
+      "low": -0.07021869880777505,
+      "high": 0.10146869880777505,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "873ab9ef-b922-498b-84d4-17f28380a5fa",
+      "B": "08636046-1590-4736-be1a-7b1fe0b5e018"
+    },
+    "experiments": {
+      "A": "6fe05d29-9d2a-405d-8e5b-59138ecb27e8",
+      "B": "b21f1bdb-e49a-4025-9668-82580c8ba176"
+    },
+    "candidate": {
+      "development_bought": 3.947265625,
+      "knights_played": 1.78515625,
+      "army_awards": 0.236328125,
+      "cities_built": 1.232421875,
+      "roads_built": 5.2734375,
+      "player_trades": 3.587890625,
+      "cards_discarded": 4.6953125,
+      "first_city_turn": 33.99076704545455,
+      "first_city_games": 195.0,
+      "points": 6.85546875,
+      "decision_ms": 590.321466812434,
+      "wins": 75.0
+    },
+    "control": {
+      "development_bought": 4.1875,
+      "knights_played": 2.1171875,
+      "army_awards": 0.3671875,
+      "cities_built": 1.21875,
+      "roads_built": 5.16015625,
+      "player_trades": 3.59765625,
+      "cards_discarded": 5.107421875,
+      "first_city_turn": 33.14270833333333,
+      "first_city_games": 188.5,
+      "points": 7.2109375,
+      "decision_ms": 596.2541883285678,
+      "wins": 88.0
+    },
+    "wins": {
+      "A": [
+        71,
+        93
+      ],
+      "B": [
+        83,
+        79
+      ]
+    }
+  },
+  "knight_play_value|L1|0-63|hand 0.25": {
+    "effect": {
+      "mean": -0.001953125,
+      "se": 0.014860302357439228,
+      "low": -0.031079317620580887,
+      "high": 0.027173067620580887,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.134765625,
+      "se": 0.04751584814036016,
+      "low": 0.04163456264489408,
+      "high": 0.22789668735510593,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.1328125,
+      "se": 0.05010181535914388,
+      "low": 0.034612941896078,
+      "high": 0.231012058103922,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.13671875,
+      "se": 0.04946692752762008,
+      "low": 0.03976357204586464,
+      "high": 0.23367392795413536,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "d493c5b4-e8fa-4e07-84f3-83d995d73d53",
+      "B": "8a8b0ffb-2e38-4252-913f-06496c939ff0"
+    },
+    "experiments": {
+      "A": "80e5bceb-5b8d-4428-9292-33c8d378e709",
+      "B": "858e2a4d-452b-4c12-8ba2-8bb88c5897e7"
+    },
+    "candidate": {
+      "development_bought": 4.109375,
+      "knights_played": 2.12890625,
+      "army_awards": 0.36328125,
+      "cities_built": 1.515625,
+      "roads_built": 5.576171875,
+      "player_trades": 4.244140625,
+      "cards_discarded": 6.2109375,
+      "first_city_turn": 32.92447574334898,
+      "first_city_games": 219.0,
+      "points": 7.953125,
+      "decision_ms": 1009.1598992987206,
+      "wins": 116.0
+    },
+    "control": {
+      "development_bought": 4.08203125,
+      "knights_played": 2.126953125,
+      "army_awards": 0.37890625,
+      "cities_built": 1.51953125,
+      "roads_built": 5.568359375,
+      "player_trades": 4.28125,
+      "cards_discarded": 6.310546875,
+      "first_city_turn": 32.330696507814004,
+      "first_city_games": 216.0,
+      "points": 7.978515625,
+      "decision_ms": 1016.2788053804227,
+      "wins": 116.5
+    },
+    "wins": {
+      "A": [
+        134,
+        100
+      ],
+      "B": [
+        133,
+        98
+      ]
+    }
+  },
+  "knight_play_value|L1|0-63|hand 1": {
+    "effect": {
+      "mean": 0.109375,
+      "se": 0.02790922519867716,
+      "low": 0.054672918610592765,
+      "high": 0.16407708138940724,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.015625,
+      "se": 0.05030444269013503,
+      "low": -0.08297170767266465,
+      "high": 0.11422170767266465,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.125,
+      "se": 0.0573254770364828,
+      "low": 0.012642065008493714,
+      "high": 0.2373579349915063,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": -0.09375,
+      "se": 0.05772965696806792,
+      "low": -0.2069001276574131,
+      "high": 0.019400127657413127,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "b41de3cf-c42a-4b0a-b37d-065d7c1e1c1b",
+      "B": "41c8da11-f31a-440a-a1ee-61737f4439c7"
+    },
+    "experiments": {
+      "A": "89dd235d-c117-4688-a355-eb1cc6ad541b",
+      "B": "c9ba1dac-5ef3-45ed-ba97-d91a9e5c5c2b"
+    },
+    "candidate": {
+      "development_bought": 4.0,
+      "knights_played": 2.078125,
+      "army_awards": 0.357421875,
+      "cities_built": 1.96875,
+      "roads_built": 6.44140625,
+      "player_trades": 5.984375,
+      "cards_discarded": 10.216796875,
+      "first_city_turn": 31.152850877192982,
+      "first_city_games": 234.0,
+      "points": 8.71484375,
+      "decision_ms": 938.3358674492376,
+      "wins": 117.5
+    },
+    "control": {
+      "development_bought": 3.921875,
+      "knights_played": 1.990234375,
+      "army_awards": 0.30078125,
+      "cities_built": 1.955078125,
+      "roads_built": 6.4296875,
+      "player_trades": 5.978515625,
+      "cards_discarded": 10.5703125,
+      "first_city_turn": 30.82873632826837,
+      "first_city_games": 233.5,
+      "points": 8.47265625,
+      "decision_ms": 932.9693591093458,
+      "wins": 89.5
+    },
+    "wins": {
+      "A": [
+        120,
+        88
+      ],
+      "B": [
+        91,
+        115
+      ]
+    }
+  },
+  "knight_play_value|L1|800-863|hand 0.25": {
+    "effect": {
+      "mean": 0.0,
+      "se": 0.014465939058946116,
+      "low": -0.028353240555534388,
+      "high": 0.028353240555534388,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.10546875,
+      "se": 0.05527559006935051,
+      "low": -0.002871406535927004,
+      "high": 0.213808906535927,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.10546875,
+      "se": 0.05562502438357768,
+      "low": -0.0035562977918122546,
+      "high": 0.21449379779181227,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.10546875,
+      "se": 0.058610282059297726,
+      "low": -0.009407402836223544,
+      "high": 0.22034490283622354,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "8263d242-7450-4e05-a2c3-7483c2d527a2",
+      "B": "e3fc4a9c-0e3b-4700-9dfe-1bd58c317c26"
+    },
+    "experiments": {
+      "A": "c9a94c3d-d7c8-4087-8b60-7289e0094655",
+      "B": "941be1a7-0882-4bfe-8441-face9cd8b6fc"
+    },
+    "candidate": {
+      "development_bought": 4.0234375,
+      "knights_played": 2.013671875,
+      "army_awards": 0.36328125,
+      "cities_built": 1.498046875,
+      "roads_built": 5.6484375,
+      "player_trades": 4.580078125,
+      "cards_discarded": 6.119140625,
+      "first_city_turn": 31.710548885077188,
+      "first_city_games": 216.0,
+      "points": 7.9609375,
+      "decision_ms": 872.8024886039807,
+      "wins": 115.0
+    },
+    "control": {
+      "development_bought": 3.96484375,
+      "knights_played": 1.958984375,
+      "army_awards": 0.3515625,
+      "cities_built": 1.51953125,
+      "roads_built": 5.666015625,
+      "player_trades": 4.5390625,
+      "cards_discarded": 6.1796875,
+      "first_city_turn": 31.459392503231363,
+      "first_city_games": 215.5,
+      "points": 7.974609375,
+      "decision_ms": 868.390301040965,
+      "wins": 115.0
+    },
+    "wins": {
+      "A": [
+        129,
+        102
+      ],
+      "B": [
+        128,
+        101
+      ]
+    }
+  },
+  "knight_play_value|L2|800-863|hand 0.25": {
+    "effect": {
+      "mean": 0.00390625,
+      "se": 0.015492681303865219,
+      "low": -0.026459405355575828,
+      "high": 0.034271905355575824,
+      "seeds": 64
+    },
+    "seating": {
+      "mean": 0.0390625,
+      "se": 0.04013893823457724,
+      "low": -0.03960981893977139,
+      "high": 0.11773481893977139,
+      "seeds": 64
+    },
+    "half_A": {
+      "mean": 0.04296875,
+      "se": 0.04150066915188915,
+      "low": -0.03837256153770273,
+      "high": 0.12431006153770273,
+      "seeds": 64
+    },
+    "half_B": {
+      "mean": 0.03515625,
+      "se": 0.04449729804280389,
+      "low": -0.05205845416389562,
+      "high": 0.12237095416389562,
+      "seeds": 64
+    },
+    "runs": {
+      "A": "a6afd7a8-248a-4e0f-a4db-b2ca75d8ee31",
+      "B": "5046ec2d-3835-42f5-9fc0-3ea829bbafeb"
+    },
+    "experiments": {
+      "A": "8e35acce-ebd3-4f7a-a07e-50327018d5fb",
+      "B": "274d88a0-2692-4784-9593-0d949b05693a"
+    },
+    "candidate": {
+      "development_bought": 4.0078125,
+      "knights_played": 2.009765625,
+      "army_awards": 0.328125,
+      "cities_built": 1.466796875,
+      "roads_built": 5.705078125,
+      "player_trades": 4.03125,
+      "cards_discarded": 5.765625,
+      "first_city_turn": 33.59598214285714,
+      "first_city_games": 222.0,
+      "points": 7.494140625,
+      "decision_ms": 864.0863729570713,
+      "wins": 87.0
+    },
+    "control": {
+      "development_bought": 3.95703125,
+      "knights_played": 1.95703125,
+      "army_awards": 0.30859375,
+      "cities_built": 1.44140625,
+      "roads_built": 5.7578125,
+      "player_trades": 3.9921875,
+      "cards_discarded": 5.751953125,
+      "first_city_turn": 33.51675673411252,
+      "first_city_games": 218.5,
+      "points": 7.474609375,
+      "decision_ms": 853.1750018735322,
+      "wins": 86.0
+    },
+    "wins": {
+      "A": [
+        91,
+        80
+      ],
+      "B": [
+        92,
+        83
+      ]
+    }
+  }
+}

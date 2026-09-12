@@ -1,0 +1,195 @@
+---
+date: "2026-09-11"
+title: "Development-card timing under the learned leaf"
+summary: "The three development-card timing switches re-measured against the learned tables leaf as swapped pairs: restricting purchases to stalled turns costs about 0.04 wins per game, holding knights for the unblock costs about 0.035, and the shaped knight schedule is worth nothing on the quarter blend. All three stay off."
+---
+
+# Development-card timing under the learned leaf
+
+<ResearchCallout title="Finding · the two timing rules lose under the tables; the knight schedule is worth nothing on a usable blend">
+The three development-card switches of the [earlier timing
+study](knight-timing.mdx), which corrected to zero under the hand-written
+leaf, were re-measured against the learned tables leaf as swapped pairs on
+deterministic boards. The tables buy about 4.9 development cards per game
+against the hand leaf's 2.6, and the switches that second-guess that appetite
+now cost wins. `buy_tempo` (a purchase only when no build is affordable within
+the next own turn) reads **−0.043 wins per game** (95% interval −0.076 to
+−0.009) over the 192 boards of all three stages, an after-the-fact pooling.
+`hold_knight` (a main-phase knight play only when the robber blocks this
+seat's best hex) reads **−0.035** (−0.062 to −0.009). `knight_play_value`
+(the shaped knight schedule, a leaf term measured on the quarter blend of
+tables plus hand-written terms) reads **+0.001** (−0.016 to +0.017). On the
+full blend the same switch corrects to **+0.109** (+0.055 to +0.164) on the
+development boards, but the full blend itself loses 0.2 wins per game to the
+tables alone, so that reading does not transfer. No default changes.
+</ResearchCallout>
+
+## Design
+
+Each arm is one switch on the tables baseline seat
+(`v2:{"depth":2,"leaf":{"tables":...}}`) measured as a swapped pair: half A
+seats the candidate in slot 0 and the control in slot 1, half B swaps them,
+both on the same 64 deterministic boards played once per rotation of the four
+slots (512 games per pair). The effect is the per-seed half-difference of the
+two slot-0-minus-slot-1 contrasts and the seating term their half-sum, which
+cancels the arena's turn-order term. Stages, in order: development on boards
+0 to 63 with an ETA and a fast builder beside the searches (the lineup of the
+hand-leaf cohorts, so the leaves compare on the same boards), confirmation on
+fresh boards 800 to 863 in the same lineup, and population on boards 800 to
+863 with a third tables search in slot 2 and an ETA in slot 3, so purchases
+and knight plays are answered by opponents that trade and block.
+
+`buy_tempo` and `hold_knight` are candidate rules and act under the tables
+alone. `knight_play_value` shapes a hand-written leaf term that the tables
+alone never evaluate, so its control and candidate both carry the hand-written
+terms on top of the tables. A blend screen run in parallel measured the full
+blend (hand weight 1.0) at −0.207 wins per game against the tables alone and
+the quarter blend at +0.074, so the arm's primary evidence is on the quarter
+blend; the development-stage pair on the full blend was already running when
+the screen landed and is reported as what it is. One defect had to be fixed
+first: the blended leaf dropped the `knight_play_value` flag, which would have
+made the switch inert under any blend; the blend now evaluates the hand
+terms with the flag, pinned by a test in the server's development suite.
+
+<ResearchPlot asset="timing-tables-effects" />
+
+## The pairs
+
+Every half completed 256 of 256 games. The contrast columns give each half's
+slot-0-minus-slot-1 wins per game; the effect column is the seating-corrected
+combination with its 95% interval over the 64 boards. Negative effects mean
+the switch loses.
+
+| Switch | Stage | Half A (run) | Half B (run) | Effect (95% interval) |
+| --- | --- | --- | --- | --- |
+| `buy_tempo` | development | +0.016 (−0.078 to +0.109), `f97d8683-79fd-4109-a1ef-7b106f8b3956` | +0.137 (+0.050 to +0.223), `176f12e2-d391-4402-9b7a-7fa5cc470570` | **−0.061 (−0.115 to −0.006)** |
+| `buy_tempo` | confirmation | +0.070 (−0.022 to +0.163), `3292674f-249b-44d7-967c-5481ac3045f1` | +0.082 (−0.024 to +0.188), `a86a5e49-0165-4c3d-ac6a-1a301a4cc496` | −0.006 (−0.070 to +0.058) |
+| `buy_tempo` | population | −0.094 (−0.178 to −0.010), `ea42e55d-da88-4794-a3b7-08c580473ee8` | +0.012 (−0.072 to +0.095), `64bbd775-5639-4bfe-bd5f-b0bcb0cef057` | −0.053 (−0.110 to +0.004) |
+| `hold_knight` | development | +0.062 (−0.023 to +0.148), `c5ffb6cf-45d1-48a1-a2d8-3b2fa3be7666` | +0.121 (+0.027 to +0.216), `4a18f4f2-f9cf-4f33-97e6-26e471bf6654` | −0.029 (−0.071 to +0.013) |
+| `hold_knight` | confirmation | +0.035 (−0.066 to +0.136), `30180b9b-3de5-46d8-ae0e-30e259e21c4d` | +0.086 (−0.024 to +0.196), `e6c5fbd4-7f3d-4639-a41e-caac6e6c9022` | −0.025 (−0.076 to +0.026) |
+| `hold_knight` | population | −0.086 (−0.171 to −0.001), `873ab9ef-b922-498b-84d4-17f28380a5fa` | +0.016 (−0.070 to +0.101), `08636046-1590-4736-be1a-7b1fe0b5e018` | **−0.051 (−0.098 to −0.004)** |
+| `knight_play_value`, quarter blend | development | +0.133 (+0.035 to +0.231), `d493c5b4-e8fa-4e07-84f3-83d995d73d53` | +0.137 (+0.040 to +0.234), `8a8b0ffb-2e38-4252-913f-06496c939ff0` | −0.002 (−0.031 to +0.027) |
+| `knight_play_value`, quarter blend | confirmation | +0.105 (−0.004 to +0.214), `8263d242-7450-4e05-a2c3-7483c2d527a2` | +0.105 (−0.009 to +0.220), `e3fc4a9c-0e3b-4700-9dfe-1bd58c317c26` | +0.000 (−0.028 to +0.028) |
+| `knight_play_value`, quarter blend | population | +0.043 (−0.038 to +0.124), `a6afd7a8-248a-4e0f-a4db-b2ca75d8ee31` | +0.035 (−0.052 to +0.122), `5046ec2d-3835-42f5-9fc0-3ea829bbafeb` | +0.004 (−0.026 to +0.034) |
+| `knight_play_value`, full blend | development | +0.125 (+0.013 to +0.237), `b41de3cf-c42a-4b0a-b37d-065d7c1e1c1b` | −0.094 (−0.207 to +0.019), `41c8da11-f31a-440a-a1ee-61737f4439c7` | **+0.109 (+0.055 to +0.164)** |
+
+Half B's contrast is slot 0 (control) minus slot 1 (candidate), so a real
+effect makes the two halves point in opposite directions. Both `buy_tempo`
+halves point the same way on the development and confirmation boards: the
+candidate loses more in slot 1 than the seating term explains, and the
+corrected sign is negative in all three stages. The seating terms themselves
+(+0.08 to +0.14 on L1, near zero on L2 with a third search seated between)
+match the earlier null pairs on these boards.
+
+## What the switches did
+
+Per-game means for the candidate against the control across each pair. The
+mechanisms all fire; the first two simply fire against the tables' own
+timing.
+
+| Arm (stage) | Cards bought | Knights played | Army awards | Cities built | Decision ms |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `buy_tempo` (development) | 3.19 / 3.98 | 1.67 / 2.06 | 0.27 / 0.38 | 1.39 / 1.20 | 458 / 673 |
+| `buy_tempo` (confirmation) | 3.18 / 3.92 | 1.67 / 1.91 | 0.28 / 0.34 | 1.45 / 1.22 | 508 / 749 |
+| `buy_tempo` (population) | 3.35 / 4.18 | 1.74 / 2.06 | 0.26 / 0.32 | 1.27 / 1.24 | 414 / 581 |
+| `hold_knight` (development) | 3.86 / 3.94 | 1.84 / 2.05 | 0.31 / 0.38 | 1.20 / 1.24 | 705 / 717 |
+| `hold_knight` (confirmation) | 3.83 / 3.90 | 1.78 / 1.96 | 0.30 / 0.35 | 1.25 / 1.24 | 722 / 739 |
+| `hold_knight` (population) | 3.95 / 4.19 | 1.79 / 2.12 | 0.24 / 0.37 | 1.23 / 1.22 | 590 / 596 |
+| `knight_play_value` (quarter blend, all stages pooled means) | 4.06 / 4.00 | 2.06 / 2.00 | 0.35 / 0.35 | 1.50 / 1.49 | 950 / 946 |
+| `knight_play_value` (full blend, development) | 4.00 / 3.92 | 2.08 / 1.99 | 0.36 / 0.30 | 1.97 / 1.96 | 938 / 933 |
+
+Under the hand-written leaf the tempo rule halved purchases (1.54 against
+2.55 per game) and advanced the first city by a turn without winning. Under
+the tables it cuts only a fifth of the purchases (about 3.2 against 3.9 to
+4.2), still builds the extra cities (1.4 against 1.2), and now loses. The
+tables already spend on cards when the board justifies it, so a rigid "no
+build within a turn" gate mostly removes good buys. Holding knights forgoes
+about 0.2 plays and a fifth of the army awards per game under the tables,
+half the bite it had under the hand leaf, and loses more at the population
+table, where a rival search punishes the held robber. The knight schedule
+changes almost no count on the quarter blend: the tables' own knight
+valuation leaves the shaped schedule nothing to correct, which is why its
+intervals are the tightest of the three arms. On the full blend the same
+schedule is worth +0.109, which reads as the hand-written flat knight weight
+being wrong at full strength, not as a gain available to any configuration
+worth running.
+
+Decision cost moves only where the candidate list changes: `buy_tempo` prunes
+the purchase branch and decides about 30% faster than the control, while
+`hold_knight` and `knight_play_value` cost the same as their controls. The
+blends cost about 900 to 1000 ms per decision at depth 2 under load, against
+450 to 750 ms for the tables alone and about 200 to 250 ms for the
+hand-written leaf, because the hand terms are evaluated at every leaf on top
+of the tables.
+
+## Comparison with the hand-leaf results
+
+Under the hand-written leaf (the earlier study, same development boards) the
+single-seating contrasts were +0.043 (`buy_tempo`, boards 0-63) and +0.098
+and +0.066 (`hold_knight`), all inside the seating term, and the
+`knight_play_value` swapped pair corrected to +0.004 (−0.061 to +0.069). The
+sign pattern flips under the tables: what was harmless under a leaf that
+under-bought cards is harmful under a leaf that buys them well. The tables
+learned card timing from self-play, and the hand-written timing rules, tuned
+by intuition, now fight the leaf instead of patching it.
+
+## What could still be wrong
+
+All evidence here is engine-arena development tier at depth 2 on deterministic
+boards, two lineups, and one frozen table file; nothing is protocol-tier.
+The population lineup still seats an ETA builder, so "opponents that trade
+and block" means one more search, not three humans. The `buy_tempo` estimate
+mixes a refuted development stage with two inconclusive ones; the pooled
+interval excludes zero but pooling across stages is after the fact. The
+quarter blend itself is a screen reading (+0.074, interval +0.011 to +0.138,
+unregistered) chosen by a parallel study; if a different blend becomes the
+default, the `knight_play_value` reading scales with the hand weight and
+should be re-read at that weight. The full-blend pair is one stage on one
+lineup, so +0.109 is the thinnest reading here. Decision times come from a
+machine shared at high load and compare candidate with control within each
+run, which cancels the load but not the noise.
+
+## What this means for the browser
+
+The browser build runs the hand-written leaf at depth 3 under a one-second
+budget, and none of the three switches earns a place there. The bar is a
+pooled effect of at least +0.03 wins per game with the interval excluding
+zero and decision time within 25% of the control's; no arm comes close on
+either leaf. `buy_tempo` was zero under the hand leaf and loses under the
+tables (−0.043 pooled). It does decide about 30% faster than its control in
+both leaves, but a cheaper search is only useful when the strength holds:
+here the strength is absent under the hand leaf and negative under the
+tables, so the saving buys nothing. `hold_knight` loses under the tables
+(−0.035 pooled) and showed nothing under the hand leaf. `knight_play_value`
+is zero under the hand leaf and under the quarter blend; its only positive
+reading sits on the full blend, a configuration too weak to ship. All three
+switches stay off by default, in the engine and in the browser.
+
+<AgentContext>
+
+Candidate seats add one switch to the tables baseline
+`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}`;
+the `knight_play_value` arm and its control replace the leaf object with
+`{"tables": ..., "hand": 0.25}` (quarter blend, primary evidence) or
+`"hand": 1.0` (full blend, development stage only). Registrations:
+`b6b12fdd`/`7385ffd6`, `750b7ebc`/`be7df6ce`, `afb09868`/`5e75db43`
+(buy_tempo); `b7467b5e`/`75774a6d`, `4d8b27cc`/`56cb999e`,
+`6fe05d29`/`b21f1bdb` (hold_knight); `80e5bceb`/`858e2a4d`,
+`c9a94c3d`/`941be1a7`, `8e35acce`/`274d88a0` (knight_play_value, quarter
+blend); `89dd235d`/`c9ba1dac` (knight_play_value, full blend, development).
+The full-blend registrations for the confirmation and population stages
+(`00d8c63d`, `e5715fe9`, `e4ddbc81`, `2d22c801`) were withdrawn before
+running when the blend screen measured hand 1.0 at −0.207 against the tables
+alone. Every pair ran on server branch `research/timing-tables`, which fixes
+the blended leaf to honor `knight_play_value` (test in
+`crates/expectimax/tests/development.rs`); the two candidate rules are
+unchanged engine behavior. The extension stage (boards 864-927) was
+registered for no arm because no pooled L1 effect was positive. All twenty
+runs are archived under `artifacts/timing-tables/` with receipts in
+`records/artifacts/`. `python3 analysis/timing_tables.py` recomputes every
+number, the pooled estimates, and the plot asset from the retained runs;
+`analysis/seating_pair.py` gives the same effect for any one pair from its
+two games.jsonl files. Mean decision times compare candidate and control
+within each run; absolute values carry the shared machine's load.
+
+</AgentContext>

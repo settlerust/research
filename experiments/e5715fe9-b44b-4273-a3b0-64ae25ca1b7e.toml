@@ -1,0 +1,12 @@
+id = "e5715fe9-b44b-4273-a3b0-64ae25ca1b7e"
+study = "development/timing-tables"
+arena = "engine"
+hypothesis = "Swapped-pair half B of knight_play_value on top of the blended leaf (leaf.hand 1.0 in both seats), confirmation stage (boards 800-863, lineup L1). Slot 0 is the blend without the switch, slot 1 the knight_play_value candidate. Hypothesis: the shaped knight schedule improves the win rate over the flat knight weight under the blend. Combined with half A on the same boards, the seating-corrected effect is the per-seed half-difference of the two slot-0-minus-slot-1 contrasts and the seating term their half-sum."
+decision_rule = "All 256 games of each half complete. The seating-corrected effect of the pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, 95 percent interval over the 64 seeds) excludes zero above: support for the switch; excludes zero below: refutation; neither: inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":1.0}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":1.0},\"knight_play_value\":true}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

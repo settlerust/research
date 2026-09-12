@@ -1,0 +1,12 @@
+id = "80e5bceb-5b8d-4428-9292-33c8d378e709"
+study = "development/timing-tables"
+arena = "engine"
+hypothesis = "Swapped-pair half A of knight_play_value on top of the quarter blend (tables plus the hand-written terms at quarter strength, leaf.hand 0.25 in both seats), development stage (boards 0-63, lineup L1). The switch shapes a hand-written leaf term, which the tables alone ignore, so the arm is measured on a blend; the full blend (hand 1.0) lost -0.207 wins per game to the tables alone in the unregistered blend screen, so the primary evidence is on the quarter blend that may become the default. This pair replaces the withdrawn full-blend registration of the same stage; the full-blend pair of this stage was already running and is reported as what it is. Slot 0 is the quarter blend with knight_play_value (played knights valued by largest-army distance, a held knight credited with the production it unblocks), slot 1 the quarter blend without it. Hypothesis: the shaped knight schedule improves the win rate over the flat knight weight under the quarter blend. Half B on the same boards swaps the seats; the seating-corrected effect is the per-seed half-difference of the two contrasts and the seating term their half-sum."
+decision_rule = "All 256 games of each half complete. The seating-corrected effect of the pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, 95 percent interval over the 64 seeds) excludes zero above: support for the switch; excludes zero below: refutation; neither: inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25},\"knight_play_value\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

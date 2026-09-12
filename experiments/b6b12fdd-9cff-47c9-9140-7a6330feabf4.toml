@@ -1,0 +1,12 @@
+id = "b6b12fdd-9cff-47c9-9140-7a6330feabf4"
+study = "development/timing-tables"
+arena = "engine"
+hypothesis = "Swapped-pair half A of buy_tempo under the learned tables leaf, development stage (boards 0-63, lineup L1: an ETA and a fast builder beside the two searches). Slot 0 is the candidate: the depth-2 tables search with buy_tempo, which offers a development purchase only when no road, settlement, or city is affordable within the next own turn. Slot 1 is the unchanged tables baseline. Hypothesis: the purchase-timing rule improves the win rate under the tables, which buy about 4.9 development cards per game against 2.6 under the hand-written leaf, so a mistimed buy costs more here. Half B on the same boards swaps the seats; the seating-corrected effect is the per-seed half-difference of the two contrasts and the seating term their half-sum."
+decision_rule = "All 256 games of each half complete. The seating-corrected effect of the pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, 95 percent interval over the 64 seeds) excludes zero above: support for the switch; excludes zero below: refutation; neither: inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"buy_tempo\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

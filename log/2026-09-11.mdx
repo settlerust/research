@@ -724,3 +724,81 @@ shared seeds; the swapped pairs show the seating term was the real account,
 and that reading was wrong.
 
 Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.
+## Development-card timing under the learned leaf
+
+Study `development/timing-tables` re-ran the three development-card timing
+switches of `development/knight-timing` against the tables baseline
+(`v2:{"depth":2,"leaf":{"tables":".../hex-portfolio-main.bin"}}`), which buys
+about 4.9 development cards per game where the hand-written leaf bought 2.6, so
+the purchase and play timing of cards could matter more here. Every contrast is
+a registered swapped pair on the same 64 boards (256 games per half, four
+rotations, deterministic, six threads): half A seats the candidate in slot 0,
+half B in slot 1, the effect is the per-seed half-difference of the two
+slot-0-minus-slot-1 contrasts and the seating term their half-sum
+(`analysis/seating_pair.py`). Stages: development (L1: ETA and fast builders,
+boards 0-63, matching the hand-leaf cohorts), confirmation (L1, fresh boards
+800-863), population (L2: a third tables search in slot 2 and ETA in slot 3,
+boards 800-863). One server fix was needed first: the blended leaf dropped the
+`knight_play_value` flag, so the switch would have been inert under the blend;
+the blend now evaluates the hand-written terms with the flag
+(`crates/expectimax/tests/development.rs` pins it, `docs/expectimax.md`
+corrected).
+
+Mid-study the orchestrator's blend screen measured the full blend (hand 1.0) at
+-0.207 wins per game against the tables alone and the quarter blend at +0.074,
+so leaf-term arms moved to hand 0.25. The full-blend `knight_play_value`
+registrations for the confirmation and population stages were withdrawn before
+running (experiments `00d8c63d-5ed9-47ef-aacf-c8efdfae7288`,
+`e5715fe9-b44b-4273-a3b0-64ae25ca1b7e`, `e4ddbc81-32bb-4a70-b17f-38958ae86a9d`,
+`2d22c801-4004-4baa-9551-1c2defee2a0b`; never queued) and the same arms were
+registered on the quarter blend. The development-stage full-blend pair was
+already running and is reported as what it is.
+
+Results, candidate minus control after the seating correction:
+
+| Switch | Stage | Experiment A / B | Run A / B | Effect (95% interval) |
+| --- | --- | --- | --- | --- |
+| buy_tempo | development | `b6b12fdd-9cff-47c9-9140-7a6330feabf4` / `7385ffd6-017d-41dc-9cb9-bdbfe192e1b5` | `f97d8683-79fd-4109-a1ef-7b106f8b3956` / `176f12e2-d391-4402-9b7a-7fa5cc470570` | -0.061 (-0.115 to -0.006) |
+| buy_tempo | confirmation | `750b7ebc-9428-492f-9b5f-b2d4de9d992a` / `be7df6ce-1a7c-4943-bf38-fd6b8ae5d513` | `3292674f-249b-44d7-967c-5481ac3045f1` / `a86a5e49-0165-4c3d-ac6a-1a301a4cc496` | -0.006 (-0.070 to +0.058) |
+| buy_tempo | population | `afb09868-6c8a-416c-bfbf-1d39fd4b3536` / `5e75db43-2be3-4c8c-ab00-f7346fed7297` | `ea42e55d-da88-4794-a3b7-08c580473ee8` / `64bbd775-5639-4bfe-bd5f-b0bcb0cef057` | -0.053 (-0.110 to +0.004) |
+| hold_knight | development | `b7467b5e-5b69-4bf8-b7b5-76ae177131f7` / `75774a6d-7398-4336-8711-5bdba1e206fc` | `c5ffb6cf-45d1-48a1-a2d8-3b2fa3be7666` / `4a18f4f2-f9cf-4f33-97e6-26e471bf6654` | -0.029 (-0.071 to +0.013) |
+| hold_knight | confirmation | `4d8b27cc-edc5-483b-94e6-f543e97eca5b` / `56cb999e-5a1c-4852-b06b-74d93f91c692` | `30180b9b-3de5-46d8-ae0e-30e259e21c4d` / `e6c5fbd4-7f3d-4639-a41e-caac6e6c9022` | -0.025 (-0.076 to +0.026) |
+| hold_knight | population | `6fe05d29-9d2a-405d-8e5b-59138ecb27e8` / `b21f1bdb-e49a-4025-9668-82580c8ba176` | `873ab9ef-b922-498b-84d4-17f28380a5fa` / `08636046-1590-4736-be1a-7b1fe0b5e018` | -0.051 (-0.098 to -0.004) |
+| knight_play_value (quarter blend) | development | `80e5bceb-5b8d-4428-9292-33c8d378e709` / `858e2a4d-452b-4c12-8ba2-8bb88c5897e7` | `d493c5b4-e8fa-4e07-84f3-83d995d73d53` / `8a8b0ffb-2e38-4252-913f-06496c939ff0` | -0.002 (-0.031 to +0.027) |
+| knight_play_value (quarter blend) | confirmation | `c9a94c3d-d7c8-4087-8b60-7289e0094655` / `941be1a7-0882-4bfe-8441-face9cd8b6fc` | `8263d242-7450-4e05-a2c3-7483c2d527a2` / `e3fc4a9c-0e3b-4700-9dfe-1bd58c317c26` | +0.000 (-0.028 to +0.028) |
+| knight_play_value (quarter blend) | population | `8e35acce-ebd3-4f7a-a07e-50327018d5fb` / `274d88a0-2692-4784-9593-0d949b05693a` | `a6afd7a8-248a-4e0f-a4db-b2ca75d8ee31` / `5046ec2d-3835-42f5-9fc0-3ea829bbafeb` | +0.004 (-0.026 to +0.034) |
+| knight_play_value (full blend) | development | `89dd235d-c117-4688-a355-eb1cc6ad541b` / `c9ba1dac-5ef3-45ed-ba97-d91a9e5c5c2b` | `b41de3cf-c42a-4b0a-b37d-065d7c1e1c1b` / `41c8da11-f31a-440a-a1ee-61737f4439c7` | +0.109 (+0.055 to +0.164) |
+
+Every half completed 256 of 256 games; no failed, incomplete, or censored
+games. Reading by the registered rule: buy_tempo is refuted on the development
+boards and inconclusive on the fresh boards, hold_knight is inconclusive on L1
+and refuted on the population lineup, and knight_play_value on the quarter
+blend is inconclusive everywhere with intervals inside plus or minus 0.035.
+After-the-fact pooling over the 192 seeds of all three stages: buy_tempo -0.043
+(-0.076 to -0.009), hold_knight -0.035 (-0.062 to -0.009), knight_play_value on
+the quarter blend +0.001 (-0.016 to +0.017). No pooled L1 effect was positive,
+so the extension stage (boards 864-927) was not registered. The one positive
+reading, +0.109 for knight_play_value on the full blend, repairs a
+configuration that is itself 0.2 wins per game weaker than the tables alone;
+the shaped schedule earns nothing where the hand terms carry only a quarter of
+the value. Under the hand-written leaf all three switches corrected to about
+zero (reports/knight-timing.mdx); under the tables the two candidate rules are
+measurably harmful, because the tables already buy and hold cards well: the
+tempo rule cuts purchases from about 4.0 to 3.2 cards per game and loses, and
+holding knights forgoes about 0.2 plays and a fifth of army awards per game and
+loses. No default changes. The [report](../reports/timing-tables.mdx) has the
+diagnostics and the browser section.
+
+Failures and notes: my first debug-mode `cargo test` run exceeded its shell
+timeout and was stopped; the release-mode run passed (76 tests). Stopping my
+run queues at the blend update left three in-flight tournaments without their
+queue log lines, but the harness had already detached them and wrote complete
+records (runs 3292674f, a86a5e49, 30180b9b, all 256 of 256); no run was lost
+or rerun. The machine was shared at load 85 to 160 all day, so wall times (75
+to 120 minutes per 256-game half at six threads) say nothing about search cost;
+mean decision times come from the run records. All twenty runs are archived
+under `artifacts/timing-tables/` with receipts in `records/artifacts/`.
+`python3 analysis/timing_tables.py` recomputes every number and the report's
+plot asset from the retained runs.
+
+Attribution: Kimi K3 (moonshotai/Kimi-K3) through OpenCode.
