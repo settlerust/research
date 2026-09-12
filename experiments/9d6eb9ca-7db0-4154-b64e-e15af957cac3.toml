@@ -1,0 +1,12 @@
+id = "9d6eb9ca-7db0-4154-b64e-e15af957cac3"
+study = "patterns/leaf-blend"
+arena = "engine"
+hypothesis = "Half A of the extension swapped pair for doubling the tables scale to 2000 against the tables baseline (scale 1000) on the L1 builder lineup (slots 2 and 3 eta and fast), seeds 864-927, 4 rotations, deterministic; the candidate sits in slot 0 and the control in slot 1. The extension was triggered by the pooled L1 effect over seeds 0-63 and 800-863 being positive with its interval crossing zero by less than 0.03; the final estimate rests on 192 seeds. Half B on the same seeds is this pair's partner under study patterns/leaf-blend. Hypothesis: the seating-corrected effect is positive with a 95 percent interval excluding zero. Partner registration UUID recorded in the study log once half B is registered."
+decision_rule = "All 256 games complete; the primary outcome is the seating-corrected effect of the swapped pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, analysis/seating_pair.py): its 95 percent seed interval excluding zero in the hypothesized direction supports, excluding zero the other way refutes, crossing zero is inconclusive. A pooled estimate across stages is named as after-the-fact pooling. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"scale\":2000}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "864-927"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
