@@ -1,13 +1,13 @@
 ---
 date: "2026-09-11"
 title: "Bargaining switches under the learned leaf"
-summary: "PLACEHOLDER"
+summary: "Under the learned n-tuple leaf, switching counters off costs a tenth of a win per game and switching asks off almost as much, at both tables, while threat pricing and refusing asks change nothing; every bargaining switch stays on in the engine and the browser."
 ---
 
 # Bargaining switches under the learned leaf
 
-<ResearchCallout title="Finding · PLACEHOLDER">
-PLACEHOLDER
+<ResearchCallout title="Finding · counters and asks still win games under the learned leaf">
+Seating-corrected swapped pairs over three stages (192 seeds, pooled after the fact) put switching all bargaining off at **−0.143 wins per game** (95% interval −0.180 to −0.106), counters off at **−0.102** (−0.136 to −0.069), and asks off at **−0.085** (−0.119 to −0.050). Threat pricing off is **+0.001** (−0.035 to +0.036), and the stubborn seat that refuses asks is **+0.006** (−0.008 to +0.020) over 320 seeds with its extension. Counters and all off lose at every stage and asks at both builder-table stages; the order matches the hand-written leaf. Bargaining costs about 60 percent more time per decision, most of it from counters, and every switch stays on. Development tier, depth 2.
 </ResearchCallout>
 
 ## The five arms
@@ -16,7 +16,140 @@ Every arm is the tables baseline seat, `v2:{"depth":2,"leaf":{"tables":"artifact
 
 Each arm is a swapped pair on the same seeds: half A seats the arm in slot 0 and the control in slot 1, half B the reverse, and the effect is the per-seed half-difference of the two slot-0-minus-slot-1 contrasts, which cancels the [seating term](arena-seating.mdx) between two adjacent searches; the half-sum is the term itself. The population lineup L2 ran first, because bargaining needs partners that trade and the builders rarely do: a third tables search in slot 2 and an ETA in slot 3, seeds 800 to 863. The builder lineup L1 seats an ETA and a fast builder in slots 2 and 3 on seeds 0 to 63, the boards of the hand-leaf arms, and on seeds 800 to 863. Every cohort is 256 deterministic games at depth 2; every pair is 512.
 
-PLACEHOLDER_RESULTS
+## Results
+
+<ResearchPlot asset="bargaining-tables-effects" />
+
+Every cohort completed all 256 games, with no invalid moves, stalls, or interruptions. The effect is the arm minus the control in wins per game, so a negative number means the default mechanism wins games; the seating term is what slot 0 gains over slot 1 on those boards.
+
+| Stage | Arm | Effect (95% interval) | Seating term (95% interval) | Arm wins | Control wins |
+| --- | --- | --- | --- | ---: | ---: |
+| L2 800-863 | all off | **−0.098 (−0.152 to −0.044)** | +0.035 (−0.030 to +0.100) | 137 | 187 |
+| L2 800-863 | threat pricing off | **+0.014 (−0.041 to +0.069)** | −0.049 (−0.116 to +0.019) | 169 | 162 |
+| L2 800-863 | counters off | **−0.119 (−0.176 to −0.062)** | +0.010 (−0.056 to +0.075) | 133 | 194 |
+| L2 800-863 | asks off | **−0.037 (−0.093 to +0.018)** | +0.033 (−0.034 to +0.100) | 150 | 169 |
+| L2 800-863 | stubborn (refuses asks) | **+0.008 (−0.034 to +0.050)** | −0.066 (−0.138 to +0.005) | 168 | 164 |
+| L1 0-63 | all off | **−0.146 (−0.212 to −0.081)** | +0.049 (−0.027 to +0.124) | 187 | 262 |
+| L1 0-63 | threat pricing off | **−0.023 (−0.091 to +0.044)** | +0.125 (+0.053 to +0.197) | 222 | 234 |
+| L1 0-63 | counters off | **−0.096 (−0.146 to −0.046)** | +0.092 (+0.013 to +0.171) | 198 | 247 |
+| L1 0-63 | asks off | **−0.076 (−0.138 to −0.015)** | +0.064 (−0.011 to +0.139) | 203 | 242 |
+| L1 0-63 | stubborn (refuses asks) | **+0.000 (−0.022 to +0.022)** | +0.125 (+0.037 to +0.213) | 225 | 225 |
+| L1 800-863 | all off | **−0.184 (−0.254 to −0.113)** | +0.043 (−0.025 to +0.111) | 182 | 276 |
+| L1 800-863 | threat pricing off | **+0.012 (−0.048 to +0.071)** | +0.059 (−0.031 to +0.148) | 235 | 229 |
+| L1 800-863 | counters off | **−0.092 (−0.159 to −0.025)** | +0.064 (−0.003 to +0.132) | 205 | 252 |
+| L1 800-863 | asks off | **−0.141 (−0.202 to −0.080)** | +0.082 (−0.004 to +0.169) | 192 | 264 |
+| L1 800-863 | stubborn (refuses asks) | **+0.018 (−0.009 to +0.044)** | +0.064 (−0.033 to +0.162) | 235 | 226 |
+| L1 864-927 | stubborn (refuses asks) | **+0.000 (−0.023 to +0.023)** | +0.125 (+0.022 to +0.228) | 231 | 231 |
+| L2 864-927 | stubborn (refuses asks) | **+0.004 (−0.035 to +0.043)** | +0.055 (−0.015 to +0.125) | 170 | 168 |
+
+Counters and asks still win games under the learned leaf. Switching counters off costs about a tenth of a win per game at all three stages, and every interval excludes zero. Switching asks off costs −0.076 and −0.141 on the two builder-table seed sets and −0.037 at the population table, where the interval crosses zero. Switching all bargaining off costs more than either alone, −0.10 to −0.18. Threat pricing does nothing at any stage. The stubborn seat does nothing either: its effect is within 0.02 of zero at every stage, because an ask it would refuse comes up on few boards.
+
+The seating term is still there under the tables and still varies by board set: +0.05 to +0.13 on boards 0 to 63 and +0.04 to +0.08 on boards 800 to 863 at the builder table, and −0.07 to +0.04 at the population table, where a third search sits after slot 1. A contrast read from one seating would have been off by up to an eighth of a win.
+
+### Pooled over stages
+
+These estimates pool the per-seed effects of the stages after the fact. The stages were registered separately, and this pooling was not.
+
+| Arm | L1, both seed sets | L2 | Every stage | Decision time, arm / control | Decisions per game | Search seconds per game |
+| --- | --- | --- | --- | --- | --- | --- |
+| all off | −0.165 (−0.213 to −0.117), 128 seeds | −0.098 (−0.152 to −0.044), 64 seeds | **−0.143 (−0.180 to −0.106), 192 seeds** | 405 / 643 ms (−37%) | 103 / 104 | 42 / 67 |
+| threat pricing off | −0.006 (−0.051 to +0.039), 128 seeds | +0.014 (−0.041 to +0.069), 64 seeds | **+0.001 (−0.035 to +0.036), 192 seeds** | 599 / 625 ms (−4%) | 104 / 103 | 62 / 65 |
+| counters off | −0.094 (−0.135 to −0.052), 128 seeds | −0.119 (−0.176 to −0.062), 64 seeds | **−0.102 (−0.136 to −0.069), 192 seeds** | 450 / 633 ms (−29%) | 103 / 103 | 46 / 65 |
+| asks off | −0.108 (−0.152 to −0.065), 128 seeds | −0.037 (−0.093 to +0.018), 64 seeds | **−0.085 (−0.119 to −0.050), 192 seeds** | 559 / 596 ms (−6%) | 100 / 103 | 56 / 61 |
+| stubborn (refuses asks) | +0.006 (−0.008 to +0.020), 192 seeds | +0.006 (−0.023 to +0.035), 128 seeds | **+0.006 (−0.008 to +0.020), 320 seeds** | 557 / 567 ms (−2%) | 103 / 103 | 57 / 58 |
+
+The extension rule asks for more seeds when an arm's pooled builder-table effect over 128 seeds is positive and its interval comes within 0.03 of zero. Only the stubborn seat met it, at +0.009 (−0.008 to +0.026), so its pairs on seeds 864 to 927 were registered in both lineups and run. The extension read +0.000 (−0.023 to +0.023) at the builder table and +0.004 (−0.035 to +0.043) at the population table, so the final builder-table estimate over 192 seeds is +0.006 (−0.008 to +0.020): no effect, with the narrowest interval of any arm.
+
+### Every cohort
+
+| Stage | Arm | Half | Registration | Run | Arm wins | Control wins | Contrast (95% interval) |
+| --- | --- | --- | --- | --- | ---: | ---: | --- |
+| L2 800-863 | all off | A | `e4610302-84a7-4cbf-9153-8c1d817d1bd3` | `3b0c453e-247e-4f3d-a21b-1967ffce90e6` | 74 | 90 | −0.062 (−0.141 to +0.016) |
+| L2 800-863 | all off | B | `4f4b8a5f-4437-4594-b85d-c6e06ac9a55e` | `4a6e9f09-a582-4ab4-8e74-b939a1ec8959` | 63 | 97 | +0.133 (+0.043 to +0.223) |
+| L2 800-863 | threat pricing off | A | `717eae4e-b949-42fa-a1ab-3c086bdc8f3c` | `ae2cc3ea-d01f-4b62-8e52-91310dca1e93` | 78 | 87 | −0.035 (−0.124 to +0.053) |
+| L2 800-863 | threat pricing off | B | `7c9ffb4c-ce6a-4064-98d8-817702445f8d` | `0686a9ad-9da2-43b8-96b1-892b672697f2` | 91 | 75 | −0.062 (−0.148 to +0.023) |
+| L2 800-863 | counters off | A | `4fd7a980-53a4-40f3-84ee-8b9b86bf3761` | `999d8a97-b681-4dd8-b7ec-6142e8e4e2f9` | 71 | 99 | −0.109 (−0.193 to −0.026) |
+| L2 800-863 | counters off | B | `75000b6c-b0ba-4b33-8086-24dc58e534fa` | `ebb5da5b-0763-423d-aaf7-13e39128602f` | 62 | 95 | +0.129 (+0.039 to +0.219) |
+| L2 800-863 | asks off | A | `e2d48aa8-cdcc-4123-82de-2d3b8fac502f` | `13ced608-cba8-4a08-98aa-c744d6ee048b` | 79 | 80 | −0.004 (−0.092 to +0.084) |
+| L2 800-863 | asks off | B | `b0dbf209-97de-4881-b7ae-e8d1b7381b3d` | `461c113a-3fad-4cc3-9aea-b59af3d14d21` | 71 | 89 | +0.070 (−0.015 to +0.156) |
+| L2 800-863 | stubborn (refuses asks) | A | `b77486f2-da1f-4b29-b5b7-7843de5ca87d` | `e083bd7f-bb66-4474-aceb-bd463d0d175a` | 74 | 89 | −0.059 (−0.139 to +0.022) |
+| L2 800-863 | stubborn (refuses asks) | B | `ab3a7230-393a-4b82-889f-d516413afebf` | `62529417-a975-4042-bdbf-531f2bb24acf` | 94 | 75 | −0.074 (−0.159 to +0.011) |
+| L1 0-63 | all off | A | `937e19ae-2569-4472-9ea6-d964769aaaf1` | `bd2986e6-c83e-4289-966f-ec1fcb932082` | 100 | 125 | −0.098 (−0.190 to −0.005) |
+| L1 0-63 | all off | B | `6c92dd71-3397-4c84-abaa-fe37371bd8e7` | `c826e45a-6212-4187-8895-7ca24848d802` | 87 | 137 | +0.195 (+0.088 to +0.302) |
+| L1 0-63 | threat pricing off | A | `13fc34cb-16ff-41ca-a87e-7b212e0461d9` | `623e109e-7040-43e6-b20b-3e371e17fccb` | 128 | 102 | +0.102 (+0.009 to +0.195) |
+| L1 0-63 | threat pricing off | B | `9b87ce41-b6ec-4985-ab9e-52d3b2ead900` | `d418eee0-8e53-4392-99ac-88b14a68d8f5` | 94 | 132 | +0.148 (+0.044 to +0.253) |
+| L1 0-63 | counters off | A | `335728e0-245f-46e4-b345-8121f246dc44` | `6cb1ec79-c371-4551-90b1-3cc6cdc8afd9` | 109 | 110 | −0.004 (−0.096 to +0.088) |
+| L1 0-63 | counters off | B | `d5d25a63-fef6-44ca-9a4e-48c3251c14a4` | `86fcba2e-60a9-4422-9c43-467c08ceeee7` | 89 | 137 | +0.188 (+0.092 to +0.283) |
+| L1 0-63 | asks off | A | `1c2e9a7f-fdfd-4385-9cb3-cc136ee01eeb` | `e2a6bec5-ba94-4d34-a885-fd2274d6579e` | 108 | 111 | −0.012 (−0.116 to +0.093) |
+| L1 0-63 | asks off | B | `1a34b4e4-0905-4d0a-a8b3-913c4a12a0f8` | `55c5fe2f-b5f5-477f-a03b-0ae62bfe9005` | 95 | 131 | +0.141 (+0.051 to +0.230) |
+| L1 0-63 | stubborn (refuses asks) | A | `c9f1ac2b-d49c-41b7-9782-29359c0382f4` | `05e28cbc-1536-4686-9328-cd96ce203960` | 129 | 97 | +0.125 (+0.035 to +0.215) |
+| L1 0-63 | stubborn (refuses asks) | B | `9fe81446-d3fc-4434-99be-f0963253c955` | `5b736f84-6966-4a57-8c08-07e4068eaa95` | 96 | 128 | +0.125 (+0.034 to +0.216) |
+| L1 800-863 | all off | A | `1d79b24f-6236-48e4-b2b1-0b0b5f53202d` | `2f70d1e1-7a04-4fbc-8b8a-6ae08c6caec5` | 94 | 130 | −0.141 (−0.248 to −0.033) |
+| L1 800-863 | all off | B | `95171f06-d8fc-4ffa-b168-e277748022fe` | `74d0bbf6-d970-4a06-868c-327371e6a801` | 88 | 146 | +0.227 (+0.140 to +0.313) |
+| L1 800-863 | threat pricing off | A | `e07a3371-6b64-4823-9c7f-e0bedec181cb` | `7c5fd2a2-bab8-460d-9212-f789b0f85dea` | 122 | 104 | +0.070 (−0.029 to +0.169) |
+| L1 800-863 | threat pricing off | B | `2729dfb5-b152-4d3a-b5bd-b89e7b9374c2` | `13bfb4d3-0987-44d2-acd1-e6dc73252eaf` | 113 | 125 | +0.047 (−0.069 to +0.162) |
+| L1 800-863 | counters off | A | `598fb4ba-3c1a-469c-9668-ecef054cec53` | `97c3c83b-db34-4819-96b1-3826fb67ca01` | 109 | 116 | −0.027 (−0.122 to +0.067) |
+| L1 800-863 | counters off | B | `60dabae0-77de-4783-8ef0-60c9f81fd7cb` | `c90421ef-083e-4773-9406-a206105f3f43` | 96 | 136 | +0.156 (+0.061 to +0.251) |
+| L1 800-863 | asks off | A | `37ca0f2e-c5fe-4c7f-aa8a-453a277bfbf7` | `7e86a611-6e58-4e15-b5d2-2c301892d618` | 105 | 120 | −0.059 (−0.174 to +0.057) |
+| L1 800-863 | asks off | B | `67853977-498a-480d-a2ad-c545e3847b1f` | `4239504d-3edd-4fd7-9a3a-65ec8d554828` | 87 | 144 | +0.223 (+0.127 to +0.318) |
+| L1 800-863 | stubborn (refuses asks) | A | `ff90bfd6-bab6-4ae2-8ee4-e766cdff7e0e` | `1d58fc87-a22f-4ab7-8f9f-abdc9c7589f5` | 125 | 104 | +0.082 (−0.020 to +0.184) |
+| L1 800-863 | stubborn (refuses asks) | B | `e390230c-9b4e-421d-9b57-eeacf8ef2d76` | `1b356578-dee4-4d74-a840-5d039f78c434` | 110 | 122 | +0.047 (−0.054 to +0.148) |
+| L1 864-927 | stubborn (refuses asks) | A | `37f466ed-4afb-43d7-8637-46246de0cacd` | `a92fb89a-cbc7-43ed-acfc-b7ff2874183c` | 131 | 99 | +0.125 (+0.024 to +0.226) |
+| L1 864-927 | stubborn (refuses asks) | B | `95b0122b-407f-4210-94b8-c1ba0a4e508d` | `e5648fda-d914-46c8-99dd-c2871af55225` | 100 | 132 | +0.125 (+0.015 to +0.235) |
+| L2 864-927 | stubborn (refuses asks) | A | `cf71fa9c-24c7-4079-89d1-23d0d9170f74` | `51cef0e8-e02c-4265-9966-723120f99a70` | 92 | 77 | +0.059 (−0.020 to +0.137) |
+| L2 864-927 | stubborn (refuses asks) | B | `f378d100-fe86-49ae-9f21-7bd139bdf821` | `875967b0-2786-44f4-abfe-8366aa88cc30` | 78 | 91 | +0.051 (−0.031 to +0.133) |
+
+## How the switches change trading
+
+Per game, arm / control, both halves of each pair pooled.
+
+| Stage | Arm | Offers | Accepted | Counters | Taken | Declined | Took others | Trades | Bank | Points | Decision |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| L2 800-863 | all off | 11.0 / 15.5 | 1.53 / 2.66 | 0.00 / 4.43 | 0.00 / 1.11 | 14.5 / 12.8 | 2.97 / 1.15 | 4.50 / 3.81 | 4.34 / 4.75 | 6.57 / 7.22 | 370 / 586 ms |
+| L2 800-863 | threat pricing off | 17.5 / 14.8 | 2.62 / 2.20 | 4.89 / 3.98 | 1.33 / 1.07 | 10.7 / 13.2 | 1.71 / 1.51 | 4.32 / 3.71 | 4.43 / 4.58 | 7.09 / 7.02 | 590 / 617 ms |
+| L2 800-863 | counters off | 11.2 / 15.3 | 1.16 / 2.48 | 0.00 / 4.00 | 0.00 / 1.10 | 15.8 / 12.8 | 2.33 / 1.16 | 3.49 / 3.64 | 4.57 / 4.99 | 6.74 / 7.38 | 483 / 670 ms |
+| L2 800-863 | asks off | 13.1 / 15.2 | 2.23 / 2.18 | 3.92 / 4.12 | 1.04 / 1.04 | 12.5 / 11.7 | 1.24 / 1.44 | 3.47 / 3.62 | 4.56 / 4.67 | 6.89 / 7.01 | 544 / 592 ms |
+| L2 800-863 | stubborn (refuses asks) | 15.2 / 15.2 | 2.26 / 2.04 | 4.02 / 4.00 | 1.12 / 0.93 | 12.8 / 12.6 | 1.12 / 1.49 | 3.38 / 3.53 | 4.88 / 4.69 | 7.11 / 7.02 | 577 / 592 ms |
+| L1 0-63 | all off | 10.6 / 14.7 | 1.91 / 3.15 | 0.00 / 4.19 | 0.00 / 1.30 | 15.9 / 14.3 | 2.77 / 1.01 | 4.68 / 4.16 | 4.07 / 4.20 | 7.03 / 7.80 | 465 / 720 ms |
+| L1 0-63 | threat pricing off | 17.1 / 14.2 | 3.39 / 2.87 | 5.07 / 3.91 | 1.71 / 1.32 | 12.1 / 14.5 | 1.37 / 1.20 | 4.76 / 4.07 | 4.11 / 3.99 | 7.50 / 7.41 | 631 / 655 ms |
+| L1 0-63 | counters off | 10.5 / 14.3 | 1.64 / 3.10 | 0.00 / 3.83 | 0.00 / 1.34 | 17.2 / 14.2 | 2.04 / 0.80 | 3.68 / 3.90 | 3.98 / 4.25 | 7.20 / 7.72 | 458 / 643 ms |
+| L1 0-63 | asks off | 12.2 / 14.4 | 2.79 / 2.75 | 3.79 / 3.92 | 1.33 / 1.26 | 14.0 / 13.3 | 0.99 / 1.09 | 3.78 / 3.84 | 4.04 / 4.26 | 7.28 / 7.59 | 603 / 623 ms |
+| L1 0-63 | stubborn (refuses asks) | 14.3 / 14.3 | 2.88 / 2.69 | 3.87 / 3.81 | 1.35 / 1.19 | 13.8 / 13.7 | 0.94 / 1.10 | 3.81 / 3.79 | 4.15 / 4.12 | 7.46 / 7.45 | 626 / 626 ms |
+| L1 800-863 | all off | 11.0 / 15.5 | 1.97 / 3.48 | 0.00 / 4.60 | 0.00 / 1.51 | 16.3 / 14.6 | 2.83 / 1.00 | 4.80 / 4.48 | 4.22 / 4.56 | 6.96 / 8.06 | 378 / 620 ms |
+| L1 800-863 | threat pricing off | 17.8 / 14.9 | 3.59 / 2.94 | 5.46 / 4.21 | 1.80 / 1.39 | 12.4 / 14.8 | 1.33 / 1.22 | 4.92 / 4.15 | 4.42 / 4.42 | 7.61 / 7.53 | 575 / 604 ms |
+| L1 800-863 | counters off | 10.8 / 14.9 | 1.66 / 3.21 | 0.00 / 4.12 | 0.00 / 1.43 | 17.2 / 14.1 | 2.12 / 0.82 | 3.78 / 4.03 | 4.36 / 4.56 | 7.23 / 7.67 | 411 / 588 ms |
+| L1 800-863 | asks off | 12.6 / 14.9 | 2.82 / 2.93 | 3.94 / 4.17 | 1.34 / 1.36 | 14.4 / 13.5 | 1.02 / 1.11 | 3.84 / 4.03 | 4.45 / 4.57 | 7.07 / 7.83 | 529 / 572 ms |
+| L1 800-863 | stubborn (refuses asks) | 15.0 / 14.8 | 2.94 / 2.69 | 4.19 / 4.09 | 1.34 / 1.20 | 14.1 / 14.3 | 0.94 / 1.08 | 3.88 / 3.78 | 4.48 / 4.44 | 7.53 / 7.39 | 596 / 606 ms |
+| L1 864-927 | stubborn (refuses asks) | 14.8 / 14.7 | 3.11 / 2.89 | 3.98 / 3.96 | 1.43 / 1.27 | 14.0 / 14.1 | 0.96 / 1.14 | 4.07 / 4.03 | 4.71 / 4.59 | 7.55 / 7.50 | 550 / 559 ms |
+| L2 864-927 | stubborn (refuses asks) | 14.5 / 14.4 | 2.13 / 1.91 | 3.74 / 3.65 | 1.02 / 0.84 | 12.6 / 12.5 | 1.00 / 1.34 | 3.13 / 3.24 | 4.65 / 4.57 | 6.83 / 6.80 | 434 / 449 ms |
+
+Without counters the seat answers a thin offer by accepting or declining. It took two to 2.6 times as many of the others' offers (2.04 against 0.80 per game on boards 0 to 63, 2.12 against 0.82 on boards 800 to 863, 2.33 against 1.16 at the population table), made a quarter fewer offers of its own, and finished about half a point lower with fewer cities. A counter replaces an acceptance on the offerer's terms with one on better terms, the same account the hand-leaf arms gave. The all-off seat completes more player trades than the default (4.5 to 4.8 per game against 3.8 to 4.5) and wins less: it is the generous partner, accepting almost three times as many of the others' offers. Without asks the seat made two fewer offers per game, completed about as many, and finished 0.1 to 0.8 points lower. Threat pricing off makes the seat more willing on both sides, with about three more offers, two to three fewer declines, and 0.6 to 0.8 more player trades per game, and the extra trades neither win nor lose. The stubborn seat's counts match the control's except that it takes fewer of the others' offers (0.94 to 1.12 per game against 1.08 to 1.49), which is what refusing asks means.
+
+## Decision cost
+
+The arena records wall time per decision. Other tournaments shared the machine, so the level moved from cohort to cohort, but the arm and its control played the same games at the same moments, so their ratio is a fair measure of what a switch costs. Each row reads switch off against switch on.
+
+| Switch | Tables, per decision | Tables, search seconds per game | Hand leaf, per decision |
+| --- | --- | --- | --- |
+| `bargain` (all of it) | 405 / 643 ms (+59%) | 42 / 67 | 174 / 277 ms (+59%) |
+| `counters` | 450 / 633 ms (+41%) | 46 / 65 | 124 / 173 ms (+40%) |
+| `asks` | 559 / 596 ms (+7%) | 56 / 61 | 246 / 246 ms (0%) |
+| `threat_pricing` | 599 / 625 ms (+4%) | 62 / 65 | 170 / 170 ms (0%) |
+| `accept_asks` | 557 / 567 ms (+2%) | 57 / 58 | 246 / 250 ms (+2%) |
+
+Bargaining as a whole costs about 60 percent more time per decision under both leaves, and counters account for most of it: answering an open offer means searching the accept, each counter, and waiting, where the seat without counters searches only the accept and waiting. Asks and threat pricing cost under a tenth and the stubborn switch nothing. The number of decisions per game barely moves with any switch, so the cost is per decision, not more decisions. The hand-leaf column is the same ratio from the single-seating arms of the [earlier study](bargaining-arms.mdx) on boards 0 to 63; its counters pair on boards 64 to 127, which had the switched-off seat in both slots, gave +48% and +41%.
+
+## Compared with the hand-written leaf
+
+| Switch off | Hand leaf, boards 0 to 63, against a null | Tables, boards 0 to 63, swapped pair | Tables, pooled over every stage |
+| --- | --- | --- | --- |
+| all off | −0.297 (−0.429 to −0.165) | −0.146 (−0.212 to −0.081) | −0.143 (−0.180 to −0.106) |
+| counters off | −0.199 (−0.309 to −0.089); swapped pair on boards 64 to 127: −0.096 (−0.156 to −0.035) | −0.096 (−0.146 to −0.046) | −0.102 (−0.136 to −0.069) |
+| asks off | −0.156 (−0.259 to −0.054) | −0.076 (−0.138 to −0.015) | −0.085 (−0.119 to −0.050) |
+| threat pricing off | −0.008 (−0.103 to +0.087) | −0.023 (−0.091 to +0.044) | +0.001 (−0.035 to +0.036) |
+| stubborn | +0.059 (+0.002 to +0.115) | +0.000 (−0.022 to +0.022) | +0.006 (−0.008 to +0.020), 320 seeds |
+
+The two leaves agree on the order: all off loses most, then counters and asks, and threat pricing and the stubborn seat sit near zero. On the same boards 0 to 63 the tables' losses are about half what the hand-leaf arms showed, but those hand-leaf numbers subtract a null of +0.176 measured in one seating, and the one hand-leaf swapped pair (counters, boards 64 to 127) reads −0.096, the same as the tables' −0.096 on boards 0 to 63. The size that holds under both leaves and both corrections is about a tenth of a win per game for counters and a little less for asks. The stubborn seat was +0.059 better than an identical default under the hand leaf against the null and is +0.006 (−0.008 to +0.020) over 320 seeds under the tables, so that small hand-leaf gain was probably part of the null's error.
 
 ## The thresholds are the same size under both leaves
 
@@ -37,4 +170,26 @@ A traced screen answers it: 16 boards, four rotations, the tables seat and the h
 
 One swap is worth about the same number of leaf units under both leaves, 30 to 35 for a proposal the lookahead likes and 9 to 10 of threat pricing on an accept, and the plain margin blocks about a third of liked proposals under both. The tables' absolute level is half the hand leaf's, but a threshold compares differences, not levels, so nothing is mis-sized: `leaf.scale` 1000 puts a card at roughly 20 units in both currencies. The thresholds stay as they are and no knob was added; the [decision cost](#decision-cost) and the arms above are the evidence that matters. The scripts and the two traced screens (identical winners with and without the response trace) are under `runs/screens-bargaining-tables/`.
 
-PLACEHOLDER_REST
+## What could still be wrong
+
+Decision time is wall time on a shared machine, so no absolute time here predicts the browser's; only the ratio within a pair is read. The arena cohorts ran at equal node budgets, so a switch that makes each decision slower was measured at no cost in search depth. The browser instead gives each decision one second, and there the extra work of counters could come out of depth, which this study did not test. The hand-leaf numbers on boards 0 to 63 come from single-seating cohorts read against a null, not from swapped pairs, so the comparison between leaves on those boards mixes two corrections; only counters has a swapped pair under both leaves. Every partner is a copy of the same search or a builder that never counters, so an ask is accepted whenever the partner's own lookahead likes it; the stubborn arm is the only partner that refuses, and people refuse and counter in ways neither covers. The stubborn seat changed the outcome on few boards (its per-seed effect was exactly zero on 148 of the 192 builder-table boards and on 25 of the 64 population boards), so its narrow intervals say that refusing rarely matters here, not that it is harmless wherever asks are common. Asks off is inconclusive at the population table (−0.037, −0.093 to +0.018) and clear at the builder table; with 64 population seeds that gap is within the noise. Pooling over stages was chosen after seeing the results and is labelled as such. All of it is engine-arena development evidence at depth 2.
+
+## What this means for the browser
+
+The browser plays the hand-written leaf at depth 3 under a one-second budget, and all five switches are on there because they are on by default. A switch is worth the browser when its pooled effect is at least +0.03 wins per game with the interval excluding zero and its decision time is within 25% of the control's. Read as switching each one on:
+
+| Switch | Effect of switching it on, tables, pooled | Hand leaf | Extra time per decision, tables / hand leaf | Browser |
+| --- | --- | --- | --- | --- |
+| `counters` | +0.102 (+0.069 to +0.136) | +0.096 (swapped pair) | +41% / +40% | keep on |
+| `asks` | +0.085 (+0.050 to +0.119) | +0.156 (against the null) | +7% / 0% | keep on |
+| `threat_pricing` | −0.001 (−0.036 to +0.035) | +0.008 (against the null) | +4% / 0% | keep on for its reasons, not for wins |
+| `accept_asks` | −0.006 (−0.020 to +0.008) | −0.059 (against the null) | +2% / +2% | keep on |
+| `bargain` | +0.143 (+0.106 to +0.180) | +0.297 (against the null) | +59% / +59% | keep on |
+
+`asks` is the one switch that meets the bar outright: it wins under both leaves and costs almost nothing. `counters` wins about a tenth of a game under both leaves, the largest single effect measured under either leaf, but costs 40 percent more time per decision, which fails the cost half of the bar. The bar was written for switching something new on, and switching counters off gives away a tenth of a win, so keep it on. What the browser should check is whether answering an offer still reaches depth 3 inside its second with counters searched; if it does not, the counter search is what to make cheaper. `bargain` is the sum of those two and stays on for the same reason. `threat_pricing` does nothing for strength under either leaf at a few percent of cost; it is what makes the search refuse the leader and give a reason, which the browser shows as table talk, so keep it on for that. `accept_asks` off gains nothing under the tables in either lineup, so keep accepting an ask when the lookahead likes it. No default changes, in the engine or in the browser.
+
+<AgentContext>
+Study `bargaining/tables-arms`. Seats: the tables baseline `v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}` and the same with one of `"bargain":false`, `"threat_pricing":false`, `"counters":false`, `"asks":false`, `"accept_asks":false`. L1 seats `eta` and `fast` in slots 2 and 3; L2 seats a third baseline in slot 2 and `eta` in slot 3. Every experiment is registered with 64 seeds, four rotations, and deterministic tapes; `analysis/bargaining_tables.json` lists each pair's arm, stage, lineup, seeds, and half A and half B experiment IDs, and `python3 analysis/bargaining_tables.py analysis/bargaining_tables.json --tables --assets` finds each experiment's completed run, prints every table on this page, and writes the plot asset. `analysis/seating_pair.py` gives the same effect for any one pair. The cohorts ran with `python3 -m harness.engine run EXPERIMENT --threads 8` through `analysis/bargaining_tables_queue.sh`, two at a time, against the arena built from server branch `research/bargaining-tables` at `94063bb`, whose only change from the dev it started on records answers to offers and replies to counters under `--trace` (play unchanged; it is not merged into server dev). The threshold screens and `analysis/bargaining_thresholds.py` read the traces under `runs/screens-bargaining-tables/`. Run records are under `records/runs/` and archive receipts under `records/artifacts/`. The hand-leaf comparison uses the runs of `bargaining/threat-aware-pricing` listed in the [arms report](bargaining-arms.mdx).
+</AgentContext>
+
+[All studies](../approaches/README.md) · [Bargaining](../approaches/bargaining) · [Experiment log](../log/experiments.mdx)

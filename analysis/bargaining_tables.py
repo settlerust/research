@@ -126,19 +126,34 @@ def pooled(results):
 
 
 def forest(results, name, title, caption, source):
-    points, ticks = [], []
-    for r in results:
-        c = r['effect']
-        points.append({'x': len(points), 'y': round(c['mean'], 4), 'low': round(c['low'], 4), 'high': round(c['high'], 4)})
-        ticks.append(r['tick'])
-    lo = min(p['low'] for p in points) - 0.05
-    hi = max(p['high'] for p in points) + 0.05
-    data = {'schema': 1, 'kind': 'plot', 'variant': 'scatter', 'title': title, 'evidence': 'measured',
+    """Grouped bars: five arms on the x axis, one series per registered stage and one for the after-the-fact pool."""
+    arms = list(ARM_NAMES)
+    ticks = [{'all-off': 'all off', 'threat-off': 'threat pricing off', 'counters-off': 'counters off',
+              'asks-off': 'asks off', 'stubborn': 'stubborn (refuses asks)'}[a] for a in arms]
+    groups = [('Builder table, boards 0-63', lambda r: r['stage'] == 'l1-0'),
+              ('Builder table, boards 800-863', lambda r: r['stage'] == 'l1-800'),
+              ('Population table, boards 800-863', lambda r: r['stage'] == 'l2-800')]
+    series, lows, highs = [], [], []
+    point = lambda x, c: {'x': x, 'y': round(c['mean'], 4), 'low': round(c['low'], 4), 'high': round(c['high'], 4)}
+    for label, keep in groups:
+        pts = [point(arms.index(r['arm']), r['effect']) for r in results if keep(r)]
+        series.append({'label': label, 'points': sorted(pts, key=lambda p: p['x'])})
+    pts = []
+    for i, arm in enumerate(arms):
+        rs = [r for r in results if r['arm'] == arm]
+        if rs:
+            pts.append(point(i, pooled(rs)))
+    series.append({'label': 'Pooled over every stage, after the fact', 'points': pts})
+    for sr in series:
+        for p in sr['points']:
+            lows.append(p['low'])
+            highs.append(p['high'])
+    data = {'schema': 1, 'kind': 'plot', 'variant': 'bar', 'title': title, 'evidence': 'measured',
             'source': source, 'caption': caption,
-            'x': {'label': 'Arm and stage', 'min': 0, 'max': len(points) - 1, 'ticks': ticks},
+            'x': {'label': 'Switch turned off', 'min': 0, 'max': len(arms) - 1, 'ticks': ticks},
             'y': {'label': 'Wins per game, arm minus control, seating corrected',
-                  'min': round(min(lo, -0.05), 2), 'max': round(max(hi, 0.05), 2)},
-            'series': [{'label': 'Seating-corrected effect (95% interval over seeds)', 'points': points}],
+                  'min': round(min(min(lows) - 0.03, -0.05), 2), 'max': round(max(max(highs) + 0.03, 0.05), 2)},
+            'series': series,
             'reference': {'y': 0, 'label': 'no difference'}}
     write_json(ROOT / 'content/assets' / f'{name}.json', data)
 
@@ -223,16 +238,16 @@ def main():
             if l1:
                 p = pooled(l1)
                 near = p['mean'] > 0 and min(abs(p['low']), abs(p['high'])) <= 0.03
-                print(f"{ARM_NAMES[arm]:24} {fmt(p)} over {p['seeds']} seeds: {'EXTEND' if near else 'no extension'}")
+                verdict = 'extended' if p['seeds'] > 128 else ('EXTEND' if near else 'no extension')
+                print(f"{ARM_NAMES[arm]:24} {fmt(p)} over {p['seeds']} seeds: {verdict}")
     if args.assets and results:
         source = ('Engine-arena swapped pairs under bargaining/tables-arms: the depth-2 search with learned tables and one '
                   'bargaining switch off against the unchanged tables baseline, 64 deterministic seeds per stage played once '
-                  'per rotation in both seatings (512 games per point). L1 seats an ETA and a fast builder beside the two '
+                  'per rotation in both seatings (512 games per pair); the stubborn arm adds seeds 864-927 in both lineups, '
+                  'which enter only its pooled point. L1 seats an ETA and a fast builder beside the two '
                   'searches; L2 seats a third tables search and an ETA. Run IDs are listed in the report.')
-        for r in results:
-            r['tick'] = f"{ARM_NAMES[r['arm']]}, {STAGE_NAMES.get(r['stage'], r['stage'])}"
         forest(results, 'bargaining-tables-effects', 'Bargaining switches under the learned leaf',
-               'Each point is the seating-corrected effect of turning one bargaining switch off, arm minus control, with its 95% interval over 64 seeds; negative means the default mechanism wins games.',
+               'Below zero, the default with the switch on wins more games than the seat without it.',
                source)
 
 

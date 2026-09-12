@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "bar",
+  "title": "Bargaining switches under the learned leaf",
+  "evidence": "measured",
+  "source": "Engine-arena swapped pairs under bargaining/tables-arms: the depth-2 search with learned tables and one bargaining switch off against the unchanged tables baseline, 64 deterministic seeds per stage played once per rotation in both seatings (512 games per pair); the stubborn arm adds seeds 864-927 in both lineups, which enter only its pooled point. L1 seats an ETA and a fast builder beside the two searches; L2 seats a third tables search and an ETA. Run IDs are listed in the report.",
+  "caption": "Below zero, the default with the switch on wins more games than the seat without it.",
+  "x": {
+    "label": "Switch turned off",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "all off",
+      "threat pricing off",
+      "counters off",
+      "asks off",
+      "stubborn (refuses asks)"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, arm minus control, seating corrected",
+    "min": -0.28,
+    "max": 0.1
+  },
+  "series": [
+    {
+      "label": "Builder table, boards 0-63",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1465,
+          "low": -0.2123,
+          "high": -0.0807
+        },
+        {
+          "x": 1,
+          "y": -0.0234,
+          "low": -0.0913,
+          "high": 0.0445
+        },
+        {
+          "x": 2,
+          "y": -0.0957,
+          "low": -0.1456,
+          "high": -0.0458
+        },
+        {
+          "x": 3,
+          "y": -0.0762,
+          "low": -0.1378,
+          "high": -0.0145
+        },
+        {
+          "x": 4,
+          "y": 0.0,
+          "low": -0.0218,
+          "high": 0.0218
+        }
+      ]
+    },
+    {
+      "label": "Builder table, boards 800-863",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1836,
+          "low": -0.2539,
+          "high": -0.1133
+        },
+        {
+          "x": 1,
+          "y": 0.0117,
+          "low": -0.048,
+          "high": 0.0714
+        },
+        {
+          "x": 2,
+          "y": -0.0918,
+          "low": -0.1587,
+          "high": -0.0249
+        },
+        {
+          "x": 3,
+          "y": -0.1406,
+          "low": -0.2015,
+          "high": -0.0797
+        },
+        {
+          "x": 4,
+          "y": 0.0176,
+          "low": -0.0091,
+          "high": 0.0442
+        }
+      ]
+    },
+    {
+      "label": "Population table, boards 800-863",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0977,
+          "low": -0.1518,
+          "high": -0.0435
+        },
+        {
+          "x": 1,
+          "y": 0.0137,
+          "low": -0.0412,
+          "high": 0.0685
+        },
+        {
+          "x": 2,
+          "y": -0.1191,
+          "low": -0.1762,
+          "high": -0.0621
+        },
+        {
+          "x": 3,
+          "y": -0.0371,
+          "low": -0.0927,
+          "high": 0.0185
+        },
+        {
+          "x": 4,
+          "y": 0.0078,
+          "low": -0.0344,
+          "high": 0.05
+        }
+      ]
+    },
+    {
+      "label": "Pooled over every stage, after the fact",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.1426,
+          "low": -0.1796,
+          "high": -0.1056
+        },
+        {
+          "x": 1,
+          "y": 0.0007,
+          "low": -0.0345,
+          "high": 0.0358
+        },
+        {
+          "x": 2,
+          "y": -0.1022,
+          "low": -0.1358,
+          "high": -0.0686
+        },
+        {
+          "x": 3,
+          "y": -0.0846,
+          "low": -0.1193,
+          "high": -0.05
+        },
+        {
+          "x": 4,
+          "y": 0.0059,
+          "low": -0.0083,
+          "high": 0.02
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}
