@@ -1,0 +1,12 @@
+id = "b7467b5e-5b69-4bf8-b7b5-76ae177131f7"
+study = "development/timing-tables"
+arena = "engine"
+hypothesis = "Swapped-pair half A of hold_knight under the learned tables leaf, development stage (boards 0-63, lineup L1). Slot 0 is the candidate: the depth-2 tables search with hold_knight, which offers a main-phase knight play only when the robber sits on the best-producing hex of this seat, keeping the before-the-roll choice so the knight is held for the unblock. Slot 1 is the unchanged tables baseline. Hypothesis: holding knights for the before-the-roll unblock improves the win rate under the tables. Half B on the same boards swaps the seats; the seating-corrected effect is the per-seed half-difference of the two contrasts and the seating term their half-sum."
+decision_rule = "All 256 games of each half complete. The seating-corrected effect of the pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, 95 percent interval over the 64 seeds) excludes zero above: support for the switch; excludes zero below: refutation; neither: inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"hold_knight\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

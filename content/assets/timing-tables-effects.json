@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Development-card timing switches under the learned tables leaf",
+  "evidence": "measured",
+  "source": "Engine-arena swapped pairs of 512 games each on deterministic boards played once per rotation, the candidate and the control in slots 0 and 1 in both seatings; the builders lineup (L1) seats an ETA and a fast builder beside the searches, the population lineup (L2) a third tables search and an ETA. Each point is the per-seed half-difference of the two slot-0-minus-slot-1 contrasts of a pair with its 95% interval over 64 boards. Runs: f97d8683, 176f12e2; 3292674f, a86a5e49; ea42e55d, 64bbd775; c5ffb6cf, 4a18f4f2; 30180b9b, e6c5fbd4; 873ab9ef, 08636046; d493c5b4, 8a8b0ffb; b41de3cf, 41c8da11; 8263d242, e3fc4a9c; a6afd7a8, 5046ec2d.",
+  "caption": "Each point is one swapped pair\u2019s seating-corrected effect in wins per game with its 95% interval over boards; the two candidate-rule arms play under the tables alone, the knight-value arm under the named blend.",
+  "x": {
+    "label": "Cohort",
+    "min": 0,
+    "max": 9,
+    "ticks": [
+      "buy tempo, development, boards 0-63",
+      "buy tempo, confirmation, boards 800-863",
+      "buy tempo, population, boards 800-863",
+      "hold knight, development, boards 0-63",
+      "hold knight, confirmation, boards 800-863",
+      "hold knight, population, boards 800-863",
+      "knight value (quarter blend), development, boards 0-63",
+      "knight value (quarter blend), confirmation, boards 800-863",
+      "knight value (quarter blend), population, boards 800-863",
+      "knight value (full blend), development, boards 0-63"
+    ]
+  },
+  "y": {
+    "label": "Seating-corrected effect, wins per game",
+    "min": -0.15,
+    "max": 0.19
+  },
+  "series": [
+    {
+      "label": "Seating-corrected effect (swapped pair)",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0605,
+          "low": -0.1151,
+          "high": -0.006
+        },
+        {
+          "x": 1,
+          "y": -0.0059,
+          "low": -0.0701,
+          "high": 0.0583
+        },
+        {
+          "x": 2,
+          "y": -0.0527,
+          "low": -0.1099,
+          "high": 0.0044
+        },
+        {
+          "x": 3,
+          "y": -0.0293,
+          "low": -0.0711,
+          "high": 0.0125
+        },
+        {
+          "x": 4,
+          "y": -0.0254,
+          "low": -0.0763,
+          "high": 0.0256
+        },
+        {
+          "x": 5,
+          "y": -0.0508,
+          "low": -0.0976,
+          "high": -0.0039
+        },
+        {
+          "x": 6,
+          "y": -0.002,
+          "low": -0.0311,
+          "high": 0.0272
+        },
+        {
+          "x": 7,
+          "y": 0.0,
+          "low": -0.0284,
+          "high": 0.0284
+        },
+        {
+          "x": 8,
+          "y": 0.0039,
+          "low": -0.0265,
+          "high": 0.0343
+        },
+        {
+          "x": 9,
+          "y": 0.1094,
+          "low": 0.0547,
+          "high": 0.1641
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+id = "development/timing-tables"
+title = "Development-card timing under the learned leaf"
+created = "2026-09-11"
+updated = "2026-09-11"
+status = "complete"
+question = "Do the development-card timing switches (buy_tempo, hold_knight, knight_play_value) change the win rate when the search evaluates with the learned n-tuple tables, measured as swapped pairs on deterministic boards?"
+outcome = "The two candidate rules lose under the tables and the leaf term does nothing on a usable blend. Swapped pairs, 512 games each, seating-corrected effects: buy_tempo -0.061 (development, refuted), -0.006 (confirmation), -0.053 (population); hold_knight -0.029, -0.025, and -0.051 (population, refuted); knight_play_value on the quarter blend -0.002, +0.000, +0.004 (all inconclusive), and +0.109 (+0.055 to +0.164) on the full blend's development pair, a configuration itself 0.2 wins per game below the tables alone. After-the-fact pooling over the 192 stage seeds: buy_tempo -0.043 (-0.076 to -0.009), hold_knight -0.035 (-0.062 to -0.009), knight_play_value (quarter blend) +0.001 (-0.016 to +0.017). All twenty runs completed 256 of 256 games. The blended leaf was fixed to honor knight_play_value, with a test. No default changes; no switch is worth the browser."
+next_step = "Nothing for these switches. If a blend becomes the default leaf, re-read knight_play_value at that blend weight; the effect scales with the hand-written share (zero at 0.25, +0.109 at 1.0 on one stage)."
+attribution = "Kimi K3 (moonshotai/Kimi-K3) through OpenCode"
+reports = ["reports/timing-tables.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

@@ -1,0 +1,12 @@
+id = "750b7ebc-9428-492f-9b5f-b2d4de9d992a"
+study = "development/timing-tables"
+arena = "engine"
+hypothesis = "Swapped-pair half A of buy_tempo under the learned tables leaf, confirmation stage (boards 800-863, never used by any earlier experiment, lineup L1). Slot 0 is the buy_tempo candidate (a development purchase only when no build is affordable within the next own turn), slot 1 the unchanged tables baseline. Hypothesis: the purchase-timing rule improves the win rate under the tables. Half B on the same boards swaps the seats; the seating-corrected effect is the per-seed half-difference of the two contrasts and the seating term their half-sum."
+decision_rule = "All 256 games of each half complete. The seating-corrected effect of the pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, 95 percent interval over the 64 seeds) excludes zero above: support for the switch; excludes zero below: refutation; neither: inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"buy_tempo\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

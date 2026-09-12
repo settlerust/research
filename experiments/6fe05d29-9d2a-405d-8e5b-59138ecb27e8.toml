@@ -1,0 +1,12 @@
+id = "6fe05d29-9d2a-405d-8e5b-59138ecb27e8"
+study = "development/timing-tables"
+arena = "engine"
+hypothesis = "Swapped-pair half A of hold_knight under the learned tables leaf, population stage (boards 800-863, lineup L2: a third tables baseline search in slot 2 and an ETA builder in slot 3). Slot 0 is the hold_knight candidate, slot 1 the unchanged tables baseline. Hypothesis: holding knights for the before-the-roll unblock improves the win rate under the tables at a table of searches. Half B on the same boards swaps the seats; the seating-corrected effect is the per-seed half-difference of the two contrasts and the seating term their half-sum."
+decision_rule = "All 256 games of each half complete. The seating-corrected effect of the pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, 95 percent interval over the 64 seeds) excludes zero above: support for the switch; excludes zero below: refutation; neither: inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"hold_knight\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
