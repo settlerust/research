@@ -1,0 +1,12 @@
+id = "log/tables-retest"
+title = "Every search switch under the learned leaf"
+created = "2026-09-12"
+updated = "2026-09-12"
+status = "proposed"
+question = "Which of the search switches built for the hand-written leaf help, hurt, or do nothing when the search evaluates with the learned n-tuple tables, measured as seating-corrected swapped pairs at a builder table and a table of searches, and which of them belong in the browser player?"
+outcome = "No experiment has been executed."
+next_step = "Register a fixed candidate, comparison, budget, and decision rule."
+attribution = "unknown"
+reports = []
+logs = []
+legacy_experiments = []
