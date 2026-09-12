@@ -7,6 +7,6 @@ question = "Which of the search switches built for the hand-written leaf help, h
 outcome = "No experiment has been executed."
 next_step = "Register a fixed candidate, comparison, budget, and decision rule."
 attribution = "unknown"
-reports = []
+reports = ["reports/tables-retest.mdx"]
 logs = []
 legacy_experiments = []

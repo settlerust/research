@@ -152,10 +152,74 @@ def pool(rows):
     return out
 
 
+NAMES = {
+    'bargain=False': 'All bargaining off', 'counters=False': 'Counters off', 'asks=False': 'Two-for-one asks off',
+    'threat_pricing=False': 'Threat pricing off', 'accept_asks=False': 'Refuse asks (stubborn seat)',
+    'scenarios=4': 'Four dice scenarios (default 8)', 'scenarios=16': 'Sixteen dice scenarios',
+    'samples=1': 'One sampled world (default 4)', 'samples=8': 'Eight sampled worlds',
+    'inner_scenarios=2': 'Two deeper-level scenarios (inert at depth 2)', 'counts_only=True': 'Beliefs from public counts only',
+    'propose=False': 'Never propose trades', 'reciprocity=True': 'Reciprocity scaling', 'leaf_opponents=True': 'Leaf-guided opponents',
+    'leaf.hand=0.25': 'Blend: hand-written terms at 0.25', 'leaf.hand=0.5': 'Blend: hand-written terms at 0.5',
+    'leaf.scale=500': 'Tables scale 500 (default 1000)', 'leaf.scale=2000': 'Tables scale 2000',
+    'endgame.race=True': 'Endgame race leaf', 'endgame.hidden_points=True': 'Expected hidden points',
+    'endgame.block_leader=True': 'Late leader bias', 'opening=search': 'Search-ranked opening instead of the planner',
+    'opening_weights.balance=0.5, opening_weights.coverage=0.4': 'Planner coverage 0.4 and balance 0.5',
+    'opening_weights.scarcity=0.0': 'Planner without scarcity markup', 'buy_tempo=True': 'Buy cards only when stalled',
+    'hold_knight=True': 'Hold knights for the unblock', 'knight_play_value=True': 'Knight schedule in the leaf',
+    'spend_down=True': 'Spend down over the discard limit', 'discard_projection=True': 'Project production when discarding',
+    'weights.hand_risk=0.0': 'No seven-risk term', 'weights.opponent_expansion=0.5': "Block the leader's expansion",
+    'weights.road_contention_gate=1.0': 'Gate the road race on production', 'predict.opponents=True': 'Opponents play their predicted build',
+    'predict.threat=True': 'Threat from the predicted site', 'weights.denial=0.5': 'Deny predicted sites',
+    'robber.leader=True': 'Robber blocks the leader', 'robber.need=True': 'Rob the card this seat needs',
+    'robber.threat=True': 'Robber by threat, spare partners',
+}
+STUDY_NAMES = {'bargaining/tables-arms': 'Bargaining', 'search/settings-tables': 'Search settings', 'patterns/leaf-blend': 'Leaf blend',
+               'opening/planner-tables': 'Opening', 'development/timing-tables': 'Card timing', 'risk/hand-tables': 'Hand management',
+               'expansion/roads-tables': 'Roads', 'adaptation/prediction-tables': 'Prediction', 'containment/robber-tables': 'Robber'}
+
+
+def markdown(pooled):
+    """Evidence table: one row per switch and leaf, the builder table (L1) and population table (L2) side by side.
+    The full blend is left out because the program withdrew it as a baseline."""
+    groups = collections.OrderedDict()
+    order = list(STUDY_NAMES)
+    for p in sorted(pooled, key=lambda p: (order.index(p['study']) if p['study'] in order else 99, p['change'], p['leaf'])):
+        if p['leaf'] == 'blend 1.0':
+            continue
+        groups.setdefault((p['study'], p['change'], p['leaf']), {})[p['lineup']] = p
+
+    def cell(p):
+        if not p:
+            return 'not run'
+        m, lo, hi = p['effect']
+        return f"{m:+.3f} ({lo:+.3f} to {hi:+.3f}), {p['boards']} boards"
+
+    def reading(d):
+        v = {k: ('helps' if p['effect'][1] > 0 else 'hurts' if p['effect'][2] < 0 else 'none') for k, p in d.items()}
+        table = {'L1': 'builder', 'L2': 'population'}
+        if set(v.values()) == {'hurts'}:
+            return 'Hurts at both tables' if len(v) > 1 else f"Hurts at the {table[next(iter(v))]} table"
+        if set(v.values()) == {'helps'}:
+            return 'Helps at both tables' if len(v) > 1 else f"Helps at the {table[next(iter(v))]} table"
+        if 'hurts' in v.values() and 'helps' not in v.values():
+            return f"Hurts at the {table[[k for k in v if v[k] == 'hurts'][0]]} table"
+        if 'helps' in v.values() and 'hurts' not in v.values():
+            return f"Helps at the {table[[k for k in v if v[k] == 'helps'][0]]} table only"
+        return 'No clear effect'
+    lines = ['| Study | Switch | Leaf | Builder table | Population table | Time | Reading |',
+             '| --- | --- | --- | --- | --- | ---: | --- |']
+    for (study, change, leaf), d in groups.items():
+        cost = sum(p['cost'] for p in d.values()) / len(d)
+        lines.append(f"| {STUDY_NAMES.get(study, study)} | {NAMES.get(change, change)} | {leaf} | {cell(d.get('L1'))} | "
+                     f"{cell(d.get('L2'))} | {cost:.2f}× | {reading(d)} |")
+    return '\n'.join(lines) + '\n'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--study', action='append', help='study ID; repeat for several (default: the whole program)')
     parser.add_argument('--out', help='write the pairs and pooled rows as JSON')
+    parser.add_argument('--markdown', help='write the evidence table as Markdown')
     args = parser.parse_args()
     studies = args.study or STUDIES
     rows = pairs(set(studies), completed_runs())
@@ -167,6 +231,8 @@ def main():
     print(f'{len(rows)} pairs, {len(rows) * 512} games, pooled after the fact per switch, leaf, and lineup')
     if args.out:
         Path(args.out).write_text(json.dumps({'pairs': rows, 'pooled': pooled}, indent=1))
+    if args.markdown:
+        Path(args.markdown).write_text(markdown(pooled))
 
 
 if __name__ == '__main__':

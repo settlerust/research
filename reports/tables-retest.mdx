@@ -1,0 +1,173 @@
+---
+date: "2026-09-12"
+title: "Every search switch under the learned leaf"
+summary: "Ten studies retested the search's switches with the learned tables as the leaf, in swapped pairs at two tables. Bargaining and the search's information inputs are worth keeping, a quarter-strength blend of the hand-written terms improves the tables, and nothing else earns a place in the browser player."
+---
+
+# Every search switch under the learned leaf
+
+<ResearchCallout title="Finding · keep bargaining and the search's inputs, blend a quarter of the hand-written leaf into the tables, and add nothing else">
+Under the hand-written leaf, every switch built on 2026-09-11 except counters
+corrected to about zero once the arena's seating term was removed. Retested with
+the learned tables as the leaf, in 127 swapped pairs (65,024 games) at a
+table of builders and at a table of three searches, the picture sharpens.
+Bargaining still carries real strength: turning off counters costs
+**−0.094 (−0.135 to −0.052)** wins per game at the builder table and the whole package
+**−0.165 (−0.213 to −0.117)**. Cutting the search's information inputs costs far more than it
+saves: four dice scenarios instead of eight cost **−0.392 (−0.444 to −0.339)**, one sampled world
+instead of four **−0.109 (−0.150 to −0.069)**, public-count beliefs **−0.143 (−0.188 to −0.097)**, and never
+proposing a trade **−0.172 (−0.211 to −0.133)**. One change improves the player at both tables:
+adding the hand-written terms to the tables at a quarter of their weight gains
+**+0.066 (+0.024 to +0.107)** at the builder table and **+0.064 (+0.021 to +0.108)** at the table of searches, for
+1.4 times the decision time. Two more read positive at the builder table only:
+eight sampled worlds, at 1.8 times the decision time, and the search-ranked
+opening, whose gain comes from the reused development boards. The robber, card
+timing, hand management, road blocking, build prediction, endgame, and
+planner-weight switches show no effect that survives both tables, and stay off.
+</ResearchCallout>
+
+## How the retest was measured
+
+Each study took one family of switches from the hand-written-leaf program and
+measured it against the depth-2 search with the learned tables as its leaf,
+`v2:{"depth":2,"leaf":{"tables":"artifacts/ntuple/hex-portfolio-main.bin"}}`.
+Every contrast is a swapped pair on the same deterministic boards: the candidate
+in slot 0 and the control in slot 1, then the other way round. The effect is half
+the per-board difference of the two contrasts, which cancels the turn-order
+[seating term](arena-seating.mdx) between two adjacent searches. Two lineups
+filled the other seats. The builder table, an ETA and a fast builder, repeats the
+lineup of the hand-written-leaf cohorts. The population table, a third tables
+search and an ETA, answers trades, blocks, and robber moves with an opponent
+that trades and blocks back.
+
+The stages were fixed in advance: development on boards 0 to 63 (the boards of
+the earlier cohorts), confirmation on fresh boards 800 to 863, the population
+table on the same fresh boards, and an extension to boards 864 to 927 for any
+switch whose builder-table result was positive but unresolved. A switch counted
+as worth the browser only with a pooled effect of at least +0.03 wins per game,
+an interval excluding zero, and a decision time within a quarter of the
+control's.
+
+Switches that only change a hand-written leaf term do nothing when the tables
+alone are the leaf, so those were measured on top of a blended leaf. An early
+screen showed that the full blend loses about 0.2 wins per game to the tables
+alone, so every leaf-term arm moved to the quarter blend before its cohorts ran,
+and the full-blend registrations that had not started were withdrawn.
+
+## The evidence
+
+Every number below was recomputed from the archived runs, not copied from the
+study reports, with `analysis/tables_retest.py`. Each cell pools every stage a
+switch ran at that table (after-the-fact pooling over the boards named), with a
+normal 95% interval over boards. Negative values mean the switch loses games.
+Time is the candidate's mean decision time over the control's.
+
+| Study | Switch | Leaf | Builder table | Population table | Time | Reading |
+| --- | --- | --- | --- | --- | ---: | --- |
+| Bargaining | Refuse asks (stubborn seat) | tables | +0.006 (−0.008 to +0.020), 192 boards | +0.006 (−0.023 to +0.035), 128 boards | 0.98× | No clear effect |
+| Bargaining | Two-for-one asks off | tables | −0.108 (−0.152 to −0.065), 128 boards | −0.037 (−0.093 to +0.018), 64 boards | 0.93× | Hurts at the builder table |
+| Bargaining | All bargaining off | tables | −0.165 (−0.213 to −0.117), 128 boards | −0.098 (−0.152 to −0.044), 64 boards | 0.63× | Hurts at both tables |
+| Bargaining | Counters off | tables | −0.094 (−0.135 to −0.052), 128 boards | −0.119 (−0.176 to −0.062), 64 boards | 0.71× | Hurts at both tables |
+| Bargaining | Threat pricing off | tables | −0.006 (−0.051 to +0.039), 128 boards | +0.014 (−0.041 to +0.069), 64 boards | 0.96× | No clear effect |
+| Search settings | Beliefs from public counts only | tables | −0.143 (−0.188 to −0.097), 128 boards | −0.053 (−0.107 to +0.002), 64 boards | 1.18× | Hurts at the builder table |
+| Search settings | Two deeper-level scenarios (inert at depth 2) | tables | +0.000 (+0.000 to +0.000), 128 boards | not run | 1.00× | No clear effect |
+| Search settings | Leaf-guided opponents | tables | +0.031 (−0.006 to +0.068), 192 boards | +0.033 (−0.009 to +0.075), 128 boards | 1.85× | No clear effect |
+| Search settings | Never propose trades | tables | −0.172 (−0.211 to −0.133), 128 boards | −0.143 (−0.197 to −0.089), 64 boards | 0.91× | Hurts at both tables |
+| Search settings | Reciprocity scaling | tables | −0.073 (−0.115 to −0.031), 128 boards | −0.082 (−0.141 to −0.023), 64 boards | 1.05× | Hurts at both tables |
+| Search settings | One sampled world (default 4) | tables | −0.109 (−0.150 to −0.069), 128 boards | not run | 0.34× | Hurts at the builder table |
+| Search settings | Eight sampled worlds | tables | +0.045 (+0.009 to +0.081), 192 boards | −0.007 (−0.045 to +0.031), 128 boards | 1.75× | Helps at the builder table only |
+| Search settings | Sixteen dice scenarios | tables | −0.026 (−0.072 to +0.019), 128 boards | not run | 2.73× | No clear effect |
+| Search settings | Four dice scenarios (default 8) | tables | −0.392 (−0.444 to −0.339), 128 boards | not run | 0.68× | Hurts at the builder table |
+| Leaf blend | Expected hidden points | blend 0.25 | +0.003 (−0.017 to +0.023), 192 boards | −0.009 (−0.037 to +0.019), 128 boards | 1.00× | No clear effect |
+| Leaf blend | Endgame race leaf | blend 0.25 | −0.037 (−0.066 to −0.008), 128 boards | +0.000 (−0.036 to +0.036), 64 boards | 1.01× | Hurts at the builder table |
+| Leaf blend | Blend: hand-written terms at 0.25 | tables | +0.066 (+0.024 to +0.107), 192 boards | +0.064 (+0.021 to +0.108), 128 boards | 1.42× | Helps at both tables |
+| Leaf blend | Blend: hand-written terms at 0.5 | tables | +0.016 (−0.024 to +0.057), 192 boards | −0.019 (−0.064 to +0.027), 128 boards | 1.34× | No clear effect |
+| Leaf blend | Tables scale 2000 | tables | +0.029 (−0.008 to +0.066), 192 boards | +0.034 (−0.011 to +0.079), 128 boards | 0.96× | No clear effect |
+| Leaf blend | Tables scale 500 (default 1000) | tables | −0.097 (−0.139 to −0.054), 128 boards | not run | 1.07× | Hurts at the builder table |
+| Opening | Search-ranked opening instead of the planner | tables | +0.061 (+0.009 to +0.113), 192 boards | +0.001 (−0.059 to +0.061), 128 boards | 1.31× | Helps at the builder table only |
+| Opening | Planner coverage 0.4 and balance 0.5 | tables | +0.020 (−0.014 to +0.053), 192 boards | +0.004 (−0.034 to +0.042), 128 boards | 1.01× | No clear effect |
+| Opening | Planner without scarcity markup | tables | −0.005 (−0.063 to +0.053), 128 boards | −0.012 (−0.073 to +0.049), 64 boards | 0.97× | No clear effect |
+| Card timing | Buy cards only when stalled | tables | −0.033 (−0.075 to +0.009), 128 boards | −0.053 (−0.110 to +0.004), 64 boards | 0.70× | No clear effect |
+| Card timing | Hold knights for the unblock | tables | −0.027 (−0.060 to +0.005), 128 boards | −0.051 (−0.098 to −0.004), 64 boards | 0.98× | Hurts at the population table |
+| Card timing | Knight schedule in the leaf | blend 0.25 | −0.001 (−0.021 to +0.019), 128 boards | +0.004 (−0.026 to +0.034), 64 boards | 1.00× | No clear effect |
+| Hand management | Project production when discarding | tables | +0.012 (−0.010 to +0.034), 192 boards | −0.002 (−0.023 to +0.019), 128 boards | 1.00× | No clear effect |
+| Hand management | Spend down over the discard limit | tables | −0.006 (−0.042 to +0.030), 128 boards | −0.047 (−0.098 to +0.004), 64 boards | 1.19× | No clear effect |
+| Hand management | No seven-risk term | blend 0.25 | −0.007 (−0.041 to +0.027), 128 boards | +0.012 (−0.040 to +0.063), 64 boards | 0.99× | No clear effect |
+| Roads | Block the leader's expansion | blend 0.25 | +0.010 (−0.017 to +0.037), 192 boards | −0.033 (−0.060 to −0.006), 128 boards | 1.31× | Hurts at the population table |
+| Roads | Block the leader's expansion | tables | −0.003 (−0.011 to +0.005), 128 boards | +0.002 (−0.007 to +0.011), 64 boards | 1.14× | No clear effect |
+| Roads | Gate the road race on production | blend 0.25 | −0.060 (−0.095 to −0.024), 128 boards | +0.021 (−0.026 to +0.069), 64 boards | 0.94× | Hurts at the builder table |
+| Roads | Gate the road race on production | tables | −0.019 (−0.051 to +0.014), 128 boards | −0.023 (−0.060 to +0.013), 64 boards | 0.98× | No clear effect |
+| Prediction | Opponents play their predicted build | tables | −0.005 (−0.047 to +0.037), 128 boards | −0.004 (−0.060 to +0.052), 64 boards | 1.01× | No clear effect |
+| Prediction | Threat from the predicted site | tables | +0.004 (−0.032 to +0.040), 128 boards | +0.047 (−0.004 to +0.098), 64 boards | 0.98× | No clear effect |
+| Prediction | Deny predicted sites | blend 0.25 | −0.018 (−0.045 to +0.010), 128 boards | +0.023 (−0.009 to +0.056), 64 boards | 2.00× | No clear effect |
+
+The study reports have the stage-by-stage cohorts, run IDs, and diagnostics:
+[bargaining](bargaining-tables.mdx), [search settings](settings-tables.mdx),
+[leaf blend](leaf-blend.mdx), [opening](opening-planner-tables.mdx),
+[card timing](timing-tables.mdx), [hand management](hand-tables.mdx),
+[roads](roads-tables.mdx), and [prediction](prediction-tables.mdx).
+
+## What changed between the two leaves
+
+Three things held under both leaves. Counters are worth about a tenth of a win
+per game under either (−0.096 on the hand-written leaf's swapped pair, −0.094
+and −0.119 here). The seating correction is essential: several arms that looked
+like gains in one seating were the turn-order term, and the search-ranked
+opening repeated that lesson in a quieter form, reading +0.135 on the reused
+development boards and +0.024 on fresh ones. And the tactical switches built
+from player advice (block the leader, rob what you need, hold knights, spend
+down before a seven, cut off expansion) do not help a search that already looks
+two turns ahead.
+
+Two things changed. The search's information inputs matter more under the
+stronger leaf. Under the hand-written leaf the number of sampled worlds showed
+no effect at depth 2 and public-count beliefs cost about 0.07 wins per game;
+under the tables one sampled world costs 0.109 and public-count beliefs 0.143.
+The dice scenarios were the largest single lever under both leaves (the earlier
+arm cut them to two, this one to four). And the learned leaf profits from a dose
+of the hand-written terms, as long as the dose is small: a quarter helps at both
+tables, a half is noise, and the full weight loses.
+
+## What this means for the browser
+
+The browser player runs the hand-written leaf in WASM at depth 3 under one
+second, with the opening planner and bargaining on by default. Nothing measured
+here argues for changing that configuration:
+
+- Keep all five bargaining switches on. Counters and two-for-one asks carry the
+  strength, threat pricing supplies the stated reasons for refusals, and
+  accepting asks costs nothing.
+- Keep eight dice scenarios and four sampled worlds. The cheaper settings are
+  the obvious way to buy depth in a one-second budget, and they are the most
+  expensive losses measured.
+- Leave every switch of the robber, timing, hand, road, prediction, and endgame
+  families off.
+
+For a browser player that loads the learned tables, the evidence favours the
+quarter blend, `"leaf":{"tables":…,"hand":0.25}`, with the tables scale left at
+1,000 (half the scale stops the seat trading and loses 0.1 wins per game). The
+blend costs 1.4 times the decision time, so under a fixed one-second budget it
+will reach depth 3 less often; that trade has not been measured, and the blend
+has not been confirmed through the protocol arena.
+
+The study of search settings at the browser's own budget was stopped before its
+registered stages finished. Its unregistered screens agreed that four dice
+scenarios are ruinous and suggested that two sampled worlds and a per-decision
+transposition cache might pay at depth 3; those screens are not findings. Its
+work is kept on the `research/browser-budget` branches of research and server.
+
+## What could still be wrong
+
+Every result is engine-arena evidence at depth 2 against one builder lineup and
+one population lineup; the browser plays at depth 3 against people. The pooled
+numbers are after-the-fact pooling across stages whose own rules were fixed in
+advance, and the development boards 0 to 63 were already used by the earlier
+program, which inflated at least one switch. Effects near +0.03 are below what
+these cohorts resolve; a switch reported as no clear effect may still be worth a
+few hundredths of a win. And the blended leaf is a new configuration: its gain
+holds at both tables here but has not been seen through the protocol arena or
+against people.
+
+<AgentContext>
+Every number in this report comes from `python3 analysis/tables_retest.py --markdown TABLE.md`, which rebuilds each swapped pair from the registered experiments and the archived runs of the program's studies and pools each switch after the fact per leaf and lineup. The studies were run by GLM-5.3 and Kimi K3 through opencode and by Claude Fable 5.1 and Claude Opus 5 through Claude Code; each study report names its own attribution. This synthesis was written by Claude Opus 5 (claude-opus-5) through Claude Code.
+</AgentContext>
