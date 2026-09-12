@@ -1,0 +1,12 @@
+id = "47837719-ebd2-438d-a9eb-a1ad951c1ad1"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm opening-search, stage 1 development (builders lineup), half A: search-ranked opening (\"opening\":\"search\", the shortlist ranked by the learned-tables leaf) in slot 0 against the default draft-aware planner in slot 1, eta and fast in slots 2-3, deterministic boards 0-63, four rotations. Hypothesis: with learned site values ranking the shortlist, search-ranked placement is at least as strong as the hand-leaf-calibrated planner under the tables leaf; support if the pair seating-corrected effect (search minus planner) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening\":\"search\"}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

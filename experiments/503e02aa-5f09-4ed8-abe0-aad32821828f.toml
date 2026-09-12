@@ -1,0 +1,12 @@
+id = "503e02aa-5f09-4ed8-abe0-aad32821828f"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm scarcity, stage 1 development (builders lineup), half B: the default planner in slot 0 and the scarcity-0.0 planner in slot 1, both under the learned-tables leaf, eta and fast in slots 2-3, deterministic boards 0-63, four rotations. Partner half is the experiment registered immediately before this one (candidate in slot 0). Same hypothesis and decision rule as the pair named there."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening_weights\":{\"scarcity\":0.0}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

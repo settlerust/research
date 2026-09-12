@@ -35,6 +35,22 @@ Placing the opening with the builder heuristic instead of the search changed the
 
 The setup is now placed by a planner that scores the two sites as a portfolio and predicts the intervening draft picks (the server's `docs/expectimax.md`, Opening placement). Its first draft valued pips with a player's sense of balance and lost 0.30 wins per game to the search's own placement; calibrated to the leaf's resource values it appeared to win single-seating screens by +0.09 to +0.12, but swapped-seating pairs on 128 boards put the planner effect at −0.017 (−0.075 to +0.042) with a seating term of +0.063: as strong as the search's placement, not stronger, with balanced and explained placements. Five discrete strategies hurt at every blend strength and stay off. The [opening planner report](../../reports/opening-planner.mdx) has the sweep and the cohort.
 
+## Third round: the planner under the learned leaf
+
+The leaf changed to the learned n-tuple tables, so the comparison ran again:
+with `"opening":"search"` the search ranks its shortlist with learned site
+values, against the same hand-leaf-calibrated planner. Swapped pairs through
+development, confirmation, and population stages put the search-ranked opening
+ahead against builders (+0.061 wins per game, 95% interval +0.009 to +0.113,
+pooled over 192 boards) but only the reused development boards exclude zero,
+and against a table with a third search the effect is zero (+0.001). Doubling
+the coverage and balance weights and removing the scarcity markup are both
+nulls. The switch costs a full search on every setup decision, about 2 s each
+against the planner's 40 ms, so the browser keeps the planner and the server
+default waits for a protocol cohort. The [opening planner tables
+report](../../reports/opening-planner-tables.mdx) has the cohorts and the
+traced placements.
+
 ## What could disprove it
 
 More production without faster conversion or a win-rate improvement does not support the mechanism. Opening scores can also overfit specific boards. Do not choose a scarcity threshold after seeing which games the candidate won.
@@ -59,5 +75,6 @@ Use the [rules and reading guide](../../docs/sources.md) to distinguish rules fr
 | --- | --- | --- | --- |
 | 2026-09-09 | [Placing the opening with the search instead of the builder heuristic](/research/approaches/opening) | Active | Round one, 256 deterministic games: contrast -0.035 wins per game (95% interval -0.133 to +0.062). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
 | 2026-09-11 | [Placing the opening with a draft-aware portfolio planner](/research/reports/opening-planner) | Complete | Swapped-seating pairs on 128 boards (runs b698064e, da0b1591, 5e3c4985, d89ea4de): planner effect -0.017 wins per game (95% interval -0.075 to +0.042) after removing a seating term of +0.063; the earlier single-seating gains of +0.06 to +0.12 were seating. The calibrated planner matches the previous placement in strength, and the pip-only first draft lost by 0.30. Discrete strategies hurt at every strength and stay off. With the planner and bargaining together, depth 2 wins 66.4% of slot-games against ETA, fast, and ETA (run 42f60c41). Next: Test the coverage, balance, and expansion weights against a second search seat that blocks, in swapped pairs, where balanced pairs may matter more than against builders; then the same at depth 3 under the browser budget. [Log 2026-09-11](/research/log/2026-09-11) |
+| 2026-09-12 | [The opening planner under the learned leaf](/research/reports/opening-planner-tables) | Complete | Under the learned-tables leaf, the search-ranked opening ("opening":"search") beats the default planner against builders: pooled L1 effect +0.061 wins per game (95% interval +0.009 to +0.113) over 192 seeds across three swapped pairs, but the only cohort excluding zero is the development boards 0-63 (+0.135, +0.045 to +0.225), and on the 128 fresh L1 seeds the effect is +0.024 and crosses zero. Against the population lineup the pooled effect is +0.001 (−0.059 to +0.061). The coverage 0.4 / balance 0.5 arm is a null (pooled L1 +0.020, −0.014 to +0.053; pooled L2 +0.004), and removing the scarcity markup is a null (pooled L1 −0.005; L2 −0.012), so both weights stay at their defaults. The search arm costs 25 to 33 percent more mean decision time, concentrated in three or four setup decisions of about 2 s each; it fails the browser rule and the browser keeps the planner, whose hand-leaf comparison was a match anyway. Next: If the server default is to change, register a protocol cohort of the search-ranked opening against the ntuple-leaf baseline, since the engine gain rests on the reused development boards and is zero against search tables; the alternative mechanism is recalibrating the planner's weights to the tables' site values rather than routing placement through the search. [Log 2026-09-11](/research/log/2026-09-11) |
 
 [research-studies:end]: #

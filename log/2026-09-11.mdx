@@ -950,3 +950,114 @@ Failures and handover. No game failed, stalled, or was interrupted; every cohort
 The arena binary was built from server branch `research/bargaining-tables` at `94063bb`, a trace-only change by Claude Fable 5.1 that records answers to offers and replies to counters under `--trace` (play unchanged on a 64-game screen). The handover described the server as unchanged, which holds for play but not for the branch; the branch is pushed and not merged into server dev. Every cohort ran after 2026-09-11 in UTC and finished on 2026-09-12; the entry stays in this day's log with the rest of the learned-leaf program.
 
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code (registration, analysis, threshold screens, first half of the cohorts); Claude Opus 5 (claude-opus-5) through Claude Code (remaining cohorts, extension, report, filing).
+
+## The opening planner under the learned leaf
+
+Study `opening/planner-tables` (agent `opening-tables`) tested whether the
+draft-aware opening planner, calibrated to the hand-written leaf, still matches
+the search's own placement now that the search evaluates with the learned
+n-tuple tables, and whether the planner's calibration weights matter under the
+tables. Every contrast is a swapped pair on the same seeds (candidate in slot
+0 in half A, in slot 1 in half B, effect half the difference of the two
+slot-0-minus-slot-1 contrasts, seating term their half-sum), on the tables
+baseline seat
+`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}`
+with the arm's one switch added. All 26 registered runs completed 256 of 256
+games; no incomplete, invalid, or unplayed game.
+
+Unregistered screens of the four weight arms, swapped halves on 16 seeds
+(928-943, which no stage uses): `specialize` 0.5 read −0.062 (−0.250 to
++0.125), `scarcity` 0.0 read −0.055 (−0.201 to +0.092), `coverage` 0.4 with
+`balance` 0.5 read −0.023 (−0.144 to +0.097), `expansion` 0.5 read −0.055
+(−0.185 to +0.076). Screens are screens; I took coverage/balance (best point
+estimate) and scarcity (tied with expansion on the mean, wider upper interval,
+and the clearer calibration story) through the stages and left specialize and
+expansion screened.
+
+Arm `opening":"search"`, effect search minus planner. Development L1 (boards
+0-63, eta and fast in slots 2-3): experiments `47837719-ebd2-438d-a9eb-a1ad951c1ad1`
+(run `a9813bf7-dc0d-498b-b620-d948c6174b55`) and `cb1392fe-746d-4396-8f00-9a6366f2f31f`
+(run `1249d1a2-267b-40dc-bc65-fd2678080eef`): effect +0.135 (+0.045 to +0.225),
+seating +0.088. Confirmation L1 (800-863): experiments `50480ef5-3fc5-4951-bca7-4b97351b00c7`
+(run `797cd3dc-06c5-4581-81a2-c385567aecbf`) and `db2d2f23-e765-41e7-8ef8-7cd52c01654b`
+(run `a4173a36-ead4-4fee-af07-c001ccdb7b88`): −0.002 (−0.094 to +0.090), seating
++0.045. Population L2 (800-863, a second tables baseline in slot 2 and eta in
+slot 3): experiments `cb9b513d-d95c-4627-a939-5d5bd8156c56` (run
+`795c3709-fcc1-42f5-96fb-fba6dda15dfe`) and `6af6311d-3550-4be0-bbae-6261bbe3829b`
+(run `7cda63dd-b707-49b5-898d-8e54824fcc2b`): −0.049 (−0.136 to +0.038), seating
++0.068. The pooled L1 effect over 128 seeds was +0.066 (+0.001 to +0.132),
+positive with the interval within 0.03 of zero, so the extension ran on boards
+864-927: L1 experiments `a7374527-b9fc-44a4-97ac-9bbf7190d9f3` (run
+`7bcc5d5b-6878-4616-a9c7-584fdd99fb2d`) and `e160f9eb-37f7-44f1-ae12-1fc43a7f695b`
+(run `3dab2804-6437-4d06-a74b-f86b79374829`), effect +0.051 (−0.034 to +0.136);
+L2 experiments `c515c2ef-2be1-4afc-abb1-28dc17c12325` (run
+`2447754d-31d4-41ee-b6be-768911c3e3ec`) and `0f2f74fd-3b83-4248-878b-7b7893bd1915`
+(run `da5e566f-702b-40b9-9ee2-3a639ba8ea68`), effect +0.051 (−0.030 to +0.131).
+Pooled after-the-fact estimates: L1 192 seeds +0.061 (+0.009 to +0.113), L2 128
+seeds +0.001 (−0.059 to +0.061). Against builders the registered rule reads
+support, but only the development boards 0-63 exclude zero, and on the 128
+fresh L1 seeds alone the effect is +0.024 (−0.038 to +0.087), crossing zero;
+against a table with a third search the arm does nothing.
+
+Arm coverage 0.4 / balance 0.5, effect arm minus default planner, no decision
+cost. Development L1 (0-63): experiments `fcb9c657-4603-4985-948c-a6b54932ecee`
+(run `365eaca0-57c4-4cb9-807e-49e9cc5ec45c`) and `53427677-7c40-4575-a068-8f7f9b2b1321`
+(run `f3175601-94fe-41d3-b52b-370cd0b10206`): +0.037 (−0.020 to +0.094). Confirmation
+L1 (800-863): `7bdd77ec-115a-4a11-a7bb-27bf7499284c` (run
+`e2e08bb9-afee-4948-8d84-9d048a700c43`) and `3cf67aec-9997-43a0-b6c8-eace5a55e5ff`
+(run `3343c9df-ff9b-44d3-aeba-c1530e6109dc`): −0.006 (−0.064 to +0.053). Population
+L2 (800-863): `75b51af0-4105-41ee-a34e-7aa6dbdf036e` (run
+`b27c4f07-93df-4185-aa19-cd6b5f95f3bf`) and `209879bb-2cd8-4492-a304-3ca9bda596a6`
+(run `2c77bc8b-22da-4490-ad01-45b57a29170f`): +0.008 (−0.047 to +0.063). The pooled
+L1 effect over 128 seeds (+0.016, −0.025 to +0.056) triggered the extension on
+boards 864-927: L1 experiments `b872a711-1445-4c38-ab3a-ee7bd004208c` (run
+`92587c1d-13b2-48d6-9485-f17d374c2489`) and `d755650a-82a6-4810-b836-6749f8122433`
+(run `2b380fba-16ab-4b57-b621-a487c7629ba2`), effect +0.027 (−0.032 to +0.086); L2
+experiments `468d59de-8843-41eb-b222-467095753b48` (run
+`ab8b1c67-d903-421f-9aac-c374c815cb79`) and `90fc34d1-acf3-4e8b-8445-162cf874d693`
+(run `56f6f0f3-f402-4046-b6c9-b4372e03f7cc`), effect +0.000 (−0.053 to +0.053).
+Pooled: L1 192 seeds +0.020 (−0.014 to +0.053), L2 128 seeds +0.004 (−0.034 to
++0.042). Inconclusive at every stage; the defaults stand.
+
+Arm scarcity 0.0 (markup removed), effect arm minus default planner. Development
+L1 (0-63): experiments `148e7c43-a18f-49b0-9848-698822c387cf` (run
+`c2866d05-4ca9-4545-9a10-ecdd1182a042`) and `503e02aa-5f09-4ed8-abe0-aad32821828f`
+(run `faed3f89-b5ce-4929-9c83-ad06ec974030`): −0.006 (−0.088 to +0.076), seating
++0.146. Confirmation L1 (800-863): `e7b9a423-9ca7-4c27-9889-916d90729354` (run
+`d97d2a7b-3681-47ec-b516-ca968d1ae169`) and `9f1bc806-5571-4d6b-869b-b53174415c1b`
+(run `3de8e8fa-2193-4239-8d8d-52bd3d0a99fe`): −0.004 (−0.088 to +0.080), seating
++0.117. Population L2 (800-863): `5841c278-d998-4cfe-a5fe-133313de3bd4` (run
+`c26c5f85-a645-4da3-b644-8b17d598733d`) and `97b2e851-c55b-4e6e-8546-677032933a3c`
+(run `9a09faae-b7ed-41cf-94fa-11cd3784a1a0`): −0.012 (−0.073 to +0.049). Pooled L1
+over 128 seeds −0.005 (−0.063 to +0.053), not positive, so no extension. A clean
+null at every stage: the hand-leaf-calibrated scarcity markup neither helps nor
+hurts under the tables, and the default stands.
+
+Interpretation. The sign of the planner-versus-search comparison flipped with
+the leaf because only one side changed: the planner is the same hand-leaf
+calibration, while search mode now ranks the shortlist with learned site
+values. The tables' site values are the improvement, and they reach placement
+only through the search, at the cost of making each of the three or four
+setup decisions a full search (about 40 ms for the planner against about 2 s
+per setup decision in the traced games under load; mean decision time 25 to 33
+percent above the control, nodes per decision 9 to 19 percent above). The
+search seat also loses about 0.2 to 0.3 more reachable sites per game and buys
+about 0.7 more development cards, which is the planner's expansion and draft
+terms holding ground that the search spends instead. The gain lives on the
+development boards and disappears against a table of searches, so the
+registered browser rule fails on both counts (cost outside 25 percent, and a
+population effect of zero) and the browser keeps the planner, whose
+hand-leaf comparison was a match anyway. Traced placements on four boards are
+in the report. Server default: unchanged; a protocol cohort of the
+search-ranked opening against ntuple-leaf is the next step if it is to change.
+
+Failures and notes: none. No failed, incomplete, or interrupted run. The
+screens reused no stage seeds (928-943 lies beyond the extension range
+864-927). Runs were executed with `--threads 6` (the `just engine-run` recipe
+does not forward the flag, so runs were launched through
+`python3 -m harness.engine run EXPERIMENT --threads 6`, the same code path).
+All 26 runs are archived under `artifacts/` with receipts in `records/artifacts/`.
+The [report](../reports/opening-planner-tables.mdx) carries the cohort tables,
+the hand-leaf comparison, and the browser section.
+
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through OpenCode.

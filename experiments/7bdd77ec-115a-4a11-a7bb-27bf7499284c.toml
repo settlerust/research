@@ -1,0 +1,12 @@
+id = "7bdd77ec-115a-4a11-a7bb-27bf7499284c"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm covbal, stage 2 confirmation (builders lineup), half A: coverage 0.4 / balance 0.5 planner in slot 0 against the default planner in slot 1, eta and fast in slots 2-3, deterministic boards 800-863, four rotations. Stage 1 on boards 0-63 gave +0.037 (-0.020 to +0.094), inconclusive; this fresh cohort tests the raised coverage and balance weights on unused boards. Support if the pair seating-corrected effect (covbal minus default) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening_weights\":{\"coverage\":0.4,\"balance\":0.5}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

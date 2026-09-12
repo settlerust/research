@@ -1,0 +1,12 @@
+id = "c515c2ef-2be1-4afc-abb1-28dc17c12325"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm opening-search, extension, population lineup, half A: search-ranked opening in slot 0, default planner in slot 1, tables baseline in slot 2, eta in slot 3, deterministic boards 864-927, four rotations. Extension of the population stage on the same trigger; the pooled population estimate rests on 128 seeds. Support if the pooled seating-corrected effect (search minus planner) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two focal searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening\":\"search\"}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "864-927"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

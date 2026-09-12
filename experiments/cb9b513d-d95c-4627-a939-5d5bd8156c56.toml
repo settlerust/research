@@ -1,0 +1,12 @@
+id = "cb9b513d-d95c-4627-a939-5d5bd8156c56"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm opening-search, stage 3 population (three searches at the table: a second tables baseline in slot 2 and eta in slot 3), half A: search-ranked opening in slot 0 against the default planner in slot 1, deterministic boards 800-863, four rotations. Hypothesis: against opponents that trade and block, the search-ranked opening is at least as strong as the planner under the tables leaf; support if the pair seating-corrected effect (search minus planner) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two focal searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening\":\"search\"}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

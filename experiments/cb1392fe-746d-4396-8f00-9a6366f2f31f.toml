@@ -1,0 +1,12 @@
+id = "cb1392fe-746d-4396-8f00-9a6366f2f31f"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm opening-search, stage 1 development (builders lineup), half B: the control (default planner) in slot 0 and the search-ranked opening (\"opening\":\"search\") in slot 1, eta and fast in slots 2-3, deterministic boards 0-63, four rotations. Partner half: experiment 47837719-ebd2-438d-a9eb-a1ad951c1ad1 (candidate in slot 0). Same hypothesis and decision rule as the pair named there."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening\":\"search\"}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

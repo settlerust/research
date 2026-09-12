@@ -1,0 +1,12 @@
+id = "fcb9c657-4603-4985-948c-a6b54932ecee"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm covbal, stage 1 development (builders lineup), half A: the planner with coverage weight 0.4 and balance weight 0.5 (defaults 0.15 and 0.2) in slot 0 against the default planner in slot 1, both under the learned-tables leaf, eta and fast in slots 2-3, deterministic boards 0-63, four rotations. Hypothesis: under the learned leaf the planner under-weights distinct-number coverage and the thin-resource penalty, so the raised weights improve the pair; support if the pair seating-corrected effect (covbal minus default) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening_weights\":{\"coverage\":0.4,\"balance\":0.5}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

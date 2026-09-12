@@ -1,0 +1,12 @@
+id = "148e7c43-a18f-49b0-9848-698822c387cf"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm scarcity, stage 1 development (builders lineup), half A: the planner with the scarce-resource markup removed (scarcity 0.0, default 1.0) in slot 0 against the default planner in slot 1, both under the learned-tables leaf, eta and fast in slots 2-3, deterministic boards 0-63, four rotations. Hypothesis: the scarcity markup was calibrated to the hand-written leaf resource values; under the learned tables it distorts site values, so removing it improves the pair; support if the pair seating-corrected effect (scarcity-off minus default) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening_weights\":{\"scarcity\":0.0}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

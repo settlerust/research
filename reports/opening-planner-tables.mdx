@@ -1,0 +1,258 @@
+---
+date: "2026-09-12"
+title: "The opening planner under the learned leaf"
+summary: "With the learned tables as the leaf, the search's own ranking of setup sites beats the hand-leaf-calibrated planner against builders (+0.061 wins per game over 192 boards, interval excluding zero) but not against a table of searches, and the whole gain comes from the reused development boards; the coverage, balance, and scarcity weights do nothing, and the switch pays a full search on every setup decision."
+---
+
+# The opening planner under the learned leaf
+
+<ResearchCallout title="Finding · the tables rank the shortlist better than the planner, against builders only, and the gain lives on old boards">
+Under the hand-written leaf the draft-aware planner matched the search's own
+placement (planner effect −0.017, −0.075 to +0.042, over 128 boards). Under the
+learned tables, where `"opening":"search"` ranks the same shortlist with learned
+site values, the search-ranked opening beats the default planner against
+builders: **+0.061 wins per game** (95% interval **+0.009 to +0.113**) pooled
+over 192 L1 seeds, three swapped pairs. The gain rests on the development
+boards 0-63 (**+0.135**, +0.045 to +0.225), which earlier studies also used; on
+the 128 fresh L1 seeds alone the effect is +0.024 (−0.038 to +0.087) and crosses
+zero. Against a population lineup with a third tables search, the pooled effect
+is **+0.001** (−0.059 to +0.061): nothing. The calibration arms are nulls:
+raised coverage and balance give +0.020 (−0.014 to +0.053) pooled L1, removing
+the scarcity markup −0.005 (−0.063 to +0.053). The search arm costs 25 to 33
+percent more mean decision time, all of it in the three or four setup decisions,
+each of which becomes a full search. It is not worth the browser.
+</ResearchCallout>
+
+## The question and the arms
+
+The planner in `crates/expectimax/src/v2/opening.rs` scores both setup sites as
+a portfolio with weights calibrated to the hand-written leaf's resource values.
+The [earlier study](opening-planner.mdx) measured it against the search's own
+placement under the hand-written leaf and found a match. The leaf has since
+changed: the learned tables value sites by what wins, and under `"search"` mode
+the shortlist is ranked by the lookahead through those tables. Each arm is one
+switch on the tables baseline seat
+(`v2:{"depth":2,"leaf":{"tables":".../hex-portfolio-main.bin"}}`), seated as a
+swapped pair against the default planner: half A has the candidate in slot 0,
+half B in slot 1, both on the same seeds, and the effect is half the difference
+of the two slot-0-minus-slot-1 contrasts with the seating term their half-sum.
+
+Four weight arms were screened first, unregistered, as swapped halves on 16
+seeds (928-943, unused by any stage): `specialize` 0.5 read −0.062 (−0.250 to
++0.125), `scarcity` 0.0 read −0.055 (−0.201 to +0.092), `coverage` 0.4 with
+`balance` 0.5 read −0.023 (−0.144 to +0.097), and `expansion` 0.5 read −0.055
+(−0.185 to +0.076). Screens are screens. The coverage/balance arm had the best
+point estimate; scarcity tied expansion on the mean and was taken ahead of it
+for the wider upper interval and because its mechanism, a markup calibrated to
+the replaced leaf, is the one the tables can plausibly obsolete. Those two arms
+went through the stages; `specialize` and `expansion` stayed screened.
+
+Stages follow the program: development on boards 0-63 with the builders `eta`
+and `fast` (L1), confirmation on fresh boards 800-863, population on 800-863
+with a second tables search and `eta` in slots 2 and 3 (L2), and an extension on
+boards 864-927 in both lineups for any arm whose pooled L1 effect over 128
+seeds was positive with its interval within 0.03 of zero. The search arm
+(+0.066, +0.001 to +0.132) and the coverage arm (+0.016, −0.025 to +0.056)
+triggered it; the scarcity arm did not (−0.005, not positive). Every cohort is
+256 games (64 seeds, four rotations), all complete in both halves, 26 runs and
+6,656 games in total with no incomplete, invalid, or unplayed game.
+
+## The search-ranked opening against the planner
+
+| Stage (boards) | Half | Experiment | Run | Slot 0 wins | Slot 1 wins | Contrast |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| Development L1 (0-63) | A | `47837719-ebd2-438d-a9eb-a1ad951c1ad1` | `a9813bf7-dc0d-498b-b620-d948c6174b55` | 145 | 88 | +0.223 (+0.102 to +0.343) |
+| Development L1 (0-63) | B | `cb1392fe-746d-4396-8f00-9a6366f2f31f` | `1249d1a2-267b-40dc-bc65-fd2678080eef` | 109 | 121 | −0.047 (−0.149 to +0.055) |
+| Confirmation L1 (800-863) | A | `50480ef5-3fc5-4951-bca7-4b97351b00c7` | `797cd3dc-06c5-4581-81a2-c385567aecbf` | 121 | 110 | +0.043 (−0.081 to +0.167) |
+| Confirmation L1 (800-863) | B | `db2d2f23-e765-41e7-8ef8-7cd52c01654b` | `a4173a36-ead4-4fee-af07-c001ccdb7b88` | 119 | 107 | +0.047 (−0.058 to +0.151) |
+| Population L2 (800-863) | A | `cb9b513d-d95c-4627-a939-5d5bd8156c56` | `795c3709-fcc1-42f5-96fb-fba6dda15dfe` | 83 | 78 | +0.020 (−0.086 to +0.126) |
+| Population L2 (800-863) | B | `6af6311d-3550-4be0-bbae-6261bbe3829b` | `7cda63dd-b707-49b5-898d-8e54824fcc2b` | 102 | 72 | +0.117 (+0.004 to +0.231) |
+| Extension L1 (864-927) | A | `a7374527-b9fc-44a4-97ac-9bbf7190d9f3` | `7bcc5d5b-6878-4616-a9c7-584fdd99fb2d` | 124 | 105 | +0.074 (−0.037 to +0.186) |
+| Extension L1 (864-927) | B | `e160f9eb-37f7-44f1-ae12-1fc43a7f695b` | `3dab2804-6437-4d06-a74b-f86b79374829` | 112 | 119 | −0.027 (−0.143 to +0.088) |
+| Extension L2 (864-927) | A | `c515c2ef-2be1-4afc-abb1-28dc17c12325` | `2447754d-31d4-41ee-b6be-768911c3e3ec` | 99 | 75 | +0.094 (−0.009 to +0.196) |
+| Extension L2 (864-927) | B | `0f2f74fd-3b83-4248-878b-7b7893bd1915` | `da5e566f-702b-40b9-9ee2-3a639ba8ea68` | 84 | 86 | −0.008 (−0.107 to +0.091) |
+
+Slot 0 of each half holds the candidate named in the row's experiment; the
+per-slot win rates, mean points, and decision times of every run are in the
+run records under `records/runs/`.
+
+| Estimate | Effect (95% interval) | Seating term |
+| --- | --- | ---: |
+| Development, boards 0-63 | +0.135 (+0.045 to +0.225) | +0.088 |
+| Confirmation, boards 800-863 | −0.002 (−0.094 to +0.090) | +0.045 |
+| Extension L1, boards 864-927 | +0.051 (−0.034 to +0.136) | +0.023 |
+| Pooled L1, 192 seeds (after-the-fact pooling) | +0.061 (+0.009 to +0.113) | +0.052 |
+| Fresh L1 seeds only (800-927, 128 seeds) | +0.024 (−0.038 to +0.087) | +0.034 |
+| Population L2, boards 800-863 | −0.049 (−0.136 to +0.038) | +0.068 |
+| Extension L2, boards 864-927 | +0.051 (−0.030 to +0.131) | +0.043 |
+| Pooled L2, 128 seeds (after-the-fact pooling) | +0.001 (−0.059 to +0.061) | +0.056 |
+
+The development stage supports the hypothesis and the pooled L1 estimate
+excludes zero, so the registered rule reads the arm as supported against
+builders. Two readings temper it. The only cohort whose interval excludes zero
+is the development one, on boards that many earlier studies used for tuning
+and where the [seating report](arena-seating.mdx) measured the largest turn
+order terms; on the 128 fresh L1 seeds alone the effect is +0.024 and crosses
+zero. And against three searches at the table, where placements are contested
+by an opponent that trades and blocks, the pooled effect is exactly zero. The
+search-ranked opening is a bet that pays on builder tables and does not pay on
+search tables.
+
+## The calibration arms
+
+The coverage arm (`coverage` 0.4, `balance` 0.5 against defaults 0.15 and
+0.2) and the scarcity arm (`scarcity` 0.0 against the default 1.0) change only
+the planner's arithmetic, so their decision cost is the control's.
+
+| Stage (boards) | Half | Experiment | Run | Slot 0 wins | Slot 1 wins | Contrast |
+| --- | --- | --- | --- | ---: | ---: | --- |
+| Coverage, development L1 (0-63) | A | `fcb9c657-4603-4985-948c-a6b54932ecee` | `365eaca0-57c4-4cb9-807e-49e9cc5ec45c` | 132 | 96 | +0.141 (+0.051 to +0.231) |
+| Coverage, development L1 (0-63) | B | `53427677-7c40-4575-a068-8f7f9b2b1321` | `f3175601-94fe-41d3-b52b-370cd0b10206` | 123 | 106 | +0.066 (−0.031 to +0.164) |
+| Coverage, confirmation L1 (800-863) | A | `7bdd77ec-115a-4a11-a7bb-27bf7499284c` | `e2e08bb9-afee-4948-8d84-9d048a700c43` | 126 | 107 | +0.074 (−0.021 to +0.169) |
+| Coverage, confirmation L1 (800-863) | B | `3cf67aec-9997-43a0-b6c8-eace5a55e5ff` | `3343c9df-ff9b-44d3-aeba-c1530e6109dc` | 126 | 104 | +0.086 (−0.036 to +0.208) |
+| Coverage, population L2 (800-863) | A | `75b51af0-4105-41ee-a34e-7aa6dbdf036e` | `b27c4f07-93df-4185-aa19-cd6b5f95f3bf` | 81 | 85 | −0.016 (−0.098 to +0.067) |
+| Coverage, population L2 (800-863) | B | `209879bb-2cd8-4492-a304-3ca9bda596a6` | `2c77bc8b-22da-4490-ad01-45b57a29170f` | 80 | 88 | −0.031 (−0.122 to +0.059) |
+| Coverage, extension L1 (864-927) | A | `b872a711-1445-4c38-ab3a-ee7bd004208c` | `92587c1d-13b2-48d6-9485-f17d374c2489` | 134 | 103 | +0.121 (+0.006 to +0.236) |
+| Coverage, extension L1 (864-927) | B | `d755650a-82a6-4810-b836-6749f8122433` | `2b380fba-16ab-4b57-b621-a487c7629ba2` | 128 | 111 | +0.066 (−0.043 to +0.176) |
+| Coverage, extension L2 (864-927) | A | `468d59de-8843-41eb-b222-467095753b48` | `ab8b1c67-d903-421f-9aac-c374c815cb79` | 90 | 80 | +0.039 (−0.041 to +0.119) |
+| Coverage, extension L2 (864-927) | B | `90fc34d1-acf3-4e8b-8445-162cf874d693` | `56f6f0f3-f402-4046-b6c9-b4372e03f7cc` | 92 | 82 | +0.039 (−0.052 to +0.131) |
+| Scarcity, development L1 (0-63) | A | `148e7c43-a18f-49b0-9848-698822c387cf` | `c2866d05-4ca9-4545-9a10-ecdd1182a042` | 132 | 96 | +0.141 (+0.029 to +0.252) |
+| Scarcity, development L1 (0-63) | B | `503e02aa-5f09-4ed8-abe0-aad32821828f` | `faed3f89-b5ce-4929-9c83-ad06ec974030` | 129 | 90 | +0.152 (+0.050 to +0.254) |
+| Scarcity, confirmation L1 (800-863) | A | `e7b9a423-9ca7-4c27-9889-916d90729354` | `d97d2a7b-3681-47ec-b516-ca968d1ae169` | 131 | 102 | +0.113 (+0.005 to +0.222) |
+| Scarcity, confirmation L1 (800-863) | B | `9f1bc806-5571-4d6b-869b-b53174415c1b` | `3de8e8fa-2193-4239-8d8d-52bd3d0a99fe` | 124 | 93 | +0.121 (+0.003 to +0.240) |
+| Scarcity, population L2 (800-863) | A | `5841c278-d998-4cfe-a5fe-133313de3bd4` | `c26c5f85-a645-4da3-b644-8b17d598733d` | 79 | 92 | −0.051 (−0.138 to +0.037) |
+| Scarcity, population L2 (800-863) | B | `97b2e851-c55b-4e6e-8546-677032933a3c` | `9a09faae-b7ed-41cf-94fa-11cd3784a1a0` | 76 | 83 | −0.027 (−0.112 to +0.057) |
+
+| Arm | Estimate | Effect (95% interval) | Seating term |
+| --- | --- | --- | ---: |
+| Coverage | Development L1 (0-63) | +0.037 (−0.020 to +0.094) | +0.104 |
+| Coverage | Confirmation L1 (800-863) | −0.006 (−0.064 to +0.053) | +0.080 |
+| Coverage | Extension L1 (864-927) | +0.027 (−0.032 to +0.086) | +0.094 |
+| Coverage | Pooled L1, 192 seeds (after-the-fact pooling) | +0.020 (−0.014 to +0.053) | +0.092 |
+| Coverage | Population L2 (800-863) | +0.008 (−0.047 to +0.063) | −0.023 |
+| Coverage | Extension L2 (864-927) | +0.000 (−0.053 to +0.053) | +0.039 |
+| Coverage | Pooled L2, 128 seeds (after-the-fact pooling) | +0.004 (−0.034 to +0.042) | +0.008 |
+| Scarcity | Development L1 (0-63) | −0.006 (−0.088 to +0.076) | +0.146 |
+| Scarcity | Confirmation L1 (800-863) | −0.004 (−0.088 to +0.080) | +0.117 |
+| Scarcity | Pooled L1, 128 seeds (after-the-fact pooling) | −0.005 (−0.063 to +0.053) | +0.132 |
+| Scarcity | Population L2 (800-863) | −0.012 (−0.073 to +0.049) | −0.039 |
+
+Neither arm separates from zero at any stage. The scarcity markup, tuned to the
+hand-written leaf's resource values, neither helps nor hurts under the tables,
+and doubling the coverage and balance weights does nothing either: within the
+range tested, the planner's choices are insensitive to these weights, or the
+differences they cause do not convert to wins at depth 2. Both stay at their
+defaults. The single-seating contrasts in the scarcity rows sit near +0.13 on
+boards 0-63 and 800-863, the size of the turn-order term there, and the pair
+removes it.
+
+## What the arms chose
+
+Four boards (seeds 0-3, one rotation each) were traced to show what each arm
+picks; these are traced diagnostics, not measured outcomes, and four boards
+illustrate rather than establish. Pips are per resource over both chosen sites,
+computed from the board the trace records and the same planner notes the
+[earlier report](opening-planner.mdx) read.
+
+| Arm | Mean pips per resource over the four pairs | Distinct numbers, median |
+| --- | --- | ---: |
+| Default planner | 2.8 brick, 5.2 lumber, 3.8 wool, 4.5 grain, 4.5 ore | 5.5 |
+| Search-ranked | 5.0 brick, 3.0 lumber, 3.2 wool, 4.8 grain, 4.5 ore | 5.5 |
+| Coverage 0.4 / balance 0.5 | 3.0 brick, 5.0 lumber, 5.2 wool, 3.8 grain, 4.0 ore | 6.0 |
+| Scarcity 0.0 | 2.8 brick, 6.0 lumber, 4.5 wool, 5.2 grain, 3.2 ore | 6.0 |
+
+On board 0 the search took nine brick pips and five grain, the default spread
+the same board as five brick, five lumber, four grain, three ore, and the
+scarcity-off arm concentrated on ten grain. On board 2 the search paired a
+six-grain site with an eight-ore site and no lumber, the heaviest single-resource
+bets of the four arms. The coverage arm raised wool the most and covered six
+distinct numbers on three of the four boards, consistent with its weights, but
+the cohorts above say those differences do not convert to wins at this depth.
+The tables' own ranking is visible in the traced setup decision: on board 3
+the shortlist's top sites were valued 600.8 and 587.1 leaf units by the tables
+against 562.6 for the site the planner chose first, and the search took the
+tables' pick.
+
+The planner keeps one measurable advantage in the aggregates. The search seat
+lost 1.87 to 2.06 reachable sites per game to 1.60 to 1.79 for the planner seat
+(a settlement built by another seat within three roads of ground this seat
+could reach), built about 0.3 fewer roads, and bought about 0.7 more
+development cards per game: the planner's expansion and draft terms hold
+ground, and the search converts that ground into cards and purchases instead.
+Settlement and city counts, trades, and discards move only by tenths.
+
+## Decision cost
+
+The search arm's mean decision time runs 25 to 33 percent above the control's
+(954 against 730 ms in the development half, 690 against 555 on the extension
+boards), and its nodes per decision 9 to 19 percent higher. The traced games
+locate the cost: the planner decides setup in about 40 ms, while search mode
+spent about 2,000 ms per setup decision under this load, four decisions per
+game, with the mid-game decisions unchanged. The coverage and scarcity arms
+are arithmetic on the planner and cost nothing. The registered browser rule
+asks for a mean decision time within 25 percent of the control's; the search
+arm fails it in every stage.
+
+## Comparison with the hand-leaf result
+
+Under the hand-written leaf, the [planner study](opening-planner.mdx) measured
+the planner against search-ranked placement at −0.017 (−0.075 to +0.042) over
+128 boards, with +0.006 (−0.075 to +0.087) on the same boards 0-63 used here:
+a match. Under the tables the same contrast reads +0.135 on those boards and
++0.061 pooled over 192 L1 seeds. The sign flips because only one side of the
+comparison changed: the planner is the same code with the same hand-leaf
+calibration, while the search mode now ranks its shortlist with learned site
+values instead of the hand-written leaf's production-dominated terms. The
+tables' site values, not the search, are the improvement; the search is just
+the path through which they reach the placement. That reading also explains
+the population stage: three seats share the tables, placements are contested,
+and the planner's draft prediction and ground-holding matter more, so the
+search mode's edge disappears.
+
+## What could still be wrong
+
+The pooled L1 estimate leans on the development boards. Only the 0-63 cohort
+excludes zero, those boards were used by many earlier studies, and on the 128
+fresh L1 seeds the effect crosses zero. A protocol cohort or a fresh-seed-only
+registration would settle whether the +0.061 is real or a development-board
+artifact. The population stage ran only 128 seeds against one lineup shape
+(two focal searches, a third tables seat, one builder); other mixes could
+read differently. The weight arms were screened at 16 seeds and the tie-break
+between scarcity and expansion was a judgment call; both screened at −0.055
+and either could be the arm that matters at other weights. The planner's
+draft prediction assumes the other seats use the same planner, which is exact
+for the builders and the other searches here and not for a person. The traced
+placements cover four boards and no browser build was run; the WASM cost of
+searching setup decisions under the one-second budget is inferred from the
+native traces, not measured in the browser.
+
+## What this means for the browser
+
+The browser build runs the hand-written leaf in WASM and cannot load the
+tables, so the measured gain of `"opening":"search"` does not exist there:
+under the hand leaf the two modes measured as equals. The switch also fails
+the registered cost rule in every stage, 25 to 33 percent more mean decision
+time, and its true cost is worse in the browser: at depth 3 under a one-second
+budget, the three or four setup decisions would each consume most of a second
+before the first roll, against about 40 ms for the planner. Keep
+`"opening":"planner"` in the browser. The calibration arms are free but
+worthless here, so their defaults stand too. On the server, where the tables
+exist, the search-ranked opening is a modest improvement against builder
+tables and neutral against search tables; a protocol cohort against the
+`ntuple-leaf` baseline would be the next step before changing that default.
+
+<AgentContext>
+All cohorts ran in the engine arena (`crates/arena`, binary `tournament`) in
+deterministic mode on the tables baseline seat
+`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}`,
+with the arm's one switch added, at six threads. Registrations live in
+`experiments/` under study `opening/planner-tables`; run records under
+`records/runs/`; archives and receipts under `artifacts/` and
+`records/artifacts/`. Screens (unregistered, seeds 928-943) and the traced
+placement games (seeds 0-3, `--trace`) are kept under
+`runs/screen-opening-tables/` in the canonical checkout.
+`analysis/opening_tables.py` recomputes every pair effect and pooled estimate
+from the run UUIDs; `analysis/opening_pairs.py` reads the traced placements and
+computes each pair's pips by replicating the engine's fixed topology.
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through OpenCode.
+</AgentContext>

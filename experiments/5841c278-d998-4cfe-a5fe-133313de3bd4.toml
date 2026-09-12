@@ -1,0 +1,12 @@
+id = "5841c278-d998-4cfe-a5fe-133313de3bd4"
+study = "opening/planner-tables"
+arena = "engine"
+hypothesis = "Arm scarcity, stage 3 population (three searches at the table: a second tables baseline in slot 2 and eta in slot 3), half A: scarcity-0.0 planner in slot 0 against the default planner in slot 1, deterministic boards 800-863, four rotations. Hypothesis: against opponents that trade and block, removing the hand-leaf-calibrated scarcity markup changes the pairs chosen, so the effect measured as a null on builders may appear here; support if the pair seating-corrected effect (scarcity-off minus default) is positive with its 95% seed interval excluding zero. Partner: half B is the same lineup with the two focal searches swapped, registered immediately after this registration."
+decision_rule = "Pair rule: all 256 games complete in both halves; the seating-corrected effect (half the difference of the two slot-0-minus-slot-1 per-seed contrasts, 95% interval over seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), otherwise inconclusive."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"opening_weights\":{\"scarcity\":0.0}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
