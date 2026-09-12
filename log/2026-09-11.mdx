@@ -1061,3 +1061,138 @@ The [report](../reports/opening-planner-tables.mdx) carries the cohort tables,
 the hand-leaf comparison, and the browser section.
 
 Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through OpenCode.
+
+## Search settings under the learned tables
+
+Study `search/settings-tables`. The 2026-09-09 ablation program measured the
+tunable search's settings under the hand-written leaf in one seating, which
+the seating diagnosis later showed to be inflated by the turn-order term;
+none had been measured under the learned n-tuple tables. Nine arms, each the
+depth-2 tables baseline
+(`v2:{"depth":2,"leaf":{"tables":"artifacts/ntuple/hex-portfolio-main.bin"}}`)
+plus one switch, were measured as swapped pairs against the unchanged
+baseline: `scenarios:4` and `scenarios:16` (dice scenarios, default 8),
+`samples:1` and `samples:8` (sampled hidden worlds, default 4),
+`inner_scenarios:2` (deeper-level scenarios, default 4), `leaf_opponents:true`
+(opponents in the lookahead choose by the tables leaf),
+`counts_only:true` (public counts instead of event-based hand knowledge),
+`propose:false` (no trade proposals), and `reciprocity:true` (willingness
+scaled by each partner's observed acceptance rate). Each half is its own
+registered experiment: 256 deterministic games (64 seeds, four rotations),
+half A candidate in slot 0, half B candidate in slot 1, the effect the per-seed
+half-difference of the two contrasts and the seating term their half-sum
+(`analysis/settings_tables.py`). Development played the ablation boards
+(seeds 0-63) with eta and fast in slots 2 and 3; confirmation played fresh
+seeds 800-863 in the same lineup; population played seeds 800-863 with the
+tables baseline and eta behind the two searches; the two arms whose pooled
+128-seed effect was positive with an interval reaching within 0.03 of zero
+(samples8, leaf_opponents) extended to seeds 864-927 in both lineups. The
+registered decision rule: all games complete, and the seating-corrected
+effect's 95 percent seed interval excludes zero in the hypothesized direction
+(support), the other way (refutation), or neither (inconclusive). All 54
+cohorts completed 256 of 256 games with no invalid moves, stalls, or search
+errors.
+
+Registrations, half A and half B: scenarios4
+`d6cbff3d-7e92-4f47-bbc9-97da3c2532a9` / `33654a28-86e9-4026-93e2-111b34913669`,
+scenarios16 `767a4f08-e4d9-48da-83bb-d2e952feaf69` /
+`f650a242-2e6a-4075-a80d-da4ee753441a`, samples1
+`f959a49e-5745-4623-9bb9-e0a43f9ea964` / `e4f5ae29-919c-4bd4-83ae-98812ea00bc3`,
+samples8 `97bd74e0-164b-4d79-bcab-390edc31c129` /
+`adf4e1c3-f93f-4f7e-9631-bd595a2beb2a`, inner_scenarios2
+`e071b629-8043-4eff-8fb0-ac694cac0f78` / `f364cf12-1945-4653-9fe3-8bfa92fe5f38`,
+leaf_opponents `a20b6abd-d8b6-4f66-b634-5df40495953e` /
+`face5b0d-d070-4e83-91df-d6fb6ae5ee4b`, counts_only
+`ef501bc5-7196-4ad6-a939-09f00414d771` / `b3795b5e-aa62-40be-ad6c-53d075512ecb`,
+propose_false `e53c45bd-a7ee-4ef8-8772-3780c1cfef31` /
+`1172dcee-95da-44af-a86c-9f5ee0d12fbf`, reciprocity
+`95aac00b-f396-4a5c-b023-db360692802b` / `495e1a17-5a74-438e-b660-06219ca881c7`
+(development); scenarios4 `dcfd9ca5-170f-43a7-a1f0-36117e7c7990` /
+`ee1751fb-ec20-4df1-b402-6d97a405bd0d`, scenarios16
+`ed82c2ee-5197-4e70-a3e6-ae4a20d64a33` / `e5b13479-5578-4810-bd6f-da6b3fb779fb`,
+samples1 `142fdc9a-e4be-4418-9008-5b942dc78daf` /
+`bfb9bed6-58cd-48c5-aa91-2b029b5c0f9a`, samples8
+`449ea466-728b-45e0-a177-9c220e3e8415` / `13a7cf69-526c-4f94-b434-0ee56051a5f8`,
+inner_scenarios2 `25ed5f85-6ab3-4949-80d0-b3bce5237971` /
+`e2445b6e-c49c-4396-85f6-9052f8921028`, leaf_opponents
+`a5e38bc5-ff5d-4365-bdee-f89379bf64b6` / `b3c000ac-fec6-48ba-87e0-1cec1c89ba34`,
+counts_only `1667548f-63ed-4d58-bff0-a1477e978867` /
+`dfbd6b4c-1438-44e9-b69b-313d048f6fcf`, propose_false
+`87550a5a-5149-418b-a056-aa6d0a8372a9` / `a567b9c2-92a1-49b5-b7ef-c623fd51a197`,
+reciprocity `ca442984-d942-4e50-b036-e76b85372074` /
+`de3228ec-9440-4ac1-ac6d-81c2d99976e5` (confirmation); leaf_opponents
+`9aef447a-d703-454a-8970-92d463017015` / `bddfe32b-940f-4ea0-833f-2c0db3274a3c`,
+counts_only `d4778a73-5587-441c-8cbf-82a53f87d096` /
+`4efbf0e1-bea3-407f-8f8a-078f649805eb`, propose_false
+`3c661aad-8bcf-48cd-988b-0cbf3c50209d` / `001e2f3b-f70e-41b0-b061-247eeb855557`,
+reciprocity `4e7a760b-0fa1-4e5e-8269-aee7f6030105` /
+`5b23ab6d-1cbc-4e77-82e2-5c281248e7d0`, samples8
+`82ff6f24-174a-4d2b-babf-fa1a95619589` / `75b81db1-c6e6-483b-aafc-8ad707ecc0f4`
+(population); samples8 extension `12b83328-8fd5-402f-aa7e-08c8dc8b38fd` /
+`fbd6fe9d-3771-4e25-bc1f-bf2fb38625bd` (L1) and `d5cb3195-5a58-460a-bee7-ee62fe907d63`
+/ `b16d5306-09ee-4af4-a7fe-e34494197bf0` (L2), leaf_opponents extension
+`e222c91f-2724-4730-8f81-9a1198ca4e1f` / `d46a4f48-401e-49fb-8a93-0dc5b4adeca1`
+(L1) and `36817410-f3b0-4dd3-a61f-70bc9676bc06` /
+`4d02ea83-f6e1-4e4b-afd1-24ab954ffcb6` (L2), seeds 864-927. The 54 run UUIDs
+are in the [report](../reports/settings-tables.mdx) cohort table and its
+AgentContext.
+
+Seating-corrected effects, candidate minus control (pooled rows are
+after-the-fact poolings over the named seeds):
+
+| Arm | L1 effect (95% interval) | L2 effect | Decision time vs control | Verdict by the registered rule |
+| --- | --- | --- | ---: | --- |
+| scenarios 4 | −0.392 (−0.444 to −0.339), 128 seeds | not run | 68% | supported: the change hurts |
+| scenarios 16 | −0.026 (−0.072 to +0.019), 128 | not run | 272% | inconclusive; mean negative |
+| samples 1 | −0.109 (−0.150 to −0.069), 128 | not run | 34% | supported: the change hurts |
+| samples 8 | +0.045 (+0.009 to +0.081), 192 | −0.007 (−0.045 to +0.031), 128 | 178% | each pair inconclusive; pooled L1 excludes zero, pooled L2 does not |
+| inner scenarios 2 | inert at depth 2 | not run | 100% | no test: the switch cannot bind |
+| leaf opponents | +0.031 (−0.006 to +0.068), 192 | +0.033 (−0.009 to +0.075), 128 | 180% | inconclusive at both lineups |
+| counts only | −0.143 (−0.188 to −0.097), 128 | −0.053 (−0.107 to +0.002), 64 | 120% | supported: the change hurts |
+| no proposals | −0.172 (−0.211 to −0.133), 128 | −0.143 (−0.197 to −0.089), 64 | 92% | supported: the change hurts |
+| reciprocity | −0.073 (−0.115 to −0.031), 128 | −0.082 (−0.141 to −0.023), 64 | 106% | refuted: the change hurts |
+
+Reading: under the learned tables the search's information inputs are worth
+more than under the hand-written leaf, not less. Against the same boards where
+the hand-leaf ablations read −0.066 for counts-only beliefs (confirmed) and
+−0.027 for proposals (crossing zero), the tables read −0.143 and −0.172.
+Four scenarios cost −0.392, about what two scenarios cost the hand-written
+leaf in one seating (−0.410), and the four-scenario seat's diagnostics show
+how: it ends turns over the seven-card limit and discards 13.9 cards per game
+against the control's 5.5, buying 2.75 development cards against 4.25. The
+reciprocity scaling is the one refuted arm: against fixed-rule partners it
+makes the seat stop asking (9.8 offers per game against the control's 14.7,
+half the counters, more declines) and loses about 0.07 wins per game. The one
+strength gain in the program, eight sampled worlds at +0.045 against builders,
+is real pooled over 192 seeds but each of its five pairs is inconclusive, the
+gain vanishes at the population table, and it costs 1.8 times the decision
+time, so it fails the browser rule on cost. The `inner_scenarios:2` arm
+cannot change a decision at depth 2 (the leaf is evaluated before any deeper
+opponents' round exists): both halves of both stages replayed byte-identical
+games, which doubles as a null pair measuring the seating term on fresh
+boards (+0.078, −0.028 to +0.184). The switch first binds at depth 3, the
+browser's depth, and is the natural next measurement there.
+
+No switch is worth the browser by the registered rule (pooled effect at
+least +0.03, interval excluding zero, decision time within 25 percent of the
+control). The defaults stand on both leaves. The one candidate trade the
+numbers expose is `samples:1` for depth: a third of the decision time for
+−0.109 wins per game under the tables, worth measuring in WASM only if the
+one-second browser budget cannot finish depth 3.
+
+Failures: none in the games; all 54 cohorts completed. My own scheduling
+caused five interrupted run directories before the program proper:
+`41648acb-cfba-40ea-97e2-86d0053656cc` (16 of 256 games, killed by a shell
+timeout), `08f93997-1214-4693-8caa-6f16c28c7a52` and
+`e39e156d-bdc8-413a-bcee-f20945f71836` (duplicate scenarios4 halves, killed),
+and `958a74d4-7ceb-4de5-b75b-041600e07f87` and
+`606bd7b4-cfad-49bc-8d59-60804bc63501` (duplicate scenarios16 halves, invalid,
+3 games each; their records are filed). No game from any interrupted run
+entered any contrast. Wall times are meaningless under the day's load (load
+average 80 to 160 on 32 cores from ten concurrent agents); the tournaments ran
+at `--threads 6` and the deterministic cohorts are load-independent. The
+confirmation halves ran concurrently with development halves on disjoint
+seeds for wall-time reasons; every stage's games completed before any
+interpretation.
+
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.

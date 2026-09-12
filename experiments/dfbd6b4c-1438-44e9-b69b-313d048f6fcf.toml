@@ -1,0 +1,12 @@
+id = "dfbd6b4c-1438-44e9-b69b-313d048f6fcf"
+study = "search/settings-tables"
+arena = "engine"
+hypothesis = "confirmation half B of the swapped pair for counts_only: hidden hands sampled from public counts alone, ignoring the event history, evaluated with the learned n-tuple leaf. Prediction: the change hurts the candidate (negative effect) relative to the unchanged tables baseline. This half seats the control in slot 0 and the candidate in slot 1; its partner half A is experiment 1667548f-63ed-4d58-bff0-a1477e978867."
+decision_rule = "All games complete; the seating-corrected effect over seeds (half the per-seed difference of the two slot-0-minus-slot-1 contrasts of this pair) has a 95% interval excluding zero in the hypothesized direction (support), excluding zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"counts_only\":true}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
