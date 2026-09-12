@@ -135,6 +135,24 @@
    "seeds": "800-863",
    "half_a": "ff90bfd6-bab6-4ae2-8ee4-e766cdff7e0e",
    "half_b": "e390230c-9b4e-421d-9b57-eeacf8ef2d76"
+  },
+  {
+   "arm": "stubborn",
+   "switch": "accept_asks",
+   "stage": "l1-864",
+   "lineup": "L1",
+   "seeds": "864-927",
+   "half_a": "37f466ed-4afb-43d7-8637-46246de0cacd",
+   "half_b": "95b0122b-407f-4210-94b8-c1ba0a4e508d"
+  },
+  {
+   "arm": "stubborn",
+   "switch": "accept_asks",
+   "stage": "l2-864",
+   "lineup": "L2",
+   "seeds": "864-927",
+   "half_a": "cf71fa9c-24c7-4079-89d1-23d0d9170f74",
+   "half_b": "f378d100-fe86-49ae-9f21-7bd139bdf821"
   }
  ]
 }

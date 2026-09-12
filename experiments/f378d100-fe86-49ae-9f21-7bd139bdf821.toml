@@ -1,0 +1,12 @@
+id = "f378d100-fe86-49ae-9f21-7bd139bdf821"
+study = "bargaining/tables-arms"
+arena = "engine"
+hypothesis = "Extension stage, registered because the pooled builder-lineup effect of this arm over seeds 0-63 and 800-863 was +0.009 (95% interval -0.008 to +0.026), positive with an interval within 0.03 of zero. Under the learned n-tuple leaf at depth 2, `accept_asks: false` (a stubborn seat that refuses any offer or counter asking it for more cards than it receives) loses to the unchanged tables baseline: the seating-corrected effect of the arm is negative. Lineup L2, the population lineup (a third tables search in slot 2, ETA in slot 3), seeds 864-927, four rotations, deterministic. Half B of the swapped pair: the control in slot 0, the arm in slot 1; the partner half A is experiment cf71fa9c-24c7-4079-89d1-23d0d9170f74."
+decision_rule = "All 256 games complete. The seating-corrected effect of the arm over the swapped pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, analysis/seating_pair.py) has a 95% seed interval that excludes zero below (support: the mechanism helps under the tables), excludes zero above (refutation: the mechanism hurts), or neither (inconclusive). The half-sum is the seating term. The final estimate pools the population-lineup pairs over 128 seeds after the fact."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"accept_asks\":false}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "864-927"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
