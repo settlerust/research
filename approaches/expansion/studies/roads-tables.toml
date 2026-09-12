@@ -1,0 +1,12 @@
+id = "expansion/roads-tables"
+title = "Road-blocking switches under the learned leaf"
+created = "2026-09-11"
+updated = "2026-09-12"
+status = "complete"
+question = "Do the opponent_expansion and road_contention_gate switches help the depth-2 search when its leaf is the learned n-tuple tables, under the tables alone and on top of the blended leaf?"
+outcome = "No. Twenty-eight swapped-pair cohorts (7,424 games, all complete) across three stages, two lineups, and two leaf contexts: opponent_expansion 0.5 under the tables alone is -0.003 wins per game (95% interval -0.011 to +0.005) over 128 builders seeds and +0.002 (-0.007 to +0.011) in the population lineup; on the 0.25 blend it is +0.010 (-0.017 to +0.037) over 192 builders seeds after the gated extension and -0.033 (-0.060 to -0.006) over 128 population seeds. road_contention_gate 1.0 is -0.020 (-0.045 to +0.004) pooled over 192 tables-leaf boards and is refuted on the blend at -0.060 (-0.095 to -0.024) over the builders seeds. The full-blend registrations were withdrawn before running when a screen showed hand 1.0 far weaker than the tables alone; the blend arms ran at hand 0.25. Both switches stay off, the browser included: under the hand-written leaf they already measured +0.008 and -0.004, and the blocking weight costs about a third more decision time."
+next_step = "No further work on these two switches in any leaf context; the intervals rule out useful effects and the gate is harmful under the blend. Blocking ideas need a lineup with a contested site race and a mechanism that actually finds blocks, which neither weight did (under 0.1 blocking builds per game)."
+attribution = "Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode"
+reports = ["reports/roads-tables.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

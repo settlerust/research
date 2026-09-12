@@ -1,0 +1,12 @@
+id = "52a94b11-6ccc-4e9b-9396-6bb01d581011"
+study = "expansion/roads-tables"
+arena = "engine"
+hypothesis = "Stage 3 population, L2 lineup with a third tables search in slot 2, blended leaf at hand 0.25 in both seats (tables plus a quarter-strength hand-written leaf, so the leaf term of the switch is live; this replaces the hand 1.0 registration 350442e0-cfc9-4499-98f8-947ef92f4a7e and 103764a1-fc44-4d9a-99e6-fb85a75ff089, withdrawn before running because a screen showed the full blend far weaker than the tables alone): road_contention_gate 1.0 beats the unchanged 0.25 blend control. Half A of a swapped pair (candidate slot 0, control slot 1) on seeds 800-863; half B with the seats swapped is registered at the same time on the same seeds."
+decision_rule = "All 256 games complete. The pair primary contrast is the seating-corrected effect: the per-seed half-difference of the two halves slot-0-minus-slot-1 win contrasts, with a 95% seed interval. Supported if the interval excludes zero and favors the switch; refuted if it excludes zero the other way; inconclusive otherwise. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25},\"weights\":{\"road_contention_gate\":1.0}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

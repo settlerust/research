@@ -1405,3 +1405,121 @@ server-side policy; for the browser the endgame switches were already measured
 at +0.018 and +0.006 under its own leaf and add nothing now.
 
 Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+## Road switches under the learned leaf
+
+Study `expansion/roads-tables`. The two road switches of
+`expansion/road-blocking-swapped`, `weights.opponent_expansion` 0.5 and
+`weights.road_contention_gate` 1.0, were re-measured with the learned n-tuple
+tables as the search's leaf, the protocol-arena baseline configuration. Both
+are leaf terms with a candidate-generation part in the road shortlist, so each
+was run twice: under the tables alone, where only the shortlist part acts, and
+on top of the blended leaf with `"hand":0.25` in both seats, where the leaf
+term is live at quarter strength. Every contrast is a registered swapped pair
+on the same seeds, half A with the candidate in slot 0 and half B with the
+control in slot 0; the effect is the per-seed half-difference of the two
+contrasts and the seating term their half-sum. Stages: development on seeds
+0-63 with the builders lineup (ETA and fast in slots 2 and 3, matching the
+hand-leaf cohorts), confirmation on seeds 800-863 in the same lineup,
+population on seeds 800-863 with the plain tables baseline in slot 2 and ETA
+in slot 3, and a gated extension on seeds 864-927 in both lineups. All
+tournaments ran at six threads on the shared machine. Hypothesis for each
+pair: the switch beats the unchanged control leaf, with the registered rule
+that the pair's seating-corrected 95% seed interval excludes zero in the
+hypothesized direction (support), excludes zero the other way (refutation), or
+neither (inconclusive).
+
+Mid-study the blend moved: an unregistered screen by the leaf-blend agent
+measured `hand`:1.0 at −0.207 wins per game against the tables alone and
+`hand`:0.25 at +0.074, so the full blend is not a configuration anyone would
+ship. The ten registered full-blend cohorts that had not started were
+withdrawn before running and re-registered at 0.25; the one full-blend cohort
+already running (stage 1, blocking weight, half A) finished and is filed as a
+single seating. Withdrawn registrations, not run:
+`abba442e-debf-4472-8343-c393b492b396` (stage 1 blocking half B),
+`0dd23ca1-a69e-486d-bbba-bb99dc530438` and `07d9c96b-ae49-40cd-be6a-dae5710a5cd1`
+(stage 1 gate), `0491a4a8-37e7-43f1-a42a-c30af6ff05a5` and
+`1509b074-b76c-4632-a978-ce0400600509` (stage 2 blocking),
+`d7160c76-ce55-49b6-a5ca-362e151fa849` and `6df5f111-53f4-4408-ab8f-2d4faea0504d`
+(stage 2 gate), `c2b54a63-d983-4b85-83c1-0216757be515` and
+`fef0e8b5-de13-42cd-989c-5ecdafe3466a` (stage 3 blocking),
+`350442e0-cfc9-4499-98f8-947ef92f4a7e` and `103764a1-fc44-4d9a-99e6-fb85a75ff089`
+(stage 3 gate).
+
+Every cohort completed 256 of 256 games; no invalid moves, stalls, censoring,
+or interruptions. Experiment and run UUIDs in full:
+
+| Arm and stage | Half A experiment / run | Half B experiment / run |
+| --- | --- | --- |
+| blocking, tables, dev 0-63 | `0b788486-7d5b-4d4c-a5c9-3989d6317337` / `4529da10-c5ab-49f8-be24-6bb5e7e317e1` | `b8549250-edc9-4f21-a4b7-96fbaafd4782` / `86136b36-66e2-49a8-aa95-e5de0d802e61` |
+| blocking, tables, confirm 800-863 | `7159bd47-2352-49de-9dd2-497f8a3247a0` / `4629e513-2dac-459e-a018-e5faef0ed50a` | `f10f72f3-3e38-4ed2-bb13-58283d529243` / `044327fe-d6f2-4c0e-8ae3-cfa7b0492ab5` |
+| blocking, tables, population 800-863 | `82629df7-0f8a-4006-a042-60d0a6ebd16c` / `36a7adfd-d1ce-49d3-a25f-ccec8f616c23` | `8e3cc677-7fcf-4a2c-842c-e663cc626632` / `4aa3d3a3-b395-4248-9837-ca3c09eb0ec1` |
+| gate, tables, dev 0-63 | `25c0c3ef-acce-4275-aa62-58fd11bba45e` / `10dead1d-160a-4c00-8b08-b1f77a5c75b3` | `0b2dc424-752f-422c-94a9-3b91c60838dc` / `86184ec9-2a1a-4944-bca0-c6a983829794` |
+| gate, tables, confirm 800-863 | `d8769e27-605a-4c7c-880a-bf2adaaed80e` / `82e6046b-1ba5-44d9-998c-fa4ec398244f` | `dba26122-eb55-425a-877a-510ccd1fbc35` / `773e53b5-26ce-42e4-8aa5-2565363f1f99` |
+| gate, tables, population 800-863 | `5e8dd398-7515-4117-b0e0-bd0ab50e2a57` / `c29e9c07-6499-464c-9cb7-4aa7c090c159` | `1af5542d-6c6d-4334-a282-a51d481449a0` / `ad9a07b9-939c-49c4-99d2-df93b7b51b47` |
+| blocking, blend 0.25, dev 0-63 | `20520824-b14b-48a2-94d2-468b77fa4d3a` / `f9113c62-9c89-4095-9e81-cbb6c06d5dc0` | `19dcce6e-a687-42fe-9652-4ebd7e21b169` / `ba368081-2db1-4998-9e81-902ef7a7bace` |
+| blocking, blend 0.25, confirm 800-863 | `ab1261cd-a9b2-4828-8002-3706e6db088b` / `c07b2268-3e6b-4055-93f1-bc6405019ca0` | `8866aa31-389c-419c-b031-3040f00bb8d7` / `3fb6583b-bc5c-4b8e-a19e-c62cf6c8f650` |
+| blocking, blend 0.25, population 800-863 | `0bf9d6ee-2cf7-4928-b3d1-0a7cc79799df` / `bd42145a-ca36-457b-954b-46c298027787` | `9c0cf8af-99c2-42ab-ba96-e51b9aa6d3bd` / `f95c0335-c77f-4d94-8026-b05cb06e855c` |
+| blocking, blend 0.25, extension builders 864-927 | `dd8dfd4f-9922-4621-b175-5c52db0df335` / `90d394ae-fc62-4426-aca0-5f04bd54f2a6` | `85c4582f-dd60-4705-a15b-7e0ec9aa757f` / `4e5d2807-1875-431f-b3ea-60a88f1ed2d9` |
+| blocking, blend 0.25, extension population 864-927 | `ddf036cd-b4b2-49cd-9473-aff82f0a336e` / `66a398f5-9b69-442f-84f3-fd1fa219fd46` | `38d6d46d-d777-45fb-87d6-81972cf3f570` / `ff3fe1b1-e62e-4271-8c35-4bb44e07764f` |
+| gate, blend 0.25, dev 0-63 | `849b3f9f-e311-41a9-8462-ca01898eda3d` / `eaec0233-a70b-4af4-8346-604a003e8f8c` | `95a95d6d-de73-400b-bf2c-f999c4c9f04c` / `160505ec-d7fb-4c53-b8a0-59f6ecccad22` |
+| gate, blend 0.25, confirm 800-863 | `4915a44c-ca93-45cf-86f3-31e11c282d42` / `8d3680d8-d891-41be-a3e1-ca1ec203e7b2` | `a8c21c94-a6d6-4b1b-9344-274989d58976` / `79e0863d-47ac-47c4-adc2-2ef8b800d544` |
+| gate, blend 0.25, population 800-863 | `52a94b11-6ccc-4e9b-9396-6bb01d581011` / `4425d52b-8a9b-49f9-9c0d-1eecc7c4edb4` | `a94f59d0-72bf-4245-af2b-2a3e1c7a7acc` / `5b51b4e0-633d-43ac-bf47-59d5ccd532e0` |
+| blocking, full blend hand 1.0, dev half A only | `661b57ce-4262-40db-ab34-c2a84d6d5960` / `4af53f81-6e2b-4a10-bdff-26fc68d192c3` | partner `abba442e-debf-4472-8343-c393b492b396` withdrawn before running |
+
+Seating-corrected effects per stage, with the seating term beside each:
+
+| Arm | Stage | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- |
+| blocking, tables | dev | −0.008 (−0.019 to +0.003) | +0.098 |
+| blocking, tables | confirm | +0.002 (−0.010 to +0.014) | +0.084 |
+| blocking, tables | population | +0.002 (−0.007 to +0.011) | −0.041 |
+| gate, tables | dev | −0.020 (−0.062 to +0.023) | +0.082 |
+| gate, tables | confirm | −0.018 (−0.066 to +0.031) | +0.033 |
+| gate, tables | population | −0.023 (−0.060 to +0.013) | −0.047 |
+| blocking, blend | dev | +0.027 (−0.011 to +0.065) | +0.152 |
+| blocking, blend | confirm | +0.006 (−0.049 to +0.061) | +0.061 |
+| blocking, blend | population | −0.059 (−0.096 to −0.021) | +0.070 |
+| blocking, blend | ext builders | −0.004 (−0.051 to +0.043) | +0.109 |
+| blocking, blend | ext population | −0.008 (−0.046 to +0.030) | +0.027 |
+| gate, blend | dev | −0.061 (−0.107 to −0.014) | +0.111 |
+| gate, blend | confirm | −0.059 (−0.112 to −0.005) | +0.063 |
+| gate, blend | population | +0.022 (−0.026 to +0.069) | +0.022 |
+
+After-the-fact pooling: blocking under the tables is −0.003 (−0.011 to +0.005)
+over the 128 builders seeds and −0.001 (−0.007 to +0.005) over all 192 boards;
+on the blend it is +0.010 (−0.017 to +0.037) over the 192 builders seeds and
+−0.033 (−0.060 to −0.006) over the 128 population seeds. The gate is −0.019
+(−0.051 to +0.014) over the 128 builders seeds under the tables and −0.060
+(−0.095 to −0.024) under the blend, the one refutation with an interval
+excluding zero across the builders stages; its population stage crosses zero.
+The extension fired only for the blocking blend arm (128-seed read +0.017 with
+the interval reaching −0.017, inside the 0.03 gate) and faded it to +0.010.
+The combination arm was not registered: the two switches never both read
+positive in one leaf context. The full-blend half A read +0.039 (−0.066 to
++0.144) as a single seating and counts for nothing on its own.
+
+Interpretation: the learned leaf already prices expansion pressure, so the
+blocking shortlist's extra candidates (0.04 to 0.08 blocking builds per game
+against the control's 0.02 to 0.05) change the board too little to move wins,
+in line with the hand-leaf corrected estimate of +0.008. The gate does what it
+says (award held at game end 38% against 53% on the blended development
+boards) and the races it declines were worth entering: it loses about 0.06
+wins per game under the blend. Decision cost: the blocking weight adds about
+14% per decision under the tables and about 30% under the blend; the gate is
+free or slightly cheaper. Neither switch is worth the browser, which runs the
+hand-written leaf where both already measured zero. The
+[report](../reports/roads-tables.mdx) has every cohort table, the comparison
+with the hand-leaf numbers, and the diagnostics.
+
+Failures and notes: my first queue scripts passed `--threads` through
+`just engine-run`, which takes no such argument; the failure was immediate,
+before any game was played, and the registrations were reused once the scripts
+called `python3 -m harness.engine run` directly. One session ended with an
+opencode error while cohorts ran; no run was affected, and the lane runners
+survived it. The machine ran at a load average of 80 to 170 for most of the
+day (ten agents on 32 cores), so wall times say nothing about search cost; the
+decision-time ratios are taken within each run. Two smoke games against
+throwaway seeds (kept under `/tmp/opencode/roads-tables-smoke/`) verified the
+seat specifications before registration; plumbing only, not evidence. All 29 runs are archived with verified receipts under `records/artifacts/`.
+
+Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.

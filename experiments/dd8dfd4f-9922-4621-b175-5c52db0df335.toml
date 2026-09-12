@@ -1,0 +1,12 @@
+id = "dd8dfd4f-9922-4621-b175-5c52db0df335"
+study = "expansion/roads-tables"
+arena = "engine"
+hypothesis = "Stage 4 extension, L1 builders lineup, blended leaf at hand 0.25 in both seats: opponent_expansion 0.5 beats the unchanged 0.25 blend control. The pooled L1 effect over 128 seeds (stages 1 and 2) was +0.017 with an interval reaching -0.017, inside the 0.03 gate, so the estimate extends to fresh seeds 864-927. Half A of a swapped pair (candidate slot 0, control slot 1); half B with the seats swapped is registered at the same time on the same seeds."
+decision_rule = "All 256 games complete. The pair primary contrast is the seating-corrected effect: the per-seed half-difference of the two halves slot-0-minus-slot-1 win contrasts, with a 95% seed interval. Supported if the interval excludes zero and favors the switch; refuted if it excludes zero the other way; inconclusive otherwise. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25},\"weights\":{\"opponent_expansion\":0.5}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}", "eta", "fast"]
+seeds = "864-927"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

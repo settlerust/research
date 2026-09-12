@@ -1,0 +1,12 @@
+id = "a8c21c94-a6d6-4b1b-9344-274989d58976"
+study = "expansion/roads-tables"
+arena = "engine"
+hypothesis = "Stage 2 confirmation, L1 builders lineup, blended leaf at hand 0.25 in both seats (replaces withdrawn hand 1.0 registration d7160c76-ce55-49b6-a5ca-362e151fa849 and 6df5f111-53f4-4408-ab8f-2d4faea0504d): road_contention_gate 1.0 beats the unchanged 0.25 blend control. Half B of the swapped pair (control slot 0, candidate slot 1) on seeds 800-863; partner half A is experiment 4915a44c-ca93-45cf-86f3-31e11c282d42."
+decision_rule = "All 256 games complete. The pair primary contrast is the seating-corrected effect: the per-seed half-difference of the two halves slot-0-minus-slot-1 win contrasts, with a 95% seed interval. Supported if the interval excludes zero and favors the switch; refuted if it excludes zero the other way; inconclusive otherwise. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25},\"weights\":{\"road_contention_gate\":1.0}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
