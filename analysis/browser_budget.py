@@ -3,7 +3,7 @@ measurement, read the equal-budget swapped pairs with their depth-completion sha
 decision times, and write the plot assets.
 
   python3 analysis/browser_budget.py rate RATE.json --asset search-rate-wasm
-  python3 analysis/browser_budget.py pairs PAIRS.json [--asset browser-budget-contrasts]
+  python3 analysis/browser_budget.py pairs PAIRS.json [--pool] [--out TABLE.json] [--asset browser-budget-contrasts]
   python3 analysis/browser_budget.py budget BUDGET.json
 
 RATE.json and BUDGET.json come from `analysis/browser_budget_wasm.mjs`; PAIRS.json lists
@@ -84,7 +84,8 @@ def effort(path, slot):
             'depths': depths}
 
 
-def pair(half_a, half_b):
+def seed_terms(half_a, half_b):
+    """Per-seed effect and seating term of one swapped pair."""
     a, ra = per_seed(half_a)
     b, rb = per_seed(half_b)
     if set(a) != set(b):
@@ -94,6 +95,11 @@ def pair(half_a, half_b):
         d_a, d_b = a[s] / ra[s], b[s] / rb[s]
         effects.append((d_a - d_b) / 2)
         seating.append((d_a + d_b) / 2)
+    return effects, seating
+
+
+def pair(half_a, half_b):
+    effects, seating = seed_terms(half_a, half_b)
     effect, effect_ci = interval(effects)
     seat, seat_ci = interval(seating)
     return {'seeds': len(effects), 'effect': effect, 'interval': effect_ci, 'seating': seat, 'seating_interval': seat_ci}
@@ -105,11 +111,14 @@ def wins(path, slot):
     return sum(r['winner_slot'] == slot for r in done), len(done)
 
 
+def games(ref):
+    return Path(ref) if str(ref).endswith('.jsonl') else ROOT / 'runs' / ref / 'games.jsonl'
+
+
 def pairs(args):
     arms = json.load(open(args.pairs))
     table = []
     for arm in arms:
-        games = lambda ref: Path(ref) if str(ref).endswith('.jsonl') else ROOT / 'runs' / ref / 'games.jsonl'
         ga, gb = games(arm['half_a']), games(arm['half_b'])
         if not ga.exists() or not gb.exists():
             continue
@@ -138,9 +147,32 @@ def pairs(args):
               f"depth {c['mean_depth']:.2f} vs {k['mean_depth']:.2f}  depth3 {c['depth3_share']:.1%} vs {k['depth3_share']:.1%}  "
               f"aborted {c['aborted_share']:.1%} vs {k['aborted_share']:.1%}  "
               f"ms {c['mean_ms']:.0f} vs {k['mean_ms']:.0f}")
+    if args.pool:
+        # After-the-fact pooling: the per-seed effects of every stage of an arm, on disjoint seeds, in one interval.
+        for label in dict.fromkeys(r['label'] for r in table):
+            rows = [r for r in table if r['label'] == label]
+            if len(rows) < 2:
+                continue
+            effects, seating = [], []
+            for r in rows:
+                e, st = seed_terms(games(r['half_a']), games(r['half_b']))
+                effects += e
+                seating += st
+            effect, ci = interval(effects)
+            seat, _ = interval(seating)
+            wins_c = sum(r['candidate_wins'] for r in rows)
+            wins_k = sum(r['control_wins'] for r in rows)
+            n = sum(r['games'] for r in rows)
+            print(f"{label:28} {'pooled':14} effect {effect:+.3f} ({ci[0]:+.3f} to {ci[1]:+.3f}) seating {seat:+.3f}  "
+                  f"wins {wins_c}-{wins_k}/{n}  seeds {len(effects)}  stages {', '.join(r['stage'] for r in rows)}")
+            table.append({'label': label, 'stage': 'pooled', 'seeds': len(effects), 'effect': effect, 'interval': ci,
+                          'seating': seat, 'candidate_wins': wins_c, 'control_wins': wins_k, 'games': n,
+                          'stages': [r['stage'] for r in rows]})
     if args.out:
         write_json(Path(args.out), table)
-    if args.asset and table:
+    table_plot = [r for r in table if r['stage'] != 'pooled']
+    if args.asset and table_plot:
+        table = table_plot
         stages = list(dict.fromkeys(r['stage'] for r in table))
         labels = list(dict.fromkeys(r['label'] for r in table))
         series = []
@@ -184,6 +216,7 @@ def main():
     p.add_argument('pairs')
     p.add_argument('--asset')
     p.add_argument('--out')
+    p.add_argument('--pool', action='store_true', help='also print the after-the-fact pooled estimate of every arm over its stages')
     p.add_argument('--source', default='')
     p.add_argument('--caption', default='')
     b = sub.add_parser('budget')
