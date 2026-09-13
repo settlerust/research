@@ -172,6 +172,7 @@ NAMES = {
     'predict.threat=True': 'Threat from the predicted site', 'weights.denial=0.5': 'Deny predicted sites',
     'robber.leader=True': 'Robber blocks the leader', 'robber.need=True': 'Rob the card this seat needs',
     'robber.threat=True': 'Robber by threat, spare partners',
+    'endgame.block_leader=True, robber.need=True': 'Late leader bias plus rob what you need',
 }
 STUDY_NAMES = {'bargaining/tables-arms': 'Bargaining', 'search/settings-tables': 'Search settings', 'patterns/leaf-blend': 'Leaf blend',
                'opening/planner-tables': 'Opening', 'development/timing-tables': 'Card timing', 'risk/hand-tables': 'Hand management',

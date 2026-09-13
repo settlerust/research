@@ -1,0 +1,41 @@
+---
+title: Every search switch under the learned leaf
+summary: Nine studies retested the search switches with the learned tables as the leaf; bargaining and the search inputs hold, a quarter-strength blend of the hand-written leaf improves the tables, and nothing else earns a place in the browser player.
+---
+
+# Every search switch under the learned leaf
+
+Study `log/tables-retest`. The ten studies launched on 2026-09-11 to retest the
+search's switches under the learned tables finished today; nine filed complete
+studies and the browser-budget study was stopped by the user before its
+registered stages, with its work kept on the `research/browser-budget` branches.
+`analysis/tables_retest.py` rebuilds every swapped pair of the nine studies from
+the registered experiments and the archived runs, orients each effect so that a
+positive value favours the candidate, and pools each switch per leaf and lineup
+after the fact: 145 pairs and 74,240 games. Every study's reported
+outcome was checked against that recomputation and matched.
+
+What holds: bargaining (counters off −0.094 at the builder table and −0.119 at
+the table of searches; the whole package −0.165 and −0.098), and the search's
+information inputs (four dice scenarios −0.392, one sampled world −0.109,
+public-count beliefs −0.143, no proposals −0.172). What improves the player at
+both tables: the hand-written terms blended into the tables at a quarter of their
+weight, +0.066 and +0.064, at 1.4 times the decision time. Eight sampled worlds
+(+0.045) and the search-ranked opening (+0.061, carried by the reused
+development boards) read positive at the builder table only. The robber, card
+timing, hand, road, prediction, endgame, and planner-weight switches show no
+effect that survives both tables. The [synthesis report](../reports/tables-retest.mdx)
+has the full table and the browser recommendation: keep the current browser
+configuration, and use the quarter blend if the tables reach the browser, after a
+protocol cohort.
+
+Verification: server dev passes formatting, clippy with warnings as errors, and
+all 183 workspace tests after every merge of the program. Failures during the
+program: two Claude Fable subagents stopped on usage limits and were finished by
+Claude Opus 5 agents from their saved state; one opencode session ended on a
+provider error and resumed; two agents slept through finished queues and were
+woken.
+
+Attribution: the synthesis and verification by Claude Opus 5 (claude-opus-5)
+through Claude Code; the studies by GLM-5.3 and Kimi K3 through opencode and by
+Claude Fable 5.1 and Claude Opus 5 through Claude Code.

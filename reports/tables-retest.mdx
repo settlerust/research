@@ -9,7 +9,7 @@ summary: "Ten studies retested the search's switches with the learned tables as 
 <ResearchCallout title="Finding · keep bargaining and the search's inputs, blend a quarter of the hand-written leaf into the tables, and add nothing else">
 Under the hand-written leaf, every switch built on 2026-09-11 except counters
 corrected to about zero once the arena's seating term was removed. Retested with
-the learned tables as the leaf, in 127 swapped pairs (65,024 games) at a
+the learned tables as the leaf, in 145 swapped pairs (74,240 games) at a
 table of builders and at a table of three searches, the picture sharpens.
 Bargaining still carries real strength: turning off counters costs
 **−0.094 (−0.135 to −0.052)** wins per game at the builder table and the whole package
@@ -100,12 +100,17 @@ Time is the candidate's mean decision time over the control's.
 | Prediction | Opponents play their predicted build | tables | −0.005 (−0.047 to +0.037), 128 boards | −0.004 (−0.060 to +0.052), 64 boards | 1.01× | No clear effect |
 | Prediction | Threat from the predicted site | tables | +0.004 (−0.032 to +0.040), 128 boards | +0.047 (−0.004 to +0.098), 64 boards | 0.98× | No clear effect |
 | Prediction | Deny predicted sites | blend 0.25 | −0.018 (−0.045 to +0.010), 128 boards | +0.023 (−0.009 to +0.056), 64 boards | 2.00× | No clear effect |
+| Robber | Late leader bias | tables | +0.011 (−0.005 to +0.027), 192 boards | +0.015 (−0.007 to +0.036), 128 boards | 1.01× | No clear effect |
+| Robber | Late leader bias plus rob what you need | tables | +0.035 (−0.015 to +0.085), 64 boards | −0.039 (−0.090 to +0.012), 64 boards | 1.01× | No clear effect |
+| Robber | Robber blocks the leader | tables | +0.007 (−0.035 to +0.049), 128 boards | +0.031 (−0.030 to +0.092), 64 boards | 0.98× | No clear effect |
+| Robber | Rob the card this seat needs | tables | +0.016 (−0.008 to +0.041), 192 boards | +0.009 (−0.018 to +0.036), 128 boards | 0.99× | No clear effect |
+| Robber | Robber by threat, spare partners | tables | −0.005 (−0.042 to +0.033), 128 boards | +0.043 (−0.005 to +0.091), 64 boards | 0.98× | No clear effect |
 
 The study reports have the stage-by-stage cohorts, run IDs, and diagnostics:
 [bargaining](bargaining-tables.mdx), [search settings](settings-tables.mdx),
 [leaf blend](leaf-blend.mdx), [opening](opening-planner-tables.mdx),
 [card timing](timing-tables.mdx), [hand management](hand-tables.mdx),
-[roads](roads-tables.mdx), and [prediction](prediction-tables.mdx).
+[roads](roads-tables.mdx), [prediction](prediction-tables.mdx), and [robber](robber-tables.mdx).
 
 ## What changed between the two leaves
 
@@ -117,7 +122,10 @@ opening repeated that lesson in a quieter form, reading +0.135 on the reused
 development boards and +0.024 on fresh ones. And the tactical switches built
 from player advice (block the leader, rob what you need, hold knights, spend
 down before a seven, cut off expansion) do not help a search that already looks
-two turns ahead.
+two turns ahead. The one reversal is the robber's victim rule: stealing the card
+this seat needs was refuted under the hand-written leaf (−0.045) and is
+inconclusive under the tables (+0.016 at the builder table, +0.009 at the table
+of searches).
 
 Two things changed. The search's information inputs matter more under the
 stronger leaf. Under the hand-written leaf the number of sampled worlds showed
