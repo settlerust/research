@@ -1632,3 +1632,95 @@ say nothing about decision cost; the within-run decision times above do. All
 forced, or failed decision.
 
 Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+
+## Robber targeting under the learned leaf
+
+Hypotheses: four candidate-generation switches, each tested alone against the
+unchanged tables-leaf baseline
+(`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}`)
+as a swapped pair, half A the arm in slot 0 and half B the arm in slot 1, 64
+deterministic seeds per half. Predictions, each falsifiable: blocking the
+points leader's best hex (`robber.leader`) wins more than blocking the most
+pips; choosing the victim by the resource this seat needs (`robber.need`) beats
+hand size; threat-weighted blocking that spares low-threat partners
+(`robber.threat`) beats ignoring threats; and the late-game leader bias
+(`endgame.block_leader`) beats the default after two thirds of the game.
+Stages for every arm: development seeds 0-63 and confirmation seeds 800-863 in
+the builders lineup (eta and fast in slots 2 and 3), population seeds 800-863
+with a third tables search in slot 2 and eta in slot 3, and a preregistered
+extension to seeds 864-927 in both lineups for arms whose pooled builders
+effect was positive with an interval within 0.03 of zero. Decision rule: all
+games complete; support only if the seating-corrected effect's 95 percent seed
+interval excludes zero in the predicted direction.
+
+Experiments under `containment/robber-tables` (36 registrations, 36 runs, all
+256 of 256 games complete, 9,216 games). Development half A / half B
+(experiment, run): leader `792be780`/`00c2cbe1` and `96d43c3b`/`38728ce3`;
+need `65b1ddb2`/`5c2f8ab4` and `55e137f4`/`c8749e28`; threat
+`7bbc7aa7`/`47060353` and `2d811991`/`e0c6acab`; block_leader
+`a01d63ec`/`2321b99f` and `20ec74b1`/`56625a37`. Confirmation: leader
+`bdf5010a`/`8129fb6c` and `f1fadb40`/`026bd4f5`; need `26a2fb68`/`20b15545`
+and `284171c8`/`3c579646`; threat `3420701a`/`227b8813` and
+`565a46fd`/`059e8938`; block_leader `6e645e60`/`d8adbaf5` and
+`4e9d4801`/`6278b419`. Population: leader `1dde9819`/`6b0408e8` and
+`b2878c09`/`44be36ac`; need `fef82bc6`/`a75e3de9` and
+`2385270c`/`2b2182d5`; threat `62b6c4e8`/`7a435890` and
+`f85f55d3`/`8319a450`; block_leader `72d97267`/`f2207f5e` and
+`458b1c88`/`a626fe42`. Extension, need: `2b68a0f5`/`54d7090b` and
+`3e6d14bf`/`d55af6e8` (builders), `924f0b5b`/`33d3b566` and
+`3203b993`/`da3ec107` (population). Extension, block_leader:
+`4d64e731`/`06d296f3` and `57c39f3a`/`38ecd1ca` (builders),
+`4094eeea`/`3a4f4e34` and `7ef0acfd`/`844109d4` (population). Final
+combination (need + block_leader) on fresh seeds 928-991: `b5d23033`/`9e11f6ff`
+and `da65be79`/`ffc247e0` (builders), `2043385b`/`97c0c56c` and
+`fc2983ec`/`3d8efaee` (population). Full UUIDs are in the report's cohort
+table and in the run records; every run has a verified archive receipt under
+`artifacts/`.
+
+Interpretation. Every stage's seating-corrected effect is inconclusive:
+development leader −0.020 (−0.079 to +0.040), need −0.004 (−0.047 to +0.039),
+threat +0.006 (−0.051 to +0.063), block_leader +0.010 (−0.020 to +0.039);
+confirmation +0.033 (−0.025 to +0.091), +0.014 (−0.031 to +0.058), −0.016
+(−0.065 to +0.034), +0.000 (−0.029 to +0.029); population +0.031 (−0.030 to
++0.092), −0.008 (−0.045 to +0.030), +0.043 (−0.005 to +0.091), −0.038 to
++0.030 for block_leader at −0.004; extension need +0.039 (−0.001 to +0.079)
+builders and +0.025 (−0.013 to +0.064) population, block_leader +0.023 (−0.003
+to +0.050) builders and +0.033 (+0.007 to +0.060) population, the only cohort
+of the program whose interval excludes zero. Pooled after the fact over stages:
+builders leader +0.007 (−0.035 to +0.049, 128 seeds), need +0.016 (−0.008 to
++0.041, 192), threat −0.005 (−0.042 to +0.033, 128), block_leader +0.011
+(−0.005 to +0.027, 192); population leader +0.031 (−0.030 to +0.092, 64),
+need +0.009 (−0.018 to +0.036, 128), threat +0.043 (−0.005 to +0.091, 64),
+block_leader +0.015 (−0.007 to +0.036, 128). No arm reaches the worth-the-browser
+bar of +0.03 pooled with an interval excluding zero. The mechanisms fire: the
+leader arm lands the robber on the leader's best hex on 31.1 percent of its
+moves against 27.0 for its controls and robs the leader on 49.9 against 42.2
+percent, and the threat arm robs the leader on 47.3 against 42.2 percent while
+shifting theft toward the other search; the game's other statistics barely
+move. Decision cost is nil: arm and control decide within two percent of each
+other in every pair. The raw dev contrasts under the tables (+0.117, +0.105,
++0.074, +0.094) are again the size of the seating term, as under the hand leaf.
+The hand-leaf refutation of the need rule does not reproduce under the tables
+(hand −0.045 excluding zero, tables +0.016 crossing zero), and the leader and
+threat population readings point up while their builders pools sit at or below
+zero, so the honest summary is noise around zero in both leaves. Combining the
+two arms that read positive, need and block_leader, gave +0.035 (−0.015 to
++0.085) builders and −0.039 (−0.090 to +0.012) population on fresh seeds:
+disagreeing, both crossing zero. All four switches stay off in the server and
+are not worth enabling in the browser, where the hand-leaf evidence is the
+deciding tier and reads −0.023, −0.045, −0.033, and +0.012.
+
+Failures and notes: one run was interrupted, `b3a6c3ac-f9f6-4468-9259-835b8200f8d7`
+(leader dev half B, first attempt), killed at 143 of 256 games by a shell
+timeout on my controlling session; it is filed as interrupted with a manual
+bundle and the half was rerun from scratch as `38728ce3`. No other run failed,
+and no incomplete game entered any comparison. The machine was shared with
+nine other agents through most of the program (system load around 150 on 32
+cores), so the first stages took about 100 minutes per 256-game cohort and the
+last ones about 13 minutes after the load fell; deterministic cohorts give the
+same games either way, and only within-pair decision-time ratios are quoted.
+The extension arms were selected by the preregistered pooled-positivity rule,
+which is a data-dependent choice and is named as such in the report. No server
+change was needed; the switches behaved under the tables in every cohort.
+
+Attribution: GLM 5.3 (zai-org/GLM-5.3) through opencode.

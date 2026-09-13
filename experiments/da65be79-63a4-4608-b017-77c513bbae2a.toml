@@ -1,0 +1,12 @@
+id = "da65be79-63a4-4608-b017-77c513bbae2a"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Final pair, builders lineup, half B: the tables-leaf control in slot 0 and the combination arm (robber.need plus endgame.block_leader) in slot 1, eta and fast in slots 2 and 3, on deterministic seeds 928-991, the swapped partner of the combination half with the arm in slot 0."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"need\":true},\"endgame\":{\"block_leader\":true}}", "eta", "fast"]
+seeds = "928-991"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

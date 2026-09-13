@@ -1,0 +1,12 @@
+id = "2b68a0f5-354c-4bfd-8c99-1af08c9f1d53"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Extension half A (need arm in slot 0, tables-leaf control in slot 1, eta and fast in slots 2 and 3) on deterministic seeds 864-927, fresh boards. Preregistered extension because the pooled L1 effect over 128 seeds is positive (+0.005, interval -0.026 to +0.036) and comes within 0.03 of zero; the final L1 estimate rests on 192 seeds. Partner half: the swapped orientation registered alongside."
+decision_rule = "All games complete; the pooled seating-corrected effect over the 192 L1 seeds after extension excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"need\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "864-927"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,12 @@
+id = "26a2fb68-4a00-4f37-af89-78b7640ddc8f"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Confirmation half A (need arm in slot 0, tables-leaf control in slot 1, eta and fast in slots 2 and 3) on deterministic seeds 800-863. Prediction: victim choice by needed-resource share wins more games than the hand-size default under the learned tables. Partner half: the swapped orientation registered alongside."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"need\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,12 @@
+id = "b5d23033-a6de-4324-8bae-8791679bd018"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Final pair, builders lineup, half A: the combination of the two arms that read positive through the stages (robber.need plus endgame.block_leader) in slot 0, the tables-leaf control in slot 1, eta and fast in slots 2 and 3, on deterministic seeds 928-991, never used by any earlier experiment. Prediction: victim choice by needed-resource share plus the late-game leader bias together win more games than the default under the learned tables, more than either arm alone read. Partner half: the swapped orientation registered alongside."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"need\":true},\"endgame\":{\"block_leader\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "928-991"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

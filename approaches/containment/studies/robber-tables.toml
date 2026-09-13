@@ -1,0 +1,12 @@
+id = "containment/robber-tables"
+title = "Robber placement under the learned leaf"
+created = "2026-09-11"
+updated = "2026-09-12"
+status = "complete"
+question = "Do the robber-targeting switches (leader, need, threat) and the late-game leader bias help, hurt, or do nothing when the search evaluates with the learned n-tuple tables instead of the hand-written leaf?"
+outcome = "All four switches are inconclusive under the learned leaf. Tested as swapped pairs through three stages (development seeds 0-63, confirmation and population on seeds 800-863) with a preregistered extension to seeds 864-927 for need and block_leader, 36 cohorts of 256 games all complete, the seating-corrected effects pooled over stages are leader +0.007 (95% interval -0.035 to +0.049) and +0.031 (-0.030 to +0.092), need +0.016 (-0.008 to +0.041) and +0.009 (-0.018 to +0.036), threat -0.005 (-0.042 to +0.033) and +0.043 (-0.005 to +0.091), block_leader +0.011 (-0.005 to +0.027) and +0.015 (-0.007 to +0.036) wins per game, builders and population lineups. The block_leader population extension is the only cohort whose interval excluded zero (+0.033, +0.007 to +0.060) and it does not survive pooling. Combining the two positive arms read +0.035 (-0.015 to +0.085) in the builders lineup and -0.039 (-0.090 to +0.012) in the population lineup. No switch is worth the browser; all stay off."
+next_step = "None for these switches in either leaf. The hand-leaf refutation of the need rule does not reproduce under the tables, so any future robber work should name which leaf it prices; block_leader is the only arm to revisit, and only with a different mechanism or a lineup with distinct retaliators."
+attribution = "GLM 5.3 (zai-org/GLM-5.3) through opencode"
+reports = ["reports/robber-tables.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

@@ -1,0 +1,12 @@
+id = "bdf5010a-8fc2-4c10-8458-9cdc9b40badf"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Confirmation half A (leader arm in slot 0, tables-leaf control in slot 1, eta and fast in slots 2 and 3) on deterministic seeds 800-863, never used by an earlier experiment. Prediction: the leader hex weighting wins more games than the default robber shortlist under the learned tables on fresh boards. Partner half: the swapped orientation registered alongside; the seating-corrected effect is half the difference of the two contrasts."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"leader\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true
