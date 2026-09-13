@@ -56,7 +56,9 @@ def main():
         path = ROOT / name
         if name.split('/')[0] in ('runs', 'artifacts', '.runtime', '.worktrees') or path.suffix in ('.jwt', '.jsonl', '.parquet'):
             raise ValueError(f'Bulk/private artifact in Git scope: {name}')
-        if path.is_file() and path.stat().st_size > 1_000_000:
+        # The frozen baseline tables are committed xz-compressed under tables/ (see just tables).
+        limit = 5_000_000 if name.startswith('tables/') and path.suffix == '.xz' else 1_000_000
+        if path.is_file() and path.stat().st_size > limit:
             raise ValueError(f'File exceeds compact repository limit: {name}')
     print('Research repository and Greptile source-only scope verified.')
 
