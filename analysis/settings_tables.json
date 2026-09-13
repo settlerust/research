@@ -1,0 +1,2504 @@
+{
+ "scenarios4": {
+  "development": {
+   "arm": "scenarios4",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.416015625,
+   "effect_lo": -0.48984194956652394,
+   "effect_hi": -0.34218930043347606,
+   "seating": 0.072265625,
+   "seating_lo": 0.0009522955591010906,
+   "seating_hi": 0.1435789544408989,
+   "runs": {
+    "a": "3fd1468c-b6dd-4034-8dab-8a425db3079e",
+    "b": "5f7e6a50-7e85-4e43-8748-119c88ead600"
+   },
+   "experiments": {
+    "a": "d6cbff3d-7e92-4f47-bbc9-97da3c2532a9",
+    "b": "33654a28-86e9-4026-93e2-111b34913669"
+   },
+   "decision_ms": {
+    "cand": 406.15388686712276,
+    "ctrl": 597.6923998134394
+   },
+   "wins": {
+    "a_cand": 65,
+    "a_ctrl": 153,
+    "b_cand": 45,
+    "b_ctrl": 170
+   },
+   "points": {
+    "cand": 5.7421875,
+    "ctrl": 8.333984375
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.34765625,
+     "ctrl": 4.244140625
+    },
+    "offers": {
+     "cand": 14.06640625,
+     "ctrl": 14.4140625
+    },
+    "offers_accepted": {
+     "cand": 2.9765625,
+     "ctrl": 2.982421875
+    },
+    "development_bought": {
+     "cand": 2.751953125,
+     "ctrl": 4.25390625
+    },
+    "cities_built": {
+     "cand": 1.0,
+     "ctrl": 1.3671875
+    },
+    "settlements_built": {
+     "cand": 1.423828125,
+     "ctrl": 1.8984375
+    },
+    "roads_built": {
+     "cand": 4.0078125,
+     "ctrl": 5.216796875
+    },
+    "cards_discarded": {
+     "cand": 13.92578125,
+     "ctrl": 5.509765625
+    },
+    "bank_trades": {
+     "cand": 2.908203125,
+     "ctrl": 4.302734375
+    },
+    "times_robbed": {
+     "cand": 3.353515625,
+     "ctrl": 3.65234375
+    },
+    "counters": {
+     "cand": 4.486328125,
+     "ctrl": 3.728515625
+    },
+    "counters_accepted": {
+     "cand": 1.74609375,
+     "ctrl": 1.3671875
+    },
+    "declined": {
+     "cand": 16.88671875,
+     "ctrl": 13.697265625
+    },
+    "accepted_others": {
+     "cand": 1.37109375,
+     "ctrl": 1.26171875
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "scenarios4",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.3671875,
+   "effect_lo": -0.4429682309546944,
+   "effect_hi": -0.2914067690453056,
+   "seating": 0.09765625,
+   "seating_lo": 0.023344721732126622,
+   "seating_hi": 0.17196777826787338,
+   "runs": {
+    "a": "e17c2088-cd9e-4923-85c6-ac7a7db782c7",
+    "b": "4a869564-5939-4b99-9157-1871a53b2854"
+   },
+   "experiments": {
+    "a": "dcfd9ca5-170f-43a7-a1f0-36117e7c7990",
+    "b": "ee1751fb-ec20-4df1-b402-6d97a405bd0d"
+   },
+   "decision_ms": {
+    "cand": 559.716946462773,
+    "ctrl": 791.1004347144479
+   },
+   "wins": {
+    "a_cand": 74,
+    "a_ctrl": 143,
+    "b_cand": 53,
+    "b_ctrl": 172
+   },
+   "points": {
+    "cand": 6.09765625,
+    "ctrl": 8.373046875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.552734375,
+     "ctrl": 4.416015625
+    },
+    "offers": {
+     "cand": 14.90625,
+     "ctrl": 15.44921875
+    },
+    "offers_accepted": {
+     "cand": 3.158203125,
+     "ctrl": 3.10546875
+    },
+    "development_bought": {
+     "cand": 2.943359375,
+     "ctrl": 4.26171875
+    },
+    "cities_built": {
+     "cand": 1.134765625,
+     "ctrl": 1.3125
+    },
+    "settlements_built": {
+     "cand": 1.48828125,
+     "ctrl": 2.04296875
+    },
+    "roads_built": {
+     "cand": 4.08203125,
+     "ctrl": 5.341796875
+    },
+    "cards_discarded": {
+     "cand": 12.96875,
+     "ctrl": 5.255859375
+    },
+    "bank_trades": {
+     "cand": 3.583984375,
+     "ctrl": 4.798828125
+    },
+    "times_robbed": {
+     "cand": 3.23828125,
+     "ctrl": 3.6484375
+    },
+    "counters": {
+     "cand": 4.912109375,
+     "ctrl": 4.228515625
+    },
+    "counters_accepted": {
+     "cand": 1.810546875,
+     "ctrl": 1.44921875
+    },
+    "declined": {
+     "cand": 16.9609375,
+     "ctrl": 13.939453125
+    },
+    "accepted_others": {
+     "cand": 1.39453125,
+     "ctrl": 1.310546875
+    }
+   }
+  }
+ },
+ "scenarios16": {
+  "development": {
+   "arm": "scenarios16",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.029296875,
+   "effect_lo": -0.08875666118326903,
+   "effect_hi": 0.03016291118326902,
+   "seating": 0.091796875,
+   "seating_lo": 0.01915210197426835,
+   "seating_hi": 0.16444164802573163,
+   "runs": {
+    "a": "9ffe22ba-705b-496a-bfd9-18d071e82176",
+    "b": "01c56be0-d586-462d-8d8b-eae3e5d034ac"
+   },
+   "experiments": {
+    "a": "767a4f08-e4d9-48da-83bb-d2e952feaf69",
+    "b": "f650a242-2e6a-4075-a80d-da4ee753441a"
+   },
+   "decision_ms": {
+    "cand": 1743.5908016926437,
+    "ctrl": 643.855421243083
+   },
+   "wins": {
+    "a_cand": 120,
+    "a_ctrl": 104,
+    "b_cand": 101,
+    "b_ctrl": 132
+   },
+   "points": {
+    "cand": 7.4609375,
+    "ctrl": 7.53125
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.966796875,
+     "ctrl": 3.958984375
+    },
+    "offers": {
+     "cand": 14.607421875,
+     "ctrl": 14.1875
+    },
+    "offers_accepted": {
+     "cand": 2.9296875,
+     "ctrl": 2.8984375
+    },
+    "development_bought": {
+     "cand": 3.703125,
+     "ctrl": 3.9375
+    },
+    "cities_built": {
+     "cand": 1.310546875,
+     "ctrl": 1.279296875
+    },
+    "settlements_built": {
+     "cand": 1.84375,
+     "ctrl": 1.833984375
+    },
+    "roads_built": {
+     "cand": 5.1328125,
+     "ctrl": 5.2421875
+    },
+    "cards_discarded": {
+     "cand": 6.578125,
+     "ctrl": 5.052734375
+    },
+    "bank_trades": {
+     "cand": 4.033203125,
+     "ctrl": 4.16015625
+    },
+    "times_robbed": {
+     "cand": 3.8203125,
+     "ctrl": 3.595703125
+    },
+    "counters": {
+     "cand": 4.072265625,
+     "ctrl": 3.681640625
+    },
+    "counters_accepted": {
+     "cand": 1.453125,
+     "ctrl": 1.384765625
+    },
+    "declined": {
+     "cand": 14.27734375,
+     "ctrl": 14.056640625
+    },
+    "accepted_others": {
+     "cand": 1.037109375,
+     "ctrl": 1.060546875
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "scenarios16",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.0234375,
+   "effect_lo": -0.09371418841107824,
+   "effect_hi": 0.046839188411078245,
+   "seating": 0.05859375,
+   "seating_lo": -0.021965967998901284,
+   "seating_hi": 0.13915346799890127,
+   "runs": {
+    "a": "1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4",
+    "b": "193a36f1-343e-444a-a3fd-4fb210c55c73"
+   },
+   "experiments": {
+    "a": "ed82c2ee-5197-4e70-a3e6-ae4a20d64a33",
+    "b": "e5b13479-5578-4810-bd6f-da6b3fb779fb"
+   },
+   "decision_ms": {
+    "cand": 1879.4347366063232,
+    "ctrl": 687.7299058256679
+   },
+   "wins": {
+    "a_cand": 117,
+    "a_ctrl": 108,
+    "b_cand": 106,
+    "b_ctrl": 127
+   },
+   "points": {
+    "cand": 7.376953125,
+    "ctrl": 7.576171875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.970703125,
+     "ctrl": 4.095703125
+    },
+    "offers": {
+     "cand": 15.095703125,
+     "ctrl": 14.55859375
+    },
+    "offers_accepted": {
+     "cand": 2.99609375,
+     "ctrl": 2.927734375
+    },
+    "development_bought": {
+     "cand": 3.619140625,
+     "ctrl": 3.990234375
+    },
+    "cities_built": {
+     "cand": 1.314453125,
+     "ctrl": 1.1875
+    },
+    "settlements_built": {
+     "cand": 1.87109375,
+     "ctrl": 1.908203125
+    },
+    "roads_built": {
+     "cand": 5.17578125,
+     "ctrl": 5.328125
+    },
+    "cards_discarded": {
+     "cand": 6.73046875,
+     "ctrl": 5.046875
+    },
+    "bank_trades": {
+     "cand": 4.06640625,
+     "ctrl": 4.466796875
+    },
+    "times_robbed": {
+     "cand": 3.62890625,
+     "ctrl": 3.587890625
+    },
+    "counters": {
+     "cand": 4.384765625,
+     "ctrl": 3.96484375
+    },
+    "counters_accepted": {
+     "cand": 1.53125,
+     "ctrl": 1.3671875
+    },
+    "declined": {
+     "cand": 14.703125,
+     "ctrl": 14.1484375
+    },
+    "accepted_others": {
+     "cand": 0.974609375,
+     "ctrl": 1.16796875
+    }
+   }
+  }
+ },
+ "samples1": {
+  "development": {
+   "arm": "samples1",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.109375,
+   "effect_lo": -0.17428312149578135,
+   "effect_hi": -0.04446687850421867,
+   "seating": 0.0859375,
+   "seating_lo": -0.009025086291333126,
+   "seating_hi": 0.18090008629133314,
+   "runs": {
+    "a": "3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64",
+    "b": "0c23f762-4fd0-4c97-a117-61d6d4d39d6c"
+   },
+   "experiments": {
+    "a": "f959a49e-5745-4623-9bb9-e0a43f9ea964",
+    "b": "e4f5ae29-919c-4bd4-83ae-98812ea00bc3"
+   },
+   "decision_ms": {
+    "cand": 245.20511055457922,
+    "ctrl": 724.0844513049121
+   },
+   "wins": {
+    "a_cand": 112,
+    "a_ctrl": 118,
+    "b_cand": 89,
+    "b_ctrl": 139
+   },
+   "points": {
+    "cand": 7.291015625,
+    "ctrl": 7.7890625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.208984375,
+     "ctrl": 4.029296875
+    },
+    "offers": {
+     "cand": 14.44140625,
+     "ctrl": 14.322265625
+    },
+    "offers_accepted": {
+     "cand": 2.798828125,
+     "ctrl": 2.9140625
+    },
+    "development_bought": {
+     "cand": 3.83203125,
+     "ctrl": 3.994140625
+    },
+    "cities_built": {
+     "cand": 1.234375,
+     "ctrl": 1.330078125
+    },
+    "settlements_built": {
+     "cand": 1.83203125,
+     "ctrl": 1.8984375
+    },
+    "roads_built": {
+     "cand": 5.279296875,
+     "ctrl": 5.37890625
+    },
+    "cards_discarded": {
+     "cand": 5.798828125,
+     "ctrl": 5.20703125
+    },
+    "bank_trades": {
+     "cand": 4.119140625,
+     "ctrl": 4.205078125
+    },
+    "times_robbed": {
+     "cand": 3.736328125,
+     "ctrl": 3.76953125
+    },
+    "counters": {
+     "cand": 3.91015625,
+     "ctrl": 3.76171875
+    },
+    "counters_accepted": {
+     "cand": 1.375,
+     "ctrl": 1.326171875
+    },
+    "declined": {
+     "cand": 14.17578125,
+     "ctrl": 13.951171875
+    },
+    "accepted_others": {
+     "cand": 1.41015625,
+     "ctrl": 1.115234375
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "samples1",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.109375,
+   "effect_lo": -0.1592363529087297,
+   "effect_hi": -0.05951364709127029,
+   "seating": 0.1171875,
+   "seating_lo": 0.04081969198710464,
+   "seating_hi": 0.19355530801289536,
+   "runs": {
+    "a": "aea949f2-a9ff-40b7-b78c-18a74bdb5900",
+    "b": "4257e948-8124-482c-b5ff-360ca781352e"
+   },
+   "experiments": {
+    "a": "142fdc9a-e4be-4418-9008-5b942dc78daf",
+    "b": "bfb9bed6-58cd-48c5-aa91-2b029b5c0f9a"
+   },
+   "decision_ms": {
+    "cand": 208.892316370866,
+    "ctrl": 613.3217530879868
+   },
+   "wins": {
+    "a_cand": 115,
+    "a_ctrl": 113,
+    "b_cand": 84,
+    "b_ctrl": 142
+   },
+   "points": {
+    "cand": 7.248046875,
+    "ctrl": 7.775390625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.439453125,
+     "ctrl": 4.171875
+    },
+    "offers": {
+     "cand": 15.220703125,
+     "ctrl": 14.916015625
+    },
+    "offers_accepted": {
+     "cand": 3.0390625,
+     "ctrl": 3.068359375
+    },
+    "development_bought": {
+     "cand": 3.88671875,
+     "ctrl": 4.01953125
+    },
+    "cities_built": {
+     "cand": 1.201171875,
+     "ctrl": 1.2890625
+    },
+    "settlements_built": {
+     "cand": 1.861328125,
+     "ctrl": 1.927734375
+    },
+    "roads_built": {
+     "cand": 5.08984375,
+     "ctrl": 5.341796875
+    },
+    "cards_discarded": {
+     "cand": 5.361328125,
+     "ctrl": 5.166015625
+    },
+    "bank_trades": {
+     "cand": 4.439453125,
+     "ctrl": 4.5
+    },
+    "times_robbed": {
+     "cand": 3.755859375,
+     "ctrl": 3.53125
+    },
+    "counters": {
+     "cand": 4.306640625,
+     "ctrl": 4.166015625
+    },
+    "counters_accepted": {
+     "cand": 1.51171875,
+     "ctrl": 1.466796875
+    },
+    "declined": {
+     "cand": 14.052734375,
+     "ctrl": 14.134765625
+    },
+    "accepted_others": {
+     "cand": 1.400390625,
+     "ctrl": 1.103515625
+    }
+   }
+  }
+ },
+ "samples8": {
+  "development": {
+   "arm": "samples8",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.056640625,
+   "effect_lo": -0.006977077329588896,
+   "effect_hi": 0.1202583273295889,
+   "seating": 0.115234375,
+   "seating_lo": 0.03442815756971419,
+   "seating_hi": 0.19604059243028582,
+   "runs": {
+    "a": "1af9541e-b1cf-49c7-b093-71709055684a",
+    "b": "a2a07566-5d0c-4953-b66b-e26082940016"
+   },
+   "experiments": {
+    "a": "97bd74e0-164b-4d79-bcab-390edc31c129",
+    "b": "adf4e1c3-f93f-4f7e-9631-bd595a2beb2a"
+   },
+   "decision_ms": {
+    "cand": 1158.1526056573648,
+    "ctrl": 661.6061883777832
+   },
+   "wins": {
+    "a_cand": 139,
+    "a_ctrl": 95,
+    "b_cand": 108,
+    "b_ctrl": 123
+   },
+   "points": {
+    "cand": 7.56640625,
+    "ctrl": 7.384765625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.7421875,
+     "ctrl": 3.845703125
+    },
+    "offers": {
+     "cand": 13.94921875,
+     "ctrl": 14.060546875
+    },
+    "offers_accepted": {
+     "cand": 2.734375,
+     "ctrl": 2.79296875
+    },
+    "development_bought": {
+     "cand": 4.044921875,
+     "ctrl": 4.013671875
+    },
+    "cities_built": {
+     "cand": 1.25390625,
+     "ctrl": 1.201171875
+    },
+    "settlements_built": {
+     "cand": 1.798828125,
+     "ctrl": 1.77734375
+    },
+    "roads_built": {
+     "cand": 5.302734375,
+     "ctrl": 5.251953125
+    },
+    "cards_discarded": {
+     "cand": 5.142578125,
+     "ctrl": 5.16796875
+    },
+    "bank_trades": {
+     "cand": 4.14453125,
+     "ctrl": 4.021484375
+    },
+    "times_robbed": {
+     "cand": 3.662109375,
+     "ctrl": 3.669921875
+    },
+    "counters": {
+     "cand": 3.6953125,
+     "ctrl": 3.65234375
+    },
+    "counters_accepted": {
+     "cand": 1.26171875,
+     "ctrl": 1.279296875
+    },
+    "declined": {
+     "cand": 14.20703125,
+     "ctrl": 14.1484375
+    },
+    "accepted_others": {
+     "cand": 1.0078125,
+     "ctrl": 1.052734375
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "samples8",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.025390625,
+   "effect_lo": -0.028950945832370255,
+   "effect_hi": 0.07973219583237026,
+   "seating": 0.123046875,
+   "seating_lo": 0.03651361413771613,
+   "seating_hi": 0.20958013586228386,
+   "runs": {
+    "a": "464e3582-9583-4ff3-8621-dc6dafd42073",
+    "b": "5ed30a32-bedf-484b-9670-2f646e6ae913"
+   },
+   "experiments": {
+    "a": "449ea466-728b-45e0-a177-9c220e3e8415",
+    "b": "13a7cf69-526c-4f94-b434-0ee56051a5f8"
+   },
+   "decision_ms": {
+    "cand": 1080.4807149236208,
+    "ctrl": 624.5761026541238
+   },
+   "wins": {
+    "a_cand": 133,
+    "a_ctrl": 95,
+    "b_cand": 99,
+    "b_ctrl": 124
+   },
+   "points": {
+    "cand": 7.4765625,
+    "ctrl": 7.583984375
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.951171875,
+     "ctrl": 4.05859375
+    },
+    "offers": {
+     "cand": 14.67578125,
+     "ctrl": 15.013671875
+    },
+    "offers_accepted": {
+     "cand": 2.814453125,
+     "ctrl": 3.0703125
+    },
+    "development_bought": {
+     "cand": 4.0390625,
+     "ctrl": 4.06640625
+    },
+    "cities_built": {
+     "cand": 1.224609375,
+     "ctrl": 1.21484375
+    },
+    "settlements_built": {
+     "cand": 1.86328125,
+     "ctrl": 1.974609375
+    },
+    "roads_built": {
+     "cand": 5.259765625,
+     "ctrl": 5.30859375
+    },
+    "cards_discarded": {
+     "cand": 5.291015625,
+     "ctrl": 5.22265625
+    },
+    "bank_trades": {
+     "cand": 4.45703125,
+     "ctrl": 4.41796875
+    },
+    "times_robbed": {
+     "cand": 3.60546875,
+     "ctrl": 3.630859375
+    },
+    "counters": {
+     "cand": 4.091796875,
+     "ctrl": 4.03125
+    },
+    "counters_accepted": {
+     "cand": 1.27734375,
+     "ctrl": 1.3984375
+    },
+    "declined": {
+     "cand": 14.466796875,
+     "ctrl": 14.234375
+    },
+    "accepted_others": {
+     "cand": 1.13671875,
+     "ctrl": 0.98828125
+    }
+   }
+  },
+  "population": {
+   "arm": "samples8",
+   "stage": "population",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": -0.009765625,
+   "effect_lo": -0.06414142944208581,
+   "effect_hi": 0.044610179442085805,
+   "seating": 0.001953125,
+   "seating_lo": -0.0643150985893063,
+   "seating_hi": 0.0682213485893063,
+   "runs": {
+    "a": "04b9666b-4477-48c6-ad22-92747fd7e511",
+    "b": "56d05a6f-3628-4621-a1c8-8985a45bf81b"
+   },
+   "experiments": {
+    "a": "82ff6f24-174a-4d2b-babf-fa1a95619589",
+    "b": "75b81db1-c6e6-483b-aafc-8ad707ecc0f4"
+   },
+   "decision_ms": {
+    "cand": 643.236706175037,
+    "ctrl": 369.7473770884623
+   },
+   "wins": {
+    "a_cand": 77,
+    "a_ctrl": 79,
+    "b_cand": 84,
+    "b_ctrl": 87
+   },
+   "points": {
+    "cand": 6.962890625,
+    "ctrl": 6.9921875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.388671875,
+     "ctrl": 3.43359375
+    },
+    "offers": {
+     "cand": 14.630859375,
+     "ctrl": 14.859375
+    },
+    "offers_accepted": {
+     "cand": 2.017578125,
+     "ctrl": 2.123046875
+    },
+    "development_bought": {
+     "cand": 4.10546875,
+     "ctrl": 4.041015625
+    },
+    "cities_built": {
+     "cand": 1.205078125,
+     "ctrl": 1.240234375
+    },
+    "settlements_built": {
+     "cand": 1.7421875,
+     "ctrl": 1.740234375
+    },
+    "roads_built": {
+     "cand": 5.17578125,
+     "ctrl": 5.142578125
+    },
+    "cards_discarded": {
+     "cand": 5.0234375,
+     "ctrl": 4.7734375
+    },
+    "bank_trades": {
+     "cand": 4.59375,
+     "ctrl": 4.552734375
+    },
+    "times_robbed": {
+     "cand": 3.8828125,
+     "ctrl": 3.90234375
+    },
+    "counters": {
+     "cand": 3.796875,
+     "ctrl": 3.9765625
+    },
+    "counters_accepted": {
+     "cand": 0.984375,
+     "ctrl": 1.041015625
+    },
+    "declined": {
+     "cand": 12.603515625,
+     "ctrl": 12.578125
+    },
+    "accepted_others": {
+     "cand": 1.37109375,
+     "ctrl": 1.310546875
+    }
+   }
+  },
+  "extension-l1": {
+   "arm": "samples8",
+   "stage": "extension-l1",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.052734375,
+   "effect_lo": -0.015811412498021774,
+   "effect_hi": 0.12128016249802177,
+   "seating": 0.091796875,
+   "seating_lo": 0.010086071497212315,
+   "seating_hi": 0.1735076785027877,
+   "runs": {
+    "a": "ced3c42d-3f59-40bd-8122-23f56a557ee4",
+    "b": "63a95104-cc5f-477f-b95a-65d3057749a8"
+   },
+   "experiments": {
+    "a": "12b83328-8fd5-402f-aa7e-08c8dc8b38fd",
+    "b": "fbd6fe9d-3771-4e25-bc1f-bf2fb38625bd"
+   },
+   "decision_ms": {
+    "cand": 662.8315536058144,
+    "ctrl": 373.2510233820624
+   },
+   "wins": {
+    "a_cand": 138,
+    "a_ctrl": 101,
+    "b_cand": 113,
+    "b_ctrl": 123
+   },
+   "points": {
+    "cand": 7.556640625,
+    "ctrl": 7.42578125
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.908203125,
+     "ctrl": 3.966796875
+    },
+    "offers": {
+     "cand": 14.27734375,
+     "ctrl": 14.40625
+    },
+    "offers_accepted": {
+     "cand": 2.939453125,
+     "ctrl": 2.94921875
+    },
+    "development_bought": {
+     "cand": 4.140625,
+     "ctrl": 3.8515625
+    },
+    "cities_built": {
+     "cand": 1.23828125,
+     "ctrl": 1.2421875
+    },
+    "settlements_built": {
+     "cand": 1.87109375,
+     "ctrl": 1.890625
+    },
+    "roads_built": {
+     "cand": 5.23828125,
+     "ctrl": 5.30078125
+    },
+    "cards_discarded": {
+     "cand": 5.380859375,
+     "ctrl": 5.27734375
+    },
+    "bank_trades": {
+     "cand": 4.513671875,
+     "ctrl": 4.439453125
+    },
+    "times_robbed": {
+     "cand": 3.826171875,
+     "ctrl": 3.95703125
+    },
+    "counters": {
+     "cand": 3.732421875,
+     "ctrl": 3.8125
+    },
+    "counters_accepted": {
+     "cand": 1.294921875,
+     "ctrl": 1.3359375
+    },
+    "declined": {
+     "cand": 14.111328125,
+     "ctrl": 13.697265625
+    },
+    "accepted_others": {
+     "cand": 0.96875,
+     "ctrl": 1.017578125
+    }
+   }
+  },
+  "extension-l2": {
+   "arm": "samples8",
+   "stage": "extension-l2",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": -0.00390625,
+   "effect_lo": -0.056800997141598204,
+   "effect_hi": 0.048988497141598204,
+   "seating": 0.02734375,
+   "seating_lo": -0.046364324977171106,
+   "seating_hi": 0.1010518249771711,
+   "runs": {
+    "a": "e43faed0-9b9a-4772-9bac-ef48d2f1b16c",
+    "b": "52b80fa7-ded4-43a8-827c-b31d1f80b08d"
+   },
+   "experiments": {
+    "a": "d5cb3195-5a58-460a-bee7-ee62fe907d63",
+    "b": "b16d5306-09ee-4af4-a7fe-e34494197bf0"
+   },
+   "decision_ms": {
+    "cand": 671.7355846094533,
+    "ctrl": 377.5773133295104
+   },
+   "wins": {
+    "a_cand": 89,
+    "a_ctrl": 83,
+    "b_cand": 79,
+    "b_ctrl": 87
+   },
+   "points": {
+    "cand": 6.83203125,
+    "ctrl": 6.962890625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.326171875,
+     "ctrl": 3.34765625
+    },
+    "offers": {
+     "cand": 14.169921875,
+     "ctrl": 14.54296875
+    },
+    "offers_accepted": {
+     "cand": 2.029296875,
+     "ctrl": 2.083984375
+    },
+    "development_bought": {
+     "cand": 4.060546875,
+     "ctrl": 3.994140625
+    },
+    "cities_built": {
+     "cand": 1.201171875,
+     "ctrl": 1.205078125
+    },
+    "settlements_built": {
+     "cand": 1.705078125,
+     "ctrl": 1.75
+    },
+    "roads_built": {
+     "cand": 5.1953125,
+     "ctrl": 5.169921875
+    },
+    "cards_discarded": {
+     "cand": 5.603515625,
+     "ctrl": 5.28125
+    },
+    "bank_trades": {
+     "cand": 4.630859375,
+     "ctrl": 4.6484375
+    },
+    "times_robbed": {
+     "cand": 4.23046875,
+     "ctrl": 4.236328125
+    },
+    "counters": {
+     "cand": 3.56640625,
+     "ctrl": 3.60546875
+    },
+    "counters_accepted": {
+     "cand": 1.013671875,
+     "ctrl": 0.978515625
+    },
+    "declined": {
+     "cand": 12.6796875,
+     "ctrl": 12.50390625
+    },
+    "accepted_others": {
+     "cand": 1.296875,
+     "ctrl": 1.263671875
+    }
+   }
+  }
+ },
+ "inner_scenarios2": {
+  "development": {
+   "arm": "inner_scenarios2",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.0,
+   "effect_lo": 0.0,
+   "effect_hi": 0.0,
+   "seating": 0.09765625,
+   "seating_lo": 0.00594850293141351,
+   "seating_hi": 0.18936399706858648,
+   "runs": {
+    "a": "a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd",
+    "b": "3773648a-3148-4a14-92f2-69879d3ff4d7"
+   },
+   "experiments": {
+    "a": "e071b629-8043-4eff-8fb0-ac694cac0f78",
+    "b": "f364cf12-1945-4653-9fe3-8bfa92fe5f38"
+   },
+   "decision_ms": {
+    "cand": 691.1565780203466,
+    "ctrl": 686.7350057683987
+   },
+   "wins": {
+    "a_cand": 125,
+    "a_ctrl": 100,
+    "b_cand": 100,
+    "b_ctrl": 125
+   },
+   "points": {
+    "cand": 7.46875,
+    "ctrl": 7.46875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.865234375,
+     "ctrl": 3.865234375
+    },
+    "offers": {
+     "cand": 14.265625,
+     "ctrl": 14.265625
+    },
+    "offers_accepted": {
+     "cand": 2.80859375,
+     "ctrl": 2.80859375
+    },
+    "development_bought": {
+     "cand": 3.92578125,
+     "ctrl": 3.92578125
+    },
+    "cities_built": {
+     "cand": 1.208984375,
+     "ctrl": 1.208984375
+    },
+    "settlements_built": {
+     "cand": 1.853515625,
+     "ctrl": 1.853515625
+    },
+    "roads_built": {
+     "cand": 5.265625,
+     "ctrl": 5.265625
+    },
+    "cards_discarded": {
+     "cand": 4.765625,
+     "ctrl": 4.765625
+    },
+    "bank_trades": {
+     "cand": 4.099609375,
+     "ctrl": 4.099609375
+    },
+    "times_robbed": {
+     "cand": 3.615234375,
+     "ctrl": 3.615234375
+    },
+    "counters": {
+     "cand": 3.826171875,
+     "ctrl": 3.826171875
+    },
+    "counters_accepted": {
+     "cand": 1.287109375,
+     "ctrl": 1.287109375
+    },
+    "declined": {
+     "cand": 13.763671875,
+     "ctrl": 13.763671875
+    },
+    "accepted_others": {
+     "cand": 1.056640625,
+     "ctrl": 1.056640625
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "inner_scenarios2",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.0,
+   "effect_lo": 0.0,
+   "effect_hi": 0.0,
+   "seating": 0.078125,
+   "seating_lo": -0.027611709501057916,
+   "seating_hi": 0.1838617095010579,
+   "runs": {
+    "a": "019bdc02-4c49-4a57-a021-5545de5c5adc",
+    "b": "9059665a-ea82-41dd-9e4d-3e64c3ad7dc4"
+   },
+   "experiments": {
+    "a": "25ed5f85-6ab3-4949-80d0-b3bce5237971",
+    "b": "e2445b6e-c49c-4396-85f6-9052f8921028"
+   },
+   "decision_ms": {
+    "cand": 643.7043884014658,
+    "ctrl": 644.0167499479521
+   },
+   "wins": {
+    "a_cand": 125,
+    "a_ctrl": 105,
+    "b_cand": 105,
+    "b_ctrl": 125
+   },
+   "points": {
+    "cand": 7.4921875,
+    "ctrl": 7.4921875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.958984375,
+     "ctrl": 3.958984375
+    },
+    "offers": {
+     "cand": 14.748046875,
+     "ctrl": 14.748046875
+    },
+    "offers_accepted": {
+     "cand": 2.892578125,
+     "ctrl": 2.892578125
+    },
+    "development_bought": {
+     "cand": 3.84375,
+     "ctrl": 3.84375
+    },
+    "cities_built": {
+     "cand": 1.25390625,
+     "ctrl": 1.25390625
+    },
+    "settlements_built": {
+     "cand": 1.884765625,
+     "ctrl": 1.884765625
+    },
+    "roads_built": {
+     "cand": 5.255859375,
+     "ctrl": 5.255859375
+    },
+    "cards_discarded": {
+     "cand": 4.955078125,
+     "ctrl": 4.955078125
+    },
+    "bank_trades": {
+     "cand": 4.431640625,
+     "ctrl": 4.431640625
+    },
+    "times_robbed": {
+     "cand": 3.607421875,
+     "ctrl": 3.607421875
+    },
+    "counters": {
+     "cand": 4.06640625,
+     "ctrl": 4.06640625
+    },
+    "counters_accepted": {
+     "cand": 1.3046875,
+     "ctrl": 1.3046875
+    },
+    "declined": {
+     "cand": 14.125,
+     "ctrl": 14.125
+    },
+    "accepted_others": {
+     "cand": 1.06640625,
+     "ctrl": 1.06640625
+    }
+   }
+  }
+ },
+ "leaf_opponents": {
+  "development": {
+   "arm": "leaf_opponents",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.041015625,
+   "effect_lo": -0.01975971680260904,
+   "effect_hi": 0.10179096680260905,
+   "seating": 0.107421875,
+   "seating_lo": 0.047184752908874326,
+   "seating_hi": 0.16765899709112567,
+   "runs": {
+    "a": "b68009d6-968d-4e2f-8cde-1be984c37ee4",
+    "b": "8871f193-f795-456c-acb9-3e6849fec7f8"
+   },
+   "experiments": {
+    "a": "a20b6abd-d8b6-4f66-b634-5df40495953e",
+    "b": "face5b0d-d070-4e83-91df-d6fb6ae5ee4b"
+   },
+   "decision_ms": {
+    "cand": 1147.4204128643423,
+    "ctrl": 607.29193898185
+   },
+   "wins": {
+    "a_cand": 133,
+    "a_ctrl": 95,
+    "b_cand": 103,
+    "b_ctrl": 120
+   },
+   "points": {
+    "cand": 7.662109375,
+    "ctrl": 7.337890625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.130859375,
+     "ctrl": 3.828125
+    },
+    "offers": {
+     "cand": 13.990234375,
+     "ctrl": 14.013671875
+    },
+    "offers_accepted": {
+     "cand": 2.91796875,
+     "ctrl": 2.8203125
+    },
+    "development_bought": {
+     "cand": 3.998046875,
+     "ctrl": 3.96484375
+    },
+    "cities_built": {
+     "cand": 1.28125,
+     "ctrl": 1.201171875
+    },
+    "settlements_built": {
+     "cand": 1.900390625,
+     "ctrl": 1.8046875
+    },
+    "roads_built": {
+     "cand": 5.2890625,
+     "ctrl": 5.259765625
+    },
+    "cards_discarded": {
+     "cand": 4.623046875,
+     "ctrl": 5.064453125
+    },
+    "bank_trades": {
+     "cand": 4.208984375,
+     "ctrl": 4.083984375
+    },
+    "times_robbed": {
+     "cand": 4.015625,
+     "ctrl": 3.630859375
+    },
+    "counters": {
+     "cand": 3.4765625,
+     "ctrl": 3.8125
+    },
+    "counters_accepted": {
+     "cand": 1.197265625,
+     "ctrl": 1.369140625
+    },
+    "declined": {
+     "cand": 13.423828125,
+     "ctrl": 14.0625
+    },
+    "accepted_others": {
+     "cand": 1.212890625,
+     "ctrl": 1.0078125
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "leaf_opponents",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.015625,
+   "effect_lo": -0.054359807379094,
+   "effect_hi": 0.085609807379094,
+   "seating": 0.0625,
+   "seating_lo": -0.007591086570737843,
+   "seating_hi": 0.13259108657073784,
+   "runs": {
+    "a": "6c9ee539-341b-4673-bfa0-062f60e967b2",
+    "b": "42f746df-64c4-4aac-bc21-42d6ec799d96"
+   },
+   "experiments": {
+    "a": "a5e38bc5-ff5d-4365-bdee-f89379bf64b6",
+    "b": "b3c000ac-fec6-48ba-87e0-1cec1c89ba34"
+   },
+   "decision_ms": {
+    "cand": 1163.4387979213163,
+    "ctrl": 629.3348966383353
+   },
+   "wins": {
+    "a_cand": 124,
+    "a_ctrl": 104,
+    "b_cand": 109,
+    "b_ctrl": 121
+   },
+   "points": {
+    "cand": 7.642578125,
+    "ctrl": 7.4765625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.373046875,
+     "ctrl": 4.158203125
+    },
+    "offers": {
+     "cand": 14.70703125,
+     "ctrl": 14.591796875
+    },
+    "offers_accepted": {
+     "cand": 3.02734375,
+     "ctrl": 2.99609375
+    },
+    "development_bought": {
+     "cand": 3.76953125,
+     "ctrl": 3.98046875
+    },
+    "cities_built": {
+     "cand": 1.328125,
+     "ctrl": 1.23828125
+    },
+    "settlements_built": {
+     "cand": 1.9609375,
+     "ctrl": 1.849609375
+    },
+    "roads_built": {
+     "cand": 5.408203125,
+     "ctrl": 5.287109375
+    },
+    "cards_discarded": {
+     "cand": 4.048828125,
+     "ctrl": 5.28125
+    },
+    "bank_trades": {
+     "cand": 4.619140625,
+     "ctrl": 4.34375
+    },
+    "times_robbed": {
+     "cand": 3.8515625,
+     "ctrl": 3.42578125
+    },
+    "counters": {
+     "cand": 3.8125,
+     "ctrl": 4.025390625
+    },
+    "counters_accepted": {
+     "cand": 1.30859375,
+     "ctrl": 1.439453125
+    },
+    "declined": {
+     "cand": 13.662109375,
+     "ctrl": 14.044921875
+    },
+    "accepted_others": {
+     "cand": 1.345703125,
+     "ctrl": 1.162109375
+    }
+   }
+  },
+  "population": {
+   "arm": "leaf_opponents",
+   "stage": "population",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": 0.01171875,
+   "effect_lo": -0.049462852435393105,
+   "effect_hi": 0.07290035243539311,
+   "seating": 0.0,
+   "seating_lo": -0.06076194441333234,
+   "seating_hi": 0.06076194441333234,
+   "runs": {
+    "a": "10762c59-7367-415c-8b7a-78c8ca3d5fb0",
+    "b": "b3be0af1-94db-43ec-b9c7-73f3c04f4398"
+   },
+   "experiments": {
+    "a": "9aef447a-d703-454a-8970-92d463017015",
+    "b": "bddfe32b-940f-4ea0-833f-2c0db3274a3c"
+   },
+   "decision_ms": {
+    "cand": 1053.110651450903,
+    "ctrl": 548.8303096652688
+   },
+   "wins": {
+    "a_cand": 84,
+    "a_ctrl": 81,
+    "b_cand": 85,
+    "b_ctrl": 82
+   },
+   "points": {
+    "cand": 7.095703125,
+    "ctrl": 6.994140625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.62109375,
+     "ctrl": 3.509765625
+    },
+    "offers": {
+     "cand": 14.7421875,
+     "ctrl": 14.4765625
+    },
+    "offers_accepted": {
+     "cand": 2.044921875,
+     "ctrl": 2.216796875
+    },
+    "development_bought": {
+     "cand": 3.982421875,
+     "ctrl": 3.9609375
+    },
+    "cities_built": {
+     "cand": 1.201171875,
+     "ctrl": 1.22265625
+    },
+    "settlements_built": {
+     "cand": 1.826171875,
+     "ctrl": 1.74609375
+    },
+    "roads_built": {
+     "cand": 5.349609375,
+     "ctrl": 5.33203125
+    },
+    "cards_discarded": {
+     "cand": 4.306640625,
+     "ctrl": 4.96484375
+    },
+    "bank_trades": {
+     "cand": 4.71484375,
+     "ctrl": 4.634765625
+    },
+    "times_robbed": {
+     "cand": 4.0234375,
+     "ctrl": 3.830078125
+    },
+    "counters": {
+     "cand": 3.619140625,
+     "ctrl": 3.712890625
+    },
+    "counters_accepted": {
+     "cand": 0.908203125,
+     "ctrl": 1.08203125
+    },
+    "declined": {
+     "cand": 11.80078125,
+     "ctrl": 12.486328125
+    },
+    "accepted_others": {
+     "cand": 1.576171875,
+     "ctrl": 1.29296875
+    }
+   }
+  },
+  "extension-l1": {
+   "arm": "leaf_opponents",
+   "stage": "extension-l1",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": 0.037109375,
+   "effect_lo": -0.02406272172515514,
+   "effect_hi": 0.09828147172515514,
+   "seating": 0.037109375,
+   "seating_lo": -0.045586170197607315,
+   "seating_hi": 0.11980492019760731,
+   "runs": {
+    "a": "c01c46b1-5822-4179-ab17-97faf8493bf4",
+    "b": "0727ad04-b9a0-4cd3-bf4e-22d97ba48637"
+   },
+   "experiments": {
+    "a": "e222c91f-2724-4730-8f81-9a1198ca4e1f",
+    "b": "d46a4f48-401e-49fb-8a93-0dc5b4adeca1"
+   },
+   "decision_ms": {
+    "cand": 729.0881445082505,
+    "ctrl": 409.50937682134736
+   },
+   "wins": {
+    "a_cand": 127,
+    "a_ctrl": 108,
+    "b_cand": 113,
+    "b_ctrl": 113
+   },
+   "points": {
+    "cand": 7.642578125,
+    "ctrl": 7.41796875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.435546875,
+     "ctrl": 4.009765625
+    },
+    "offers": {
+     "cand": 14.71875,
+     "ctrl": 14.626953125
+    },
+    "offers_accepted": {
+     "cand": 3.083984375,
+     "ctrl": 2.9453125
+    },
+    "development_bought": {
+     "cand": 3.966796875,
+     "ctrl": 4.0
+    },
+    "cities_built": {
+     "cand": 1.314453125,
+     "ctrl": 1.2421875
+    },
+    "settlements_built": {
+     "cand": 1.96484375,
+     "ctrl": 1.86328125
+    },
+    "roads_built": {
+     "cand": 5.58984375,
+     "ctrl": 5.369140625
+    },
+    "cards_discarded": {
+     "cand": 4.84765625,
+     "ctrl": 5.40625
+    },
+    "bank_trades": {
+     "cand": 4.72265625,
+     "ctrl": 4.6484375
+    },
+    "times_robbed": {
+     "cand": 4.076171875,
+     "ctrl": 3.904296875
+    },
+    "counters": {
+     "cand": 3.7734375,
+     "ctrl": 3.927734375
+    },
+    "counters_accepted": {
+     "cand": 1.3359375,
+     "ctrl": 1.2890625
+    },
+    "declined": {
+     "cand": 13.501953125,
+     "ctrl": 13.97265625
+    },
+    "accepted_others": {
+     "cand": 1.3515625,
+     "ctrl": 1.064453125
+    }
+   }
+  },
+  "extension-l2": {
+   "arm": "leaf_opponents",
+   "stage": "extension-l2",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": 0.0546875,
+   "effect_lo": -0.002509106743028622,
+   "effect_hi": 0.11188410674302862,
+   "seating": 0.046875,
+   "seating_lo": -0.024165444759775168,
+   "seating_hi": 0.11791544475977517,
+   "runs": {
+    "a": "e491b264-2cd7-40be-a690-9f78954cfbe2",
+    "b": "2b29cd5c-e3b0-4111-be6b-c27f194d9115"
+   },
+   "experiments": {
+    "a": "36817410-f3b0-4dd3-a61f-70bc9676bc06",
+    "b": "4d02ea83-f6e1-4e4b-afd1-24ab954ffcb6"
+   },
+   "decision_ms": {
+    "cand": 632.4587220453395,
+    "ctrl": 348.42349057163096
+   },
+   "wins": {
+    "a_cand": 95,
+    "a_ctrl": 69,
+    "b_cand": 81,
+    "b_ctrl": 79
+   },
+   "points": {
+    "cand": 7.16015625,
+    "ctrl": 6.796875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.626953125,
+     "ctrl": 3.478515625
+    },
+    "offers": {
+     "cand": 14.71875,
+     "ctrl": 14.615234375
+    },
+    "offers_accepted": {
+     "cand": 2.044921875,
+     "ctrl": 2.076171875
+    },
+    "development_bought": {
+     "cand": 4.07421875,
+     "ctrl": 4.126953125
+    },
+    "cities_built": {
+     "cand": 1.244140625,
+     "ctrl": 1.205078125
+    },
+    "settlements_built": {
+     "cand": 1.78125,
+     "ctrl": 1.705078125
+    },
+    "roads_built": {
+     "cand": 5.373046875,
+     "ctrl": 5.099609375
+    },
+    "cards_discarded": {
+     "cand": 4.59765625,
+     "ctrl": 5.38671875
+    },
+    "bank_trades": {
+     "cand": 4.9375,
+     "ctrl": 4.708984375
+    },
+    "times_robbed": {
+     "cand": 4.26953125,
+     "ctrl": 4.1875
+    },
+    "counters": {
+     "cand": 3.54296875,
+     "ctrl": 3.74609375
+    },
+    "counters_accepted": {
+     "cand": 0.892578125,
+     "ctrl": 1.005859375
+    },
+    "declined": {
+     "cand": 12.4140625,
+     "ctrl": 13.193359375
+    },
+    "accepted_others": {
+     "cand": 1.58203125,
+     "ctrl": 1.40234375
+    }
+   }
+  }
+ },
+ "counts_only": {
+  "development": {
+   "arm": "counts_only",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.140625,
+   "effect_lo": -0.20822940742124568,
+   "effect_hi": -0.07302059257875432,
+   "seating": 0.140625,
+   "seating_lo": 0.06089536789178625,
+   "seating_hi": 0.22035463210821377,
+   "runs": {
+    "a": "23e8de84-c088-47cf-8ac3-4f7566bff28d",
+    "b": "3a9a4b3d-f801-4bf8-8c77-ad41fe866d36"
+   },
+   "experiments": {
+    "a": "ef501bc5-7196-4ad6-a939-09f00414d771",
+    "b": "b3795b5e-aa62-40be-ad6c-53d075512ecb"
+   },
+   "decision_ms": {
+    "cand": 751.7382759096269,
+    "ctrl": 608.4251169368497
+   },
+   "wins": {
+    "a_cand": 110,
+    "a_ctrl": 110,
+    "b_cand": 78,
+    "b_ctrl": 150
+   },
+   "points": {
+    "cand": 6.994140625,
+    "ctrl": 7.85546875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.0390625,
+     "ctrl": 4.021484375
+    },
+    "offers": {
+     "cand": 11.419921875,
+     "ctrl": 14.189453125
+    },
+    "offers_accepted": {
+     "cand": 2.669921875,
+     "ctrl": 2.876953125
+    },
+    "development_bought": {
+     "cand": 4.048828125,
+     "ctrl": 4.11328125
+    },
+    "cities_built": {
+     "cand": 1.111328125,
+     "ctrl": 1.28125
+    },
+    "settlements_built": {
+     "cand": 1.671875,
+     "ctrl": 1.91015625
+    },
+    "roads_built": {
+     "cand": 4.923828125,
+     "ctrl": 5.25
+    },
+    "cards_discarded": {
+     "cand": 5.052734375,
+     "ctrl": 4.80859375
+    },
+    "bank_trades": {
+     "cand": 4.224609375,
+     "ctrl": 4.255859375
+    },
+    "times_robbed": {
+     "cand": 3.45703125,
+     "ctrl": 3.908203125
+    },
+    "counters": {
+     "cand": 3.275390625,
+     "ctrl": 3.66015625
+    },
+    "counters_accepted": {
+     "cand": 1.240234375,
+     "ctrl": 1.203125
+    },
+    "declined": {
+     "cand": 14.390625,
+     "ctrl": 13.107421875
+    },
+    "accepted_others": {
+     "cand": 1.369140625,
+     "ctrl": 1.14453125
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "counts_only",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.14453125,
+   "effect_lo": -0.2070368270081203,
+   "effect_hi": -0.08202567299187971,
+   "seating": 0.0703125,
+   "seating_lo": 0.004408578850218128,
+   "seating_hi": 0.13621642114978189,
+   "runs": {
+    "a": "eb6630b3-ff16-422d-b4ee-d72fde52886c",
+    "b": "10ebea8a-734c-4b3b-bbb8-06ced0391bdf"
+   },
+   "experiments": {
+    "a": "1667548f-63ed-4d58-bff0-a1477e978867",
+    "b": "dfbd6b4c-1438-44e9-b69b-313d048f6fcf"
+   },
+   "decision_ms": {
+    "cand": 725.1428210411134,
+    "ctrl": 617.6959118594469
+   },
+   "wins": {
+    "a_cand": 104,
+    "a_ctrl": 123,
+    "b_cand": 77,
+    "b_ctrl": 132
+   },
+   "points": {
+    "cand": 6.9921875,
+    "ctrl": 7.86328125
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 4.044921875,
+     "ctrl": 4.310546875
+    },
+    "offers": {
+     "cand": 11.873046875,
+     "ctrl": 14.943359375
+    },
+    "offers_accepted": {
+     "cand": 2.701171875,
+     "ctrl": 3.068359375
+    },
+    "development_bought": {
+     "cand": 3.890625,
+     "ctrl": 4.12890625
+    },
+    "cities_built": {
+     "cand": 1.087890625,
+     "ctrl": 1.3125
+    },
+    "settlements_built": {
+     "cand": 1.79296875,
+     "ctrl": 1.9453125
+    },
+    "roads_built": {
+     "cand": 5.005859375,
+     "ctrl": 5.341796875
+    },
+    "cards_discarded": {
+     "cand": 4.76953125,
+     "ctrl": 5.16015625
+    },
+    "bank_trades": {
+     "cand": 4.482421875,
+     "ctrl": 4.560546875
+    },
+    "times_robbed": {
+     "cand": 3.287109375,
+     "ctrl": 3.72265625
+    },
+    "counters": {
+     "cand": 3.705078125,
+     "ctrl": 4.1171875
+    },
+    "counters_accepted": {
+     "cand": 1.291015625,
+     "ctrl": 1.412109375
+    },
+    "declined": {
+     "cand": 14.294921875,
+     "ctrl": 13.306640625
+    },
+    "accepted_others": {
+     "cand": 1.34375,
+     "ctrl": 1.2421875
+    }
+   }
+  },
+  "population": {
+   "arm": "counts_only",
+   "stage": "population",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": -0.052734375,
+   "effect_lo": -0.10724689889590613,
+   "effect_hi": 0.0017781488959061273,
+   "seating": 0.048828125,
+   "seating_lo": -0.009077820734719605,
+   "seating_hi": 0.1067340707347196,
+   "runs": {
+    "a": "af5fff98-26e9-487e-9242-54a0265169f1",
+    "b": "4cc39cbd-4028-4826-a430-26fa4859c0b7"
+   },
+   "experiments": {
+    "a": "d4778a73-5587-441c-8cbf-82a53f87d096",
+    "b": "4efbf0e1-bea3-407f-8f8a-078f649805eb"
+   },
+   "decision_ms": {
+    "cand": 545.8761566937417,
+    "ctrl": 465.13898415929646
+   },
+   "wins": {
+    "a_cand": 77,
+    "a_ctrl": 78,
+    "b_cand": 67,
+    "b_ctrl": 93
+   },
+   "points": {
+    "cand": 6.634765625,
+    "ctrl": 7.17578125
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.6953125,
+     "ctrl": 3.6328125
+    },
+    "offers": {
+     "cand": 11.96484375,
+     "ctrl": 15.138671875
+    },
+    "offers_accepted": {
+     "cand": 2.115234375,
+     "ctrl": 2.224609375
+    },
+    "development_bought": {
+     "cand": 3.939453125,
+     "ctrl": 4.138671875
+    },
+    "cities_built": {
+     "cand": 1.126953125,
+     "ctrl": 1.263671875
+    },
+    "settlements_built": {
+     "cand": 1.65625,
+     "ctrl": 1.787109375
+    },
+    "roads_built": {
+     "cand": 5.095703125,
+     "ctrl": 5.236328125
+    },
+    "cards_discarded": {
+     "cand": 4.943359375,
+     "ctrl": 5.193359375
+    },
+    "bank_trades": {
+     "cand": 4.591796875,
+     "ctrl": 4.708984375
+    },
+    "times_robbed": {
+     "cand": 3.88671875,
+     "ctrl": 4.0390625
+    },
+    "counters": {
+     "cand": 3.40234375,
+     "ctrl": 3.873046875
+    },
+    "counters_accepted": {
+     "cand": 0.921875,
+     "ctrl": 0.935546875
+    },
+    "declined": {
+     "cand": 13.259765625,
+     "ctrl": 11.720703125
+    },
+    "accepted_others": {
+     "cand": 1.580078125,
+     "ctrl": 1.408203125
+    }
+   }
+  }
+ },
+ "propose_false": {
+  "development": {
+   "arm": "propose_false",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.142578125,
+   "effect_lo": -0.19683401730713473,
+   "effect_hi": -0.08832223269286527,
+   "seating": 0.146484375,
+   "seating_lo": 0.06399160500299049,
+   "seating_hi": 0.2289771449970095,
+   "runs": {
+    "a": "9bedb821-45f9-44f0-85a2-e02706d1c8f9",
+    "b": "e589d911-d674-4a2b-a4a8-d3fa6adbe707"
+   },
+   "experiments": {
+    "a": "e53c45bd-a7ee-4ef8-8772-3780c1cfef31",
+    "b": "1172dcee-95da-44af-a86c-9f5ee0d12fbf"
+   },
+   "decision_ms": {
+    "cand": 533.6899208431787,
+    "ctrl": 587.0237139281189
+   },
+   "wins": {
+    "a_cand": 109,
+    "a_ctrl": 108,
+    "b_cand": 76,
+    "b_ctrl": 150
+   },
+   "points": {
+    "cand": 6.91796875,
+    "ctrl": 7.818359375
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 2.4453125,
+     "ctrl": 3.62890625
+    },
+    "offers": {
+     "cand": 4.1953125,
+     "ctrl": 13.439453125
+    },
+    "offers_accepted": {
+     "cand": 1.560546875,
+     "ctrl": 2.642578125
+    },
+    "development_bought": {
+     "cand": 3.8671875,
+     "ctrl": 4.01953125
+    },
+    "cities_built": {
+     "cand": 1.1484375,
+     "ctrl": 1.271484375
+    },
+    "settlements_built": {
+     "cand": 1.671875,
+     "ctrl": 1.923828125
+    },
+    "roads_built": {
+     "cand": 4.955078125,
+     "ctrl": 5.3828125
+    },
+    "cards_discarded": {
+     "cand": 5.41796875,
+     "ctrl": 4.9140625
+    },
+    "bank_trades": {
+     "cand": 4.259765625,
+     "ctrl": 4.169921875
+    },
+    "times_robbed": {
+     "cand": 3.5234375,
+     "ctrl": 3.814453125
+    },
+    "counters": {
+     "cand": 4.1953125,
+     "ctrl": 2.794921875
+    },
+    "counters_accepted": {
+     "cand": 1.560546875,
+     "ctrl": 1.078125
+    },
+    "declined": {
+     "cand": 14.3671875,
+     "ctrl": 10.81640625
+    },
+    "accepted_others": {
+     "cand": 0.884765625,
+     "ctrl": 0.986328125
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "propose_false",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.201171875,
+   "effect_lo": -0.2567158197773769,
+   "effect_hi": -0.14562793022262313,
+   "seating": 0.072265625,
+   "seating_lo": -0.01187990030092377,
+   "seating_hi": 0.15641115030092378,
+   "runs": {
+    "a": "c8fd3f5e-4f79-4681-ae3b-f5da3d26957a",
+    "b": "23391ddb-91aa-4978-b161-687166e32a83"
+   },
+   "experiments": {
+    "a": "87550a5a-5149-418b-a056-aa6d0a8372a9",
+    "b": "a567b9c2-92a1-49b5-b7ef-c623fd51a197"
+   },
+   "decision_ms": {
+    "cand": 503.62399253462524,
+    "ctrl": 558.324823834043
+   },
+   "wins": {
+    "a_cand": 95,
+    "a_ctrl": 128,
+    "b_cand": 79,
+    "b_ctrl": 149
+   },
+   "points": {
+    "cand": 6.859375,
+    "ctrl": 7.97265625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 2.59765625,
+     "ctrl": 3.80859375
+    },
+    "offers": {
+     "cand": 4.619140625,
+     "ctrl": 14.19140625
+    },
+    "offers_accepted": {
+     "cand": 1.7109375,
+     "ctrl": 2.806640625
+    },
+    "development_bought": {
+     "cand": 3.6875,
+     "ctrl": 3.98046875
+    },
+    "cities_built": {
+     "cand": 1.125,
+     "ctrl": 1.322265625
+    },
+    "settlements_built": {
+     "cand": 1.7265625,
+     "ctrl": 2.0
+    },
+    "roads_built": {
+     "cand": 4.880859375,
+     "ctrl": 5.30078125
+    },
+    "cards_discarded": {
+     "cand": 5.58203125,
+     "ctrl": 5.208984375
+    },
+    "bank_trades": {
+     "cand": 4.564453125,
+     "ctrl": 4.611328125
+    },
+    "times_robbed": {
+     "cand": 3.4609375,
+     "ctrl": 3.68359375
+    },
+    "counters": {
+     "cand": 4.619140625,
+     "ctrl": 3.1796875
+    },
+    "counters_accepted": {
+     "cand": 1.7109375,
+     "ctrl": 1.216796875
+    },
+    "declined": {
+     "cand": 14.751953125,
+     "ctrl": 10.591796875
+    },
+    "accepted_others": {
+     "cand": 0.88671875,
+     "ctrl": 1.001953125
+    }
+   }
+  },
+  "population": {
+   "arm": "propose_false",
+   "stage": "population",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": -0.142578125,
+   "effect_lo": -0.19655893218633103,
+   "effect_hi": -0.08859731781366897,
+   "seating": -0.017578125,
+   "seating_lo": -0.080946704359517,
+   "seating_hi": 0.045790454359516994,
+   "runs": {
+    "a": "4286c659-85ed-41b0-adaf-86fe35693892",
+    "b": "855d73a2-e67a-4833-aad7-78f676830947"
+   },
+   "experiments": {
+    "a": "3c661aad-8bcf-48cd-988b-0cbf3c50209d",
+    "b": "001e2f3b-f70e-41b0-b061-247eeb855557"
+   },
+   "decision_ms": {
+    "cand": 476.69843679544084,
+    "ctrl": 516.776589985818
+   },
+   "wins": {
+    "a_cand": 57,
+    "a_ctrl": 98,
+    "b_cand": 58,
+    "b_ctrl": 90
+   },
+   "points": {
+    "cand": 6.501953125,
+    "ctrl": 7.232421875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 2.185546875,
+     "ctrl": 3.318359375
+    },
+    "offers": {
+     "cand": 4.3828125,
+     "ctrl": 14.2421875
+    },
+    "offers_accepted": {
+     "cand": 1.30859375,
+     "ctrl": 1.974609375
+    },
+    "development_bought": {
+     "cand": 3.83984375,
+     "ctrl": 4.134765625
+    },
+    "cities_built": {
+     "cand": 1.138671875,
+     "ctrl": 1.26953125
+    },
+    "settlements_built": {
+     "cand": 1.59765625,
+     "ctrl": 1.787109375
+    },
+    "roads_built": {
+     "cand": 5.001953125,
+     "ctrl": 5.23046875
+    },
+    "cards_discarded": {
+     "cand": 5.404296875,
+     "ctrl": 5.046875
+    },
+    "bank_trades": {
+     "cand": 4.8984375,
+     "ctrl": 4.759765625
+    },
+    "times_robbed": {
+     "cand": 3.927734375,
+     "ctrl": 4.078125
+    },
+    "counters": {
+     "cand": 4.3828125,
+     "ctrl": 2.89453125
+    },
+    "counters_accepted": {
+     "cand": 1.30859375,
+     "ctrl": 0.775390625
+    },
+    "declined": {
+     "cand": 13.009765625,
+     "ctrl": 8.771484375
+    },
+    "accepted_others": {
+     "cand": 0.876953125,
+     "ctrl": 1.34375
+    }
+   }
+  }
+ },
+ "reciprocity": {
+  "development": {
+   "arm": "reciprocity",
+   "stage": "development",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.0703125,
+   "effect_lo": -0.12592550198319932,
+   "effect_hi": -0.01469949801680067,
+   "seating": 0.14453125,
+   "seating_lo": 0.05873633988545708,
+   "seating_hi": 0.23032616011454293,
+   "runs": {
+    "a": "18e10d4d-881e-4118-8674-22fd6ded30ac",
+    "b": "7ebf608b-70da-469a-8935-6b9ba8e34355"
+   },
+   "experiments": {
+    "a": "95aac00b-f396-4a5c-b023-db360692802b",
+    "b": "495e1a17-5a74-438e-b660-06219ca881c7"
+   },
+   "decision_ms": {
+    "cand": 643.084538204297,
+    "ctrl": 624.6998182999002
+   },
+   "wins": {
+    "a_cand": 120,
+    "a_ctrl": 101,
+    "b_cand": 84,
+    "b_ctrl": 139
+   },
+   "points": {
+    "cand": 7.2109375,
+    "ctrl": 7.603515625
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.4453125,
+     "ctrl": 3.880859375
+    },
+    "offers": {
+     "cand": 9.537109375,
+     "ctrl": 14.193359375
+    },
+    "offers_accepted": {
+     "cand": 1.796875,
+     "ctrl": 2.953125
+    },
+    "development_bought": {
+     "cand": 3.853515625,
+     "ctrl": 4.001953125
+    },
+    "cities_built": {
+     "cand": 1.115234375,
+     "ctrl": 1.287109375
+    },
+    "settlements_built": {
+     "cand": 1.8046875,
+     "ctrl": 1.849609375
+    },
+    "roads_built": {
+     "cand": 5.142578125,
+     "ctrl": 5.341796875
+    },
+    "cards_discarded": {
+     "cand": 4.708984375,
+     "ctrl": 5.15625
+    },
+    "bank_trades": {
+     "cand": 4.19140625,
+     "ctrl": 4.2734375
+    },
+    "times_robbed": {
+     "cand": 3.654296875,
+     "ctrl": 3.705078125
+    },
+    "counters": {
+     "cand": 1.67578125,
+     "ctrl": 3.71875
+    },
+    "counters_accepted": {
+     "cand": 0.484375,
+     "ctrl": 1.328125
+    },
+    "declined": {
+     "cand": 15.642578125,
+     "ctrl": 13.357421875
+    },
+    "accepted_others": {
+     "cand": 1.6484375,
+     "ctrl": 0.927734375
+    }
+   }
+  },
+  "confirmation": {
+   "arm": "reciprocity",
+   "stage": "confirmation",
+   "seeds": 64,
+   "lineup": "L1",
+   "effect": -0.076171875,
+   "effect_lo": -0.13948169472533578,
+   "effect_hi": -0.012862055274664233,
+   "seating": 0.037109375,
+   "seating_lo": -0.04449888047820624,
+   "seating_hi": 0.11871763047820624,
+   "runs": {
+    "a": "f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9",
+    "b": "f026e43d-3993-4fcc-b961-522eb34d8d25"
+   },
+   "experiments": {
+    "a": "ca442984-d942-4e50-b036-e76b85372074",
+    "b": "de3228ec-9440-4ac1-ac6d-81c2d99976e5"
+   },
+   "decision_ms": {
+    "cand": 625.3241920525602,
+    "ctrl": 588.3010406982775
+   },
+   "wins": {
+    "a_cand": 104,
+    "a_ctrl": 114,
+    "b_cand": 99,
+    "b_ctrl": 128
+   },
+   "points": {
+    "cand": 7.224609375,
+    "ctrl": 7.67578125
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.572265625,
+     "ctrl": 3.98046875
+    },
+    "offers": {
+     "cand": 9.818359375,
+     "ctrl": 14.751953125
+    },
+    "offers_accepted": {
+     "cand": 1.833984375,
+     "ctrl": 3.0703125
+    },
+    "development_bought": {
+     "cand": 3.875,
+     "ctrl": 4.05078125
+    },
+    "cities_built": {
+     "cand": 1.12890625,
+     "ctrl": 1.29296875
+    },
+    "settlements_built": {
+     "cand": 1.84375,
+     "ctrl": 1.9140625
+    },
+    "roads_built": {
+     "cand": 5.146484375,
+     "ctrl": 5.25390625
+    },
+    "cards_discarded": {
+     "cand": 4.890625,
+     "ctrl": 5.015625
+    },
+    "bank_trades": {
+     "cand": 4.41796875,
+     "ctrl": 4.537109375
+    },
+    "times_robbed": {
+     "cand": 3.578125,
+     "ctrl": 3.607421875
+    },
+    "counters": {
+     "cand": 1.759765625,
+     "ctrl": 3.822265625
+    },
+    "counters_accepted": {
+     "cand": 0.49609375,
+     "ctrl": 1.3515625
+    },
+    "declined": {
+     "cand": 16.15625,
+     "ctrl": 13.431640625
+    },
+    "accepted_others": {
+     "cand": 1.73828125,
+     "ctrl": 0.91015625
+    }
+   }
+  },
+  "population": {
+   "arm": "reciprocity",
+   "stage": "population",
+   "seeds": 64,
+   "lineup": "L2",
+   "effect": -0.08203125,
+   "effect_lo": -0.1411083765325276,
+   "effect_hi": -0.022954123467472394,
+   "seating": -0.046875,
+   "seating_lo": -0.11936751637621332,
+   "seating_hi": 0.025617516376213317,
+   "runs": {
+    "a": "a87bd827-e165-4301-9bd4-4d3f1d65f8c0",
+    "b": "b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1"
+   },
+   "experiments": {
+    "a": "4e7a760b-0fa1-4e5e-8269-aee7f6030105",
+    "b": "5b23ab6d-1cbc-4e77-82e2-5c281248e7d0"
+   },
+   "decision_ms": {
+    "cand": 559.861565769444,
+    "ctrl": 524.5897578756831
+   },
+   "wins": {
+    "a_cand": 65,
+    "a_ctrl": 98,
+    "b_cand": 78,
+    "b_ctrl": 87
+   },
+   "points": {
+    "cand": 6.759765625,
+    "ctrl": 7.2421875
+   },
+   "diagnostics": {
+    "player_trades": {
+     "cand": 3.265625,
+     "ctrl": 3.517578125
+    },
+    "offers": {
+     "cand": 9.515625,
+     "ctrl": 14.890625
+    },
+    "offers_accepted": {
+     "cand": 1.255859375,
+     "ctrl": 2.365234375
+    },
+    "development_bought": {
+     "cand": 3.892578125,
+     "ctrl": 4.115234375
+    },
+    "cities_built": {
+     "cand": 1.16015625,
+     "ctrl": 1.28125
+    },
+    "settlements_built": {
+     "cand": 1.6796875,
+     "ctrl": 1.826171875
+    },
+    "roads_built": {
+     "cand": 5.189453125,
+     "ctrl": 5.365234375
+    },
+    "cards_discarded": {
+     "cand": 4.810546875,
+     "ctrl": 4.896484375
+    },
+    "bank_trades": {
+     "cand": 4.642578125,
+     "ctrl": 4.859375
+    },
+    "times_robbed": {
+     "cand": 3.908203125,
+     "ctrl": 4.04296875
+    },
+    "counters": {
+     "cand": 1.59375,
+     "ctrl": 3.69921875
+    },
+    "counters_accepted": {
+     "cand": 0.369140625,
+     "ctrl": 1.03515625
+    },
+    "declined": {
+     "cand": 14.458984375,
+     "ctrl": 11.8046875
+    },
+    "accepted_others": {
+     "cand": 2.009765625,
+     "ctrl": 1.15234375
+    }
+   }
+  }
+ }
+}

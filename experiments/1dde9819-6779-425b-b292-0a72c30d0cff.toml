@@ -1,0 +1,12 @@
+id = "1dde9819-6779-425b-b292-0a72c30d0cff"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Population half A (leader arm in slot 0, tables-leaf control in slot 1, a third tables-leaf search in slot 2 and eta in slot 3) on deterministic seeds 800-863. This lineup seats three searches so robber moves are answered by opponents that trade and block. Prediction: the leader hex weighting wins more games than the default at this table. Partner half: the swapped orientation registered alongside."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"leader\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

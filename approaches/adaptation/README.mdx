@@ -33,6 +33,22 @@ Modelling opponents as leaf-guided greedy players instead of the fixed builder c
 
 Predicting each opponent's next build from public information gave one term a development signal that fresh seeds erased. A denial leaf term discounting sites opponents are heading for read +0.061 on seeds 0 to 63 and -0.025 on seeds 64 to 127; the predicted opponent model and the predicted space threat never separated from zero. The predictor named 70% of the fast builder's next builds and 28% of another search's, so it reads the weakest seats best. The [report](../../reports/build-prediction.mdx) also measures a slot-order bonus of +0.172 wins per game for the seat acting immediately before its twin on the development seeds, which any single-order contrast there carries.
 
+## Third round: prediction under the learned leaf
+
+Retested with the learned tables as the leaf, every build-prediction switch
+stayed inside its interval. The predicted space threat read +0.047 wins per
+game (95% interval -0.004 to +0.098) on a population lineup of three searches,
++0.014 on the development boards, and -0.006 on fresh builders boards; the
+predicted opponent model read -0.010, +0.000, and -0.004; and the denial term,
+measured on the quarter blend of tables and hand-written terms, fell to -0.037
+(-0.071 to -0.003) on fresh seeds at about double the decision cost, after its
+hand-leaf development gain of +0.061 had already failed fresh seeds. The
+predictor names a tables search's next build in 20.0 percent of turns, worse
+than the 28.5 percent it scored against the hand-leaf search, so the seats
+that win these tables are even harder to read than before. The
+[report](../../reports/prediction-tables.mdx) has the pairs, the hand-leaf
+comparison, and the browser reading: no switch is worth enabling.
+
 ## What could disprove it
 
 Adaptation can become exploitable if a rival intentionally teaches the wrong pattern. Report worst-opponent performance. Private identity attributes are unnecessary: game behavior and the explicitly available memory are the research inputs.
@@ -57,5 +73,6 @@ Compare with [belief tracking](../beliefs/README.mdx): beliefs about cards, will
 | --- | --- | --- | --- |
 | 2026-09-09 | [Leaf-guided opponents versus the builder model](/research/approaches/adaptation) | Active | Round one, 256 deterministic games: contrast -0.008 wins per game (95% interval -0.111 to +0.096). See the ablation report. Next: Read the confirmation cohort on fresh seeds where registered; otherwise retest under the confirmed depth-3 candidate before changing defaults. [Log 2026-09-09](/research/log/2026-09-09) |
 | 2026-09-11 | [Predicting opponents next builds](/research/reports/build-prediction) | Complete | Not confirmed. A denial leaf term reached +0.061 wins per game on development seeds 0-63 (95% interval +0.009 to +0.112) and fell to -0.025 (-0.071 to +0.020) on fresh seeds 64-127; the predicted opponent model and predicted space threat never separated from zero. The predictor matched 70% of the fast builder's next builds and 53% of ETA's, but only 28% of another search's, and the search is the rival that wins these tables. The denial seat did lose about 0.1 fewer frontier sites per game in every cohort. The same cohorts measured a slot-order asymmetry in the paired ablation lineup: +0.172 wins per game for slot 0 on seeds 0-63 with identical twins. Next: Keep all three switches off. Future paired contrasts should run mirrored slot orders or report the twin-seat baseline; retesting builder-directed terms needs a table where builders are the real rivals, and any retest of the denial term should use the ntuple-leaf baseline and fresh seeds only. [Log 2026-09-11](/research/log/2026-09-11) |
+| 2026-09-12 | [Build prediction under the learned leaf](/research/reports/prediction-tables) | Complete | Not confirmed. Swapped pairs against the tables baseline put every effect inside its interval: predicted threat +0.047 (-0.004 to +0.098) on the population lineup, +0.014 on seeds 0-63, and -0.006 on seeds 800-863; predicted opponents -0.010, +0.000, and -0.004; denial 0.5 on the quarter blend +0.002, then -0.037 (-0.071 to -0.003) on fresh seeds, refuted a second time, at about double the decision cost. The predictor named a tables search's next build in 20.0 percent of turns (28.5 against the hand-leaf search) and eta's in 59.0. All three switches stay off under both leaves; the baseline and evidence boundary do not change. Next: Keep all three switches off. The predicted space threat is the only arm with a positive-leaning reading anywhere (population lineup, both leaves, both intervals crossing zero); resolving an effect near +0.03 would need several hundred seeds per half on a population of trading opponents, so register that only as a deliberate large cohort. The denial term should not be revisited without a cheaper predictor, since its leaf term doubles decision time. [Log 2026-09-11](/research/log/2026-09-11) |
 
 [research-studies:end]: #

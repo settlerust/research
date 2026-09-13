@@ -1,0 +1,12 @@
+id = "d6cbff3d-7e92-4f47-bbc9-97da3c2532a9"
+study = "search/settings-tables"
+arena = "engine"
+hypothesis = "development half A of the swapped pair for scenarios4: four common random dice scenarios for the opponents' round instead of the default eight, evaluated with the learned n-tuple leaf. Prediction: the change hurts the candidate (negative effect) relative to the unchanged tables baseline. This half seats the candidate in slot 0 and the control in slot 1; its partner half B, same seeds and lineup with the seats swapped, is registered under the same study in the same session and both run IDs are filed together."
+decision_rule = "All games complete; the seating-corrected effect over seeds (half the per-seed difference of the two slot-0-minus-slot-1 contrasts of this pair) has a 95% interval excluding zero in the hypothesized direction (support), excluding zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"scenarios\":4}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

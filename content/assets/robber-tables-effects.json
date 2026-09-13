@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "evidence": "measured",
+  "title": "Robber-switch effects under the learned leaf",
+  "source": "Swapped-pair engine-arena cohorts under containment/robber-tables: each arm against the unchanged tables-leaf control, half A with the arm in slot 0 and half B with it in slot 1, both halves on the same 64 deterministic seeds per stage. The point is the pooled seating-corrected effect, half the per-seed difference of the two contrasts, over every stage of the arm in that lineup; run IDs are listed in the robber-tables report.",
+  "caption": "Wins per game of each arm over the unchanged tables-leaf control, pooled over its stages in each lineup; the builders lineup seats eta and fast, the population lineup a third search.",
+  "x": {
+    "label": "Arm and lineup",
+    "min": 0,
+    "max": 9,
+    "ticks": [
+      "leader, builders",
+      "leader, population",
+      "need, builders",
+      "need, population",
+      "threat, builders",
+      "threat, population",
+      "block leader, builders",
+      "block leader, population",
+      "need + block leader, builders",
+      "need + block leader, population"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, arm minus control",
+    "min": -0.1,
+    "max": 0.1
+  },
+  "series": [
+    {
+      "label": "Seating-corrected effect (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.0068,
+          "low": -0.0349,
+          "high": 0.0486
+        },
+        {
+          "x": 1,
+          "y": 0.0312,
+          "low": -0.03,
+          "high": 0.0925
+        },
+        {
+          "x": 2,
+          "y": 0.0163,
+          "low": -0.0083,
+          "high": 0.0408
+        },
+        {
+          "x": 3,
+          "y": 0.0088,
+          "low": -0.0181,
+          "high": 0.0357
+        },
+        {
+          "x": 4,
+          "y": -0.0049,
+          "low": -0.0424,
+          "high": 0.0326
+        },
+        {
+          "x": 5,
+          "y": 0.043,
+          "low": -0.0047,
+          "high": 0.0906
+        },
+        {
+          "x": 6,
+          "y": 0.0111,
+          "low": -0.0052,
+          "high": 0.0273
+        },
+        {
+          "x": 7,
+          "y": 0.0146,
+          "low": -0.0069,
+          "high": 0.0362
+        },
+        {
+          "x": 8,
+          "y": 0.0352,
+          "low": -0.015,
+          "high": 0.0853
+        },
+        {
+          "x": 9,
+          "y": -0.0391,
+          "low": -0.0902,
+          "high": 0.0121
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

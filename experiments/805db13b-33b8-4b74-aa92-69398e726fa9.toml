@@ -1,0 +1,12 @@
+id = "805db13b-33b8-4b74-aa92-69398e726fa9"
+study = "patterns/leaf-blend"
+arena = "engine"
+hypothesis = "Half B of the stage 2 swapped pair for the hand-0.25 against its control (tables baseline) on seeds 800-863, 4 rotations, deterministic; the control sits in slot 0 and the candidate in slot 1, the same seeds as half A, registration 643e51c4-d1e7-4545-8b2b-3f4cb64fe22a, lineup L1 with eta in slot 2 and fast in slot 3. The registered contrast is slot 0 minus slot 1 (control minus candidate), so a real effect points opposite to half A's. Hypothesis: the seating-corrected effect (half the per-seed difference of the two contrasts) is positive with a 95 percent interval excluding zero."
+decision_rule = "All 256 games complete; the primary outcome is the seating-corrected effect of the swapped pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, analysis/seating_pair.py): its 95 percent seed interval excluding zero in the hypothesized direction supports, excluding zero the other way refutes, crossing zero is inconclusive. A pooled estimate across stages is named as after-the-fact pooling. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

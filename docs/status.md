@@ -128,6 +128,18 @@ identical decisions from 11.7% less time at equal nodes, and no strength
 change at equal time or through the protocol (27 to 36, interval crossing
 zero), so `ntuple-leaf` remains the baseline and the tables are a cost saving.
 
+## Every search switch under the learned leaf
+
+Nine engine-arena studies retested the search's switches with the learned
+tables as the leaf, as seating-corrected swapped pairs at a table of builders
+and a table of three searches (145 pairs, 74,240 games; [synthesis](../reports/tables-retest.mdx)).
+Bargaining and the search's information inputs hold; the one improvement is the
+hand-written terms blended into the tables at a quarter of their weight, +0.066
+wins per game at the builder table and +0.064 at the table of searches, at 1.4
+times the decision time. This is development-tier evidence: the protocol-arena
+baseline stays `ntuple-leaf` until the blend wins a protocol cohort, and the
+browser keeps the hand-written leaf.
+
 ## The previous protocol-arena baseline: expectimax-v2-plan
 
 The corrected depth-3 candidate, frozen as `expectimax-v2-plan`, [won 47 of 80

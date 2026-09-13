@@ -1,0 +1,88 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Seating-corrected effects under the learned tables",
+  "evidence": "measured",
+  "source": "Engine-arena swapped pairs of the search/settings-tables study: each point pools the per-seed seating-corrected effects of one arm over its halves and stages (an after-the-fact pooling; samples 8 and leaf opponents include the 864-927 extension, so 192 seeds), depth 2, deterministic tapes, learned n-tuple leaf in both searches. Run IDs are in the report.",
+  "caption": "Each arm is the tables baseline plus one switch; intervals crossing zero are inconclusive, and inner scenarios is absent because it cannot bind at depth 2.",
+  "x": {
+    "label": "Arm (pooled seeds)",
+    "min": 0,
+    "max": 7,
+    "ticks": [
+      "scenarios 4 (128 seeds)",
+      "scenarios 16 (128 seeds)",
+      "samples 1 (128 seeds)",
+      "samples 8 (192 seeds)",
+      "leaf opponents (192 seeds)",
+      "counts only (128 seeds)",
+      "no proposals (128 seeds)",
+      "reciprocity (128 seeds)"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, candidate minus control (seating-corrected)",
+    "min": -0.49,
+    "max": 0.13
+  },
+  "series": [
+    {
+      "label": "Pooled seating-corrected effect (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.392,
+          "low": -0.444,
+          "high": -0.339
+        },
+        {
+          "x": 1,
+          "y": -0.026,
+          "low": -0.072,
+          "high": 0.019
+        },
+        {
+          "x": 2,
+          "y": -0.109,
+          "low": -0.15,
+          "high": -0.069
+        },
+        {
+          "x": 3,
+          "y": 0.045,
+          "low": 0.009,
+          "high": 0.081
+        },
+        {
+          "x": 4,
+          "y": 0.031,
+          "low": -0.006,
+          "high": 0.068
+        },
+        {
+          "x": 5,
+          "y": -0.143,
+          "low": -0.188,
+          "high": -0.097
+        },
+        {
+          "x": 6,
+          "y": -0.172,
+          "low": -0.211,
+          "high": -0.133
+        },
+        {
+          "x": 7,
+          "y": -0.073,
+          "low": -0.115,
+          "high": -0.031
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

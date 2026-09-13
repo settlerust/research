@@ -1,0 +1,12 @@
+id = "f1d399f2-c7dd-4235-99d8-e2f997d6b006"
+study = "patterns/leaf-blend"
+arena = "engine"
+hypothesis = "Half B of the swapped pair for expected hidden victory points (endgame.hidden_points, opponent terms count the victory cards sampled into each hidden world from the deck prior) measured on top of the hand 1.0 blend in both seats, on the L1 builder lineup (slots 2 and 3 eta and fast), seeds 0-63, 4 rotations, deterministic; the control sits in slot 0 and the candidate in slot 1, the same seeds as half A, registration e7b09434-e4a4-409c-9bbc-6eeb56c3f65a. The registered contrast is slot 0 minus slot 1 (control minus candidate), so a real effect points opposite to half A's. Hypothesis: the seating-corrected effect (half the per-seed difference of the two contrasts) is positive with a 95 percent interval excluding zero."
+decision_rule = "All 256 games complete; the primary outcome is the seating-corrected effect of the swapped pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, analysis/seating_pair.py): its 95 percent seed interval excluding zero in the hypothesized direction supports, excluding zero the other way refutes, crossing zero is inconclusive. A pooled estimate across stages is named as after-the-fact pooling. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":1.0}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":1.0},\"endgame\":{\"hidden_points\":true}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

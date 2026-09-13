@@ -1,0 +1,128 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "bar",
+  "evidence": "measured",
+  "title": "Where the robber goes under each arm",
+  "source": "Robber-move records of the same swapped-pair cohorts, pooled over both halves and every stage of each arm: the share of the arm seats and control seats placing the robber on the points leader highest-pip hex (cities double) and robbing the points leader among the mover rivals.",
+  "caption": "Share of robber moves landing on the leader best hex and robbing the leader, arm seats against control seats.",
+  "x": {
+    "label": "Arm",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "leader",
+      "need",
+      "threat",
+      "block leader",
+      "need + block leader"
+    ]
+  },
+  "y": {
+    "label": "Share of robber moves",
+    "min": 0.0,
+    "max": 0.6
+  },
+  "series": [
+    {
+      "label": "On the leader best hex, arm seat",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.3112
+        },
+        {
+          "x": 1,
+          "y": 0.2695
+        },
+        {
+          "x": 2,
+          "y": 0.2673
+        },
+        {
+          "x": 3,
+          "y": 0.2742
+        },
+        {
+          "x": 4,
+          "y": 0.2827
+        }
+      ]
+    },
+    {
+      "label": "On the leader best hex, control seat",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.2701
+        },
+        {
+          "x": 1,
+          "y": 0.2719
+        },
+        {
+          "x": 2,
+          "y": 0.2696
+        },
+        {
+          "x": 3,
+          "y": 0.2701
+        },
+        {
+          "x": 4,
+          "y": 0.2759
+        }
+      ]
+    },
+    {
+      "label": "Robbed the leader, arm seat",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.4993
+        },
+        {
+          "x": 1,
+          "y": 0.4236
+        },
+        {
+          "x": 2,
+          "y": 0.4729
+        },
+        {
+          "x": 3,
+          "y": 0.4317
+        },
+        {
+          "x": 4,
+          "y": 0.4234
+        }
+      ]
+    },
+    {
+      "label": "Robbed the leader, control seat",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.4221
+        },
+        {
+          "x": 1,
+          "y": 0.4237
+        },
+        {
+          "x": 2,
+          "y": 0.4222
+        },
+        {
+          "x": 3,
+          "y": 0.4228
+        },
+        {
+          "x": 4,
+          "y": 0.4145
+        }
+      ]
+    }
+  ]
+}

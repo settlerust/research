@@ -1,0 +1,271 @@
+---
+date: "2026-09-12"
+title: "Robber targeting under the learned leaf"
+summary: "Four robber and endgame targeting switches, each tested as swapped pairs against the learned-tables baseline, all correct to between −0.005 and +0.031 wins per game with intervals crossing zero; the mechanisms fire, none is worth the browser."
+---
+
+# Robber targeting under the learned leaf
+
+<ResearchCallout title="Finding · under the learned tables, every targeting switch is inconclusive">
+The three robber-targeting switches and the late-game leader bias, refuted or
+zeroed under the hand-written leaf, were retested one at a time against the
+search with the learned n-tuple tables, each as a swapped pair in a builders
+lineup (eta and fast) and a population lineup (a third tables search and eta).
+Every cohort completed. The seating-corrected effects pooled over all stages
+are **leader +0.007** (95% interval −0.035 to +0.049) and **+0.031** (−0.030 to
++0.092), **need +0.016** (−0.008 to +0.041) and **+0.009** (−0.018 to +0.036),
+**threat −0.005** (−0.042 to +0.033) and **+0.043** (−0.005 to +0.091), and
+**block leader +0.011** (−0.005 to +0.027) and **+0.015** (−0.007 to +0.036)
+wins per game, builders and population lineups in that order. Only one cohort
+of the ten cells excluded zero: the block leader extension in the population
+lineup, +0.033 (+0.007 to +0.060). No switch reaches the registered bar of
++0.03 pooled with an interval excluding zero, and combining the two arms that
+read positive (need plus block leader) gave **+0.035** (−0.015 to +0.085) in
+the builders lineup and **−0.039** (−0.090 to +0.012) in the population lineup.
+All switches stay off by default.
+</ResearchCallout>
+
+<ResearchPlot asset="robber-tables-effects" />
+
+## The arms and the seats
+
+The baseline seat is the depth-2 search evaluating with the learned tables
+(`ntuple-leaf`, artifact `hex-portfolio-main.bin`). Each arm is that seat plus
+exactly one switch, and the control is the unchanged baseline. All four
+switches change candidate generation, so they are active under the tables
+alone: no arm needed the blended leaf.
+
+| Arm | Change | Earlier reading under the hand-written leaf |
+| --- | --- | --- |
+| `robber.leader` | The hex score counts the points leader's blocked pips in full, every other seat's at a tenth | −0.023 (−0.073 to +0.026) on seeds 64-127 |
+| `robber.need` | The victim bonus replaces hand size with 2.8 times the expected share of the resource this seat most needs | −0.045 (−0.086 to −0.004), the one refuted arm |
+| `robber.threat` | Blocked pips weighted by 1 + 2 times the blocked seat's bargain threat, low-threat victims spared | −0.033 (−0.084 to +0.018) |
+| `endgame.block_leader` | After two thirds of the estimated game length, robber placements and blocking roads weight the leader | +0.012 (−0.018 to +0.041) |
+
+The hand-written-leaf numbers above are the swapped-pair corrections from
+`containment/robber-targeting-bias` and `containment/endgame-seating`; the
+single-seating contrasts that first made these arms look strong were the
+arena's seating term.
+
+## Design
+
+Every contrast is a swapped pair on the same seeds: half A seats the arm in
+slot 0 with the control in slot 1, half B the reverse, each half a separately
+registered experiment of 64 deterministic seeds played once per rotation (256
+games). The seating-corrected effect is half the per-seed difference of the
+two slot-0-minus-slot-1 contrasts, the seating term half their sum
+(`analysis/seating_pair.py`). Two lineups: builders (slots 2 and 3 are eta and
+fast, matching the earlier hand-leaf cohorts) and population (slot 2 is a third
+tables search, slot 3 eta, so robber choices are answered by opponents that
+trade and block). Three stages ran for every arm: development on seeds 0-63
+(builders), confirmation on fresh seeds 800-863 (builders), and population on
+seeds 800-863. The preregistered extension rule then added seeds 864-927 in
+both lineups for the arms whose pooled builders effect was positive with its
+interval coming within 0.03 of zero: need and block_leader. Pooled estimates
+over stages are after-the-fact pooling, named as such.
+
+Every registered decision rule reads the same: all games complete, and the
+seating-corrected effect's 95 percent seed interval either excludes zero in
+the hypothesized direction (support), excludes zero the other way (refutation),
+or neither (inconclusive). Every pair is inconclusive on its own stages; the
+one cohort whose interval excluded zero is named below.
+
+## The cohorts
+
+All 36 cohorts completed all 256 games: 9,216 games, no invalid moves, stalls,
+or timeouts. One half (leader, development, half B) was interrupted at 143 of
+256 games by a shell timeout on the controlling session and was rerun from
+scratch; the partial run `b3a6c3ac-f9f6-4468-9259-835b8200f8d7` is filed as
+interrupted and its games were not pooled.
+
+| Arm | Cohort | Half | Experiment | Run | Slot 0 | Slot 1 | Slot 2 | Slot 3 |
+| --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: |
+| leader | dev 0-63, builders | A | `792be780-1744-4fbf-9378-d076dfc82144` | `00c2cbe1-592c-445c-a843-e44996943007` | 129 | 99 | 13 | 15 |
+| leader | dev 0-63, builders | B | `96d43c3b-0e38-4178-a37e-c8e7f3aa4fd5` | `38728ce3-fa05-495d-97f2-58ff22f98b77` | 133 | 93 | 21 | 9 |
+| need | dev 0-63, builders | A | `65b1ddb2-a85e-40fc-9bdd-0fb6627b9207` | `5c2f8ab4-bbe1-44e5-aed0-c9cc394c9f7d` | 127 | 100 | 19 | 10 |
+| need | dev 0-63, builders | B | `55e137f4-0443-486e-92c2-eb52eb52e819` | `c8749e28-9907-4ee7-a427-3ba033ac8943` | 129 | 100 | 18 | 9 |
+| threat | dev 0-63, builders | A | `7bbc7aa7-0ace-437b-903f-ab953be6766e` | `47060353-4746-495b-bea5-dfbb485016af` | 122 | 103 | 19 | 12 |
+| threat | dev 0-63, builders | B | `2d811991-6b3c-491c-a934-75bab4ad4f44` | `e0c6acab-fc5c-4f6e-8c26-74f4e8c730dc` | 120 | 104 | 21 | 11 |
+| block leader | dev 0-63, builders | A | `a01d63ec-23bf-49fd-9389-784d13a418c8` | `2321b99f-1592-480e-a057-4b76f6627586` | 125 | 101 | 17 | 13 |
+| block leader | dev 0-63, builders | B | `20ec74b1-732f-444f-bc54-323edbdabd99` | `56625a37-fd84-4006-9966-c4a0148b9f53` | 123 | 104 | 16 | 13 |
+| leader | conf 800-863, builders | A | `bdf5010a-8fc2-4c10-8458-9cdc9b40badf` | `8129fb6c-36c6-495d-aee5-3771ffc81add` | 127 | 93 | 17 | 19 |
+| leader | conf 800-863, builders | B | `f1fadb40-1a77-4ece-bac1-6a2cba898577` | `026bd4f5-7a8b-40b0-b4e3-239e17a3daa3` | 125 | 108 | 15 | 8 |
+| need | conf 800-863, builders | A | `26a2fb68-4a00-4f37-af89-78b7640ddc8f` | `20b15545-5d1a-4640-968c-77aae8aba3a9` | 126 | 95 | 25 | 10 |
+| need | conf 800-863, builders | B | `284171c8-2889-4a5b-9c0e-e3d39470be1e` | `3c579646-cf00-439f-937d-6a0e93122bcf` | 127 | 103 | 20 | 6 |
+| threat | conf 800-863, builders | A | `3420701a-4121-46ca-887d-16204bf7aea9` | `227b8813-f6db-467e-8097-209dd66c1323` | 124 | 108 | 15 | 9 |
+| threat | conf 800-863, builders | B | `565a46fd-b928-45a4-8d18-4d45bb558409` | `059e8938-8aa0-48ef-9172-a5639f7a6149` | 127 | 103 | 19 | 7 |
+| block leader | conf 800-863, builders | A | `6e645e60-e3fd-446a-903e-8485a4dab634` | `d8adbaf5-38ab-480b-a537-cab33ff0b188` | 125 | 104 | 20 | 7 |
+| block leader | conf 800-863, builders | B | `4e9d4801-e1ba-4bb5-ab14-d85896644269` | `6278b419-683c-40ac-b88d-0bcb277ed647` | 127 | 106 | 18 | 5 |
+| leader | pop 800-863, population | A | `1dde9819-6779-425b-b292-0a72c30d0cff` | `6b0408e8-f320-4a9a-bb12-0dfe95ece0fb` | 89 | 80 | 76 | 11 |
+| leader | pop 800-863, population | B | `b2878c09-38ca-47c9-8db3-3adc07fd37ca` | `44be36ac-3467-4caa-9ef7-d209f7dd5242` | 80 | 87 | 73 | 16 |
+| need | pop 800-863, population | A | `fef82bc6-bcd8-4468-8c7d-85dacc428376` | `a75e3de9-2103-4777-b6ef-536c2b6bd194` | 83 | 86 | 75 | 12 |
+| need | pop 800-863, population | B | `2385270c-2b73-42ea-8888-af3c506b6597` | `2b2182d5-1106-4372-84e4-0e2a9688d011` | 87 | 86 | 72 | 11 |
+| threat | pop 800-863, population | A | `62b6c4e8-5145-4aa5-9f5a-8c50340c88cc` | `7a435890-2fcb-4d51-8770-d952f457ae39` | 87 | 84 | 70 | 15 |
+| threat | pop 800-863, population | B | `f85f55d3-6521-473d-b9bc-d95f46bbe20e` | `8319a450-6849-42e7-b7c4-272c847b2f03` | 72 | 91 | 81 | 12 |
+| block leader | pop 800-863, population | A | `72d97267-0add-477b-936c-91392502d222` | `f2207f5e-8fd8-4891-8be1-529e52d2611e` | 78 | 89 | 76 | 13 |
+| block leader | pop 800-863, population | B | `458b1c88-1dd1-4629-9e57-b9c178093535` | `a626fe42-d01b-416a-bfd5-2edac7a9823c` | 80 | 89 | 76 | 11 |
+| need | ext 864-927, builders | A | `2b68a0f5-354c-4bfd-8c99-1af08c9f1d53` | `54d7090b-182d-402a-a8cd-3676029d2cb6` | 128 | 106 | 14 | 8 |
+| need | ext 864-927, builders | B | `3e6d14bf-8156-45e0-9554-e62d1a07973d` | `d55af6e8-087b-40a4-8d89-23b048cb3465` | 118 | 116 | 17 | 5 |
+| block leader | ext 864-927, builders | A | `4d64e731-9814-442a-9276-79b3e50c71e5` | `06d296f3-c13c-4853-9157-15ba7be1ad82` | 132 | 99 | 16 | 9 |
+| block leader | ext 864-927, builders | B | `57c39f3a-f23a-4e0e-8885-d16fa5cc88f2` | `38ecd1ca-3d73-49a7-987a-90ba4d73907f` | 127 | 106 | 15 | 8 |
+| need | ext 864-927, population | A | `924f0b5b-bcbf-4a10-924f-85db842b2b67` | `33d3b566-cab8-4f89-a773-f636998ee8f8` | 94 | 81 | 66 | 15 |
+| need | ext 864-927, population | B | `3203b993-81aa-481b-8dc2-de192c832937` | `da3ec107-4a6d-48ec-8f63-fec5f70572d9` | 88 | 88 | 65 | 15 |
+| block leader | ext 864-927, population | A | `4094eeea-1266-4a75-bcf9-7b122821f697` | `3a4f4e34-a565-46c4-abb0-5574f3d326b1` | 97 | 79 | 65 | 15 |
+| block leader | ext 864-927, population | B | `7ef0acfd-3c48-4b51-bab2-adea16b6b307` | `844109d4-ad9d-446a-9970-c0e36661d689` | 88 | 87 | 66 | 15 |
+| need + block leader | final 928-991, builders | A | `b5d23033-a6de-4324-8bae-8791679bd018` | `9e11f6ff-3e1a-4000-9f4c-73fdb3e4de1d` | 131 | 94 | 15 | 16 |
+| need + block leader | final 928-991, builders | B | `da65be79-63a4-4608-b017-77c513bbae2a` | `ffc247e0-2b08-446f-9052-de608430f6e5` | 122 | 103 | 17 | 14 |
+| need + block leader | final 928-991, population | A | `2043385b-de9f-45bc-8dda-c3aea99753e9` | `97c0c56c-0b81-4972-ab29-961d3c4ff888` | 87 | 86 | 72 | 11 |
+| need + block leader | final 928-991, population | B | `fc2983ec-6f8e-4977-b8df-3d404d977a71` | `3d8efaee-2a46-459d-ae24-191ebdbc9b52` | 94 | 73 | 83 | 6 |
+
+## Seating-corrected effects
+
+| Arm | Development 0-63 | Confirmation 800-863 | Extension 864-927 | Population 800-863 | Population extension 864-927 |
+| --- | --- | --- | --- | --- | --- |
+| leader | −0.020 (−0.079 to +0.040) | +0.033 (−0.025 to +0.091) | not extended | +0.031 (−0.030 to +0.092) | not extended |
+| need | −0.004 (−0.047 to +0.039) | +0.014 (−0.031 to +0.058) | +0.039 (−0.001 to +0.079) | −0.008 (−0.045 to +0.030) | +0.025 (−0.013 to +0.064) |
+| threat | +0.006 (−0.051 to +0.063) | −0.016 (−0.065 to +0.034) | not extended | +0.043 (−0.005 to +0.091) | not extended |
+| block leader | +0.010 (−0.020 to +0.039) | +0.000 (−0.029 to +0.029) | +0.023 (−0.003 to +0.050) | −0.004 (−0.038 to +0.030) | **+0.033 (+0.007 to +0.060)** |
+
+The development, confirmation, and extension columns are the builders lineup;
+the two population columns are the population lineup. The bold cell is the only
+cohort of the program whose interval excludes zero, on the positive side.
+
+Pooled over stages (after-the-fact pooling, equal weight per seed):
+
+| Arm | Builders, pooled | Seeds | Population, pooled | Seeds |
+| --- | --- | ---: | --- | ---: |
+| leader | +0.007 (−0.035 to +0.049) | 128 | +0.031 (−0.030 to +0.092) | 64 |
+| need | +0.016 (−0.008 to +0.041) | 192 | +0.009 (−0.018 to +0.036) | 128 |
+| threat | −0.005 (−0.042 to +0.033) | 128 | +0.043 (−0.005 to +0.091) | 64 |
+| block leader | +0.011 (−0.005 to +0.027) | 192 | +0.015 (−0.007 to +0.036) | 128 |
+
+The seating terms of the builders pairs reproduce the known adjacency term
+(+0.047 to +0.137, each interval containing the values measured by the null
+pairs); the population pairs measure seating terms near zero (−0.039 to
++0.043), consistent with three searches breaking the two-seat adjacency.
+
+## Compared with the hand-written leaf
+
+The development stage uses the same seeds 0-63 and the same builders lineup as
+the first hand-leaf cohorts, so the raw slot-0 contrasts are comparable. With
+the arm in slot 0, the hand leaf read leader +0.125, need +0.160, threat
++0.117, and block leader +0.168; under the tables the same design reads
+leader +0.117, need +0.105, threat +0.074, and block leader +0.094. Both sets
+are seating-contaminated, and both shrink to about zero once the pair is
+swapped: the earlier studies corrected to −0.023, −0.045, −0.033, and +0.012,
+and this study's builders pools read +0.007, +0.016, −0.005, and +0.011. The
+pattern that looked like an effect under the hand leaf was the seating term,
+and under the tables it is the seating term again. One difference is real: the
+need rule's hand-leaf refutation (−0.045, the only interval excluding zero in
+the earlier program) does not reproduce under the tables, where its builders
+pool reads +0.016 (−0.008 to +0.041). Under the learned leaf, choosing the
+victim by the card this seat needs is not measurably worse than choosing by
+hand size, but it is not measurably better either.
+
+## Where the robber goes
+
+<ResearchPlot asset="robber-tables-placement" />
+
+Pooled over both halves of every stage of each arm, the mechanisms do what
+they claim. The leader arm lands the robber on the points leader's highest-pip
+hex on 31.1 percent of its robber moves against 27.0 percent for its control
+seats, and robs the leader on 49.9 percent against 42.2 percent. The threat arm
+robs the leader on 47.3 percent against 42.2 percent and shifts theft toward
+the other search (37.2 percent of victims against 34.2 percent), consistent
+with preferring threatening victims over quiet builders. The need arm barely
+moves these observables, as expected: it changes which non-leader seat holds the
+stolen card, a distinction the arena records do not carry. The block leader arm
+nudges late-game placements (43.2 percent leader victims against 42.3
+percent).
+
+Victim distribution by opponent seat, pooled the same way, is nearly flat for
+every arm and control (about 34 percent each to the other search, the eta
+builder, and the fast or third-search seat), and the builders themselves land
+on the leader's best hex on 27.9 percent of their robber moves with 43.0
+percent leader victims across all cohorts. The arm seats steal from each
+opponent category in almost the shares the control seats do; only the leader
+arm's hex placement and everyone's leader-victim rate move visibly.
+
+The other game statistics agree with no mechanism change: counters (about 2.3
+offers countered per game), declines (about 7.6), development bought (2.8 to
+2.9), cities built (1.5), roads built (4.5), cards discarded (about 6.0), and
+player trades (about 4.1) differ between arm and control seats by under a
+twentieth in every arm.
+
+## Decision cost
+
+No switch costs decision time. Within each pair the arm seat and the control
+seat decide within two percent of each other in every stage (for example 576
+against 582 ms for the leader pair under load, 69 against 70 ms for the need
+extension on an idle machine). The cohorts ran at machine loads from about 150
+to 6, so absolute milliseconds are not comparable between stages; the
+within-pair ratios are. The switches score the same shortlist the search already
+enumerates, so nothing new is evaluated.
+
+## The combination
+
+Need and block leader are the two arms the extension rule marked positive with
+near-zero intervals, and both read positive in every lineup pooled, so they
+were combined as a final swapped pair on fresh seeds 928-991 in both lineups.
+The combination reads +0.035 (−0.015 to +0.085) in the builders lineup and
+−0.039 (−0.090 to +0.012) in the population lineup. The two readings disagree,
+both cross zero, and the pooled combination is −0.002. Two small effects that
+do not individually clear their intervals do not add to one that does.
+
+## What could still be wrong
+
+The extension arms were chosen after seeing their first two stages, so their
+final estimates carry that selection; the block leader population extension
+that excluded zero is one of ten cells, and the study's own bar asked for the
+pooled estimate to exclude zero, which it does not. Effects under the tables
+are development-tier engine evidence at depth 2 against one family of
+opponents; the tables leaf was trained by self-play against these builders and
+may already price blocking, which would hide exactly the differences these
+switches try to create. Population-lineup opponents are three copies of the
+same search, not distinct retaliators. Decision times are wall-clock and the
+stages ran at very different machine loads, so only within-pair comparisons are
+usable. Seeds 0-63 were used by the earlier hand-leaf development cohorts, so
+the development stage is a comparison on shared boards, not fresh ones, by
+design.
+
+## What this means for the browser
+
+The browser build searches with the hand-written leaf at depth 3 under a one
+second budget, so the deciding evidence is the hand-leaf measurements: leader
+−0.023, need −0.045 (refuted), threat −0.033, block leader +0.012, all
+corrected swapped pairs. The tables evidence agrees: every switch is
+inconclusive, none reaches +0.03 pooled, and the one positive arm combination
+disagrees with itself across lineups. Since no switch costs decision time, the
+reason to keep them off is not cost but the absence of a measured effect in
+either leaf. None of the four switches is worth enabling in the browser. If
+one is revisited later, block leader is the candidate: it is the only arm
+positive in every lineup pooled under the tables and the only cohort to
+exclude zero, but its hand-leaf reading was +0.012 and its pooled tables
+effects stay under the bar, so a revisit needs a different mechanism or a
+sharper lineup, not a bigger cohort of the same one.
+
+<AgentContext>
+Implementation: no server change. The arms reuse `SearchConfig.robber`
+(`leader`, `need`, `threat`) and `endgame.block_leader` in
+`crates/expectimax/src/v2`, documented in `docs/expectimax.md` under "Robber
+targeting" and the endgame section, on top of the learned leaf
+(`leaf.tables` = `artifacts/ntuple/hex-portfolio-main.bin`, SHA-256
+`f8e61e66…`). Arm seats are that baseline plus one switch, for example
+`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"},"robber":{"leader":true}}`.
+All 36 experiments are registered under `containment/robber-tables` with the
+hypothesis and decision rule quoted per cohort; the analysis is
+`analysis/robber_tables.py` (per-stage effects, decision times, robber
+placement and victim shares) and `analysis/robber_tables_assets.py` (the two
+plots from the retained runs). Archives with verified receipts are under
+`artifacts/`, one per run.
+
+Reproduction: in the research checkout with
+`SETTLERS_SERVER_DIR=~/settlers/.worktrees/server-robber-tables`,
+`python3 -m harness.engine run EXPERIMENT --threads 6` replays any cohort;
+deterministic tapes make every run reproducible. The interrupted partial is
+run `b3a6c3ac-f9f6-4468-9259-835b8200f8d7` (143 of 256 games, replaced by
+`38728ce3-fa05-495d-97f2-58ff22f98b77`). Seating-corrected effects:
+`python3 analysis/seating_pair.py runs/HALF_A/games.jsonl runs/HALF_B/games.jsonl`.
+</AgentContext>
+
+[All studies](../approaches/README.md) · [Leader containment](../approaches/containment) · [Experiment log](../log/experiments.mdx)

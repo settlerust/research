@@ -1,0 +1,12 @@
+id = "patterns/leaf-blend"
+title = "Blending the learned tables with the hand-written leaf, and the endgame switches under the blend"
+created = "2026-09-11"
+updated = "2026-09-12"
+status = "complete"
+question = "Does adding the hand-written leaf terms to the learned tables (leaf.hand at 0.25, 0.5, 1.0), changing the tables scale (500, 2000), or turning on the endgame race and hidden-points leaves help, hurt, or do nothing when the search evaluates with the learned tables, measured as swapped pairs against the tables baseline?"
+outcome = "The hand-written terms at quarter strength improve the learned tables: +0.074 wins per game on seeds 0-63 (+0.011 to +0.138), +0.088 on the extension seeds 864-927, +0.080 there at the population lineup, pooled +0.066 (+0.024 to +0.107) over 192 L1 seeds and +0.064 (+0.021 to +0.108) over 128 L2 seeds, at about 40 percent more decision time. Half strength is noise (+0.016 pooled over 192 L1 seeds, the population lineups negative), and full strength loses to the tables alone (the withdrawn half lost from the favorable seat, an unregistered screen read -0.207). Scale 500 is refuted (-0.097 pooled, it stops the seat trading), scale 2000 is a cost-free nothing (+0.029 pooled over 192 L1 seeds). The endgame race leaf is -0.037 pooled over its L1 stages under the blend (refutation) and hidden points is +0.003 pooled over 192 L1 seeds, both after reading +0.018 and +0.006 under the hand-written leaf, so both stay off under either leaf."
+next_step = "Register a protocol-arena cohort seating the quarter-strength blend inside ntuple-leaf's exact search against ntuple-leaf before changing any server-side default; the browser build cannot load the tables and keeps the hand-written leaf with both endgame switches off."
+attribution = "GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode"
+reports = ["reports/leaf-blend.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

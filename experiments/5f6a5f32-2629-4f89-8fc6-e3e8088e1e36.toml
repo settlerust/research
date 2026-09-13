@@ -1,0 +1,12 @@
+id = "5f6a5f32-2629-4f89-8fc6-e3e8088e1e36"
+study = "patterns/leaf-blend"
+arena = "engine"
+hypothesis = "Half A of the swapped pair for adding the hand-written leaf terms at half strength (leaf.hand 0.5) against the tables baseline v2:{\"depth\":2,\"leaf\":{\"tables\":\"<main.bin>\"}} on the L1 builder lineup (slots 2 and 3 eta and fast), seeds 0-63, 4 rotations, deterministic; the candidate sits in slot 0 and the control in slot 1. Half B (control in slot 0, candidate in slot 1) on the same seeds is this pair's partner under study patterns/leaf-blend. Hypothesis: the blend beats the tables alone; the seating-corrected effect over the 64 seeds is positive with a 95 percent interval excluding zero. Partner registration UUID recorded in the study log once half B is registered."
+decision_rule = "All 256 games complete; the primary outcome is the seating-corrected effect of the swapped pair (per-seed half-difference of the two slot-0-minus-slot-1 contrasts, analysis/seating_pair.py): its 95 percent seed interval excluding zero in the hypothesized direction supports, excluding zero the other way refutes, crossing zero is inconclusive. A pooled estimate across stages is named as after-the-fact pooling. Development tier."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.5}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

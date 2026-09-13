@@ -1,0 +1,12 @@
+id = "6e645e60-e3fd-446a-903e-8485a4dab634"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Confirmation half A (endgame block_leader arm in slot 0, tables-leaf control in slot 1, eta and fast in slots 2 and 3) on deterministic seeds 800-863. Prediction: the late-game leader bias for robber and blocking roads wins more games than the default under the learned tables. Partner half: the swapped orientation registered alongside."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"endgame\":{\"block_leader\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

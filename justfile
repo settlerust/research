@@ -50,6 +50,10 @@ engine-register *args:
 engine-run experiment:
     python3 -m harness.engine run {{quote(experiment)}}
 
+# Decompress the committed frozen tables (tables/*.xz) into artifacts/ntuple/ and verify SHA-256.
+tables:
+    python3 scripts/unpack_tables.py
+
 check:
     python3 -m unittest discover -s tests -v
     python3 scripts/check_repository.py

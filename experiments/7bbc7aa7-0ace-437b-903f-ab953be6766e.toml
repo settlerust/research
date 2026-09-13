@@ -1,0 +1,12 @@
+id = "7bbc7aa7-0ace-437b-903f-ab953be6766e"
+study = "containment/robber-tables"
+arena = "engine"
+hypothesis = "Development half A (threat arm in slot 0, tables-leaf control in slot 1, eta and fast in slots 2 and 3) on deterministic seeds 0-63. Prediction: weighting blocked pips by the blocked seat's bargain threat and sparing low-threat partners wins more games than the default when the search evaluates with the learned tables. Partner half: the same arm and control swapped, registered alongside."
+decision_rule = "All games complete; the seating-corrected effect (half the per-seed difference of the two half contrasts, 95 percent interval over the 64 seeds) excludes zero in the hypothesized direction (support), excludes zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"robber\":{\"threat\":true}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "0-63"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

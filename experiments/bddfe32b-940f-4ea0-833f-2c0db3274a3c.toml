@@ -1,0 +1,12 @@
+id = "bddfe32b-940f-4ea0-833f-2c0db3274a3c"
+study = "search/settings-tables"
+arena = "engine"
+hypothesis = "population half B of the swapped pair for leaf_opponents: opponents inside the lookahead pick the action that maximizes the tables leaf instead of following the fixed builder, evaluated with the learned n-tuple leaf. Prediction: the change helps the candidate (positive effect) relative to the unchanged tables baseline. This half seats the control in slot 0 and the candidate in slot 1; its partner half A is experiment 9aef447a-d703-454a-8970-92d463017015."
+decision_rule = "All games complete; the seating-corrected effect over seeds (half the per-seed difference of the two slot-0-minus-slot-1 contrasts of this pair) has a 95% interval excluding zero in the hypothesized direction (support), excluding zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"leaf_opponents\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

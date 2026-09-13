@@ -1,0 +1,129 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Road switches under the learned leaf",
+  "evidence": "measured",
+  "source": "Engine-arena swapped pairs under expansion/roads-tables: the switch against the unchanged tables-leaf control, each half 64 deterministic seeds played once per rotation (256 games), seating-corrected as the per-seed half-difference of the two halves. Dev, confirm, and extension builders use the builders lineup; population stages seat a third tables search in slot 2. Run IDs are listed in the roads-tables report.",
+  "caption": "Seating-corrected effect of each road switch per stage, under the tables alone and on the quarter blend.",
+  "x": {
+    "label": "Switch and stage",
+    "min": 0,
+    "max": 7,
+    "ticks": [
+      "block dev",
+      "block confirm",
+      "block population",
+      "block ext builders",
+      "block ext population",
+      "gate dev",
+      "gate confirm",
+      "gate population"
+    ]
+  },
+  "y": {
+    "label": "Wins per game, switch minus control",
+    "min": -0.16,
+    "max": 0.12
+  },
+  "series": [
+    {
+      "label": "Tables leaf alone (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0078,
+          "low": -0.0186,
+          "high": 0.0029
+        },
+        {
+          "x": 1,
+          "y": 0.002,
+          "low": -0.0096,
+          "high": 0.0135
+        },
+        {
+          "x": 2,
+          "y": 0.002,
+          "low": -0.0067,
+          "high": 0.0106
+        },
+        {
+          "x": 5,
+          "y": -0.0195,
+          "low": -0.0622,
+          "high": 0.0232
+        },
+        {
+          "x": 6,
+          "y": -0.0176,
+          "low": -0.0663,
+          "high": 0.0312
+        },
+        {
+          "x": 7,
+          "y": -0.0234,
+          "low": -0.0596,
+          "high": 0.0127
+        }
+      ]
+    },
+    {
+      "label": "Quarter blend, hand 0.25 in both seats (95% interval)",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.0273,
+          "low": -0.0106,
+          "high": 0.0653
+        },
+        {
+          "x": 1,
+          "y": 0.0059,
+          "low": -0.0488,
+          "high": 0.0605
+        },
+        {
+          "x": 2,
+          "y": -0.0586,
+          "low": -0.096,
+          "high": -0.0212
+        },
+        {
+          "x": 3,
+          "y": -0.0039,
+          "low": -0.0512,
+          "high": 0.0433
+        },
+        {
+          "x": 4,
+          "y": -0.0078,
+          "low": -0.0456,
+          "high": 0.0299
+        },
+        {
+          "x": 5,
+          "y": -0.0605,
+          "low": -0.1072,
+          "high": -0.0139
+        },
+        {
+          "x": 6,
+          "y": -0.0586,
+          "low": -0.1123,
+          "high": -0.0049
+        },
+        {
+          "x": 7,
+          "y": 0.0215,
+          "low": -0.0259,
+          "high": 0.0689
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "no difference"
+  }
+}

@@ -1061,3 +1061,666 @@ The [report](../reports/opening-planner-tables.mdx) carries the cohort tables,
 the hand-leaf comparison, and the browser section.
 
 Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through OpenCode.
+
+## Search settings under the learned tables
+
+Study `search/settings-tables`. The 2026-09-09 ablation program measured the
+tunable search's settings under the hand-written leaf in one seating, which
+the seating diagnosis later showed to be inflated by the turn-order term;
+none had been measured under the learned n-tuple tables. Nine arms, each the
+depth-2 tables baseline
+(`v2:{"depth":2,"leaf":{"tables":"artifacts/ntuple/hex-portfolio-main.bin"}}`)
+plus one switch, were measured as swapped pairs against the unchanged
+baseline: `scenarios:4` and `scenarios:16` (dice scenarios, default 8),
+`samples:1` and `samples:8` (sampled hidden worlds, default 4),
+`inner_scenarios:2` (deeper-level scenarios, default 4), `leaf_opponents:true`
+(opponents in the lookahead choose by the tables leaf),
+`counts_only:true` (public counts instead of event-based hand knowledge),
+`propose:false` (no trade proposals), and `reciprocity:true` (willingness
+scaled by each partner's observed acceptance rate). Each half is its own
+registered experiment: 256 deterministic games (64 seeds, four rotations),
+half A candidate in slot 0, half B candidate in slot 1, the effect the per-seed
+half-difference of the two contrasts and the seating term their half-sum
+(`analysis/settings_tables.py`). Development played the ablation boards
+(seeds 0-63) with eta and fast in slots 2 and 3; confirmation played fresh
+seeds 800-863 in the same lineup; population played seeds 800-863 with the
+tables baseline and eta behind the two searches; the two arms whose pooled
+128-seed effect was positive with an interval reaching within 0.03 of zero
+(samples8, leaf_opponents) extended to seeds 864-927 in both lineups. The
+registered decision rule: all games complete, and the seating-corrected
+effect's 95 percent seed interval excludes zero in the hypothesized direction
+(support), the other way (refutation), or neither (inconclusive). All 54
+cohorts completed 256 of 256 games with no invalid moves, stalls, or search
+errors.
+
+Registrations, half A and half B: scenarios4
+`d6cbff3d-7e92-4f47-bbc9-97da3c2532a9` / `33654a28-86e9-4026-93e2-111b34913669`,
+scenarios16 `767a4f08-e4d9-48da-83bb-d2e952feaf69` /
+`f650a242-2e6a-4075-a80d-da4ee753441a`, samples1
+`f959a49e-5745-4623-9bb9-e0a43f9ea964` / `e4f5ae29-919c-4bd4-83ae-98812ea00bc3`,
+samples8 `97bd74e0-164b-4d79-bcab-390edc31c129` /
+`adf4e1c3-f93f-4f7e-9631-bd595a2beb2a`, inner_scenarios2
+`e071b629-8043-4eff-8fb0-ac694cac0f78` / `f364cf12-1945-4653-9fe3-8bfa92fe5f38`,
+leaf_opponents `a20b6abd-d8b6-4f66-b634-5df40495953e` /
+`face5b0d-d070-4e83-91df-d6fb6ae5ee4b`, counts_only
+`ef501bc5-7196-4ad6-a939-09f00414d771` / `b3795b5e-aa62-40be-ad6c-53d075512ecb`,
+propose_false `e53c45bd-a7ee-4ef8-8772-3780c1cfef31` /
+`1172dcee-95da-44af-a86c-9f5ee0d12fbf`, reciprocity
+`95aac00b-f396-4a5c-b023-db360692802b` / `495e1a17-5a74-438e-b660-06219ca881c7`
+(development); scenarios4 `dcfd9ca5-170f-43a7-a1f0-36117e7c7990` /
+`ee1751fb-ec20-4df1-b402-6d97a405bd0d`, scenarios16
+`ed82c2ee-5197-4e70-a3e6-ae4a20d64a33` / `e5b13479-5578-4810-bd6f-da6b3fb779fb`,
+samples1 `142fdc9a-e4be-4418-9008-5b942dc78daf` /
+`bfb9bed6-58cd-48c5-aa91-2b029b5c0f9a`, samples8
+`449ea466-728b-45e0-a177-9c220e3e8415` / `13a7cf69-526c-4f94-b434-0ee56051a5f8`,
+inner_scenarios2 `25ed5f85-6ab3-4949-80d0-b3bce5237971` /
+`e2445b6e-c49c-4396-85f6-9052f8921028`, leaf_opponents
+`a5e38bc5-ff5d-4365-bdee-f89379bf64b6` / `b3c000ac-fec6-48ba-87e0-1cec1c89ba34`,
+counts_only `1667548f-63ed-4d58-bff0-a1477e978867` /
+`dfbd6b4c-1438-44e9-b69b-313d048f6fcf`, propose_false
+`87550a5a-5149-418b-a056-aa6d0a8372a9` / `a567b9c2-92a1-49b5-b7ef-c623fd51a197`,
+reciprocity `ca442984-d942-4e50-b036-e76b85372074` /
+`de3228ec-9440-4ac1-ac6d-81c2d99976e5` (confirmation); leaf_opponents
+`9aef447a-d703-454a-8970-92d463017015` / `bddfe32b-940f-4ea0-833f-2c0db3274a3c`,
+counts_only `d4778a73-5587-441c-8cbf-82a53f87d096` /
+`4efbf0e1-bea3-407f-8f8a-078f649805eb`, propose_false
+`3c661aad-8bcf-48cd-988b-0cbf3c50209d` / `001e2f3b-f70e-41b0-b061-247eeb855557`,
+reciprocity `4e7a760b-0fa1-4e5e-8269-aee7f6030105` /
+`5b23ab6d-1cbc-4e77-82e2-5c281248e7d0`, samples8
+`82ff6f24-174a-4d2b-babf-fa1a95619589` / `75b81db1-c6e6-483b-aafc-8ad707ecc0f4`
+(population); samples8 extension `12b83328-8fd5-402f-aa7e-08c8dc8b38fd` /
+`fbd6fe9d-3771-4e25-bc1f-bf2fb38625bd` (L1) and `d5cb3195-5a58-460a-bee7-ee62fe907d63`
+/ `b16d5306-09ee-4af4-a7fe-e34494197bf0` (L2), leaf_opponents extension
+`e222c91f-2724-4730-8f81-9a1198ca4e1f` / `d46a4f48-401e-49fb-8a93-0dc5b4adeca1`
+(L1) and `36817410-f3b0-4dd3-a61f-70bc9676bc06` /
+`4d02ea83-f6e1-4e4b-afd1-24ab954ffcb6` (L2), seeds 864-927. The 54 run UUIDs
+are in the [report](../reports/settings-tables.mdx) cohort table and its
+AgentContext.
+
+Seating-corrected effects, candidate minus control (pooled rows are
+after-the-fact poolings over the named seeds):
+
+| Arm | L1 effect (95% interval) | L2 effect | Decision time vs control | Verdict by the registered rule |
+| --- | --- | --- | ---: | --- |
+| scenarios 4 | −0.392 (−0.444 to −0.339), 128 seeds | not run | 68% | supported: the change hurts |
+| scenarios 16 | −0.026 (−0.072 to +0.019), 128 | not run | 272% | inconclusive; mean negative |
+| samples 1 | −0.109 (−0.150 to −0.069), 128 | not run | 34% | supported: the change hurts |
+| samples 8 | +0.045 (+0.009 to +0.081), 192 | −0.007 (−0.045 to +0.031), 128 | 178% | each pair inconclusive; pooled L1 excludes zero, pooled L2 does not |
+| inner scenarios 2 | inert at depth 2 | not run | 100% | no test: the switch cannot bind |
+| leaf opponents | +0.031 (−0.006 to +0.068), 192 | +0.033 (−0.009 to +0.075), 128 | 180% | inconclusive at both lineups |
+| counts only | −0.143 (−0.188 to −0.097), 128 | −0.053 (−0.107 to +0.002), 64 | 120% | supported: the change hurts |
+| no proposals | −0.172 (−0.211 to −0.133), 128 | −0.143 (−0.197 to −0.089), 64 | 92% | supported: the change hurts |
+| reciprocity | −0.073 (−0.115 to −0.031), 128 | −0.082 (−0.141 to −0.023), 64 | 106% | refuted: the change hurts |
+
+Reading: under the learned tables the search's information inputs are worth
+more than under the hand-written leaf, not less. Against the same boards where
+the hand-leaf ablations read −0.066 for counts-only beliefs (confirmed) and
+−0.027 for proposals (crossing zero), the tables read −0.143 and −0.172.
+Four scenarios cost −0.392, about what two scenarios cost the hand-written
+leaf in one seating (−0.410), and the four-scenario seat's diagnostics show
+how: it ends turns over the seven-card limit and discards 13.9 cards per game
+against the control's 5.5, buying 2.75 development cards against 4.25. The
+reciprocity scaling is the one refuted arm: against fixed-rule partners it
+makes the seat stop asking (9.8 offers per game against the control's 14.7,
+half the counters, more declines) and loses about 0.07 wins per game. The one
+strength gain in the program, eight sampled worlds at +0.045 against builders,
+is real pooled over 192 seeds but each of its five pairs is inconclusive, the
+gain vanishes at the population table, and it costs 1.8 times the decision
+time, so it fails the browser rule on cost. The `inner_scenarios:2` arm
+cannot change a decision at depth 2 (the leaf is evaluated before any deeper
+opponents' round exists): both halves of both stages replayed byte-identical
+games, which doubles as a null pair measuring the seating term on fresh
+boards (+0.078, −0.028 to +0.184). The switch first binds at depth 3, the
+browser's depth, and is the natural next measurement there.
+
+No switch is worth the browser by the registered rule (pooled effect at
+least +0.03, interval excluding zero, decision time within 25 percent of the
+control). The defaults stand on both leaves. The one candidate trade the
+numbers expose is `samples:1` for depth: a third of the decision time for
+−0.109 wins per game under the tables, worth measuring in WASM only if the
+one-second browser budget cannot finish depth 3.
+
+Failures: none in the games; all 54 cohorts completed. My own scheduling
+caused five interrupted run directories before the program proper:
+`41648acb-cfba-40ea-97e2-86d0053656cc` (16 of 256 games, killed by a shell
+timeout), `08f93997-1214-4693-8caa-6f16c28c7a52` and
+`e39e156d-bdc8-413a-bcee-f20945f71836` (duplicate scenarios4 halves, killed),
+and `958a74d4-7ceb-4de5-b75b-041600e07f87` and
+`606bd7b4-cfad-49bc-8d59-60804bc63501` (duplicate scenarios16 halves, invalid,
+3 games each; their records are filed). No game from any interrupted run
+entered any contrast. Wall times are meaningless under the day's load (load
+average 80 to 160 on 32 cores from ten concurrent agents); the tournaments ran
+at `--threads 6` and the deterministic cohorts are load-independent. The
+confirmation halves ran concurrently with development halves on disjoint
+seeds for wall-time reasons; every stage's games completed before any
+interpretation.
+
+## Blending the learned tables with the hand-written leaf, and the endgame switches under the blend
+
+Study `patterns/leaf-blend`. The learned tables are the leaf of the protocol
+baseline, and the search can also add the hand-written terms on top of them:
+`leaf.hand` scales the added terms (0 by default) and `leaf.scale` sets how
+many hand-written points one win is worth (1000 by default, which the trade
+margin, the threat premium, and the deepen gap all compare against). Neither
+knob had been measured. The question was whether each knob, and the two endgame
+leaf switches from `containment/endgame-race` (which are inert under the tables
+alone because they change hand-leaf terms), helps, hurts, or does nothing when
+the search evaluates with the tables.
+
+Every contrast is a swapped pair on the same seeds: half A seats the candidate
+in slot 0, half B seats it in slot 1, the effect is the per-seed half-difference
+of the two slot-0-minus-slot-1 contrasts and the seating term their half-sum
+(`analysis/seating_pair.py`, `analysis/leaf_blend.py`). Stages: development on
+seeds 0 to 63 with the builders lineup (slots 2 and 3 `eta` and `fast`),
+confirmation on seeds 800 to 863 (never used by an earlier experiment),
+population on seeds 800 to 863 with the tables baseline in slot 2 and `eta` in
+slot 3, and an extension on seeds 864 to 927 in both lineups when the pooled
+L1 effect stayed positive with its interval within 0.03 of zero. Every cohort
+is 256 deterministic games at six threads, every cohort that ran completed all
+256, and the registered rule reads the seating-corrected effect's 95 percent
+interval excluding zero as support or refutation and crossing zero as
+inconclusive. An arm refuted at a stage stops; pooled rows across stages are
+named after-the-fact pooling.
+
+The orchestrator had started an unregistered screen of hand 0.25 and 1.0 that
+my first run interrupted; its completed files measured hand 0.25 at +0.074
+(+0.011 to +0.138) and hand 1.0 at -0.207 (-0.284 to -0.130). When that screen
+arrived I had already registered the endgame arms on the hand 1.0 blend; the
+unstarted hand 1.0 registrations were withdrawn before running (below) and the
+arms were re-registered on the hand 0.25 blend in both seats, the blend that
+may become the default. My registered hand 0.25 stage 1 pair is the same games
+as the screen by construction, and it confirms the screen's arithmetic.
+
+### The blend arms
+
+Seating-corrected effects, wins per game:
+
+| Arm | Stage 1 (0-63) | Stage 2 (800-863) | Stage 3 (L2, 800-863) | Extension (864-927) | Pooled L1 | Pooled L2 |
+| --- | --- | --- | --- | --- | --- | --- |
+| hand 0.25 | +0.074 (+0.011 to +0.138) | +0.035 (-0.034 to +0.105) | +0.049 (-0.008 to +0.105) | L1 +0.088 (+0.006 to +0.170), L2 +0.080 (+0.015 to +0.146) | +0.066 (+0.024 to +0.107) | +0.064 (+0.021 to +0.108) |
+| hand 0.5 | +0.045 (-0.028 to +0.118) | +0.051 (-0.018 to +0.120) | −0.027 (−0.094 to +0.040) | L1 -0.047 (-0.113 to +0.019), L2 −0.010 (−0.072 to +0.053) | +0.016 (-0.024 to +0.057) | −0.019 (−0.064 to +0.027) |
+| hand 1.0 | half A only -0.117 (-0.233 to -0.002); half B withdrawn, screen -0.207 (-0.284 to -0.130) | withdrawn | withdrawn | — | — | — |
+
+The quarter-strength blend is supported: it is the only arm whose pooled
+intervals exclude zero, in both lineups, and its extension seeds came back
+stronger than its confirmation. The dose runs the wrong way from there: half
+strength is inside the noise pooled over 192 L1 seeds, and full strength lost
+from the seat that wins the seating term. The extension criterion triggered for
+hand 0.25 (pooled L1 +0.055, lower edge +0.008), for hand 0.5 (+0.048, lower
+edge -0.002), and the extension seeds cut hand 0.5 to +0.016 pooled.
+
+What the hand terms add is visible in the stage 1 games (per seat per game over
+both halves): the tables seat built 1.23 cities, bought 4.03 development cards,
+settled 1.81, and discarded 5.20 cards; the hand 0.25 blend built 1.50 cities,
+bought 3.95 cards, settled 2.05, discarded 5.92, and finished at 7.95 points
+against the control's 7.47. The half blend traded cards for cities (1.62
+cities, 3.74 cards, 7.62 discards) and the full blend abandoned the cards the
+tables win with (1.86 cities, 3.34 cards, 9.02 discards). The blend is also the
+one arm with a decision cost: within each cohort the hand 0.25 seat spent about
+40 percent more per decision than its tables control (929 ms against 667 ms
+pooled over stage 1), because both evaluators run at every leaf.
+
+### The scale arms
+
+| Arm | Stage 1 | Stage 2 | Stage 3 (L2) | Extension (864-927) | Pooled |
+| --- | --- | --- | --- | --- | --- |
+| scale 500 | -0.059 (-0.121 to +0.004) | -0.135 (-0.191 to -0.078), refuted | withdrawn | — | -0.097 (-0.139 to -0.054) over 128 seeds |
+| scale 2000 | +0.051 (-0.009 to +0.111) | -0.010 (-0.069 to +0.050) | +0.035 (-0.024 to +0.095) | L1 +0.047 (-0.026 to +0.120), L2 +0.033 (-0.034 to +0.101) | +0.029 (-0.008 to +0.066) over 192 L1 seeds; +0.034 (-0.011 to +0.079) over 128 L2 seeds |
+
+Halving the scale doubles every threshold in win probability and the arm shows
+it: the halved seat completed 2.32 player trades per game against its control's
+3.70 in stage 1 and lost everywhere, so stage 2's refutation ended the arm.
+Doubling the scale makes the thresholds cheaper, the doubled seat traded more
+(5.13 against 4.06) and bought more cards (4.07 against 3.88), and six pairs
+never separated the effect from zero; it costs no decision time. The default
+scale of 1000 stands.
+
+### The endgame switches under the blend
+
+Measured on the hand 0.25 blend in both seats, the blend alone as the control:
+
+| Arm | Stage 1 | Stage 2 | Stage 3 (L2) | Extension (864-927) | Pooled L1 | Under the hand leaf (seeds 64-127) |
+| --- | --- | --- | --- | --- | --- | --- |
+| race | -0.039 (-0.076 to -0.002) | -0.035 (-0.080 to +0.010) | +0.000 (-0.036 to +0.036) | not triggered, pooled L1 negative | -0.037 (-0.066 to -0.008) | +0.018 (-0.018 to +0.053) |
+| hidden points | +0.025 (-0.010 to +0.060) | -0.010 (-0.043 to +0.024) | -0.025 (-0.067 to +0.016) | L1 -0.006 (-0.042 to +0.031), L2 +0.008 (-0.029 to +0.044) | +0.003 (-0.017 to +0.023) | +0.006 (-0.030 to +0.041) |
+
+The race leaf, which under the hand-written leaf read +0.018 with an interval
+crossing zero, is a small loss under the blend: its stage 1 interval excludes
+zero on the wrong side and so does the pooled L1 estimate, so the registered
+rule reads refutation and no extension was run. Hidden points is the same at
+smaller size: its pooled L1 after two stages (+0.008, -0.016 to +0.032) met
+the extension criterion by the letter, and the extension seeds brought the
+pooled 192-seed L1 estimate to +0.003 (-0.017 to +0.023) with the population
+lineup slightly negative (-0.009, -0.037 to +0.019), so five pairs in both
+lineups never separated it from zero.
+The hidden-points pair that had already started on the full hand 1.0 blend was
+left to finish and read -0.029 (-0.075 to +0.016), a null on the full blend;
+no further cohorts on that blend were registered. Both switches stay
+off.
+
+### Withdrawals and failures
+
+Withdrawn before running, with the orchestrator update's reason (the full
+blend measured much weaker than the tables alone, so a switch on top of it
+says little about a configuration anyone would use): hand 1.0 half B
+`b6f5f82e-9a8a-4fd5-b9f5-bc7357fcaa9c` and the race halves on the full blend
+`47a866d0-b46b-49d4-bf92-fd0b520bc19f` and
+`348e041a-9c73-43d8-93dc-80ce0ae5ec10`; no further full-blend cohorts were
+registered. Withdrawn after stage 2 refuted the arm: the scale 500
+population halves `7bd62467-9637-490f-a3cf-d9fe1a4a1bca` and
+`436be4ef-b624-4d11-b3cc-6de6851facbc`. None of these has a run.
+
+Failures, all mine: my first stage 1 run
+`6d41a494-392a-4df4-b18f-f8cfe7a2902e` was killed 11 games in by its own
+controlling shell's command timeout; it is filed as interrupted and the half
+was rerun from scratch as `0a0e710b-9012-41fe-a947-393274a76c94`. A race
+between two of my queue drivers started a duplicate of the completed scale 2000
+half (`71692536-8d3e-4ab0-90c9-3262835d2000`, 69 games), which I stopped and
+filed as invalid. While stopping that duplicate I killed the wrong process, the
+legitimate hidden-points half A (`82466126-f940-4a04-a239-7d918c9a3efc`, 80
+games, filed invalid), which was then rerun from scratch as
+`f71f0519-603f-4735-8b7c-216a027b4bfa`; the operator error is mine and both
+records stand. A second race between the same two queue drivers duplicated the
+last hidden-points extension half: the legitimate run
+`8d3434f3-4ff9-4f8e-b446-157887f3aa2b` completed all 256 games, the duplicate
+`26c0b46f-e3fd-4100-aea3-32700c603aa9` (111 games) was stopped and filed
+invalid, and the analysis uses the completed run. An interim reading that paired the race stage 1 half A with the
+wrong half B (the scale 2000 run `75a28eed-d4f4-480a-95d7-8cec86ebdfec`) read
++0.016 and was corrected before anything was filed; the registered race half B
+is `62a9c08a-525d-4647-8039-74762ece8915` and the stage 1 effect is the -0.039
+in the table above. No game was censored, no search errors or stalls appeared
+in any run, and the machine ran at a load of 100 to 160 from other agents'
+cohorts throughout, so wall-clock decision times are comparable only within a
+cohort.
+
+### Every cohort
+
+All cohorts 256 of 256 completed; "contrast" is each half's registered
+slot-0-minus-slot-1 paired contrast, and the pair effect is its half-difference
+across halves. The [report](../reports/leaf-blend.mdx) carries the same table
+with the diagnostics.
+
+| hand 0.25 | 1 (0-63, L1) | A | 138 / 87 | +0.199 (+0.107 to +0.291) | `337fa8bf-6dac-4798-ac5d-ef898b9511fc` | `0a0e710b-9012-41fe-a947-393274a76c94` |
+| hand 0.25 | 1 (0-63, L1) | B | 109 / 122 | +0.051 (-0.051 to +0.153) (control minus candidate) | `90b1cbe0-525c-440b-988e-f2ae7664e280` | `6df6bf94-1853-46dc-b169-c8a2e5d7e7ba` |
+| hand 0.25 | 2 (800-863, L1) | A | 120 / 102 | +0.070 (-0.032 to +0.173) | `643e51c4-d1e7-4545-8b2b-3f4cb64fe22a` | `02c6ea23-1d12-45c2-9b4c-f3b4d3c0ef61` |
+| hand 0.25 | 2 (800-863, L1) | B | 116 / 116 | +0.000 (-0.096 to +0.096) (control minus candidate) | `805db13b-33b8-4b74-aa92-69398e726fa9` | `6c737da9-c10a-46e5-9c53-b91c882e599a` |
+| hand 0.25 | 3 (800-863, L2) | A | 92 / 74 | +0.070 (-0.012 to +0.153) | `f97d1156-4294-4ad2-8331-234e206d72a0` | `d016da61-ed26-4072-b3ff-98c8afb95705` |
+| hand 0.25 | 3 (800-863, L2) | B | 83 / 76 | -0.027 (-0.115 to +0.061) (control minus candidate) | `4924410e-b8e9-4752-9e0a-198bb826daaa` | `8fcd82d8-09a4-4f85-968b-7f20120a83dc` |
+| hand 0.25 | ext L1 (864-927) | A | 141 / 98 | +0.168 (+0.047 to +0.289) | `c0c8534f-9256-4576-a468-1959395cedfe` | `532b7ed6-b77c-4ab8-ac9f-37537a9a90f7` |
+| hand 0.25 | ext L1 (864-927) | B | 120 / 118 | -0.008 (-0.119 to +0.103) (control minus candidate) | `fb7327b6-8b65-44f0-bbb0-6ed513c1ab20` | `d828c9b6-e8e6-45bc-8ae8-08a9f7b80b26` |
+| hand 0.25 | ext L2 (864-927) | A | 107 / 75 | +0.125 (+0.031 to +0.219) | `9449ea85-5571-4a39-8ec3-f78a74c5c3c5` | `7697562f-eff1-4032-a32a-535ce8c323b5` |
+| hand 0.25 | ext L2 (864-927) | B | 84 / 75 | -0.035 (-0.124 to +0.054) (control minus candidate) | `7287289b-adfa-4a85-8644-9570d8c6c10b` | `9bae1e81-3ef3-41ad-aa6b-55876d2c2167` |
+| hand 0.5 | 1 (0-63, L1) | A | 133 / 95 | +0.148 (+0.046 to +0.251) | `5f6a5f32-2629-4f89-8fc6-e3e8088e1e36` | `4a6bfee0-c5ca-4689-8c8b-0cac8df16a0d` |
+| hand 0.5 | 1 (0-63, L1) | B | 104 / 119 | +0.059 (-0.045 to +0.163) (control minus candidate) | `9023a299-3644-4748-b349-4d6ff03b8ac5` | `39a0cdba-b3ab-4ed1-813d-537b3a60b103` |
+| hand 0.5 | 2 (800-863, L1) | A | 128 / 103 | +0.098 (-0.010 to +0.205) | `f453131d-e920-4739-8f1c-fe0a2d57bdd7` | `81267946-c11f-4a2b-9c9a-bd31c7b102c0` |
+| hand 0.5 | 2 (800-863, L1) | B | 116 / 115 | -0.004 (-0.115 to +0.107) (control minus candidate) | `9b7d17c5-f145-4467-a452-98fc6d1c913e` | `281c1452-fd54-4b8f-85fb-f1192b6fa15f` |
+| hand 0.5 | 3 (800-863, L2) | A | 87 / 83 | +0.016 (-0.079 to +0.110) | `ff2f050d-e848-4301-83ce-202d1abd1522` | `9bc75aea-a683-4d77-a99b-286a16083352` |
+| hand 0.5 | 3 (800-863, L2) | B | 77 / 95 | +0.070 (-0.029 to +0.169) (control minus candidate) | `82f2db3f-6d33-49eb-b8d9-6ba914b23217` | `807ae9e0-580f-4630-b4f6-d1c566eea0b7` |
+| hand 0.5 | ext L1 (864-927) | A | 120 / 114 | +0.023 (-0.084 to +0.131) | `245f9d8a-5ebd-4cc3-9cb6-2f3a7e99b6ce` | `86c15927-05fb-4b44-bdc2-9a631f070f0d` |
+| hand 0.5 | ext L1 (864-927) | B | 105 / 135 | +0.117 (+0.002 to +0.233) (control minus candidate) | `a39dce2b-1918-4f22-b1c1-9584946b9e2f` | `822ec329-678c-4dfd-9f2c-d347f5216438` |
+| hand 0.5 | ext L2 (864-927) | A | 86 / 80 | +0.023 (-0.068 to +0.115) | `b4d35e5e-fbc9-4937-b236-b53f001d00f6` | `b4e9e09c-4c38-4480-9cf6-23516107d05f` |
+| hand 0.5 | ext L2 (864-927) | B | 79 / 90 | +0.043 (-0.051 to +0.137) (control minus candidate) | `905ad279-73cf-4145-a42f-b0ef6561192e` | `32aa4be1-e50c-44e2-b7d2-8731f30257b4` |
+| hand 1.0 | 1 (0-63, L1), half A only | A | 93 / 123 | -0.117 (-0.233 to -0.002) | `f2f21530-bf8d-400d-bfec-8614e6e0a607` | `0d12835e-5262-4daf-9f2f-6a9b7288f2d6` |
+| scale 500 | 1 (0-63, L1) | A | 117 / 108 | +0.035 (-0.046 to +0.116) | `af67389d-785d-4bf0-894f-436836d8c2db` | `a1830777-dcba-4e54-b394-833fc04adc0e` |
+| scale 500 | 1 (0-63, L1) | B | 91 / 130 | +0.152 (+0.052 to +0.253) (control minus candidate) | `fe58e64c-b9bb-493b-a4a3-411c5aff3c9f` | `5d969f99-0067-4244-bb11-b88a3805bf63` |
+| scale 500 | 2 (800-863, L1) | A | 107 / 117 | -0.039 (-0.143 to +0.065) | `1a694630-8483-4512-849b-cfc7ca54bae1` | `e0efc71e-f9d0-4d77-a57e-988bb4607654` |
+| scale 500 | 2 (800-863, L1) | B | 87 / 146 | +0.230 (+0.147 to +0.314) (control minus candidate) | `07a0544f-008e-4dae-a3c9-e6c00985e6f0` | `b8662419-bf13-4333-b02f-bee9037ed7cb` |
+| scale 2000 | 1 (0-63, L1) | A | 141 / 94 | +0.184 (+0.089 to +0.278) | `d5ed6196-0d94-4513-b8c4-6e8c83e39967` | `d45f668c-558f-435e-9957-38e33e7ac864` |
+| scale 2000 | 1 (0-63, L1) | B | 101 / 122 | +0.082 (-0.016 to +0.180) (control minus candidate) | `f10eb77e-ebb8-4711-90d8-a28b5e9ead0b` | `75a28eed-d4f4-480a-95d7-8cec86ebdfec` |
+| scale 2000 | 2 (800-863, L1) | A | 118 / 108 | +0.039 (-0.069 to +0.147) | `ad20b42d-9937-4515-acb1-7669b0f20aa8` | `f9eb5200-ee12-4d9e-bcc3-fde9a73d24d4` |
+| scale 2000 | 2 (800-863, L1) | B | 111 / 126 | +0.059 (-0.056 to +0.173) (control minus candidate) | `91718fce-02e4-4248-a9e1-3e43bd76c118` | `1e9155d6-7a37-4f4a-92f2-d911b4cdaed0` |
+| scale 2000 | 3 (800-863, L2) | A | 87 / 85 | +0.008 (-0.089 to +0.104) | `a1c94c34-3de8-4b37-a06a-792d93d66a5c` | `7b35abeb-7384-4b24-b5d4-b7ad8da5bc13` |
+| scale 2000 | 3 (800-863, L2) | B | 91 / 75 | -0.062 (-0.148 to +0.023) (control minus candidate) | `6dd18a29-bf0b-46e2-8ca4-bc815e07480d` | `bbc95080-0a94-4b8c-aad9-a298f2531349` |
+| scale 2000 | ext L1 (864-927) | A | 135 / 100 | +0.137 (+0.029 to +0.244) | `9d6eb9ca-7db0-4154-b64e-e15af957cac3` | `00a7596e-cbad-4576-8be7-0ea9849655d3` |
+| scale 2000 | ext L1 (864-927) | B | 110 / 121 | +0.043 (-0.057 to +0.143) (control minus candidate) | `a2e97981-b6a7-4d3b-8a3b-ac416a6bfbac` | `691cd581-79b3-46a8-89ba-4682c878cc3d` |
+| scale 2000 | ext L2 (864-927) | A | 100 / 76 | +0.094 (+0.001 to +0.187) | `5e1b1d2c-8839-4bfb-8d65-0c3295df027a` | `bf588ca4-2392-4311-9783-9ecf88062a8b` |
+| scale 2000 | ext L2 (864-927) | B | 83 / 90 | +0.027 (-0.072 to +0.126) (control minus candidate) | `4e2462ab-e524-439e-8242-c385d511bc0f` | `b04b06d7-eb29-4be3-b759-bee7e517fb9d` |
+| race | 1 (0-63, L1) | A | 129 / 100 | +0.113 (+0.024 to +0.203) | `2539e502-82fd-4435-8037-36576576149e` | `a2305e39-c6ae-47cc-a48b-11a98a6a889f` |
+| race | 1 (0-63, L1) | B | 92 / 141 | +0.191 (+0.099 to +0.284) (control minus candidate) | `afbb74be-1797-488e-bf6d-f507a2f7d211` | `62a9c08a-525d-4647-8039-74762ece8915` |
+| race | 2 (800-863, L1) | A | 123 / 104 | +0.074 (-0.037 to +0.186) | `2d7728ec-73da-4373-9bab-173c7d0fd233` | `89995f9e-f3f9-476a-8d60-cea1c872882c` |
+| race | 2 (800-863, L1) | B | 95 / 132 | +0.145 (+0.035 to +0.254) (control minus candidate) | `2ebd63d7-5030-44a7-aa22-e2c5b7eecf75` | `a6160ac7-4b29-45fb-bede-7c7581ee49c3` |
+| race | 3 (800-863, L2) | A | 84 / 83 | +0.004 (-0.086 to +0.094) | `583bb9b9-93eb-46f0-b881-3c04a8a09a43` | `a84adf0d-5d3e-4508-bae6-4895bb988a5c` |
+| race | 3 (800-863, L2) | B | 81 / 82 | +0.004 (-0.075 to +0.083) (control minus candidate) | `062e4f27-86af-4f43-a785-403963a72faa` | `cfa68fe3-5a0a-4b8c-a272-b18eabcf8d7d` |
+| hidden points | 1 (0-63, L1) | A | 137 / 97 | +0.156 (+0.064 to +0.249) | `d7a3e2a6-12d7-49a3-bdea-73cb384d849f` | `f71f0519-603f-4735-8b7c-216a027b4bfa` |
+| hidden points | 1 (0-63, L1) | B | 102 / 129 | +0.105 (+0.012 to +0.199) (control minus candidate) | `0cee9b32-0a0e-45e9-9417-00816fed3055` | `ffb5282f-aca3-4b7d-b6e2-0043cbb3c8a9` |
+| hidden points | 2 (800-863, L1) | A | 125 / 104 | +0.082 (-0.025 to +0.189) | `c1fa5380-eb76-4b2e-b0d5-a5bbcc1191d6` | `21e1875d-8d52-4b46-a236-bc6b0f1c9269` |
+| hidden points | 2 (800-863, L1) | B | 102 / 128 | +0.102 (-0.009 to +0.212) (control minus candidate) | `fc9a2726-8e79-4922-9454-7f0adf034d56` | `ebca2e51-db2d-4d95-bdc0-0f90abb85e03` |
+| hidden points | 3 (800-863, L2) | A | 83 / 84 | -0.004 (-0.092 to +0.084) | `707228f9-bf2c-480c-97bf-85e7915acbd6` | `b7620d3e-e3c8-4f76-bd09-9cf142d9664f` |
+| hidden points | 3 (800-863, L2) | B | 74 / 86 | +0.047 (-0.044 to +0.138) (control minus candidate) | `dcb44409-a705-4ab1-81b4-1d2a42b77111` | `14d5ecc2-f876-4b89-bfc7-86afabbe2c5b` |
+| hidden points | ext L1 (864-927) | A | 130 / 107 | +0.090 (-0.011 to +0.191) | `cb65e133-a18f-4d33-b4ea-afb2e2112cfe` | `48063a4d-6412-4cbd-9241-bf8be44de2cd` |
+| hidden points | ext L1 (864-927) | B | 103 / 129 | +0.102 (-0.003 to +0.206) (control minus candidate) | `4de83cf0-edca-45c8-8ee4-ae2025495157` | `c4037bf3-c3f0-4d66-9c1d-b6eacb8eee14` |
+| hidden points | ext L2 (864-927) | A | 91 / 82 | +0.035 (-0.046 to +0.117) | `e612fc8c-038c-4115-a7fc-ae0b625fa2e3` | `eee597b6-f2e5-4d72-898d-014f7b7c5567` |
+| hidden points | ext L2 (864-927) | B | 85 / 90 | +0.020 (-0.073 to +0.112) (control minus candidate) | `59099138-66bf-4389-b184-b5eb99e3bcec` | `8d3434f3-4ff9-4f8e-b446-157887f3aa2b` |
+| hidden points | 1 on hand 1.0 (0-63, L1) | A | 95 / 104 | -0.035 (-0.148 to +0.078) | `e7b09434-e4a4-409c-9bbc-6eeb56c3f65a` | `b827db8d-00f4-43ba-95d3-6b726da9ce42` |
+| hidden points | 1 on hand 1.0 (0-63, L1) | B | 101 / 107 | +0.023 (-0.101 to +0.148) (control minus candidate) | `f1d399f2-c7dd-4235-99d8-e2f997d6b006` | `66738182-65d1-4db7-9163-81008c59d149` |
+
+Interpretation: a quarter of the hand-written terms improves the learned leaf
+by about +0.07 wins per game in both lineups and is the one candidate here worth
+a protocol cohort against `ntuple-leaf`; half strength is noise, full strength
+is worse than the tables alone, the scale default of 1000 is right (500 refuted,
+2000 free but null), and the race and hidden-points leaves do not help under
+either leaf, so they stay off in the server and the browser. The browser build
+cannot load the tables, so the blend and scale knobs configure only the
+server-side policy; for the browser the endgame switches were already measured
+at +0.018 and +0.006 under its own leaf and add nothing now.
+
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+## Road switches under the learned leaf
+
+Study `expansion/roads-tables`. The two road switches of
+`expansion/road-blocking-swapped`, `weights.opponent_expansion` 0.5 and
+`weights.road_contention_gate` 1.0, were re-measured with the learned n-tuple
+tables as the search's leaf, the protocol-arena baseline configuration. Both
+are leaf terms with a candidate-generation part in the road shortlist, so each
+was run twice: under the tables alone, where only the shortlist part acts, and
+on top of the blended leaf with `"hand":0.25` in both seats, where the leaf
+term is live at quarter strength. Every contrast is a registered swapped pair
+on the same seeds, half A with the candidate in slot 0 and half B with the
+control in slot 0; the effect is the per-seed half-difference of the two
+contrasts and the seating term their half-sum. Stages: development on seeds
+0-63 with the builders lineup (ETA and fast in slots 2 and 3, matching the
+hand-leaf cohorts), confirmation on seeds 800-863 in the same lineup,
+population on seeds 800-863 with the plain tables baseline in slot 2 and ETA
+in slot 3, and a gated extension on seeds 864-927 in both lineups. All
+tournaments ran at six threads on the shared machine. Hypothesis for each
+pair: the switch beats the unchanged control leaf, with the registered rule
+that the pair's seating-corrected 95% seed interval excludes zero in the
+hypothesized direction (support), excludes zero the other way (refutation), or
+neither (inconclusive).
+
+Mid-study the blend moved: an unregistered screen by the leaf-blend agent
+measured `hand`:1.0 at −0.207 wins per game against the tables alone and
+`hand`:0.25 at +0.074, so the full blend is not a configuration anyone would
+ship. The ten registered full-blend cohorts that had not started were
+withdrawn before running and re-registered at 0.25; the one full-blend cohort
+already running (stage 1, blocking weight, half A) finished and is filed as a
+single seating. Withdrawn registrations, not run:
+`abba442e-debf-4472-8343-c393b492b396` (stage 1 blocking half B),
+`0dd23ca1-a69e-486d-bbba-bb99dc530438` and `07d9c96b-ae49-40cd-be6a-dae5710a5cd1`
+(stage 1 gate), `0491a4a8-37e7-43f1-a42a-c30af6ff05a5` and
+`1509b074-b76c-4632-a978-ce0400600509` (stage 2 blocking),
+`d7160c76-ce55-49b6-a5ca-362e151fa849` and `6df5f111-53f4-4408-ab8f-2d4faea0504d`
+(stage 2 gate), `c2b54a63-d983-4b85-83c1-0216757be515` and
+`fef0e8b5-de13-42cd-989c-5ecdafe3466a` (stage 3 blocking),
+`350442e0-cfc9-4499-98f8-947ef92f4a7e` and `103764a1-fc44-4d9a-99e6-fb85a75ff089`
+(stage 3 gate).
+
+Every cohort completed 256 of 256 games; no invalid moves, stalls, censoring,
+or interruptions. Experiment and run UUIDs in full:
+
+| Arm and stage | Half A experiment / run | Half B experiment / run |
+| --- | --- | --- |
+| blocking, tables, dev 0-63 | `0b788486-7d5b-4d4c-a5c9-3989d6317337` / `4529da10-c5ab-49f8-be24-6bb5e7e317e1` | `b8549250-edc9-4f21-a4b7-96fbaafd4782` / `86136b36-66e2-49a8-aa95-e5de0d802e61` |
+| blocking, tables, confirm 800-863 | `7159bd47-2352-49de-9dd2-497f8a3247a0` / `4629e513-2dac-459e-a018-e5faef0ed50a` | `f10f72f3-3e38-4ed2-bb13-58283d529243` / `044327fe-d6f2-4c0e-8ae3-cfa7b0492ab5` |
+| blocking, tables, population 800-863 | `82629df7-0f8a-4006-a042-60d0a6ebd16c` / `36a7adfd-d1ce-49d3-a25f-ccec8f616c23` | `8e3cc677-7fcf-4a2c-842c-e663cc626632` / `4aa3d3a3-b395-4248-9837-ca3c09eb0ec1` |
+| gate, tables, dev 0-63 | `25c0c3ef-acce-4275-aa62-58fd11bba45e` / `10dead1d-160a-4c00-8b08-b1f77a5c75b3` | `0b2dc424-752f-422c-94a9-3b91c60838dc` / `86184ec9-2a1a-4944-bca0-c6a983829794` |
+| gate, tables, confirm 800-863 | `d8769e27-605a-4c7c-880a-bf2adaaed80e` / `82e6046b-1ba5-44d9-998c-fa4ec398244f` | `dba26122-eb55-425a-877a-510ccd1fbc35` / `773e53b5-26ce-42e4-8aa5-2565363f1f99` |
+| gate, tables, population 800-863 | `5e8dd398-7515-4117-b0e0-bd0ab50e2a57` / `c29e9c07-6499-464c-9cb7-4aa7c090c159` | `1af5542d-6c6d-4334-a282-a51d481449a0` / `ad9a07b9-939c-49c4-99d2-df93b7b51b47` |
+| blocking, blend 0.25, dev 0-63 | `20520824-b14b-48a2-94d2-468b77fa4d3a` / `f9113c62-9c89-4095-9e81-cbb6c06d5dc0` | `19dcce6e-a687-42fe-9652-4ebd7e21b169` / `ba368081-2db1-4998-9e81-902ef7a7bace` |
+| blocking, blend 0.25, confirm 800-863 | `ab1261cd-a9b2-4828-8002-3706e6db088b` / `c07b2268-3e6b-4055-93f1-bc6405019ca0` | `8866aa31-389c-419c-b031-3040f00bb8d7` / `3fb6583b-bc5c-4b8e-a19e-c62cf6c8f650` |
+| blocking, blend 0.25, population 800-863 | `0bf9d6ee-2cf7-4928-b3d1-0a7cc79799df` / `bd42145a-ca36-457b-954b-46c298027787` | `9c0cf8af-99c2-42ab-ba96-e51b9aa6d3bd` / `f95c0335-c77f-4d94-8026-b05cb06e855c` |
+| blocking, blend 0.25, extension builders 864-927 | `dd8dfd4f-9922-4621-b175-5c52db0df335` / `90d394ae-fc62-4426-aca0-5f04bd54f2a6` | `85c4582f-dd60-4705-a15b-7e0ec9aa757f` / `4e5d2807-1875-431f-b3ea-60a88f1ed2d9` |
+| blocking, blend 0.25, extension population 864-927 | `ddf036cd-b4b2-49cd-9473-aff82f0a336e` / `66a398f5-9b69-442f-84f3-fd1fa219fd46` | `38d6d46d-d777-45fb-87d6-81972cf3f570` / `ff3fe1b1-e62e-4271-8c35-4bb44e07764f` |
+| gate, blend 0.25, dev 0-63 | `849b3f9f-e311-41a9-8462-ca01898eda3d` / `eaec0233-a70b-4af4-8346-604a003e8f8c` | `95a95d6d-de73-400b-bf2c-f999c4c9f04c` / `160505ec-d7fb-4c53-b8a0-59f6ecccad22` |
+| gate, blend 0.25, confirm 800-863 | `4915a44c-ca93-45cf-86f3-31e11c282d42` / `8d3680d8-d891-41be-a3e1-ca1ec203e7b2` | `a8c21c94-a6d6-4b1b-9344-274989d58976` / `79e0863d-47ac-47c4-adc2-2ef8b800d544` |
+| gate, blend 0.25, population 800-863 | `52a94b11-6ccc-4e9b-9396-6bb01d581011` / `4425d52b-8a9b-49f9-9c0d-1eecc7c4edb4` | `a94f59d0-72bf-4245-af2b-2a3e1c7a7acc` / `5b51b4e0-633d-43ac-bf47-59d5ccd532e0` |
+| blocking, full blend hand 1.0, dev half A only | `661b57ce-4262-40db-ab34-c2a84d6d5960` / `4af53f81-6e2b-4a10-bdff-26fc68d192c3` | partner `abba442e-debf-4472-8343-c393b492b396` withdrawn before running |
+
+Seating-corrected effects per stage, with the seating term beside each:
+
+| Arm | Stage | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- |
+| blocking, tables | dev | −0.008 (−0.019 to +0.003) | +0.098 |
+| blocking, tables | confirm | +0.002 (−0.010 to +0.014) | +0.084 |
+| blocking, tables | population | +0.002 (−0.007 to +0.011) | −0.041 |
+| gate, tables | dev | −0.020 (−0.062 to +0.023) | +0.082 |
+| gate, tables | confirm | −0.018 (−0.066 to +0.031) | +0.033 |
+| gate, tables | population | −0.023 (−0.060 to +0.013) | −0.047 |
+| blocking, blend | dev | +0.027 (−0.011 to +0.065) | +0.152 |
+| blocking, blend | confirm | +0.006 (−0.049 to +0.061) | +0.061 |
+| blocking, blend | population | −0.059 (−0.096 to −0.021) | +0.070 |
+| blocking, blend | ext builders | −0.004 (−0.051 to +0.043) | +0.109 |
+| blocking, blend | ext population | −0.008 (−0.046 to +0.030) | +0.027 |
+| gate, blend | dev | −0.061 (−0.107 to −0.014) | +0.111 |
+| gate, blend | confirm | −0.059 (−0.112 to −0.005) | +0.063 |
+| gate, blend | population | +0.022 (−0.026 to +0.069) | +0.022 |
+
+After-the-fact pooling: blocking under the tables is −0.003 (−0.011 to +0.005)
+over the 128 builders seeds and −0.001 (−0.007 to +0.005) over all 192 boards;
+on the blend it is +0.010 (−0.017 to +0.037) over the 192 builders seeds and
+−0.033 (−0.060 to −0.006) over the 128 population seeds. The gate is −0.019
+(−0.051 to +0.014) over the 128 builders seeds under the tables and −0.060
+(−0.095 to −0.024) under the blend, the one refutation with an interval
+excluding zero across the builders stages; its population stage crosses zero.
+The extension fired only for the blocking blend arm (128-seed read +0.017 with
+the interval reaching −0.017, inside the 0.03 gate) and faded it to +0.010.
+The combination arm was not registered: the two switches never both read
+positive in one leaf context. The full-blend half A read +0.039 (−0.066 to
++0.144) as a single seating and counts for nothing on its own.
+
+Interpretation: the learned leaf already prices expansion pressure, so the
+blocking shortlist's extra candidates (0.04 to 0.08 blocking builds per game
+against the control's 0.02 to 0.05) change the board too little to move wins,
+in line with the hand-leaf corrected estimate of +0.008. The gate does what it
+says (award held at game end 38% against 53% on the blended development
+boards) and the races it declines were worth entering: it loses about 0.06
+wins per game under the blend. Decision cost: the blocking weight adds about
+14% per decision under the tables and about 30% under the blend; the gate is
+free or slightly cheaper. Neither switch is worth the browser, which runs the
+hand-written leaf where both already measured zero. The
+[report](../reports/roads-tables.mdx) has every cohort table, the comparison
+with the hand-leaf numbers, and the diagnostics.
+
+Failures and notes: my first queue scripts passed `--threads` through
+`just engine-run`, which takes no such argument; the failure was immediate,
+before any game was played, and the registrations were reused once the scripts
+called `python3 -m harness.engine run` directly. One session ended with an
+opencode error while cohorts ran; no run was affected, and the lane runners
+survived it. The machine ran at a load average of 80 to 170 for most of the
+day (ten agents on 32 cores), so wall times say nothing about search cost; the
+decision-time ratios are taken within each run. Two smoke games against
+throwaway seeds (kept under `/tmp/opencode/roads-tables-smoke/`) verified the
+seat specifications before registration; plumbing only, not evidence. All 29 runs are archived with verified receipts under `records/artifacts/`.
+
+Attribution: Kimi K3 (baseten/moonshotai/Kimi-K3) through OpenCode.
+## Build prediction under the learned leaf
+
+Study `adaptation/prediction-tables`. The three build-prediction switches of
+the hand-leaf study (a denial leaf weight, the predicted opponent model, and
+the predicted space threat) were retested under the learned n-tuple tables
+leaf, each as a swapped pair (candidate in slot 0 against the unchanged
+tables-baseline control in slot 1, then the same two searches with slots
+swapped) at depth 2, deterministic, four rotations, 256 games per half, six
+threads. The denial weight is a leaf term and is inert under the tables alone,
+so that arm runs on a blended leaf. Its first registrations used the full blend
+(`leaf hand 1.0` in both seats); the `patterns/leaf-blend` screen then measured
+that blend 0.207 wins per game below the tables alone, so all six were
+withdrawn before any of them ran and the arm was registered again on the
+quarter blend (`hand 0.25`, which the screen measured +0.074 above the
+tables). Withdrawn before running: `2324c88f-9407-455f-a76c-daafd52bf7e1`,
+`adb816b7-c2f2-4a47-a545-60b035870e45`,
+`d160d8e0-2d2a-45cb-ba12-f5fa82956d3a`,
+`6f0f27f8-286c-424a-9786-7b43875e62cb`,
+`c62b41d6-5c90-447a-8196-6acb9b6200f1`, and
+`ff104571-dcc2-48f0-9dd5-0bae29a7cff5`.
+
+The predicted space threat ran its population stage first, as directed, because
+the switch only changes trades and the builders lineup trades less. Population
+lineup: candidate and control in slots 0 and 1, a second tables-baseline search
+in slot 2, eta in slot 3. Builders lineup: eta in slot 2, fast in slot 3.
+
+Predicted space threat, under the tables alone:
+
+| Stage | Half A experiment and run | Half B experiment and run | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- | --- |
+| Population, seeds 800-863 | `2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166`, `98b12730-0997-4f13-932a-671536080240` | `078dc121-0ee7-44f2-80c6-25b150fe5c14`, `5d4485eb-5a7d-4525-8d5e-83b059633c39` | +0.047 (-0.004 to +0.098) | -0.027 |
+| Development, seeds 0-63 | `7a37ead7-5990-4ced-8ea6-cc139c14d3cb`, `2fb51aa4-ec78-441a-ac88-4f3a1a1b077d` | `e8ed1b4d-9b55-41c0-b81a-72ca3446a6f0`, `7c07bce7-df9f-4bfb-b95c-73f1cc1a0f54` | +0.014 (-0.037 to +0.064) | +0.150 |
+| Confirmation, seeds 800-863 | `721e6d22-cda9-4bbd-920f-a4c97caa1293`, `97c2c3c7-f23c-484f-8316-d8ef40f35728` | `d9e60b56-b687-4452-8a44-8e7a342a1f97`, `e6694d7e-7ca2-4a3c-b63a-7f98ad345a59` | -0.006 (-0.057 to +0.045) | +0.100 |
+
+Pooled over the 128 builders-lineup seeds, an after-the-fact pooling: +0.004
+(-0.032 to +0.040). The extension rule asks for a positive mean and an interval
+that comes within 0.03 of zero; the mean is positive but the nearest endpoint
+is 0.032 away, so no extension runs, and 64 more seeds could not separate
++0.004 from zero anyway.
+
+Predicted opponent model, under the tables alone:
+
+| Stage | Half A experiment and run | Half B experiment and run | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- | --- |
+| Development, seeds 0-63 | `0f311f07-69b0-43a2-b00d-e65260e78c68`, `cd0eef08-680b-4639-9dba-8eb9e98ff79a` | `f7646e35-5a6e-4923-92eb-8ed00c0dbc55`, `4dc942bd-5343-444d-aef8-9e89b60cc004` | -0.010 (-0.066 to +0.046) | +0.096 |
+| Confirmation, seeds 800-863 | `131bd98f-9842-4da4-9ce6-4f818f018982`, `596e8dd0-957e-49e8-bd30-47df5d0a6312` | `906aeeee-fb36-4c4c-8e4c-bfb515c8e3b9`, `26be7683-0b30-4cdb-a27a-1900a11adcc4` | +0.000 (-0.063 to +0.063) | +0.055 |
+| Population, seeds 800-863 | `832402a0-649a-4afe-a6b5-0120eafe42f7`, `3e1db769-42a7-48e3-842e-311d45776d32` | `7bed7450-6301-44bb-81cb-bafb69a54399`, `15282f9d-520d-4290-8931-bf0739e88983` | -0.004 (-0.060 to +0.052) | -0.012 |
+
+Pooled over the 128 builders-lineup seeds: -0.005 (-0.047 to +0.037). The mean
+is not positive, so no extension runs.
+
+Denial leaf weight 0.5, on the quarter blend (`hand 0.25` in both seats):
+
+| Stage | Half A experiment and run | Half B experiment and run | Effect (95% interval) | Seating term |
+| --- | --- | --- | --- | --- |
+| Development, seeds 0-63 | `39f22891-3b02-4f8b-9d2a-54a68ecf8d65`, `3bbbfea8-c08e-4910-9926-566ba647d534` | `ad623e9c-d09c-4328-8f90-868cc0cc719c`, `b0c63544-f1ba-4a4c-924d-03ef381c4dbb` | +0.002 (-0.040 to +0.044) | +0.123 |
+| Confirmation, seeds 800-863 | `3b404013-a489-4f0f-8c72-d5139030896a`, `106ab3c6-89e2-47f5-a17b-50f4e91ecbc8` | `f454b374-037c-4ea9-9dcc-34b9222d3fe6`, `591c905a-0d87-4216-8b35-df28b3256109` | -0.037 (-0.071 to -0.003) | +0.057 |
+| Population, seeds 800-863 | `1fda980d-5933-4182-8629-bb38219163ef`, `5463cc1a-fd0f-467b-a33a-63992e8ebe08` | `29355633-9630-484b-893c-5fa59b8bd158`, `ec5e3a3e-e989-40a6-bc77-701a2bbfc519` | +0.023 (-0.009 to +0.056) | -0.004 |
+
+The confirmation interval excludes zero on the wrong side: the denial term is
+refuted on fresh seeds, repeating the hand-leaf study's fall from +0.061 to
+-0.025. Pooled over the 128 builders-lineup seeds: -0.018 (-0.045 to +0.010),
+so no extension runs. The term also costs: the denial seat's mean decision time
+was about double its control's in every half (1257 against 600 ms, 922
+against 454, 199 against 105, and the mirrors), because the predictor runs at
+every leaf it evaluates.
+
+Diagnostics from the retained games: the threat candidate made about 1.5 more
+offers per game than its control (16.3 against 14.8 on the population lineup)
+and declined about 1.4 fewer, so the switch does change who the seat trades
+with. The opponents candidate's own counters (trades, offers, builds, robber
+shares) match its control within noise. The denial candidate lost slightly
+fewer frontier sites per game than its control on the builders lineup (1.78
+against 1.84, from `sites_lost`), as it did under the hand leaf, without
+turning the board into wins.
+
+Prediction accuracy, from one observer seat's public knowledge on the
+population lineup (unregistered diagnostic, seeds 800 to 815, 64 games,
+`--predict-diag 0`): the predictor named eta's next completed build in 59.0
+percent of turns (256 of 434) and a tables-baseline search's in 20.0 percent
+(348 of 1739). Under the hand leaf it scored 52.7 against eta and 28.5 against
+the hand-leaf search, so the learned leaf is a less predictable opponent, not
+a more predictable one, and builder-directed terms have even less to read at a
+table of searches.
+
+Interpretation: none of the three switches separates from zero under the
+learned tables. The threat switch is the only arm with a positive-leaning
+reading anywhere (+0.047 on the population lineup, -0.004 to +0.098, matching
+its hand-leaf fresh reading of +0.031), but no interval excludes zero, its
+builders-lineup estimate is +0.004, and the worth-the-browser rule needs at
+least +0.03 pooled with the interval excluding zero. The denial term is
+refuted on fresh seeds for the second time at double the decision cost. All
+three switches stay off under both leaves; the baseline and the evidence
+boundary do not change. The [report](../reports/prediction-tables.mdx) has the
+tables and the browser reading.
+
+Failures: run `83989250-85e2-4fe5-a9fd-c2a1c5aedef7` (experiment
+`2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166`) was interrupted after 6 of 256 games
+when my session tooling killed the detached process; the six completed games
+are retained and not pooled, the run is filed as interrupted, and the half was
+rerun from scratch as `98b12730-0997-4f13-932a-671536080240`. One pair's
+effect was first computed with the halves reversed in a scratch note and
+corrected before anything was filed. The machine was shared with nine other
+agents, so wall times (about 1.5 to 2 hours per 256-game half at six threads)
+say nothing about decision cost; the within-run decision times above do. All
+18 completed halves finished 256 of 256 games with no invalid, stalled,
+forced, or failed decision.
+
+Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+
+## Robber targeting under the learned leaf
+
+Hypotheses: four candidate-generation switches, each tested alone against the
+unchanged tables-leaf baseline
+(`v2:{"depth":2,"leaf":{"tables":"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin"}}`)
+as a swapped pair, half A the arm in slot 0 and half B the arm in slot 1, 64
+deterministic seeds per half. Predictions, each falsifiable: blocking the
+points leader's best hex (`robber.leader`) wins more than blocking the most
+pips; choosing the victim by the resource this seat needs (`robber.need`) beats
+hand size; threat-weighted blocking that spares low-threat partners
+(`robber.threat`) beats ignoring threats; and the late-game leader bias
+(`endgame.block_leader`) beats the default after two thirds of the game.
+Stages for every arm: development seeds 0-63 and confirmation seeds 800-863 in
+the builders lineup (eta and fast in slots 2 and 3), population seeds 800-863
+with a third tables search in slot 2 and eta in slot 3, and a preregistered
+extension to seeds 864-927 in both lineups for arms whose pooled builders
+effect was positive with an interval within 0.03 of zero. Decision rule: all
+games complete; support only if the seating-corrected effect's 95 percent seed
+interval excludes zero in the predicted direction.
+
+Experiments under `containment/robber-tables` (36 registrations, 36 runs, all
+256 of 256 games complete, 9,216 games). Development half A / half B
+(experiment, run): leader `792be780`/`00c2cbe1` and `96d43c3b`/`38728ce3`;
+need `65b1ddb2`/`5c2f8ab4` and `55e137f4`/`c8749e28`; threat
+`7bbc7aa7`/`47060353` and `2d811991`/`e0c6acab`; block_leader
+`a01d63ec`/`2321b99f` and `20ec74b1`/`56625a37`. Confirmation: leader
+`bdf5010a`/`8129fb6c` and `f1fadb40`/`026bd4f5`; need `26a2fb68`/`20b15545`
+and `284171c8`/`3c579646`; threat `3420701a`/`227b8813` and
+`565a46fd`/`059e8938`; block_leader `6e645e60`/`d8adbaf5` and
+`4e9d4801`/`6278b419`. Population: leader `1dde9819`/`6b0408e8` and
+`b2878c09`/`44be36ac`; need `fef82bc6`/`a75e3de9` and
+`2385270c`/`2b2182d5`; threat `62b6c4e8`/`7a435890` and
+`f85f55d3`/`8319a450`; block_leader `72d97267`/`f2207f5e` and
+`458b1c88`/`a626fe42`. Extension, need: `2b68a0f5`/`54d7090b` and
+`3e6d14bf`/`d55af6e8` (builders), `924f0b5b`/`33d3b566` and
+`3203b993`/`da3ec107` (population). Extension, block_leader:
+`4d64e731`/`06d296f3` and `57c39f3a`/`38ecd1ca` (builders),
+`4094eeea`/`3a4f4e34` and `7ef0acfd`/`844109d4` (population). Final
+combination (need + block_leader) on fresh seeds 928-991: `b5d23033`/`9e11f6ff`
+and `da65be79`/`ffc247e0` (builders), `2043385b`/`97c0c56c` and
+`fc2983ec`/`3d8efaee` (population). Full UUIDs are in the report's cohort
+table and in the run records; every run has a verified archive receipt under
+`artifacts/`.
+
+Interpretation. Every stage's seating-corrected effect is inconclusive:
+development leader −0.020 (−0.079 to +0.040), need −0.004 (−0.047 to +0.039),
+threat +0.006 (−0.051 to +0.063), block_leader +0.010 (−0.020 to +0.039);
+confirmation +0.033 (−0.025 to +0.091), +0.014 (−0.031 to +0.058), −0.016
+(−0.065 to +0.034), +0.000 (−0.029 to +0.029); population +0.031 (−0.030 to
++0.092), −0.008 (−0.045 to +0.030), +0.043 (−0.005 to +0.091), −0.038 to
++0.030 for block_leader at −0.004; extension need +0.039 (−0.001 to +0.079)
+builders and +0.025 (−0.013 to +0.064) population, block_leader +0.023 (−0.003
+to +0.050) builders and +0.033 (+0.007 to +0.060) population, the only cohort
+of the program whose interval excludes zero. Pooled after the fact over stages:
+builders leader +0.007 (−0.035 to +0.049, 128 seeds), need +0.016 (−0.008 to
++0.041, 192), threat −0.005 (−0.042 to +0.033, 128), block_leader +0.011
+(−0.005 to +0.027, 192); population leader +0.031 (−0.030 to +0.092, 64),
+need +0.009 (−0.018 to +0.036, 128), threat +0.043 (−0.005 to +0.091, 64),
+block_leader +0.015 (−0.007 to +0.036, 128). No arm reaches the worth-the-browser
+bar of +0.03 pooled with an interval excluding zero. The mechanisms fire: the
+leader arm lands the robber on the leader's best hex on 31.1 percent of its
+moves against 27.0 for its controls and robs the leader on 49.9 against 42.2
+percent, and the threat arm robs the leader on 47.3 against 42.2 percent while
+shifting theft toward the other search; the game's other statistics barely
+move. Decision cost is nil: arm and control decide within two percent of each
+other in every pair. The raw dev contrasts under the tables (+0.117, +0.105,
++0.074, +0.094) are again the size of the seating term, as under the hand leaf.
+The hand-leaf refutation of the need rule does not reproduce under the tables
+(hand −0.045 excluding zero, tables +0.016 crossing zero), and the leader and
+threat population readings point up while their builders pools sit at or below
+zero, so the honest summary is noise around zero in both leaves. Combining the
+two arms that read positive, need and block_leader, gave +0.035 (−0.015 to
++0.085) builders and −0.039 (−0.090 to +0.012) population on fresh seeds:
+disagreeing, both crossing zero. All four switches stay off in the server and
+are not worth enabling in the browser, where the hand-leaf evidence is the
+deciding tier and reads −0.023, −0.045, −0.033, and +0.012.
+
+Failures and notes: one run was interrupted, `b3a6c3ac-f9f6-4468-9259-835b8200f8d7`
+(leader dev half B, first attempt), killed at 143 of 256 games by a shell
+timeout on my controlling session; it is filed as interrupted with a manual
+bundle and the half was rerun from scratch as `38728ce3`. No other run failed,
+and no incomplete game entered any comparison. The machine was shared with
+nine other agents through most of the program (system load around 150 on 32
+cores), so the first stages took about 100 minutes per 256-game cohort and the
+last ones about 13 minutes after the load fell; deterministic cohorts give the
+same games either way, and only within-pair decision-time ratios are quoted.
+The extension arms were selected by the preregistered pooled-positivity rule,
+which is a data-dependent choice and is named as such in the report. No server
+change was needed; the switches behaved under the tables in every cohort.
+
+Attribution: GLM 5.3 (zai-org/GLM-5.3) through opencode.

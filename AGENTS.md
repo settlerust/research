@@ -29,6 +29,8 @@ Settlers protocol; the harness does not simulate outcomes.
 - Use `just check`. For policy changes, also run a small protocol match before a
   larger experiment. A smoke run is never evidence of strategic superiority.
 - Keep data out of Git. Use `just archive` and preserve the verified receipt.
+  The one exception is the frozen baseline tables in `tables/` (xz-compressed,
+  digests in `tables/SHA256SUMS`); `just tables` unpacks them into `artifacts/ntuple/`.
   Publishing locally does not authorize uploading data to an external service.
 - After substantive research, append a dated entry to `log/YYYY-MM-DD.mdx` and
   record the hypothesis, run IDs, interpretation, failures, and actual agent/model

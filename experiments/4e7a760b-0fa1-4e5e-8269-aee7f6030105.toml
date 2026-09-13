@@ -1,0 +1,12 @@
+id = "4e7a760b-0fa1-4e5e-8269-aee7f6030105"
+study = "search/settings-tables"
+arena = "engine"
+hypothesis = "population half A of the swapped pair for reciprocity: the willingness model is scaled per partner by that partner's observed acceptance rate from the public trade record, evaluated with the learned n-tuple leaf. Prediction: the change helps the candidate (positive effect) relative to the unchanged tables baseline. This half seats the candidate in slot 0 and the control in slot 1; its partner half B, same seeds and lineup with the seats swapped, is registered under the same study in the same session and both run IDs are filed together."
+decision_rule = "All games complete; the seating-corrected effect over seeds (half the per-seed difference of the two slot-0-minus-slot-1 contrasts of this pair) has a 95% interval excluding zero in the hypothesized direction (support), excluding zero the other way (refutation), or neither (inconclusive)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"},\"reciprocity\":true}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "800-863"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

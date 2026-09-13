@@ -1,0 +1,390 @@
+---
+date: "2026-09-12"
+title: "Search settings under the learned tables"
+summary: "Nine search-setting switches measured as seating-corrected swapped pairs against the tables baseline: halving dice scenarios, one sampled world, counts-only beliefs, and no proposals each cost confirmed wins, eight sampled worlds gain a confirmed +0.045 against builders for 1.8 times the decision cost and nothing against a table of searches, deeper-level scenarios cannot bind at depth 2, and the reciprocity scaling is refuted. No switch earns a place in the browser build."
+---
+
+# Search settings under the learned tables
+
+<ResearchCallout title="Finding · information inputs matter more under the stronger leaf; one switch gains strength, none earns the browser">
+Every switch is the depth-2 tables baseline plus one change, measured as a swapped
+pair on the same boards so the arena's seating term cancels. Halving the common
+random dice scenarios to four costs **−0.392 wins per game** (95% interval −0.444
+to −0.339, 128 seeds), collapsing the sampled hidden worlds to one costs
+**−0.109** (−0.150 to −0.069), sampling hands from public counts alone instead of
+the event history costs **−0.143** (−0.188 to −0.097), and never proposing a trade
+costs **−0.172** (−0.211 to −0.133). Scaling the willingness model by each
+partner's observed acceptance rate is the one refuted improvement: **−0.073**
+(−0.115 to −0.031). Doubling scenarios to sixteen changes nothing measurable
+(−0.026, −0.072 to +0.019) for 2.7 times the decision time. Doubling the sampled
+worlds to eight is the one switch that gains strength, **+0.045** (+0.009 to
++0.081) pooled over 192 seeds against the builders, but the gain disappears at a
+table of three searches (−0.007, −0.045 to +0.031) and costs 1.8 times the
+decision time. Leaf-guided opponents read +0.031 (−0.006 to +0.068) over 192
+seeds and +0.033 (−0.009 to +0.075) against the population, positive everywhere
+and resolved nowhere, at 1.8 times the cost. `inner_scenarios` cannot bind at
+depth 2: its halves replayed identical games. Under the hand-written leaf the
+same switches read near zero; the learned leaf makes the search's information
+inputs worth more, not less.
+</ResearchCallout>
+
+<ResearchPlot asset="settings-tables-effects" />
+
+## What each arm changes
+
+The baseline seat is `v2:{"depth":2,"leaf":{"tables":"artifacts/ntuple/hex-portfolio-main.bin"}}`,
+the depth-2 search that evaluates with the learned n-tuple tables. Each candidate
+is that seat plus one switch, played against the unchanged baseline. The same
+nine switches were measured under the hand-written leaf in the
+[ablation program](ablations.mdx), in one seating; the seating diagnosis later
+showed those contrasts carry a turn-order term of +0.05 to +0.18 wins per game,
+so they are quoted here with that caveat.
+
+| Arm | Switch | What it changes |
+| --- | --- | --- |
+| `scenarios:4` | `"scenarios":4` | The opponents' round after the current turn is averaged over four common random dice scenarios instead of eight |
+| `scenarios:16` | `"scenarios":16` | Sixteen scenarios instead of eight |
+| `samples:1` | `"samples":1` | One sampled hidden world instead of four |
+| `samples:8` | `"samples":8` | Eight sampled worlds instead of four |
+| `inner_scenarios:2` | `"inner_scenarios":2` | Two scenarios at deeper planned levels instead of four |
+| `leaf_opponents` | `"leaf_opponents":true` | Opponents inside the lookahead take the action that maximizes the tables leaf instead of following the fixed builder |
+| `counts_only` | `"counts_only":true` | Hidden hands sampled from public counts alone, without the event history |
+| `no proposals` | `"propose":false` | The seat never proposes trades; it only answers offers |
+| `reciprocity` | `"reciprocity":true` | The willingness model is scaled per partner by that partner's observed acceptance rate of this seat's offers |
+
+## The design
+
+Every contrast is a swapped pair on the same seeds: half A seats the candidate
+in slot 0 and the control in slot 1, half B seats the control in slot 0 and the
+candidate in slot 1, and the seating-corrected effect is the per-seed
+half-difference of the two slot-0-minus-slot-1 contrasts, with the seating term
+their half-sum (`analysis/seating_pair.py`). Development played seeds 0 to 63
+against the `eta` and `fast` builders, the boards of the hand-leaf ablations;
+confirmation played fresh seeds 800 to 863, which no earlier experiment used;
+population played seeds 800 to 863 with the tables baseline in slot 2 and `eta`
+in slot 3, so three searches share the table. Arms whose pooled effect over the
+128 development-plus-confirmation seeds is positive with an interval reaching
+within 0.03 of zero extended to seeds 864 to 927 in both lineups. Each half is
+256 games (64 seeds, four rotations, deterministic tapes); every cohort
+completed all games with no invalid moves, stalls, or search errors. Decision
+times are wall-clock under a machine shared with other research (load 80 to 160
+on 32 cores), so the candidate-to-control ratio inside the same games is the
+cost reading, not the absolute milliseconds.
+
+## The cohorts
+
+Every run in the program, half by half. Half A seats the candidate in slot 0;
+half B seats it in slot 1. Slot 0 and slot 1 wins are out of 256.
+
+| Arm | Stage | Half | Slot 0 wins | Slot 1 wins | Run |
+| --- | --- | --- | ---: | ---: | --- |
+| scenarios 4 | dev 0-63 | A (candidate slot 0) | 65 | 153 | `3fd1468c-b6dd-4034-8dab-8a425db3079e` |
+| scenarios 4 | dev 0-63 | B (candidate slot 1) | 170 | 45 | `5f7e6a50-7e85-4e43-8748-119c88ead600` |
+| scenarios 4 | conf 800-863 | A (candidate slot 0) | 74 | 143 | `e17c2088-cd9e-4923-85c6-ac7a7db782c7` |
+| scenarios 4 | conf 800-863 | B (candidate slot 1) | 172 | 53 | `4a869564-5939-4b99-9157-1871a53b2854` |
+| scenarios 16 | dev 0-63 | A (candidate slot 0) | 120 | 104 | `9ffe22ba-705b-496a-bfd9-18d071e82176` |
+| scenarios 16 | dev 0-63 | B (candidate slot 1) | 132 | 101 | `01c56be0-d586-462d-8d8b-eae3e5d034ac` |
+| scenarios 16 | conf 800-863 | A (candidate slot 0) | 117 | 108 | `1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4` |
+| scenarios 16 | conf 800-863 | B (candidate slot 1) | 127 | 106 | `193a36f1-343e-444a-a3fd-4fb210c55c73` |
+| samples 1 | dev 0-63 | A (candidate slot 0) | 112 | 118 | `3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64` |
+| samples 1 | dev 0-63 | B (candidate slot 1) | 139 | 89 | `0c23f762-4fd0-4c97-a117-61d6d4d39d6c` |
+| samples 1 | conf 800-863 | A (candidate slot 0) | 115 | 113 | `aea949f2-a9ff-40b7-b78c-18a74bdb5900` |
+| samples 1 | conf 800-863 | B (candidate slot 1) | 142 | 84 | `4257e948-8124-482c-b5ff-360ca781352e` |
+| samples 8 | dev 0-63 | A (candidate slot 0) | 139 | 95 | `1af9541e-b1cf-49c7-b093-71709055684a` |
+| samples 8 | dev 0-63 | B (candidate slot 1) | 123 | 108 | `a2a07566-5d0c-4953-b66b-e26082940016` |
+| samples 8 | conf 800-863 | A (candidate slot 0) | 133 | 95 | `464e3582-9583-4ff3-8621-dc6dafd42073` |
+| samples 8 | conf 800-863 | B (candidate slot 1) | 124 | 99 | `5ed30a32-bedf-484b-9670-2f646e6ae913` |
+| samples 8 | ext 864-927 | A (candidate slot 0) | 137 | 89 | `ced3c42d-3f59-40bd-8122-23f56a557ee4` |
+| samples 8 | ext 864-927 | B (candidate slot 1) | 122 | 105 | `63a95104-cc5f-477f-b95a-65d3057749a8` |
+| samples 8 | pop 800-863 | A (candidate slot 0) | 77 | 79 | `04b9666b-4477-48c6-ad22-92747fd7e511` |
+| samples 8 | pop 800-863 | B (candidate slot 1) | 87 | 84 | `56d05a6f-3628-4621-a1c8-8985a45bf81b` |
+| samples 8 | ext 864-927, L2 | A (candidate slot 0) | 89 | 86 | `e43faed0-9b9a-4772-9bac-ef48d2f1b16c` |
+| samples 8 | ext 864-927, L2 | B (candidate slot 1) | 87 | 90 | `52b80fa7-ded4-43a8-827c-b31d1f80b08d` |
+| inner scenarios 2 | dev 0-63 | A (candidate slot 0) | 125 | 100 | `a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd` |
+| inner scenarios 2 | dev 0-63 | B (candidate slot 1) | 125 | 100 | `3773648a-3148-4a14-92f2-69879d3ff4d7` |
+| inner scenarios 2 | conf 800-863 | A (candidate slot 0) | 125 | 105 | `019bdc02-4c49-4a57-a021-5545de5c5adc` |
+| inner scenarios 2 | conf 800-863 | B (candidate slot 1) | 125 | 105 | `9059665a-ea82-41dd-9e4d-3e64c3ad7dc4` |
+| leaf opponents | dev 0-63 | A (candidate slot 0) | 133 | 95 | `b68009d6-968d-4e2f-8cde-1be984c37ee4` |
+| leaf opponents | dev 0-63 | B (candidate slot 1) | 120 | 103 | `8871f193-f795-456c-acb9-3e6849fec7f8` |
+| leaf opponents | conf 800-863 | A (candidate slot 0) | 124 | 104 | `6c9ee539-341b-4673-bfa0-062f60e967b2` |
+| leaf opponents | conf 800-863 | B (candidate slot 1) | 121 | 109 | `42f746df-64c4-4aac-bc21-42d6ec799d96` |
+| leaf opponents | pop 800-863 | A (candidate slot 0) | 84 | 81 | `10762c59-7367-415c-8b7a-78c8ca3d5fb0` |
+| leaf opponents | pop 800-863 | B (candidate slot 1) | 82 | 85 | `b3be0af1-94db-43ec-b9c7-73f3c04f4398` |
+| leaf opponents | ext 864-927 | A (candidate slot 0) | 133 | 92 | `c01c46b1-5822-4179-ab17-97faf8493bf4` |
+| leaf opponents | ext 864-927 | B (candidate slot 1) | 126 | 105 | `0727ad04-b9a0-4cd3-bf4e-22d97ba48637` |
+| leaf opponents | ext 864-927, L2 | A (candidate slot 0) | 93 | 70 | `e491b264-2cd7-40be-a690-9f78954cfbe2` |
+| leaf opponents | ext 864-927, L2 | B (candidate slot 1) | 92 | 76 | `2b29cd5c-e3b0-4111-be6b-c27f194d9115` |
+| counts only | dev 0-63 | A (candidate slot 0) | 110 | 110 | `23e8de84-c088-47cf-8ac3-4f7566bff28d` |
+| counts only | dev 0-63 | B (candidate slot 1) | 150 | 78 | `3a9a4b3d-f801-4bf8-8c77-ad41fe866d36` |
+| counts only | conf 800-863 | A (candidate slot 0) | 104 | 123 | `eb6630b3-ff16-422d-b4ee-d72fde52886c` |
+| counts only | conf 800-863 | B (candidate slot 1) | 132 | 77 | `10ebea8a-734c-4b3b-bbb8-06ced0391bdf` |
+| counts only | pop 800-863 | A (candidate slot 0) | 77 | 78 | `af5fff98-26e9-487e-9242-54a0265169f1` |
+| counts only | pop 800-863 | B (candidate slot 1) | 93 | 67 | `4cc39cbd-4028-4826-a430-26fa4859c0b7` |
+| no proposals | dev 0-63 | A (candidate slot 0) | 109 | 108 | `9bedb821-45f9-44f0-85a2-e02706d1c8f9` |
+| no proposals | dev 0-63 | B (candidate slot 1) | 150 | 76 | `e589d911-d674-4a2b-a4a8-d3fa6adbe707` |
+| no proposals | conf 800-863 | A (candidate slot 0) | 95 | 128 | `c8fd3f5e-4f79-4681-ae3b-f5da3d26957a` |
+| no proposals | conf 800-863 | B (candidate slot 1) | 149 | 79 | `23391ddb-91aa-4978-b161-687166e32a83` |
+| no proposals | pop 800-863 | A (candidate slot 0) | 57 | 98 | `4286c659-85ed-41b0-adaf-86fe35693892` |
+| no proposals | pop 800-863 | B (candidate slot 1) | 90 | 58 | `855d73a2-e67a-4833-aad7-78f676830947` |
+| reciprocity | dev 0-63 | A (candidate slot 0) | 120 | 101 | `18e10d4d-881e-4118-8674-22fd6ded30ac` |
+| reciprocity | dev 0-63 | B (candidate slot 1) | 139 | 84 | `7ebf608b-70da-469a-8935-6b9ba8e34355` |
+| reciprocity | conf 800-863 | A (candidate slot 0) | 104 | 114 | `f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9` |
+| reciprocity | conf 800-863 | B (candidate slot 1) | 128 | 99 | `f026e43d-3993-4fcc-b961-522eb34d8d25` |
+| reciprocity | pop 800-863 | A (candidate slot 0) | 65 | 98 | `a87bd827-e165-4301-9bd4-4d3f1d65f8c0` |
+| reciprocity | pop 800-863 | B (candidate slot 1) | 87 | 78 | `b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1` |
+
+## The effects
+
+Pooled rows pool the per-seed effects of both halves over stages; they are
+after-the-fact poolings of preregistered cohorts. The two arms whose pooled
+128-seed effect was positive with an interval reaching within 0.03 of zero
+(samples 8 and leaf opponents) extended to seeds 864 to 927 in both lineups, so
+their L1 estimates rest on 192 seeds and their L2 estimates on 128.
+
+| Arm | L1 effect | L1 seeds | L2 effect | L2 seeds | Decision time vs control |
+| --- | --- | ---: | --- | ---: | ---: |
+| scenarios 4 | **−0.392 (−0.444 to −0.339)** | 128 | not run | | 68% |
+| scenarios 16 | −0.026 (−0.072 to +0.019) | 128 | not run | | 272% |
+| samples 1 | **−0.109 (−0.150 to −0.069)** | 128 | not run | | 34% |
+| samples 8 | **+0.045 (+0.009 to +0.081)** | 192 | −0.007 (−0.045 to +0.031) | 128 | 178% |
+| inner scenarios 2 | inert, identical games | 128 | not run | | 100% |
+| leaf opponents | +0.031 (−0.006 to +0.068) | 192 | +0.033 (−0.009 to +0.075) | 128 | 180% |
+| counts only | **−0.143 (−0.188 to −0.097)** | 128 | −0.053 (−0.107 to +0.002) | 64 | 120% |
+| no proposals | **−0.172 (−0.211 to −0.133)** | 128 | **−0.143 (−0.197 to −0.089)** | 64 | 92% |
+| reciprocity | **−0.073 (−0.115 to −0.031)** | 128 | **−0.082 (−0.141 to −0.023)** | 64 | 106% |
+
+Bold intervals exclude zero. Stage by stage: scenarios 4 read −0.416
+(−0.490 to −0.342) on the development boards and −0.367 (−0.443 to −0.291) on
+the confirmation boards; samples 1 read −0.109 twice; counts only read −0.141
+and −0.145; no proposals read −0.143 and −0.201; reciprocity read −0.070 and
+−0.076; samples 8 read +0.057 (−0.007 to +0.120), +0.025 (−0.029 to +0.080),
+and +0.053 (−0.016 to +0.121) at the builder table and −0.010 (−0.064 to
++0.045) and −0.004 (−0.057 to +0.049) at the population table; leaf opponents
+read +0.041 (−0.020 to +0.102), +0.016 (−0.054 to +0.086), and +0.037 (−0.024
+to +0.098) against the builders and +0.012 (−0.049 to +0.073) and +0.055
+(−0.003 to +0.112) at the population table. The seating terms measured by the
+pairs land between −0.018 and +0.146, in line with the [seating
+report](arena-seating.mdx); the `inner_scenarios:2` pair, whose two halves play
+identical lineups, measures the term directly: +0.098 (+0.006 to +0.189) on
+seeds 0 to 63 and +0.078 (−0.028 to +0.184) on seeds 800 to 863.
+
+### Dice scenarios
+
+Four scenarios cost −0.392 wins per game, roughly what removing six of the
+eight scenarios cost under the hand-written leaf (−0.410 single-seating on the
+same boards, corrected for the +0.176 term of that design, about −0.59). The
+diagnostics say why the loss is so large: the four-scenario seat ends turns
+over the seven-card limit constantly, discarding 13.9 cards per game against
+the control's 5.5, buying 2.75 development cards against 4.25, and finishing
+2.4 points behind. Its imagined opponents' rounds are too coarse to see when
+holding cards is safe. Sixteen scenarios are the mirror image: a null effect
+(−0.026, interval crossing zero) at 2.7 times the decision cost. Averaging the
+opponents' round over eight scenarios is close to the right operating point
+under the tables; the eight default scenarios buy almost all of the available
+strength, and doubling the count buys nothing the games can see.
+
+### Sampled hidden worlds
+
+One sampled world costs −0.109 and cuts decision time to about a third: the
+belief average over four worlds is real strength, not noise. Eight worlds are
+the one switch in the program that gains strength, and only where the other
+seats are builders: +0.045 (+0.009 to +0.081) pooled over the 192 L1 seeds,
+with every one of the three pairs landing between +0.025 and +0.057. At the
+population table the gain is gone, −0.007 (−0.045 to +0.031) pooled over 128
+seeds, so the extra belief averaging buys nothing when the opponents model the
+search right back. The cost is 1.8 times the control's decision time, so the
+switch fails the browser rule on cost even before the population reading.
+Under the hand-written leaf one world read −0.051 single-seating (−0.012,
+crossing zero, on 192 fresh seeds): the sampled-world average matters more
+under the tables leaf than it did under the hand-written terms.
+
+### Deeper-level scenarios
+
+`inner_scenarios` sets the scenario count for the opponents' rounds after
+deeper planned turns, and at depth 2 there are none: the leaf is evaluated at
+the end of the second planned turn, before any deeper round. The arm cannot
+change a decision, and the cohorts confirm it: both halves of both stages
+played byte-identical games (the effect is exactly zero by construction, and
+the pair's seating term is the null term for those boards). This switch first
+binds at depth 3, the browser's depth, where it has not been measured.
+
+### Leaf-guided opponents
+
+Letting the opponents inside the lookahead choose by the tables leaf instead of
+the fixed builder leans positive everywhere and resolves nowhere: +0.031
+(−0.006 to +0.068) over the 192 L1 seeds and +0.033 (−0.009 to +0.075) over the
+128 population seeds, five pairs all positive, no interval excluding zero, at
+1.8 times the control's decision time. The mechanism does change the search's
+picture of the future: the candidate accepts more offers from others (1.3
+against 1.1 per game) and declines fewer, because the opponents it imagines now
+trade toward their own best builds. Under the hand-written leaf the same
+switch read −0.008 (single seating); under the tables it is a plausible small
+gain that this budget, even after the extension, cannot confirm.
+
+### Event knowledge
+
+`counts_only` drops the event history and samples hidden hands from public
+counts alone, the one belief mechanism confirmed under the hand-written leaf
+(−0.066 when removed, 192 seeds). Under the tables it costs twice that:
+−0.143 (−0.188 to −0.097), and −0.053 (−0.107 to +0.002) at the population
+lineup. The seat with counts-only beliefs proposes less (11.9 offers per game
+against 14.9) and misprices the trades it is offered; event knowledge is worth
+more, not less, to the stronger leaf.
+
+### Proposals
+
+Turning proposals off costs −0.172, the largest social effect in the study, and
+it holds at the population table (−0.143, −0.197 to −0.089) where another search
+answers offers. The diagnostics show the mechanism: the silent seat falls from
+14.2 offers per game to 4.6 (the residue is counters to others' offers), closes
+2.7 player trades per game against 3.9, and finishes 1.1 points behind. Under
+the hand-written leaf the same switch read −0.027 single-seating (interval
+crossing zero): proposals were worth little to the weaker search and are worth
+a seventh of a win to the tables search.
+
+### Reciprocity
+
+Scaling each partner's modeled willingness by their observed acceptance rate of
+this seat's offers is the one arm whose interval excludes zero in the wrong
+direction: −0.073 pooled over the 128 L1 seeds, −0.082 (−0.141 to −0.023)
+against the population lineup. The mechanism explains the loss: against the
+builders and the baseline search, whose acceptance rules are fixed, a partner
+that has refused the seat's offers is not a partner that will keep refusing, so
+the seat with the scaling stops asking. It offers 9.8 times per game against the
+control's 14.7, counters half as often, declines more, and finishes 0.4 points
+behind. Under the hand-written leaf the same switch read −0.031 (interval
+crossing zero); under the tables it is confirmed harmful and stays off.
+
+## Against the hand-written leaf
+
+Six of the nine arms have hand-leaf readings on the same development boards,
+all in one seating with the candidate in slot 0, so each carries the +0.176
+seating term of that design in the candidate's favor; the corrected hand-leaf
+estimate is roughly the published contrast minus that term. The table compares
+each hand-leaf contrast with the seating-corrected tables effect.
+
+| Arm | Hand-leaf contrast (single seating) | Tables effect (swapped pairs, pooled) |
+| --- | --- | --- |
+| scenarios 2 instead of 8 | −0.410 (−0.489 to −0.331) | −0.392 for scenarios 4 (−0.444 to −0.339) |
+| samples 1 instead of 4 | −0.051 (−0.166 to +0.064); fresh-seed confirmation −0.012, crossing zero | −0.109 (−0.150 to −0.069) |
+| counts only | −0.090 dev; −0.066 confirmed (−0.125 to −0.008) | −0.143 (−0.188 to −0.097) |
+| proposals off | −0.027 (−0.132 to +0.077) | −0.172 (−0.211 to −0.133) |
+| reciprocity on | −0.031 (−0.125 to +0.063) | −0.073 (−0.115 to −0.031) |
+| leaf opponents | −0.008 (−0.111 to +0.096) | +0.031 (−0.006 to +0.068), crossing zero |
+
+The pattern is one-directional: every information input to the search is worth
+as much or more under the learned leaf. The stronger evaluator does not absorb
+the value of the belief machinery; it leans on it. Only the opponent-model
+switch (leaf-guided opponents) moved toward the tables leaf, from roughly zero
+to a small unconfirmed positive.
+
+## What could still be wrong
+
+These are engine-arena games at depth 2 on two lineups; strength through the
+protocol arena, at other depths, or against humans is not established. The
+decision times are wall-clock under heavy shared load, so only their ratios are
+comparable; the ratios themselves are stable across halves and stages. The
+population lineup seats three copies of the same search family, so the social
+arms (proposals, reciprocity) are measured against opponents whose acceptance
+behavior is fixed or search-like, not human. The two positive-mean arms
+(samples 8, leaf opponents) were extended after their pooled intervals reached
+toward zero, so their final estimates rest on 192 seeds but the extension was
+chosen after seeing the first 128; both poolings are named as after-the-fact
+wherever they appear. The inner_scenarios arm is simply untested at the depth
+where it binds. Every arm was tested alone; combinations were not.
+
+## What this means for the browser
+
+The browser build runs WASM, the hand-written leaf, depth 3 under a one-second
+budget, so a switch is worth enabling there only if it adds strength within the
+cost rule (pooled effect at least +0.03 with an interval excluding zero and
+decision time within 25% of the control), saves time without losing strength,
+or buys a depth the budget would otherwise deny. No switch meets the strength
+and cost rule together: eight sampled worlds reach the strength half against
+builders (+0.045, interval excluding zero) but cost 1.8 times the control's
+decisions and lose the gain at the population table, and the leaf-guided
+opponents stay unresolved at the same cost. Everything else loses strength.
+The defaults are right for the browser too, with three cost readings worth
+keeping:
+
+- **`scenarios:4`** cuts decision time to 68% but loses 0.39 wins per game
+  under the tables and about as much under the hand leaf (−0.410 published,
+  worse corrected). It is not a browser lever; halving the dice average is the
+  one setting both leaves agree is catastrophic.
+- **`samples:1`** cuts decision time to about a third for −0.109 under the
+  tables (the hand leaf's fresh-seed reading was −0.012, crossing zero). This
+  is the one genuine trade on the table: if the one-second budget cannot
+  finish depth 3 in the browser, one sampled world is the setting most likely
+  to buy the missing depth for a strength price of roughly a tenth of a win
+  per game, and it should be measured there in WASM before any decision. It is
+  not worth enabling while depth 3 fits the budget.
+- **`inner_scenarios:2`** is free at depth 2 because it cannot bind there,
+  but at the browser's depth 3 it does bind and its cost and strength there
+  are unmeasured. It is the natural next measurement for the browser budget:
+  if two deeper-level scenarios hold strength at depth 3, they shorten exactly
+  the part of the tree the browser pays most for.
+
+Everything else stays at its defaults: event knowledge and proposals are worth
+more under both leaves than any browser saving from dropping them, sixteen
+scenarios cost time for nothing, the reciprocity scaling is refuted, and the
+two unresolved positives (eight sampled worlds, leaf-guided opponents) cost
+1.8 times the control's decisions, which the one-second budget cannot afford.
+If the browser budget ever loosens or the tables leaf reaches the browser,
+eight sampled worlds against builders is the one measured strength gain worth
+revisiting.
+
+<AgentContext>
+All cohorts are engine-arena registrations under `search/settings-tables`, each
+half its own experiment: 256 deterministic games (64 seeds, four rotations),
+seats as named in each registration, 10 points to win, 500-turn cap. The
+seating-corrected effects come from `analysis/settings_tables.py`, which reads
+the retained runs directly and writes `analysis/settings_tables.json`; the
+forest plot comes from `analysis/settings_tables_assets.py`. Half A experiments
+(candidate slot 0, control slot 1) and half B experiments (control slot 0,
+candidate slot 1): scenarios4 `d6cbff3d-7e92-4f47-bbc9-97da3c2532a9` and
+`33654a28-86e9-4026-93e2-111b34913669`, scenarios16
+`767a4f08-e4d9-48da-83bb-d2e952feaf69` and `f650a242-2e6a-4075-a80d-da4ee753441a`,
+samples1 `f959a49e-5745-4623-9bb9-e0a43f9ea964` and
+`e4f5ae29-919c-4bd4-83ae-98812ea00bc3`, samples8
+`97bd74e0-164b-4d79-bcab-390edc31c129` and `adf4e1c3-f93f-4f7e-9631-bd595a2beb2a`,
+inner_scenarios2 `e071b629-8043-4eff-8fb0-ac694cac0f78` and
+`f364cf12-1945-4653-9fe3-8bfa92fe5f38`, leaf_opponents
+`a20b6abd-d8b6-4f66-b634-5df40495953e` and `face5b0d-d070-4e83-91df-d6fb6ae5ee4b`,
+counts_only `ef501bc5-7196-4ad6-a939-09f00414d771` and
+`b3795b5e-aa62-40be-ad6c-53d075512ecb`, propose_false
+`e53c45bd-a7ee-4ef8-8772-3780c1cfef31` and `1172dcee-95da-44af-a86c-9f5ee0d12fbf`,
+reciprocity `95aac00b-f396-4a5c-b023-db360692802b` and
+`495e1a17-5a74-438e-b660-06219ca881c7` (development, seeds 0-63);
+scenarios4 `dcfd9ca5-170f-43a7-a1f0-36117e7c7990` and
+`ee1751fb-ec20-4df1-b402-6d97a405bd0d`, scenarios16
+`ed82c2ee-5197-4e70-a3e6-ae4a20d64a33` and `e5b13479-5578-4810-bd6f-da6b3fb779fb`,
+samples1 `142fdc9a-e4be-4418-9008-5b942dc78daf` and
+`bfb9bed6-58cd-48c5-aa91-2b029b5c0f9a`, samples8
+`449ea466-728b-45e0-a177-9c220e3e8415` and `13a7cf69-526c-4f94-b434-0ee56051a5f8`,
+inner_scenarios2 `25ed5f85-6ab3-4949-80d0-b3bce5237971` and
+`e2445b6e-c49c-4396-85f6-9052f8921028`, leaf_opponents
+`a5e38bc5-ff5d-4365-bdee-f89379bf64b6` and `b3c000ac-fec6-48ba-87e0-1cec1c89ba34`,
+counts_only `1667548f-63ed-4d58-bff0-a1477e978867` and
+`dfbd6b4c-1438-44e9-b69b-313d048f6fcf`, propose_false
+`87550a5a-5149-418b-a056-aa6d0a8372a9` and `a567b9c2-92a1-49b5-b7ef-c623fd51a197`,
+reciprocity `ca442984-d942-4e50-b036-e76b85372074` and
+`de3228ec-9440-4ac1-ac6d-81c2d99976e5` (confirmation, seeds 800-863);
+leaf_opponents `9aef447a-d703-454a-8970-92d463017015` and
+`bddfe32b-940f-4ea0-833f-2c0db3274a3c`, counts_only
+`d4778a73-5587-441c-8cbf-82a53f87d096` and `4efbf0e1-bea3-407f-8f8a-078f649805eb`,
+propose_false `3c661aad-8bcf-48cd-988b-0cbf3c50209d` and
+`001e2f3b-f70e-41b0-b061-247eeb855557`, reciprocity
+`4e7a760b-0fa1-4e5e-8269-aee7f6030105` and `5b23ab6d-1cbc-4e77-82e2-5c281248e7d0`,
+samples8 `82ff6f24-174a-4d2b-babf-fa1a95619589` and
+`75b81db1-c6e6-483b-aafc-8ad707ecc0f4` (population, seeds 800-863, tables
+baseline slot 2 and eta slot 3); samples8 extension
+`12b83328-8fd5-402f-aa7e-08c8dc8b38fd` and `fbd6fe9d-3771-4e25-bc1f-bf2fb38625bd`
+(L1), `d5cb3195-5a58-460a-bee7-ee62fe907d63` and
+`b16d5306-09ee-4af4-a7fe-e34494197bf0` (L2), leaf_opponents extension
+`e222c91f-2724-4730-8f81-9a1198ca4e1f` and `d46a4f48-401e-49fb-8a93-0dc5b4adeca1`
+(L1), `36817410-f3b0-4dd3-a61f-70bc9676bc06` and
+`4d02ea83-f6e1-4e4b-afd1-24ab954ffcb6` (L2), seeds 864-927. Runs:
+scenarios4 `3fd1468c-b6dd-4034-8dab-8a425db3079e` and `5f7e6a50-7e85-4e43-8748-119c88ead600` (dev), `e17c2088-cd9e-4923-85c6-ac7a7db782c7` and `4a869564-5939-4b99-9157-1871a53b2854` (conf); scenarios16 `9ffe22ba-705b-496a-bfd9-18d071e82176` and `01c56be0-d586-462d-8d8b-eae3e5d034ac` (dev), `1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4` and `193a36f1-343e-444a-a3fd-4fb210c55c73` (conf); samples1 `3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64` and `0c23f762-4fd0-4c97-a117-61d6d4d39d6c` (dev), `aea949f2-a9ff-40b7-b78c-18a74bdb5900` and `4257e948-8124-482c-b5ff-360ca781352e` (conf); samples8 `1af9541e-b1cf-49c7-b093-71709055684a` and `a2a07566-5d0c-4953-b66b-e26082940016` (dev), `464e3582-9583-4ff3-8621-dc6dafd42073` and `5ed30a32-bedf-484b-9670-2f646e6ae913` (conf), `04b9666b-4477-48c6-ad22-92747fd7e511` and `56d05a6f-3628-4621-a1c8-8985a45bf81b` (pop), `ced3c42d-3f59-40bd-8122-23f56a557ee4` and `63a95104-cc5f-477f-b95a-65d3057749a8` (ext L1), `e43faed0-9b9a-4772-9bac-ef48d2f1b16c` and `52b80fa7-ded4-43a8-827c-b31d1f80b08d` (ext L2); inner_scenarios2 `a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd` and `3773648a-3148-4a14-92f2-69879d3ff4d7` (dev), `019bdc02-4c49-4a57-a021-5545de5c5adc` and `9059665a-ea82-41dd-9e4d-3e64c3ad7dc4` (conf); leaf_opponents `b68009d6-968d-4e2f-8cde-1be984c37ee4` and `8871f193-f795-456c-acb9-3e6849fec7f8` (dev), `6c9ee539-341b-4673-bfa0-062f60e967b2` and `42f746df-64c4-4aac-bc21-42d6ec799d96` (conf), `10762c59-7367-415c-8b7a-78c8ca3d5fb0` and `b3be0af1-94db-43ec-b9c7-73f3c04f4398` (pop), `c01c46b1-5822-4179-ab17-97faf8493bf4` and `0727ad04-b9a0-4cd3-bf4e-22d97ba48637` (ext L1), `e491b264-2cd7-40be-a690-9f78954cfbe2` and `2b29cd5c-e3b0-4111-be6b-c27f194d9115` (ext L2); counts_only `23e8de84-c088-47cf-8ac3-4f7566bff28d` and `3a9a4b3d-f801-4bf8-8c77-ad41fe866d36` (dev), `eb6630b3-ff16-422d-b4ee-d72fde52886c` and `10ebea8a-734c-4b3b-bbb8-06ced0391bdf` (conf), `af5fff98-26e9-487e-9242-54a0265169f1` and `4cc39cbd-4028-4826-a430-26fa4859c0b7` (pop); propose_false `9bedb821-45f9-44f0-85a2-e02706d1c8f9` and `e589d911-d674-4a2b-a4a8-d3fa6adbe707` (dev), `c8fd3f5e-4f79-4681-ae3b-f5da3d26957a` and `23391ddb-91aa-4978-b161-687166e32a83` (conf), `4286c659-85ed-41b0-adaf-86fe35693892` and `855d73a2-e67a-4833-aad7-78f676830947` (pop); reciprocity `18e10d4d-881e-4118-8674-22fd6ded30ac` and `7ebf608b-70da-469a-8935-6b9ba8e34355` (dev), `f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9` and `f026e43d-3993-4fcc-b961-522eb34d8d25` (conf), `a87bd827-e165-4301-9bd4-4d3f1d65f8c0` and `b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1` (pop). Reproduce any half with `python3 -m harness.engine run EXPERIMENT --threads 6` and `SETTLERS_SERVER_DIR` at a server worktree; the seat specs are in each registration. Three interrupted duplicates from a scheduling error are retained in the run directory and named in the daily log. Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+</AgentContext>
+
+[All studies](../approaches/README.md) · [Search under uncertainty](../approaches/search) · [Experiment log](../log/experiments.mdx)

@@ -1,0 +1,12 @@
+id = "search/settings-tables"
+title = "Search settings under the learned tables leaf"
+created = "2026-09-11"
+updated = "2026-09-12"
+status = "complete"
+question = "Do the tunable search's sampling and social switches help, hurt, or do nothing when the search evaluates with the learned n-tuple tables, measured as seating-corrected swapped pairs against the tables baseline?"
+outcome = "Nine switches, 54 swapped-pair cohorts, every game complete. Four confirmed harms: scenarios 4 at −0.392 wins per game, samples 1 at −0.109, counts-only beliefs at −0.143, no proposals at −0.172 (pooled L1, 128 seeds, intervals excluding zero); reciprocity is refuted at −0.073 (−0.115 to −0.031) and −0.082 at the population table. Eight sampled worlds gain a confirmed +0.045 against builders (192 seeds) for 1.8 times the decision cost and nothing against a table of searches; leaf-guided opponents read +0.031 and +0.033 at the two lineups with no interval excluding zero at 1.8 times the cost; scenarios 16 buys nothing for 2.7 times the cost. inner_scenarios cannot bind at depth 2: its halves replayed identical games. No switch is worth the browser by the registered rule."
+next_step = "Measure inner_scenarios and the cost-saving settings (samples 1, scenarios 4) at depth 3 in the browser budget where they bind, and revisit eight sampled worlds if the tables leaf ever runs where decision time is not scarce."
+attribution = "GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode"
+reports = ["reports/settings-tables.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []

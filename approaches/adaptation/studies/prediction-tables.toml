@@ -1,0 +1,12 @@
+id = "adaptation/prediction-tables"
+title = "Build prediction under the learned leaf"
+created = "2026-09-11"
+updated = "2026-09-12"
+status = "complete"
+question = "Do the build-prediction switches (predicted opponent model, predicted space threat, and the denial leaf term on the blended leaf) change wins when the search evaluates with the learned n-tuple tables instead of the hand-written leaf?"
+outcome = "Not confirmed. Swapped pairs against the tables baseline put every effect inside its interval: predicted threat +0.047 (-0.004 to +0.098) on the population lineup, +0.014 on seeds 0-63, and -0.006 on seeds 800-863; predicted opponents -0.010, +0.000, and -0.004; denial 0.5 on the quarter blend +0.002, then -0.037 (-0.071 to -0.003) on fresh seeds, refuted a second time, at about double the decision cost. The predictor named a tables search's next build in 20.0 percent of turns (28.5 against the hand-leaf search) and eta's in 59.0. All three switches stay off under both leaves; the baseline and evidence boundary do not change."
+next_step = "Keep all three switches off. The predicted space threat is the only arm with a positive-leaning reading anywhere (population lineup, both leaves, both intervals crossing zero); resolving an effect near +0.03 would need several hundred seeds per half on a population of trading opponents, so register that only as a deliberate large cohort. The denial term should not be revisited without a cheaper predictor, since its leaf term doubles decision time."
+attribution = "GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode"
+reports = ["reports/prediction-tables.mdx"]
+logs = ["log/2026-09-11.mdx"]
+legacy_experiments = []
