@@ -1,4 +1,5 @@
 """Guard source-only review scope and small, source-oriented Git contents."""
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -6,6 +7,12 @@ import tempfile
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
+# Cited source papers are distinct from bulk experiment data. Pin this existing
+# reference copy so the exception cannot silently admit a different large file.
+REFERENCE_PAPERS = {
+    'paper/2012-cowling-powley-whitehouse/CowlingPowleyWhitehouse2012.pdf':
+        'd10cd576d33fca9af0b9c4d0ca1f12a72692691c8c77f1a82ecc2e3765f2a0c7',
+}
 
 
 def main():
@@ -57,7 +64,8 @@ def main():
         if name.split('/')[0] in ('runs', 'artifacts', '.runtime', '.worktrees') or path.suffix in ('.jwt', '.jsonl', '.parquet'):
             raise ValueError(f'Bulk/private artifact in Git scope: {name}')
         if path.is_file() and path.stat().st_size > 1_000_000:
-            raise ValueError(f'File exceeds compact repository limit: {name}')
+            if name not in REFERENCE_PAPERS or hashlib.sha256(path.read_bytes()).hexdigest() != REFERENCE_PAPERS[name]:
+                raise ValueError(f'File exceeds compact repository limit: {name}')
     print('Research repository and Greptile source-only scope verified.')
 
 

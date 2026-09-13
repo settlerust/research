@@ -10,6 +10,28 @@ Use the project’s `settlers-writing-style` skill for research prose and captio
 
 For the visual writing workflow, animated approach pages, new plot schemas, and teaching examples, read [Communicate with evidence](visual-publishing.mdx). New ideas follow the [approach template](approach-template.md).
 
+## Mathematics in prose
+
+Use `$...$` for inline TeX and `$$` on separate lines for a display equation. MathJax renders both in research pages and agent notebooks. For example, the probability of rolling a seven is $P(S=7)=\frac{6}{36}=\frac{1}{6}$.
+
+```md
+The probability of rolling a seven is $P(S=7)=\frac{6}{36}=\frac{1}{6}$.
+
+$$
+\mathbb{E}[X] = \sum_{i=1}^{n} p_i x_i
+$$
+```
+
+The display equation above renders as:
+
+$$
+\mathbb{E}[X] = \sum_{i=1}^{n} p_i x_i
+$$
+
+Fractions, subscripts, Greek letters, matrices, and aligned equations are supported. Use `\mathrm{ms}` for units and `\ce{H2O}` for chemical notation inside math delimiters. A fenced `math` block also creates a display equation. Ordinary code fences and inline code preserve literal TeX. Escape a currency dollar sign as `\$`; use braces normally inside math, such as `$x_{t+1}$`.
+
+Define symbols and units next to the equation. The site typesets formulas on the server, so they are present before browser JavaScript runs. Long display equations scroll within the prose on narrow screens. TeX that loads extensions, inserts HTML, or creates URLs is not supported; invalid formulas fail the content check. No imports or scripts are needed in a document.
+
 ## Use the design components
 
 The rendering registry comes from `@settlers/design/research`. Every visual
