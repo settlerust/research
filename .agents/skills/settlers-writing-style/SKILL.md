@@ -28,3 +28,12 @@ Keep useful names, quantities, uncertainty, and evidence references.
 Before finishing, remove repetition and sentences that merely state the obvious.
 Read the result as a person trying to understand the game, not as an agent
 describing its own work. Preserve factual meaning while shortening the text.
+
+
+Refer to experiments and runs with readable evidence links, never visible UUIDs
+or shortened hash labels. Put the exact identifier in the link destination so
+provenance and notebook filing remain intact. Prefer a contextual label such as
+“fresh-board confirmation”, “80-game protocol cohort”, or “interrupted attempt”.
+Keep literal identifiers only when an executable reproduction command needs
+them, inside `AgentContext`. Use the registered evidence-link previews for quick
+inspection; do not implement hover UI or tooltip markup in MDX.

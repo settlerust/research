@@ -1,30 +1,16 @@
 ---
 date: "2026-09-12"
 title: "Every search switch under the learned leaf"
-summary: "Ten studies retested the search's switches with the learned tables as the leaf, in swapped pairs at two tables. Bargaining and the search's information inputs are worth keeping, a quarter-strength blend of the hand-written terms improves the tables, and nothing else earns a place in the browser player."
+summary: "A 74,240-game synthesis keeps bargaining and information inputs, with the quarter blend as the clearest next protocol candidate."
 ---
 
 # Every search switch under the learned leaf
 
-<ResearchCallout title="Finding · keep bargaining and the search's inputs, blend a quarter of the hand-written leaf into the tables, and add nothing else">
-Under the hand-written leaf, every switch built on 2026-09-11 except counters
-corrected to about zero once the arena's seating term was removed. Retested with
-the learned tables as the leaf, in 145 swapped pairs (74,240 games) at a
-table of builders and at a table of three searches, the picture sharpens.
-Bargaining still carries real strength: turning off counters costs
-**−0.094 (−0.135 to −0.052)** wins per game at the builder table and the whole package
-**−0.165 (−0.213 to −0.117)**. Cutting the search's information inputs costs far more than it
-saves: four dice scenarios instead of eight cost **−0.392 (−0.444 to −0.339)**, one sampled world
-instead of four **−0.109 (−0.150 to −0.069)**, public-count beliefs **−0.143 (−0.188 to −0.097)**, and never
-proposing a trade **−0.172 (−0.211 to −0.133)**. One change improves the player at both tables:
-adding the hand-written terms to the tables at a quarter of their weight gains
-**+0.066 (+0.024 to +0.107)** at the builder table and **+0.064 (+0.021 to +0.108)** at the table of searches, for
-1.4 times the decision time. Two more read positive at the builder table only:
-eight sampled worlds, at 1.8 times the decision time, and the search-ranked
-opening, whose gain comes from the reused development boards. The robber, card
-timing, hand management, road blocking, build prediction, endgame, and
-planner-weight switches show no effect that survives both tables, and stay off.
+<ResearchCallout title="Keep the useful inputs; test the quarter blend next">
+Across 145 seating-corrected swapped pairs and 74,240 games, bargaining and the search’s information inputs remain valuable. A quarter-strength hand-written blend improves the learned leaf at both tables for about 40% more decision time. The other tactical switches show no gain that survives both lineups. This is engine evidence; `ntuple-leaf` remains the protocol baseline.
 </ResearchCallout>
+
+<ResearchPlot asset="tables-retest-summary" />
 
 ## How the retest was measured
 
@@ -61,6 +47,8 @@ study reports, with `analysis/tables_retest.py`. Each cell pools every stage a
 switch ran at that table (after-the-fact pooling over the boards named), with a
 normal 95% interval over boards. Negative values mean the switch loses games.
 Time is the candidate's mean decision time over the control's.
+
+<AgentContext title="Full results and cohort ledger">
 
 | Study | Switch | Leaf | Builder table | Population table | Time | Reading |
 | --- | --- | --- | --- | --- | ---: | --- |
@@ -105,6 +93,8 @@ Time is the candidate's mean decision time over the control's.
 | Robber | Robber blocks the leader | tables | +0.007 (−0.035 to +0.049), 128 boards | +0.031 (−0.030 to +0.092), 64 boards | 0.98× | No clear effect |
 | Robber | Rob the card this seat needs | tables | +0.016 (−0.008 to +0.041), 192 boards | +0.009 (−0.018 to +0.036), 128 boards | 0.99× | No clear effect |
 | Robber | Robber by threat, spare partners | tables | −0.005 (−0.042 to +0.033), 128 boards | +0.043 (−0.005 to +0.091), 64 boards | 0.98× | No clear effect |
+
+</AgentContext>
 
 The study reports have the stage-by-stage cohorts, run IDs, and diagnostics:
 [bargaining](bargaining-tables.mdx), [search settings](settings-tables.mdx),
@@ -178,4 +168,26 @@ against people.
 
 <AgentContext>
 Every number in this report comes from `python3 analysis/tables_retest.py --markdown TABLE.md`, which rebuilds each swapped pair from the registered experiments and the archived runs of the program's studies and pools each switch after the fact per leaf and lineup. The studies were run by GLM-5.3 and Kimi K3 through opencode and by Claude Fable 5.1 and Claude Opus 5 through Claude Code; each study report names its own attribution. This synthesis was written by Claude Opus 5 (claude-opus-5) through Claude Code.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+Under the hand-written leaf, every switch built on 2026-09-11 except counters
+corrected to about zero once the arena's seating term was removed. Retested with
+the learned tables as the leaf, in 145 swapped pairs (74,240 games) at a
+table of builders and at a table of three searches, the picture sharpens.
+Bargaining still carries real strength: turning off counters costs
+**−0.094 (−0.135 to −0.052)** wins per game at the builder table and the whole package
+**−0.165 (−0.213 to −0.117)**. Cutting the search's information inputs costs far more than it
+saves: four dice scenarios instead of eight cost **−0.392 (−0.444 to −0.339)**, one sampled world
+instead of four **−0.109 (−0.150 to −0.069)**, public-count beliefs **−0.143 (−0.188 to −0.097)**, and never
+proposing a trade **−0.172 (−0.211 to −0.133)**. One change improves the player at both tables:
+adding the hand-written terms to the tables at a quarter of their weight gains
+**+0.066 (+0.024 to +0.107)** at the builder table and **+0.064 (+0.021 to +0.108)** at the table of searches, for
+1.4 times the decision time. Two more read positive at the builder table only:
+eight sampled worlds, at 1.8 times the decision time, and the search-ranked
+opening, whose gain comes from the reused development boards. The robber, card
+timing, hand management, road blocking, build prediction, endgame, and
+planner-weight switches show no effect that survives both tables, and stay off.
+
 </AgentContext>

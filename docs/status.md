@@ -1,4 +1,61 @@
-# Current evidence boundary
+---
+title: Current evidence
+summary: The ntuple-leaf baseline, the next protocol candidate, and the limits of the research so far.
+---
+
+# Current evidence
+
+Use **`ntuple-leaf`** as the reference for a new candidate. It is the latest
+policy to meet its registered rule through the authoritative server. Engine
+experiments point to a quarter-strength blend as the next candidate; that blend
+has not yet passed a protocol cohort.
+
+## The protocol baseline
+
+With the same depth-3 search and 1.5-second budget, the learned leaf won
+<WinRate value="46" total="80" label="ntuple-leaf" /> against
+<WinRate value="25" total="80" label="expectimax-v2-plan" />.
+All 80 games on 20 deterministic seeds completed validly without timeout moves.
+The paired effect was <ResultComparison value="0.263" low="0.094" high="0.431" />.
+
+<ResearchChart asset="ntuple-leaf-protocol-wins" />
+
+This established the baseline for one lineup and one rotation scheme. It does
+not establish strength against humans or every opponent population. The
+[protocol report](../reports/ntuple-leaf-protocol.mdx) includes the registration,
+complete denominator, and public replay.
+
+## The next candidate
+
+The [quarter-strength blend](../reports/leaf-blend.mdx) adds a small contribution
+from the hand-written evaluator to the learned tables. Its effect survives both
+engine lineups: builders and a table with three searches.
+
+<ResearchPlot asset="leaf-blend-pooled-effects" />
+
+The after-the-fact pools cover 192 builder boards and 128 population boards.
+Decision time rises by about 40%. Register a fresh protocol cohort against
+`ntuple-leaf` before changing the server default. The browser still uses the
+hand-written leaf; these table-based results do not transfer directly to it.
+
+## What the other comparisons changed
+
+| Result | Decision |
+| --- | --- |
+| [Deeper learned-leaf search](../reports/ntuple-leaf.mdx): 27 wins against 43 in the protocol cohort | Keep the shallower baseline |
+| [Transposition cache](../reports/transpositions.mdx): identical moves in 11.7% less time at equal nodes | Treat it as a computation saving; the protocol strength interval crosses zero |
+| [Search-switch retest](../reports/tables-retest.mdx): 145 swapped pairs, 74,240 games | Keep bargaining, eight dice scenarios, and four sampled worlds; the other tactical switches do not justify a default change |
+| [Seating diagnosis](../reports/arena-seating.mdx): identical adjacent searches can differ | Measure two-search comparisons in both seatings; rotating seats alone preserves adjacency |
+
+The [experiment timeline](../log/experiments.mdx) links the individual studies.
+The [client guide](/research/client) explains how to implement and run a candidate,
+and the [experiment program](experiment-program.md) explains how to measure it.
+
+<AgentContext title="Earlier comparisons and complete evidence history">
+
+The entries below preserve the sequence of findings. Statements about a new or
+retained baseline describe that point in the research history; the current
+reference is `ntuple-leaf` as stated above.
 
 This repository starts with a headless protocol harness, existing Rust fast/ETA
 opponents, and a minimal Python policy adapter. Setup and smoke validation do
@@ -14,7 +71,7 @@ The [strategy atlas](../approaches/README.md) now defines sixteen proposed direc
 ## First strategy comparison: retain ETA
 
 The [liquidity experiment](../reports/liquidity-baseline.mdx) completed all 80
-registered evaluation games in run `de39917c-55da-40ad-a53a-5b8588898810`.
+registered evaluation games in [80-game protocol cohort](/research/records/runs/de39917c-55da-40ad-a53a-5b8588898810).
 Liquidity won 20/80 (25%); ETA control won 26/80 (32.5%). The observed contrast
 was −7.5 percentage points and the preregistered improvement rule failed.
 ETA remains the baseline; the result does not prove inherent inferiority or
@@ -69,8 +126,8 @@ showed no measurable effect at depth 2.
 The one-change arm design seats the changed search in slot 0 and the control in
 slot 1, and slot 1 always sits one seat after slot 0. That order matters: two
 identical default searches differ by +0.176 wins per game (95% interval
-+0.083 to +0.268) on boards 0 to 63 (run `91ddb42d`) and by +0.051 (−0.046 to
-+0.148) on boards 64 to 127 (run `9d213ed0`). The cause is the game's turn
++0.083 to +0.268) on boards 0 to 63 ([256-game engine cohort](/research/records/runs/91ddb42d-82ab-460b-95c2-b8d340658369)) and by +0.051 (−0.046 to
++0.148) on boards 64 to 127 ([256-game engine cohort](/research/records/runs/9d213ed0-a04f-442b-8d89-1dd3fdd99ab1)). The cause is the game's turn
 order, not the arena's trade handling: the seat directly before another acts
 first after three of the four rolls in a round, the term survives every trade
 switch and identical builders, and it disappears with a builder between the
@@ -80,7 +137,7 @@ the first null and confirms the counters effect with a swapped pair on fresh
 boards, −0.096 (−0.156 to −0.035) for the seat without counters. Any contrast
 between two searches at one table must be measured in both seatings before it
 counts as evidence; the +0.219 for threat-aware bargaining over plain
-acceptance (run `4228f4f7`) is withdrawn as a strength claim, corrected
+acceptance ([256-game engine cohort](/research/records/runs/4228f4f7-4427-42a4-8c0f-3976e1d26c76)) is withdrawn as a strength claim, corrected
 estimate +0.043 (−0.082 to +0.168) on the same boards.
 
 The build-prediction [study](../reports/build-prediction.mdx) corroborates the
@@ -150,3 +207,5 @@ against this policy in a four-player table with the fixed builders. The
 comparison is one lineup and one seat rotation scheme; strength against other
 searches, humans, or negotiation-aware opponents is not established.
 
+
+</AgentContext>

@@ -142,10 +142,11 @@ def public_activity(source):
                 if offer.get('message'):
                     # Trade offers and their attached explanations are public protocol events.
                     activity.append({'sequence': batch['sequence'], 'timestampMs': batch['timestamp_ms'], 'kind': 'message', 'player': player, 'text': communication(offer['message'])})
-            elif kind == 'trade_rejected':
+            elif kind in ('trade_rejected', 'trade_thinking'):
                 player = event['player']
                 proposer = offers.get(event['offer_id'])
-                text = 'Declined a trade offer' + (f' from {player_name(members, proposer)}.' if proposer is not None else '.')
+                response = 'Declined' if kind == 'trade_rejected' else 'Considering'
+                text = response + ' a trade offer' + (f' from {player_name(members, proposer)}.' if proposer is not None else '.')
             elif kind == 'trade_closed':
                 player = offers.get(event['offer_id'])
                 text = f"Trade offer closed: {event['reason'].replace('_', ' ')}."

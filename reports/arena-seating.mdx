@@ -1,39 +1,27 @@
 ---
 date: "2026-09-11"
 title: "The seating term is turn order, not the arena"
-summary: "Two identical searches in adjacent slots differ by a tenth of a win per game with every trade switch off and with identical builders beside them, and by nothing once a builder sits between them; full bargaining roughly doubles the term. The seat directly before another acts first after three of the four rolls in a round, which is the game, not the arena."
+summary: "Identical adjacent searches can differ because of turn order. Measure both seatings before attributing a gain to a strategy."
 ---
 
 # The seating term is turn order, not the arena
 
-<ResearchCallout title="Finding · adjacency in turn order, present without any trading, doubled by bargaining">
-Two identical depth-2 searches in slots 0 and 1 differ by **+0.102 wins per
-game** (95% interval +0.020 to +0.183) with `bargain: false` on both seats,
-by +0.074 (−0.008 to +0.156) when neither may propose, by +0.090 (−0.013 to
-+0.192) with counters off, by +0.008 (−0.083 to +0.099) with asks off, and by
-**+0.141** (+0.051 to +0.230) with two identical ETA builders beside them.
-With an ETA between the two searches (slots 0 and 2) the difference is
-**+0.039** (−0.048 to +0.126), and one search with three ETAs leaves the three
-builders within ±0.03 of each other. The term needs the two searches to be
-adjacent in turn order. The four trade-switch nulls pooled give +0.068
-(+0.015 to +0.122), and the default null's +0.180 is −0.111 (−0.217 to
-−0.005) above them on the same boards, so the bargaining adds to a term it
-does not create. Neither the arena's offer handling nor any other seat-order
-rule in the table code is the cause: the seat directly before another acts
-first after three of the four rolls in every round, in the protocol arena and
-at any table. Swapped pairs remain the rule. Development tier, boards 0 to 63.
+<ResearchCallout title="Measure both seatings">
+Two identical searches can win at different rates simply because one always acts before the other. The earlier seat has first use of resources after three of four rolls in a round. This persists without bargaining, so compare a candidate in both seatings before attributing the gap to its strategy.
 </ResearchCallout>
+
+<ResearchPlot asset="arena-seating-nulls" />
 
 ## What was suspected and what was tested
 
 The [arms report](bargaining-arms.mdx) found that two identical default
-searches in slots 0 and 1 differ by +0.176 wins per game (run `91ddb42d`) and
+searches in slots 0 and 1 differ by +0.176 wins per game ([256-game engine cohort](/research/records/runs/91ddb42d-82ab-460b-95c2-b8d340658369)) and
 blamed the arena's offer resolution, which asked the recipients of an offer in
 turn order after the offerer, so that slot 1 was asked first on every offer
 slot 0 made. The arena now asks recipients from a rotating seat (server commit
 `68c9842`, the `order.rotate_left(shift)` line in `crates/arena/src/table.rs`),
 and the same null on the same boards still differs by +0.180 (+0.075 to
-+0.285, run `689a1947`). The recipient order was not the cause.
++0.285, [256-game engine cohort](/research/records/runs/689a1947-ee7a-4767-ac08-d8302f407c50)). The recipient order was not the cause.
 
 Every cohort below is 256 games on deterministic boards 0 to 63, each board
 played once per rotation of the four slots, every search at depth 2 with the
@@ -42,12 +30,10 @@ game of one slot minus another, per board, with a 95% interval over boards;
 the two slots are named because the run record only reports slot 0 minus
 slot 1. Each cohort was registered with its own rule before it ran.
 
-<ResearchPlot asset="arena-seating-nulls" />
-
 | Cohort | Slots | Wins | Contrast (95% interval) |
 | --- | --- | ---: | --- |
-| default, recipients asked after the offerer (run `91ddb42d`) | 0 − 1 | 128 / 83 | +0.176 (+0.083 to +0.268) |
-| default, rotating recipient order (run `689a1947`) | 0 − 1 | 130 / 84 | +0.180 (+0.075 to +0.285) |
+| default, recipients asked after the offerer ([256-game engine cohort](/research/records/runs/91ddb42d-82ab-460b-95c2-b8d340658369)) | 0 − 1 | 128 / 83 | +0.176 (+0.083 to +0.268) |
+| default, rotating recipient order ([256-game engine cohort](/research/records/runs/689a1947-ee7a-4767-ac08-d8302f407c50)) | 0 − 1 | 130 / 84 | +0.180 (+0.075 to +0.285) |
 | both seats `bargain: false` | 0 − 1 | 107 / 81 | +0.102 (+0.020 to +0.183) |
 | both seats `propose: false` | 0 − 1 | 100 / 81 | +0.074 (−0.008 to +0.156) |
 | both seats `counters: false` | 0 − 1 | 111 / 88 | +0.090 (−0.013 to +0.192) |
@@ -175,26 +161,26 @@ turn order rather than the recipient order.
 Cohorts under `log/arena-seating`, boards 0 to 63, four rotations,
 deterministic, engine arena at sixteen threads from the server worktree
 `research/seating` (commit `c21bdf1`, which carries the rotating recipient
-order). Rotating-order null `e1913588-7c22-4573-88e2-04728f60c820` (run
-`689a1947-ee7a-4767-ac08-d8302f407c50`); `bargain: false`
-`f6c4c5d3-583e-4984-9a69-e4bec3c2e81a` (run
-`dc30070d-8a95-4de3-b9ec-0724f051687f`); `propose: false`
-`e339df5d-42d1-4e92-a188-74119b970e19` (run
-`98fce06c-8028-4b01-9622-cd2325af5b7b`); `counters: false`
-`db5a667c-7cae-4899-b927-d73f486384cf` (run
-`dbd08f29-7fc4-4c8e-8ae4-42f510046e37`); `asks: false`
-`a82a26b5-2000-457e-8f23-8b90ff85944f` (run
-`cbc642ff-acd5-4133-bf6a-f8ee013cf6ce`); two ETAs
-`488ce26d-2aa8-4c46-a1bc-ee0f3a352be8` (run
-`e62b248e-ea38-4c6d-b1bb-0ce3ec935284`); fast then ETA
-`d85b0adc-f745-4aa5-b1fd-bc04d7e7bdb8` (run
-`8acd42de-4681-4869-8fc9-e837206aaff7`); ETA between the searches
-`6ad995b4-dfe4-41a6-8c67-c8d0bf35af8e` (run
-`8dfca00b-69c3-4e54-a8dd-b90ee75e63d5`); one search with three ETAs
-`34c7f33a-d0d1-4ede-a424-3f45281535d3` (run
-`796fe469-7624-4629-8141-7fcd4bd214ac`). The pre-rotation null is
-`948d095b-afd8-467c-ad8b-408b80280e65` (run
-`91ddb42d-82ab-460b-95c2-b8d340658369`) from the bargaining study.
+order). Rotating-order null [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e1913588-7c22-4573-88e2-04728f60c820.toml) (run
+[256-game engine cohort](/research/records/runs/689a1947-ee7a-4767-ac08-d8302f407c50)); `bargain: false`
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f6c4c5d3-583e-4984-9a69-e4bec3c2e81a.toml) (run
+[256-game engine cohort](/research/records/runs/dc30070d-8a95-4de3-b9ec-0724f051687f)); `propose: false`
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e339df5d-42d1-4e92-a188-74119b970e19.toml) (run
+[256-game engine cohort](/research/records/runs/98fce06c-8028-4b01-9622-cd2325af5b7b)); `counters: false`
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/db5a667c-7cae-4899-b927-d73f486384cf.toml) (run
+[256-game engine cohort](/research/records/runs/dbd08f29-7fc4-4c8e-8ae4-42f510046e37)); `asks: false`
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a82a26b5-2000-457e-8f23-8b90ff85944f.toml) (run
+[256-game engine cohort](/research/records/runs/cbc642ff-acd5-4133-bf6a-f8ee013cf6ce)); two ETAs
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/488ce26d-2aa8-4c46-a1bc-ee0f3a352be8.toml) (run
+[256-game engine cohort](/research/records/runs/e62b248e-ea38-4c6d-b1bb-0ce3ec935284)); fast then ETA
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d85b0adc-f745-4aa5-b1fd-bc04d7e7bdb8.toml) (run
+[256-game engine cohort](/research/records/runs/8acd42de-4681-4869-8fc9-e837206aaff7)); ETA between the searches
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6ad995b4-dfe4-41a6-8c67-c8d0bf35af8e.toml) (run
+[256-game engine cohort](/research/records/runs/8dfca00b-69c3-4e54-a8dd-b90ee75e63d5)); one search with three ETAs
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/34c7f33a-d0d1-4ede-a424-3f45281535d3.toml) (run
+[256-game engine cohort](/research/records/runs/796fe469-7624-4629-8141-7fcd4bd214ac)). The pre-rotation null is
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/948d095b-afd8-467c-ad8b-408b80280e65.toml) (run
+[256-game engine cohort](/research/records/runs/91ddb42d-82ab-460b-95c2-b8d340658369)) from the bargaining study.
 `analysis/arena_seating.py analysis/arena_seating.json` regenerates the plot
 asset and prints every contrast, the wins by engine seat, and the per-slot
 build and trade counters from the retained run folders; it takes the two
@@ -204,4 +190,24 @@ fast --seeds 0-15 --rotations 4 --deterministic --trace`; its site and offer
 counts read each search decision's board and hand from the trace; the JSONL
 and the two counting scripts are kept under `runs/screens-arena-seating/` in
 the integrating checkout.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+Two identical depth-2 searches in slots 0 and 1 differ by **+0.102 wins per
+game** (95% interval +0.020 to +0.183) with `bargain: false` on both seats,
+by +0.074 (−0.008 to +0.156) when neither may propose, by +0.090 (−0.013 to
++0.192) with counters off, by +0.008 (−0.083 to +0.099) with asks off, and by
+**+0.141** (+0.051 to +0.230) with two identical ETA builders beside them.
+With an ETA between the two searches (slots 0 and 2) the difference is
+**+0.039** (−0.048 to +0.126), and one search with three ETAs leaves the three
+builders within ±0.03 of each other. The term needs the two searches to be
+adjacent in turn order. The four trade-switch nulls pooled give +0.068
+(+0.015 to +0.122), and the default null's +0.180 is −0.111 (−0.217 to
+−0.005) above them on the same boards, so the bargaining adds to a term it
+does not create. Neither the arena's offer handling nor any other seat-order
+rule in the table code is the cause: the seat directly before another acts
+first after three of the four rolls in every round, in the protocol arena and
+at any table. Swapped pairs remain the rule. Development tier, boards 0 to 63.
+
 </AgentContext>

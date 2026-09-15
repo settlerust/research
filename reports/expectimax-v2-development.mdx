@@ -1,18 +1,13 @@
 ---
 date: "2026-09-08"
 title: "A tunable expectimax that beats the builders on paired boards"
-summary: "expectimax-v2 wins 34% of 256 paired slot-games at depth 2 against ETA's 24%; the leaf, not depth, was what the reference lacked."
+summary: "The first turn-level search looks promising in the engine arena, before a planning defect and failed protocol rule are identified."
 ---
 
 # A tunable expectimax that beats the builders on paired boards
 
-<ResearchCallout title="Finding · depth 2 beats ETA on identical boards (development tier)">
-On 64 boards played once per seat rotation, `expectimax-v2` at depth 2 won
-**87 of 256 slot-games (34.0%)** against **62 (24.2%)** for the ETA builder in
-the neighbouring slot. The paired seed contrast is **+0.098 wins per game**
-(95% interval +0.005 to +0.190), so the interval excludes no difference. Each
-decision took 25 ms. This is engine-arena evidence; the protocol confirmation
-cohort is registered and pending.
+<ResearchCallout title="A promising search with a planning defect">
+The first depth-2 search won <WinRate value="87" total="256" /> against <WinRate value="62" total="256" label="Compared ETA slot" />. Its engine contrast was <ResultComparison value="0.098" low="0.005" high="0.190" />, but the later protocol rule failed. These cohorts predate the [turn-planning correction](expectimax-v2-corrected.mdx); keep that boundary when reading them.
 </ResearchCallout>
 
 <ResearchChart asset="expectimax-v2-depth2-wins" />
@@ -67,7 +62,7 @@ cohort below tests the strongest of these.
 
 ## Depth 3 on 64 boards: not distinguishable from depth 2
 
-Run `9dc44463-a29d-4d38-af29-91483f109370` seated the same lineup with the
+[256-game engine cohort](/research/records/runs/9dc44463-a29d-4d38-af29-91483f109370) seated the same lineup with the
 search at depth 3, a 1.5 s budget, sixteen scenarios and eight sampled worlds.
 It won **82 of 256 slot-games (32.0%)** against ETA's 24.2%; the paired contrast
 is **+0.078** (95% interval −0.022 to +0.178), which includes no difference, so
@@ -87,7 +82,7 @@ registered for an 80-game protocol cohort.
 
 ## Through the protocol arena: a positive direction, not a confirmation
 
-Run `e4949ebe-8132-4428-aae9-37ae1e0c3748` played the frozen candidate through
+[80-game protocol cohort](/research/records/runs/e4949ebe-8132-4428-aae9-37ae1e0c3748) played the frozen candidate through
 the authoritative server against two ETA builders and one fast builder, twelve
 games at a time, with every one of the 80 games completing and no timeout moves.
 The candidate won **31 of 80 (38.8%)**; the ETA builder in the compared slot won
@@ -99,10 +94,10 @@ shows how much seat and randomness move an 80-game unpaired cohort.
 <ResearchChart asset="expectimax-v2-protocol-wins" />
 
 <AgentContext>
-Registered experiments `01aa5a90-9cf6-4850-8007-ec6f24556c6d` (run
-`77928683-3ef2-4ee7-90f0-04f7b2885c53`, depth 2) and
-`47f68359-fd9a-46cf-ac21-c9e05b715af3` (run
-`9dc44463-a29d-4d38-af29-91483f109370`, depth 3 with
+Registered experiments [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/01aa5a90-9cf6-4850-8007-ec6f24556c6d.toml) (run
+[256-game engine cohort](/research/records/runs/77928683-3ef2-4ee7-90f0-04f7b2885c53), depth 2) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/47f68359-fd9a-46cf-ac21-c9e05b715af3.toml) (run
+[256-game engine cohort](/research/records/runs/9dc44463-a29d-4d38-af29-91483f109370), depth 3 with
 `"time_budget_ms":1500,"samples":8,"scenarios":16`) seat
 `v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4,"beam":4,"afterstates":96}`
 against `eta`, `fast`, `eta` on seeds 0 to 63 with all four rotations. The
@@ -114,4 +109,15 @@ state of both repositories. Search semantics, settings, and the leaf terms are
 documented in `server/docs/expectimax.md`. Exploratory sweeps were run with the
 `tournament` binary directly and are not retained as evidence.
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+On 64 boards played once per seat rotation, `expectimax-v2` at depth 2 won
+**87 of 256 slot-games (34.0%)** against **62 (24.2%)** for the ETA builder in
+the neighbouring slot. The paired seed contrast is **+0.098 wins per game**
+(95% interval +0.005 to +0.190), so the interval excludes no difference. Each
+decision took 25 ms. This is engine-arena evidence; the protocol confirmation
+cohort is registered and pending.
+
 </AgentContext>

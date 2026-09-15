@@ -40,3 +40,13 @@ keyboard interactions, and a mobile layout check. Generating a local report does
 not by itself authorize an external upload or deployment.
 
 For new strategy pages, read `docs/approach-template.md` and `docs/visual-publishing.mdx`. Every idea gets a distinct registered `StrategyFigure`; `StrategyAtlas` links the briefs. Use `ResearchPlot` for sourced line, scatter, and heatmap assets, and `PliabilityLab` only as the labelled teaching model. Preserve evidence labels, uncertainty, and complete denominators. A visual-first explanation is part of the publishing contract, with technical details in `AgentContext`.
+
+
+Use human-readable links for run and experiment references. Link a run to
+`/research/records/runs/UUID` with a label describing its cohort or role; link a
+frozen registration to its source with a label such as “registered protocol”.
+The UUID belongs in the href, not the visible prose, table label, or caption.
+Preserve the exact identifier for evidence filing and provenance. If a command
+needs a literal UUID, retain that command in `AgentContext`. Prefer the shared
+registered link preview to ad hoc hover markup, and keep completed records,
+registrations, asset identifiers, and digests unchanged.

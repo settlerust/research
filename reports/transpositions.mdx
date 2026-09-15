@@ -1,23 +1,13 @@
 ---
 date: "2026-09-09"
 title: "Transposition tables in the turn-level search"
-summary: "Different orders of the same moves and dice that change nothing reach one position; the search now remembers those positions across the depth passes of a decision and across a turn, with a verified key, and the registered comparisons measure what that saves."
+summary: "Shared caches reproduce moves with 11.7% less computation at equal nodes; the protocol strength comparison is inconclusive."
 ---
 
 # Transposition tables in the turn-level search
 
-<ResearchCallout title="Finding · the tables are correct and cheaper, and they do not change the baseline">
-The information-set key is now a Zobrist-style combination with a second
-verification word, and the memos live in a table the seat owns with three
-lifetimes: fresh per depth pass, shared across the passes of one decision, or
-kept across the decisions of a turn. On 128 registered games at equal nodes
-the shared tables reproduced the fresh search **move for move** and decided
-**11.7% faster**; at equal time the turn tables decided 15% faster at the
-same completed depth with no measurable strength change (−0.031, 95% interval
-−0.145 to +0.082); through the protocol arena `ntuple-leaf-tt` won 27 to 36
-against `ntuple-leaf` (−0.113, −0.265 to +0.040), inconclusive, so the
-baseline is unchanged. The tables are a cost saving, not a strength gain, in
-this search.
+<ResearchCallout title="The cache saves computation without a confirmed strength gain">
+Shared caches reproduced every move at equal nodes and ran 11.7% faster over 128 registered games. In the protocol cohort the candidate won 27 games against 36, with effect <ResultComparison value="-0.113" low="-0.265" high="0.040" />. Keep `ntuple-leaf` as baseline; the demonstrated benefit is lower computation cost.
 </ResearchCallout>
 
 <SearchFigure concept="transpositions" />
@@ -81,18 +71,18 @@ their comparison is a strength cohort rather than an identity check.
 
 | Cohort | Registration | Question | Reading |
 | --- | --- | --- | --- |
-| Equal nodes, fresh half | `968bb602` | Depth 3, no time budget, node budget never binds, fresh tables, seeds 668 to 699 | reference games |
-| Equal nodes, shared half | `420a6324` | The same search with tables shared across depth passes | every game identical, decisions faster |
-| Equal time, turn tables | `04515fd6` | Depth 3 under 1.5 s, tables kept across a turn against fresh tables, seeds 700 to 763 | not weaker; deeper completions |
-| Protocol | `77be5dcd` | `ntuple-leaf-tt` against `ntuple-leaf` through the server, seeds 764 to 783 | baseline changes only if the interval clears zero |
+| Equal nodes, fresh half | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/968bb602-4742-472e-97ad-b77d6b83a1ab.toml) | Depth 3, no time budget, node budget never binds, fresh tables, seeds 668 to 699 | reference games |
+| Equal nodes, shared half | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/420a6324-b780-4998-b61c-c047e672cf7f.toml) | The same search with tables shared across depth passes | every game identical, decisions faster |
+| Equal time, turn tables | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/04515fd6-3f1a-4d87-9baf-b603885badb9.toml) | Depth 3 under 1.5 s, tables kept across a turn against fresh tables, seeds 700 to 763 | not weaker; deeper completions |
+| Protocol | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/77be5dcd-ba5e-4fd8-8014-a9aec230ed07.toml) | `ntuple-leaf-tt` against `ntuple-leaf` through the server, seeds 764 to 783 | baseline changes only if the interval clears zero |
 
 ### Equal nodes: identity and speed
 
-Runs `a278a790` (fresh tables) and `e02cf22e` (shared tables) played the same
+Runs [128-game engine cohort](/research/records/runs/a278a790-1e12-435f-90ed-95c516a6a94f) (fresh tables) and [128-game engine cohort](/research/records/runs/e02cf22e-6cb2-4dba-a08d-ab45b1a4556a) (shared tables) played the same
 lineup, the learned-leaf search at depth 3 with no time budget and a node
 budget that never binds beside an ETA, a fast, and an ETA builder, on seeds
 668 to 699 in every rotation. All 128 games are identical in winner, turns,
-points, and action count ([comparison record](../records/structure/cache-compare-a278a790-e02cf22e.md)).
+points, and action count ([comparison record](https://github.com/settlerust/research/blob/dev/records/structure/cache-compare-a278a790-e02cf22e.md)).
 The shared tables decided in 654 ms against 741 ms per decision, 11.7% less,
 with 16% fewer transitions (79,813 against 94,781 per decision). The
 registered rule asked for identity and at least 15% less time: identity is
@@ -103,7 +93,7 @@ scenario; the saving is real but bounded by that share.
 
 ### Equal time: do turn tables buy strength?
 
-Run `392cc1bc` seated the learned-leaf search at depth 3 under 1.5 s with
+[256-game engine cohort](/research/records/runs/392cc1bc-8a64-4adc-825f-3058c66e006a) seated the learned-leaf search at depth 3 under 1.5 s with
 tables kept across the decisions of a turn in slot 0 and the same search with
 fresh tables in slot 1, with an ETA and a fast builder, on seeds 700 to 763:
 107 wins to 115, a contrast of −0.031 (95% interval −0.145 to +0.082),
@@ -118,7 +108,7 @@ it turned into faster decisions of the same quality.
 ### The protocol cohort
 
 `ntuple-leaf-tt` against `ntuple-leaf` with the two builders through the
-authoritative server on seeds 764 to 783 (`77be5dcd`, run `bd18246c`, all 80
+authoritative server on seeds 764 to 783 ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/77be5dcd-ba5e-4fd8-8014-a9aec230ed07.toml), [80-game protocol cohort](/research/records/runs/bd18246c-4161-49e7-9391-a2530bdb3434), all 80
 games valid, no timeout moves): 27 wins to 36, contrast −0.113 (95% interval
 −0.265 to +0.040). The interval crosses zero, so the registered rule leaves
 the baseline at `ntuple-leaf`. Twenty seeds cannot separate a small loss from
@@ -142,3 +132,19 @@ simulates every scenario from every afterstate of the chosen line, and its
 arrivals are now cached per afterstate, so the next step is sharing arrivals
 across afterstates that differ only in the player's own hand, which the
 builders never read.
+
+<AgentContext title="Detailed result and cohort context">
+
+The information-set key is now a Zobrist-style combination with a second
+verification word, and the memos live in a table the seat owns with three
+lifetimes: fresh per depth pass, shared across the passes of one decision, or
+kept across the decisions of a turn. On 128 registered games at equal nodes
+the shared tables reproduced the fresh search **move for move** and decided
+**11.7% faster**; at equal time the turn tables decided 15% faster at the
+same completed depth with no measurable strength change (−0.031, 95% interval
+−0.145 to +0.082); through the protocol arena `ntuple-leaf-tt` won 27 to 36
+against `ntuple-leaf` (−0.113, −0.265 to +0.040), inconclusive, so the
+baseline is unchanged. The tables are a cost saving, not a strength gain, in
+this search.
+
+</AgentContext>

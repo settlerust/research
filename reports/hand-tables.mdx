@@ -1,21 +1,13 @@
 ---
 date: "2026-09-12"
 title: "Hand management under the learned leaf"
-summary: "The three discard-risk mechanisms retested as swapped pairs with the learned n-tuple tables as the search leaf: spend_down, discard_projection, and the hand_risk weight on the quarter blend all correct to zero across development, confirmation, and population lineups, and none meets the browser rule. Defaults unchanged."
+summary: "Spending down, projected discards, and the hand-risk weight show no confirmed gain under the learned leaf."
 ---
 
 # Hand management under the learned leaf
 
-<ResearchCallout title="Finding · under the learned tables, all three hand-management switches are worth nothing">
-Three mechanisms from the hand-written-leaf study were re-registered as swapped
-pairs with the learned n-tuple tables as the leaf, 512 games per stage per arm
-on deterministic boards. Pooled after the fixed stages, `spend_down` reads
-**−0.020 wins per game** over 192 seeds (95% interval −0.049 to +0.010) and
-costs 19% more decision time, `discard_projection` reads **+0.006** over 320
-seeds (−0.009 to +0.022) at no measurable cost, and removing the `hand_risk`
-term on the quarter blend reads **−0.001** over 192 seeds (−0.029 to +0.028).
-Every per-stage interval crosses zero and no arm comes close to the +0.03
-browser threshold. The defaults stay: both switches off, `hand_risk` at 1.
+<ResearchCallout title="Keep the existing hand-management defaults">
+Projected discards measured <ResultComparison value="0.012" low="-0.010" high="0.034" /> over 192 builder boards and <ResultComparison value="-0.002" low="-0.023" high="0.019" /> over 128 population boards. Spending down and removing the hand-risk term also remain inconclusive. The learned leaf already discards about half as often as the hand-written leaf.
 </ResearchCallout>
 
 ## The arms
@@ -69,9 +61,9 @@ pooled and the cohort was rerun from scratch.
 
 | Stage | Half A run (candidate in slot 0) | Half B run (candidate in slot 1) | Wins A, cand/ctrl | Wins B, cand/ctrl | Seating-corrected effect | Seating term |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| Development, builders, 0-63 | `88f22330-1c27-4be3-a7e3-2eb79f205c20` | `f2a31547-7285-4186-9c53-60d962f01ead` | 116/112 | 109/121 | −0.016 (−0.065 to +0.034) | +0.031 |
-| Confirmation, builders, 800-863 | `11b5c63b-e5d9-4faf-ae82-3ec1310fc9b5` | `8d0a219e-73f3-4e2f-8e83-1ba173a4d9b6` | 123/104 | 107/124 | +0.004 (−0.048 to +0.055) | +0.070 |
-| Population, 800-863 | `8a032ed5-7e98-45bf-9282-7dab74eb1782` | `794969fe-edda-46cc-a755-a7c7179aeacf` | 71/85 | 80/90 | −0.047 (−0.098 to +0.004) | −0.008 |
+| Development, builders, 0-63 | [256-game engine cohort](/research/records/runs/88f22330-1c27-4be3-a7e3-2eb79f205c20) | [256-game engine cohort](/research/records/runs/f2a31547-7285-4186-9c53-60d962f01ead) | 116/112 | 109/121 | −0.016 (−0.065 to +0.034) | +0.031 |
+| Confirmation, builders, 800-863 | [256-game engine cohort](/research/records/runs/11b5c63b-e5d9-4faf-ae82-3ec1310fc9b5) | [256-game engine cohort](/research/records/runs/8d0a219e-73f3-4e2f-8e83-1ba173a4d9b6) | 123/104 | 107/124 | +0.004 (−0.048 to +0.055) | +0.070 |
+| Population, 800-863 | [256-game engine cohort](/research/records/runs/8a032ed5-7e98-45bf-9282-7dab74eb1782) | [256-game engine cohort](/research/records/runs/794969fe-edda-46cc-a755-a7c7179aeacf) | 71/85 | 80/90 | −0.047 (−0.098 to +0.004) | −0.008 |
 
 Pooled over the two builders pairs (after-the-fact): −0.006 (−0.042 to +0.030),
 so the extension was not triggered. The population pair leans negative; with
@@ -83,11 +75,11 @@ ratio 1.19 pooled over stages).
 
 | Stage | Half A run | Half B run | Wins A, cand/ctrl | Wins B, cand/ctrl | Seating-corrected effect | Seating term |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| Development, builders, 0-63 | `d2933fc8-9955-41b9-a292-9c344a821bd4` | `881f42b8-03a7-42ab-b342-8a7118ef9919` | 122/103 | 103/119 | +0.006 (−0.033 to +0.044) | +0.068 |
-| Confirmation, builders, 800-863 | `96aaa590-93a9-4c59-89a8-9017995081ca` | `c18fccae-57cd-4e53-ad4a-e8e4d5825f29` | 125/99 | 105/123 | +0.016 (−0.028 to +0.059) | +0.086 |
-| Population, 800-863 | `50ca4d19-152d-4863-9407-417c3c42c51c` | `55ef800b-f8d8-431d-8870-4132723c79dd` | 82/87 | 88/83 | +0.000 (−0.029 to +0.029) | −0.020 |
-| Extension, builders, 864-927 | `f4462a76-5bdf-419f-a926-7b487b7f02be` | `b6a1c336-028d-4f22-b0b2-41f95dc29203` | 133/98 | 102/130 | +0.014 (−0.018 to +0.046) | +0.123 |
-| Extension, population, 864-927 | `0ac1cd70-24da-4ec9-a76a-e070f9ca37e5` | `29d0fc33-4113-4c67-8b5a-b884ce104e55` | 95/79 | 77/95 | −0.004 (−0.034 to +0.026) | +0.066 |
+| Development, builders, 0-63 | [256-game engine cohort](/research/records/runs/d2933fc8-9955-41b9-a292-9c344a821bd4) | [256-game engine cohort](/research/records/runs/881f42b8-03a7-42ab-b342-8a7118ef9919) | 122/103 | 103/119 | +0.006 (−0.033 to +0.044) | +0.068 |
+| Confirmation, builders, 800-863 | [256-game engine cohort](/research/records/runs/96aaa590-93a9-4c59-89a8-9017995081ca) | [256-game engine cohort](/research/records/runs/c18fccae-57cd-4e53-ad4a-e8e4d5825f29) | 125/99 | 105/123 | +0.016 (−0.028 to +0.059) | +0.086 |
+| Population, 800-863 | [256-game engine cohort](/research/records/runs/50ca4d19-152d-4863-9407-417c3c42c51c) | [256-game engine cohort](/research/records/runs/55ef800b-f8d8-431d-8870-4132723c79dd) | 82/87 | 88/83 | +0.000 (−0.029 to +0.029) | −0.020 |
+| Extension, builders, 864-927 | [256-game engine cohort](/research/records/runs/f4462a76-5bdf-419f-a926-7b487b7f02be) | [256-game engine cohort](/research/records/runs/b6a1c336-028d-4f22-b0b2-41f95dc29203) | 133/98 | 102/130 | +0.014 (−0.018 to +0.046) | +0.123 |
+| Extension, population, 864-927 | [256-game engine cohort](/research/records/runs/0ac1cd70-24da-4ec9-a76a-e070f9ca37e5) | [256-game engine cohort](/research/records/runs/29d0fc33-4113-4c67-8b5a-b884ce104e55) | 95/79 | 77/95 | −0.004 (−0.034 to +0.026) | +0.066 |
 
 The pooled builders reading over 128 seeds was +0.011 (−0.018 to +0.040):
 positive with the lower bound inside 0.03 of zero, so the extension ran. With
@@ -101,9 +93,9 @@ after-the-fact pooling. The switch costs nothing measurable in decision time
 
 | Stage | Half A run | Half B run | Wins A, cand/ctrl | Wins B, cand/ctrl | Seating-corrected effect | Seating term |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| Development, builders, 0-63 | `2275903a-1549-44e3-8cbb-2a53b16ea8fa` | `7ce522da-775b-43e0-a051-9e96ef3d8c18` | 131/106 | 104/127 | +0.004 (−0.043 to +0.051) | +0.094 |
-| Confirmation, builders, 800-863 | `0808617f-771f-43d9-b83b-ad4eb2a45e54` | `96902436-9d8c-44ac-8233-e722730e2c02` | 118/111 | 106/122 | −0.018 (−0.067 to +0.031) | +0.045 |
-| Population, 800-863 | `4c417894-9fd2-4243-b477-c0750a5a86d0` | `fce730d6-75bc-47a7-826b-eb7e179ebc79` | 99/80 | 80/93 | +0.012 (−0.040 to +0.063) | +0.062 |
+| Development, builders, 0-63 | [256-game engine cohort](/research/records/runs/2275903a-1549-44e3-8cbb-2a53b16ea8fa) | [256-game engine cohort](/research/records/runs/7ce522da-775b-43e0-a051-9e96ef3d8c18) | 131/106 | 104/127 | +0.004 (−0.043 to +0.051) | +0.094 |
+| Confirmation, builders, 800-863 | [256-game engine cohort](/research/records/runs/0808617f-771f-43d9-b83b-ad4eb2a45e54) | [256-game engine cohort](/research/records/runs/96902436-9d8c-44ac-8233-e722730e2c02) | 118/111 | 106/122 | −0.018 (−0.067 to +0.031) | +0.045 |
+| Population, 800-863 | [256-game engine cohort](/research/records/runs/4c417894-9fd2-4243-b477-c0750a5a86d0) | [256-game engine cohort](/research/records/runs/fce730d6-75bc-47a7-826b-eb7e179ebc79) | 99/80 | 80/93 | +0.012 (−0.040 to +0.063) | +0.062 |
 
 Pooled over all three stages (after-the-fact): −0.001 (−0.029 to +0.028) over
 192 seeds. The term's presence or absence is invisible at this scale, in either
@@ -184,30 +176,44 @@ the leaf object and its candidate adds `"hand":0.25` plus
 `"weights":{"hand_risk":0.0}`. All cohorts are engine-arena tournaments with
 `--rotations 4 --deterministic --threads 6`, registered before running under
 study `risk/hand-tables`. Experiment UUIDs, in table order: spend_down
-`a955b267-9ff0-40c1-82b7-4aa4edc9ff6e` / `c492642c-4347-480a-b2ff-29b8f21578ab`,
-`36feacf1-4e3e-4a42-95dc-c04e5c876c51` / `f9d49130-b3c8-45a6-a08e-6d5bb0c61073`,
-`25cf8f50-1d9c-4327-bd46-74773339355a` / `b05633ce-e0f4-472b-a07c-5aa348f292af`;
-discard_projection `3937f009-a9ac-4402-941d-5e549525e838` /
-`30413802-3438-4da7-801a-1930b12b8933`, `cd34b338-7485-4ff9-bc83-f401c08bc6e8` /
-`45db85c1-1e68-4d90-a82e-29e19ae2acf8`, `107448ed-68a4-4ee9-876d-08c78ba7d576` /
-`5330c9c8-a119-446e-8ed6-bfdbd20d2f5b`, `3c319637-e3da-420d-a9c8-381a469036cf` /
-`8dad3d8b-5636-41d1-8c19-bf02370cbf42`, `316cb7a7-5b95-42bf-ade4-f7356f9ef6e1` /
-`dcd15bb4-deb1-4726-a63b-da6e0e83120d`; hand_risk on the quarter blend
-`826a6d8e-1b8a-4797-addc-f5454fa4d954` / `525aa23e-6191-4ae8-aabf-b1082da41b2d`,
-`dce23ad1-0f66-417e-8a07-56fc52e26992` / `72f45c36-9c85-419c-b41a-de7f2d761eec`,
-`1547ca49-dffd-4e2e-bd52-41934ae1180f` / `93304090-43f2-49e9-b30a-8cfc6bbe9d45`.
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a955b267-9ff0-40c1-82b7-4aa4edc9ff6e.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c492642c-4347-480a-b2ff-29b8f21578ab.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/36feacf1-4e3e-4a42-95dc-c04e5c876c51.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f9d49130-b3c8-45a6-a08e-6d5bb0c61073.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/25cf8f50-1d9c-4327-bd46-74773339355a.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b05633ce-e0f4-472b-a07c-5aa348f292af.toml);
+discard_projection [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3937f009-a9ac-4402-941d-5e549525e838.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/30413802-3438-4da7-801a-1930b12b8933.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/cd34b338-7485-4ff9-bc83-f401c08bc6e8.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/45db85c1-1e68-4d90-a82e-29e19ae2acf8.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/107448ed-68a4-4ee9-876d-08c78ba7d576.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5330c9c8-a119-446e-8ed6-bfdbd20d2f5b.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3c319637-e3da-420d-a9c8-381a469036cf.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8dad3d8b-5636-41d1-8c19-bf02370cbf42.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/316cb7a7-5b95-42bf-ade4-f7356f9ef6e1.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dcd15bb4-deb1-4726-a63b-da6e0e83120d.toml); hand_risk on the quarter blend
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/826a6d8e-1b8a-4797-addc-f5454fa4d954.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/525aa23e-6191-4ae8-aabf-b1082da41b2d.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dce23ad1-0f66-417e-8a07-56fc52e26992.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/72f45c36-9c85-419c-b41a-de7f2d761eec.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1547ca49-dffd-4e2e-bd52-41934ae1180f.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/93304090-43f2-49e9-b30a-8cfc6bbe9d45.toml).
 Each half's hypothesis names its partner; run UUIDs are in the tables above.
 Withdrawn before running (the full blend measured too weak to sit an arm on):
-`8482a56b-7a41-430f-9d4f-19dcfed08e3a`, `8dfff424-e403-47c4-89ec-029b203d89e4`,
-`9249ab83-c0b0-485a-a08e-e734b82b4cdc`, `198621cf-57ef-4e5b-a892-3989fe65650c`,
-`d2f026f6-aaaf-4173-ac65-f39e52d27a2d`, `a1d96405-f132-45d1-825f-2117844deea7`.
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8482a56b-7a41-430f-9d4f-19dcfed08e3a.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8dfff424-e403-47c4-89ec-029b203d89e4.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9249ab83-c0b0-485a-a08e-e734b82b4cdc.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/198621cf-57ef-4e5b-a892-3989fe65650c.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d2f026f6-aaaf-4173-ac65-f39e52d27a2d.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a1d96405-f132-45d1-825f-2117844deea7.toml).
 The interrupted first attempt at the development spend_down half A is run
-`ac02ff67-a456-42ba-bc81-9434c69054d6` (3 of 256 games, not pooled). Three
+[interrupted attempt](/research/records/runs/ac02ff67-a456-42ba-bc81-9434c69054d6) (3 of 256 games, not pooled). Three
 unregistered 8-game smokes of the seat specs are under
 `runs/smoke-hand-tables/`; they are plumbing checks, not evidence. The arena
 gained `hand_at_roll_sum` and `hand_at_roll_count` seat counters on the server
 branch `research/hand-tables`; the change is recording only and does not touch
 any decision. `python3 analysis/hand_tables.py --json --asset` recomputes every
 number in this report and the plot from the retained run folders.
+
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+Three mechanisms from the hand-written-leaf study were re-registered as swapped
+pairs with the learned n-tuple tables as the leaf, 512 games per stage per arm
+on deterministic boards. Pooled after the fixed stages, `spend_down` reads
+**−0.020 wins per game** over 192 seeds (95% interval −0.049 to +0.010) and
+costs 19% more decision time, `discard_projection` reads **+0.006** over 320
+seeds (−0.009 to +0.022) at no measurable cost, and removing the `hand_risk`
+term on the quarter blend reads **−0.001** over 192 seeds (−0.029 to +0.028).
+Every per-stage interval crosses zero and no arm comes close to the +0.03
+browser threshold. The defaults stay: both switches off, `hand_risk` at 1.
 
 </AgentContext>

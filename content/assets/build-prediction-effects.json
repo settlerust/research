@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "The promising development result did not survive fresh boards",
+  "evidence": "measured",
+  "source": "Source: reports/build-prediction.mdx, How the cohorts were run; analysis/build_prediction.py. Twelve registered cohorts, all 3,072 games complete. Each estimate combines both seatings on 64 boards with four rotations per half (512 games per arm and stage); 95% intervals over boards.",
+  "caption": "All three fresh-board intervals include no change in win rate.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Deny predicted sites",
+      "Predicted opponents",
+      "Predicted threat"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.12,
+    "max": 0.13
+  },
+  "series": [
+    {
+      "label": "Development: 64 boards",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.061,
+          "low": 0.009,
+          "high": 0.112
+        },
+        {
+          "x": 1,
+          "y": 0.043,
+          "low": -0.007,
+          "high": 0.093
+        },
+        {
+          "x": 2,
+          "y": 0.039,
+          "low": -0.006,
+          "high": 0.084
+        }
+      ]
+    },
+    {
+      "label": "Fresh boards: 64 boards",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.025,
+          "low": -0.071,
+          "high": 0.02
+        },
+        {
+          "x": 1,
+          "y": -0.039,
+          "low": -0.1,
+          "high": 0.022
+        },
+        {
+          "x": 2,
+          "y": 0.031,
+          "low": -0.024,
+          "high": 0.087
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

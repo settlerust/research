@@ -1,14 +1,16 @@
 ---
 date: "2026-09-11"
 title: "Bargaining switches under the learned leaf"
-summary: "Under the learned n-tuple leaf, switching counters off costs a tenth of a win per game and switching asks off almost as much, at both tables, while threat pricing and refusing asks change nothing; every bargaining switch stays on in the engine and the browser."
+summary: "Counters and bargaining remain useful under the learned leaf, with a measurable cost in decision time."
 ---
 
 # Bargaining switches under the learned leaf
 
-<ResearchCallout title="Finding · counters and asks still win games under the learned leaf">
-Seating-corrected swapped pairs over three stages (192 seeds, pooled after the fact) put switching all bargaining off at **−0.143 wins per game** (95% interval −0.180 to −0.106), counters off at **−0.102** (−0.136 to −0.069), and asks off at **−0.085** (−0.119 to −0.050). Threat pricing off is **+0.001** (−0.035 to +0.036), and the stubborn seat that refuses asks is **+0.006** (−0.008 to +0.020) over 320 seeds with its extension. Counters and all off lose at every stage and asks at both builder-table stages; the order matches the hand-written leaf. Bargaining costs about 60 percent more time per decision, most of it from counters, and every switch stays on. Development tier, depth 2.
+<ResearchCallout title="Keep counters and two-for-one asks">
+Removing counters or all bargaining loses at every measured stage under the learned leaf. Removing two-for-one asks loses at both builder-table stages. Threat pricing and accepting asks show no clear win-rate effect. Keep the defaults; bargaining costs about 60% more decision time at depth 2.
 </ResearchCallout>
+
+<ResearchPlot asset="bargaining-tables-effects" />
 
 ## The five arms
 
@@ -17,8 +19,6 @@ Every arm is the tables baseline seat, `v2:{"depth":2,"leaf":{"tables":"artifact
 Each arm is a swapped pair on the same seeds: half A seats the arm in slot 0 and the control in slot 1, half B the reverse, and the effect is the per-seed half-difference of the two slot-0-minus-slot-1 contrasts, which cancels the [seating term](arena-seating.mdx) between two adjacent searches; the half-sum is the term itself. The population lineup L2 ran first, because bargaining needs partners that trade and the builders rarely do: a third tables search in slot 2 and an ETA in slot 3, seeds 800 to 863. The builder lineup L1 seats an ETA and a fast builder in slots 2 and 3 on seeds 0 to 63, the boards of the hand-leaf arms, and on seeds 800 to 863. Every cohort is 256 deterministic games at depth 2; every pair is 512.
 
 ## Results
-
-<ResearchPlot asset="bargaining-tables-effects" />
 
 Every cohort completed all 256 games, with no invalid moves, stalls, or interruptions. The effect is the arm minus the control in wins per game, so a negative number means the default mechanism wins games; the seating term is what slot 0 gains over slot 1 on those boards.
 
@@ -62,42 +62,46 @@ The extension rule asks for more seeds when an arm's pooled builder-table effect
 
 ### Every cohort
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage | Arm | Half | Registration | Run | Arm wins | Control wins | Contrast (95% interval) |
 | --- | --- | --- | --- | --- | ---: | ---: | --- |
-| L2 800-863 | all off | A | `e4610302-84a7-4cbf-9153-8c1d817d1bd3` | `3b0c453e-247e-4f3d-a21b-1967ffce90e6` | 74 | 90 | −0.062 (−0.141 to +0.016) |
-| L2 800-863 | all off | B | `4f4b8a5f-4437-4594-b85d-c6e06ac9a55e` | `4a6e9f09-a582-4ab4-8e74-b939a1ec8959` | 63 | 97 | +0.133 (+0.043 to +0.223) |
-| L2 800-863 | threat pricing off | A | `717eae4e-b949-42fa-a1ab-3c086bdc8f3c` | `ae2cc3ea-d01f-4b62-8e52-91310dca1e93` | 78 | 87 | −0.035 (−0.124 to +0.053) |
-| L2 800-863 | threat pricing off | B | `7c9ffb4c-ce6a-4064-98d8-817702445f8d` | `0686a9ad-9da2-43b8-96b1-892b672697f2` | 91 | 75 | −0.062 (−0.148 to +0.023) |
-| L2 800-863 | counters off | A | `4fd7a980-53a4-40f3-84ee-8b9b86bf3761` | `999d8a97-b681-4dd8-b7ec-6142e8e4e2f9` | 71 | 99 | −0.109 (−0.193 to −0.026) |
-| L2 800-863 | counters off | B | `75000b6c-b0ba-4b33-8086-24dc58e534fa` | `ebb5da5b-0763-423d-aaf7-13e39128602f` | 62 | 95 | +0.129 (+0.039 to +0.219) |
-| L2 800-863 | asks off | A | `e2d48aa8-cdcc-4123-82de-2d3b8fac502f` | `13ced608-cba8-4a08-98aa-c744d6ee048b` | 79 | 80 | −0.004 (−0.092 to +0.084) |
-| L2 800-863 | asks off | B | `b0dbf209-97de-4881-b7ae-e8d1b7381b3d` | `461c113a-3fad-4cc3-9aea-b59af3d14d21` | 71 | 89 | +0.070 (−0.015 to +0.156) |
-| L2 800-863 | stubborn (refuses asks) | A | `b77486f2-da1f-4b29-b5b7-7843de5ca87d` | `e083bd7f-bb66-4474-aceb-bd463d0d175a` | 74 | 89 | −0.059 (−0.139 to +0.022) |
-| L2 800-863 | stubborn (refuses asks) | B | `ab3a7230-393a-4b82-889f-d516413afebf` | `62529417-a975-4042-bdbf-531f2bb24acf` | 94 | 75 | −0.074 (−0.159 to +0.011) |
-| L1 0-63 | all off | A | `937e19ae-2569-4472-9ea6-d964769aaaf1` | `bd2986e6-c83e-4289-966f-ec1fcb932082` | 100 | 125 | −0.098 (−0.190 to −0.005) |
-| L1 0-63 | all off | B | `6c92dd71-3397-4c84-abaa-fe37371bd8e7` | `c826e45a-6212-4187-8895-7ca24848d802` | 87 | 137 | +0.195 (+0.088 to +0.302) |
-| L1 0-63 | threat pricing off | A | `13fc34cb-16ff-41ca-a87e-7b212e0461d9` | `623e109e-7040-43e6-b20b-3e371e17fccb` | 128 | 102 | +0.102 (+0.009 to +0.195) |
-| L1 0-63 | threat pricing off | B | `9b87ce41-b6ec-4985-ab9e-52d3b2ead900` | `d418eee0-8e53-4392-99ac-88b14a68d8f5` | 94 | 132 | +0.148 (+0.044 to +0.253) |
-| L1 0-63 | counters off | A | `335728e0-245f-46e4-b345-8121f246dc44` | `6cb1ec79-c371-4551-90b1-3cc6cdc8afd9` | 109 | 110 | −0.004 (−0.096 to +0.088) |
-| L1 0-63 | counters off | B | `d5d25a63-fef6-44ca-9a4e-48c3251c14a4` | `86fcba2e-60a9-4422-9c43-467c08ceeee7` | 89 | 137 | +0.188 (+0.092 to +0.283) |
-| L1 0-63 | asks off | A | `1c2e9a7f-fdfd-4385-9cb3-cc136ee01eeb` | `e2a6bec5-ba94-4d34-a885-fd2274d6579e` | 108 | 111 | −0.012 (−0.116 to +0.093) |
-| L1 0-63 | asks off | B | `1a34b4e4-0905-4d0a-a8b3-913c4a12a0f8` | `55c5fe2f-b5f5-477f-a03b-0ae62bfe9005` | 95 | 131 | +0.141 (+0.051 to +0.230) |
-| L1 0-63 | stubborn (refuses asks) | A | `c9f1ac2b-d49c-41b7-9782-29359c0382f4` | `05e28cbc-1536-4686-9328-cd96ce203960` | 129 | 97 | +0.125 (+0.035 to +0.215) |
-| L1 0-63 | stubborn (refuses asks) | B | `9fe81446-d3fc-4434-99be-f0963253c955` | `5b736f84-6966-4a57-8c08-07e4068eaa95` | 96 | 128 | +0.125 (+0.034 to +0.216) |
-| L1 800-863 | all off | A | `1d79b24f-6236-48e4-b2b1-0b0b5f53202d` | `2f70d1e1-7a04-4fbc-8b8a-6ae08c6caec5` | 94 | 130 | −0.141 (−0.248 to −0.033) |
-| L1 800-863 | all off | B | `95171f06-d8fc-4ffa-b168-e277748022fe` | `74d0bbf6-d970-4a06-868c-327371e6a801` | 88 | 146 | +0.227 (+0.140 to +0.313) |
-| L1 800-863 | threat pricing off | A | `e07a3371-6b64-4823-9c7f-e0bedec181cb` | `7c5fd2a2-bab8-460d-9212-f789b0f85dea` | 122 | 104 | +0.070 (−0.029 to +0.169) |
-| L1 800-863 | threat pricing off | B | `2729dfb5-b152-4d3a-b5bd-b89e7b9374c2` | `13bfb4d3-0987-44d2-acd1-e6dc73252eaf` | 113 | 125 | +0.047 (−0.069 to +0.162) |
-| L1 800-863 | counters off | A | `598fb4ba-3c1a-469c-9668-ecef054cec53` | `97c3c83b-db34-4819-96b1-3826fb67ca01` | 109 | 116 | −0.027 (−0.122 to +0.067) |
-| L1 800-863 | counters off | B | `60dabae0-77de-4783-8ef0-60c9f81fd7cb` | `c90421ef-083e-4773-9406-a206105f3f43` | 96 | 136 | +0.156 (+0.061 to +0.251) |
-| L1 800-863 | asks off | A | `37ca0f2e-c5fe-4c7f-aa8a-453a277bfbf7` | `7e86a611-6e58-4e15-b5d2-2c301892d618` | 105 | 120 | −0.059 (−0.174 to +0.057) |
-| L1 800-863 | asks off | B | `67853977-498a-480d-a2ad-c545e3847b1f` | `4239504d-3edd-4fd7-9a3a-65ec8d554828` | 87 | 144 | +0.223 (+0.127 to +0.318) |
-| L1 800-863 | stubborn (refuses asks) | A | `ff90bfd6-bab6-4ae2-8ee4-e766cdff7e0e` | `1d58fc87-a22f-4ab7-8f9f-abdc9c7589f5` | 125 | 104 | +0.082 (−0.020 to +0.184) |
-| L1 800-863 | stubborn (refuses asks) | B | `e390230c-9b4e-421d-9b57-eeacf8ef2d76` | `1b356578-dee4-4d74-a840-5d039f78c434` | 110 | 122 | +0.047 (−0.054 to +0.148) |
-| L1 864-927 | stubborn (refuses asks) | A | `37f466ed-4afb-43d7-8637-46246de0cacd` | `a92fb89a-cbc7-43ed-acfc-b7ff2874183c` | 131 | 99 | +0.125 (+0.024 to +0.226) |
-| L1 864-927 | stubborn (refuses asks) | B | `95b0122b-407f-4210-94b8-c1ba0a4e508d` | `e5648fda-d914-46c8-99dd-c2871af55225` | 100 | 132 | +0.125 (+0.015 to +0.235) |
-| L2 864-927 | stubborn (refuses asks) | A | `cf71fa9c-24c7-4079-89d1-23d0d9170f74` | `51cef0e8-e02c-4265-9966-723120f99a70` | 92 | 77 | +0.059 (−0.020 to +0.137) |
-| L2 864-927 | stubborn (refuses asks) | B | `f378d100-fe86-49ae-9f21-7bd139bdf821` | `875967b0-2786-44f4-abfe-8366aa88cc30` | 78 | 91 | +0.051 (−0.031 to +0.133) |
+| L2 800-863 | all off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e4610302-84a7-4cbf-9153-8c1d817d1bd3.toml) | [256-game engine cohort](/research/records/runs/3b0c453e-247e-4f3d-a21b-1967ffce90e6) | 74 | 90 | −0.062 (−0.141 to +0.016) |
+| L2 800-863 | all off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4f4b8a5f-4437-4594-b85d-c6e06ac9a55e.toml) | [256-game engine cohort](/research/records/runs/4a6e9f09-a582-4ab4-8e74-b939a1ec8959) | 63 | 97 | +0.133 (+0.043 to +0.223) |
+| L2 800-863 | threat pricing off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/717eae4e-b949-42fa-a1ab-3c086bdc8f3c.toml) | [256-game engine cohort](/research/records/runs/ae2cc3ea-d01f-4b62-8e52-91310dca1e93) | 78 | 87 | −0.035 (−0.124 to +0.053) |
+| L2 800-863 | threat pricing off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7c9ffb4c-ce6a-4064-98d8-817702445f8d.toml) | [256-game engine cohort](/research/records/runs/0686a9ad-9da2-43b8-96b1-892b672697f2) | 91 | 75 | −0.062 (−0.148 to +0.023) |
+| L2 800-863 | counters off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4fd7a980-53a4-40f3-84ee-8b9b86bf3761.toml) | [256-game engine cohort](/research/records/runs/999d8a97-b681-4dd8-b7ec-6142e8e4e2f9) | 71 | 99 | −0.109 (−0.193 to −0.026) |
+| L2 800-863 | counters off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/75000b6c-b0ba-4b33-8086-24dc58e534fa.toml) | [256-game engine cohort](/research/records/runs/ebb5da5b-0763-423d-aaf7-13e39128602f) | 62 | 95 | +0.129 (+0.039 to +0.219) |
+| L2 800-863 | asks off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e2d48aa8-cdcc-4123-82de-2d3b8fac502f.toml) | [256-game engine cohort](/research/records/runs/13ced608-cba8-4a08-98aa-c744d6ee048b) | 79 | 80 | −0.004 (−0.092 to +0.084) |
+| L2 800-863 | asks off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b0dbf209-97de-4881-b7ae-e8d1b7381b3d.toml) | [256-game engine cohort](/research/records/runs/461c113a-3fad-4cc3-9aea-b59af3d14d21) | 71 | 89 | +0.070 (−0.015 to +0.156) |
+| L2 800-863 | stubborn (refuses asks) | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b77486f2-da1f-4b29-b5b7-7843de5ca87d.toml) | [256-game engine cohort](/research/records/runs/e083bd7f-bb66-4474-aceb-bd463d0d175a) | 74 | 89 | −0.059 (−0.139 to +0.022) |
+| L2 800-863 | stubborn (refuses asks) | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ab3a7230-393a-4b82-889f-d516413afebf.toml) | [256-game engine cohort](/research/records/runs/62529417-a975-4042-bdbf-531f2bb24acf) | 94 | 75 | −0.074 (−0.159 to +0.011) |
+| L1 0-63 | all off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/937e19ae-2569-4472-9ea6-d964769aaaf1.toml) | [256-game engine cohort](/research/records/runs/bd2986e6-c83e-4289-966f-ec1fcb932082) | 100 | 125 | −0.098 (−0.190 to −0.005) |
+| L1 0-63 | all off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6c92dd71-3397-4c84-abaa-fe37371bd8e7.toml) | [256-game engine cohort](/research/records/runs/c826e45a-6212-4187-8895-7ca24848d802) | 87 | 137 | +0.195 (+0.088 to +0.302) |
+| L1 0-63 | threat pricing off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/13fc34cb-16ff-41ca-a87e-7b212e0461d9.toml) | [256-game engine cohort](/research/records/runs/623e109e-7040-43e6-b20b-3e371e17fccb) | 128 | 102 | +0.102 (+0.009 to +0.195) |
+| L1 0-63 | threat pricing off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9b87ce41-b6ec-4985-ab9e-52d3b2ead900.toml) | [256-game engine cohort](/research/records/runs/d418eee0-8e53-4392-99ac-88b14a68d8f5) | 94 | 132 | +0.148 (+0.044 to +0.253) |
+| L1 0-63 | counters off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/335728e0-245f-46e4-b345-8121f246dc44.toml) | [256-game engine cohort](/research/records/runs/6cb1ec79-c371-4551-90b1-3cc6cdc8afd9) | 109 | 110 | −0.004 (−0.096 to +0.088) |
+| L1 0-63 | counters off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d5d25a63-fef6-44ca-9a4e-48c3251c14a4.toml) | [256-game engine cohort](/research/records/runs/86fcba2e-60a9-4422-9c43-467c08ceeee7) | 89 | 137 | +0.188 (+0.092 to +0.283) |
+| L1 0-63 | asks off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1c2e9a7f-fdfd-4385-9cb3-cc136ee01eeb.toml) | [256-game engine cohort](/research/records/runs/e2a6bec5-ba94-4d34-a885-fd2274d6579e) | 108 | 111 | −0.012 (−0.116 to +0.093) |
+| L1 0-63 | asks off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1a34b4e4-0905-4d0a-a8b3-913c4a12a0f8.toml) | [256-game engine cohort](/research/records/runs/55c5fe2f-b5f5-477f-a03b-0ae62bfe9005) | 95 | 131 | +0.141 (+0.051 to +0.230) |
+| L1 0-63 | stubborn (refuses asks) | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c9f1ac2b-d49c-41b7-9782-29359c0382f4.toml) | [256-game engine cohort](/research/records/runs/05e28cbc-1536-4686-9328-cd96ce203960) | 129 | 97 | +0.125 (+0.035 to +0.215) |
+| L1 0-63 | stubborn (refuses asks) | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9fe81446-d3fc-4434-99be-f0963253c955.toml) | [256-game engine cohort](/research/records/runs/5b736f84-6966-4a57-8c08-07e4068eaa95) | 96 | 128 | +0.125 (+0.034 to +0.216) |
+| L1 800-863 | all off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1d79b24f-6236-48e4-b2b1-0b0b5f53202d.toml) | [256-game engine cohort](/research/records/runs/2f70d1e1-7a04-4fbc-8b8a-6ae08c6caec5) | 94 | 130 | −0.141 (−0.248 to −0.033) |
+| L1 800-863 | all off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/95171f06-d8fc-4ffa-b168-e277748022fe.toml) | [256-game engine cohort](/research/records/runs/74d0bbf6-d970-4a06-868c-327371e6a801) | 88 | 146 | +0.227 (+0.140 to +0.313) |
+| L1 800-863 | threat pricing off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e07a3371-6b64-4823-9c7f-e0bedec181cb.toml) | [256-game engine cohort](/research/records/runs/7c5fd2a2-bab8-460d-9212-f789b0f85dea) | 122 | 104 | +0.070 (−0.029 to +0.169) |
+| L1 800-863 | threat pricing off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2729dfb5-b152-4d3a-b5bd-b89e7b9374c2.toml) | [256-game engine cohort](/research/records/runs/13bfb4d3-0987-44d2-acd1-e6dc73252eaf) | 113 | 125 | +0.047 (−0.069 to +0.162) |
+| L1 800-863 | counters off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/598fb4ba-3c1a-469c-9668-ecef054cec53.toml) | [256-game engine cohort](/research/records/runs/97c3c83b-db34-4819-96b1-3826fb67ca01) | 109 | 116 | −0.027 (−0.122 to +0.067) |
+| L1 800-863 | counters off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/60dabae0-77de-4783-8ef0-60c9f81fd7cb.toml) | [256-game engine cohort](/research/records/runs/c90421ef-083e-4773-9406-a206105f3f43) | 96 | 136 | +0.156 (+0.061 to +0.251) |
+| L1 800-863 | asks off | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/37ca0f2e-c5fe-4c7f-aa8a-453a277bfbf7.toml) | [256-game engine cohort](/research/records/runs/7e86a611-6e58-4e15-b5d2-2c301892d618) | 105 | 120 | −0.059 (−0.174 to +0.057) |
+| L1 800-863 | asks off | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/67853977-498a-480d-a2ad-c545e3847b1f.toml) | [256-game engine cohort](/research/records/runs/4239504d-3edd-4fd7-9a3a-65ec8d554828) | 87 | 144 | +0.223 (+0.127 to +0.318) |
+| L1 800-863 | stubborn (refuses asks) | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ff90bfd6-bab6-4ae2-8ee4-e766cdff7e0e.toml) | [256-game engine cohort](/research/records/runs/1d58fc87-a22f-4ab7-8f9f-abdc9c7589f5) | 125 | 104 | +0.082 (−0.020 to +0.184) |
+| L1 800-863 | stubborn (refuses asks) | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e390230c-9b4e-421d-9b57-eeacf8ef2d76.toml) | [256-game engine cohort](/research/records/runs/1b356578-dee4-4d74-a840-5d039f78c434) | 110 | 122 | +0.047 (−0.054 to +0.148) |
+| L1 864-927 | stubborn (refuses asks) | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/37f466ed-4afb-43d7-8637-46246de0cacd.toml) | [256-game engine cohort](/research/records/runs/a92fb89a-cbc7-43ed-acfc-b7ff2874183c) | 131 | 99 | +0.125 (+0.024 to +0.226) |
+| L1 864-927 | stubborn (refuses asks) | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/95b0122b-407f-4210-94b8-c1ba0a4e508d.toml) | [256-game engine cohort](/research/records/runs/e5648fda-d914-46c8-99dd-c2871af55225) | 100 | 132 | +0.125 (+0.015 to +0.235) |
+| L2 864-927 | stubborn (refuses asks) | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/cf71fa9c-24c7-4079-89d1-23d0d9170f74.toml) | [256-game engine cohort](/research/records/runs/51cef0e8-e02c-4265-9966-723120f99a70) | 92 | 77 | +0.059 (−0.020 to +0.137) |
+| L2 864-927 | stubborn (refuses asks) | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f378d100-fe86-49ae-9f21-7bd139bdf821.toml) | [256-game engine cohort](/research/records/runs/875967b0-2786-44f4-abfe-8366aa88cc30) | 78 | 91 | +0.051 (−0.031 to +0.133) |
+
+</AgentContext>
 
 ## How the switches change trading
 
@@ -193,3 +197,9 @@ Study `bargaining/tables-arms`. Seats: the tables baseline `v2:{"depth":2,"leaf"
 </AgentContext>
 
 [All studies](../approaches/README.md) · [Bargaining](../approaches/bargaining) · [Experiment log](../log/experiments.mdx)
+
+<AgentContext title="Detailed result and cohort context">
+
+Seating-corrected swapped pairs over three stages (192 seeds, pooled after the fact) put switching all bargaining off at **−0.143 wins per game** (95% interval −0.180 to −0.106), counters off at **−0.102** (−0.136 to −0.069), and asks off at **−0.085** (−0.119 to −0.050). Threat pricing off is **+0.001** (−0.035 to +0.036), and the stubborn seat that refuses asks is **+0.006** (−0.008 to +0.020) over 320 seeds with its extension. Counters and all off lose at every stage and asks at both builder-table stages; the order matches the hand-written leaf. Bargaining costs about 60 percent more time per decision, most of it from counters, and every switch stays on. Development tier, depth 2.
+
+</AgentContext>

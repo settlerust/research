@@ -12,6 +12,7 @@ import tomllib
 import uuid
 
 from .protocol import Client, ServerError, public_frame, public_batch
+from .presence import SeatPresence
 from .records import contrast_text, digest, git_state, now, run_record, summarize, summary_table, write_json
 
 
@@ -90,7 +91,7 @@ def match(root, run_dir, index, slots, plan, registry, topology, seed=None):
               'game_id': None, 'winner': None, 'points': [], 'turns': 0,
               'event_counts': {}, 'history_complete': False, 'policy_decisions': 0,
               'decision_seconds': 0., 'conflicts': 0}
-    processes, clients = [], []
+    processes, clients, presences = [], [], []
     host, last_view = None, None
     cursor, last_version = 0, -1
     counts = Counter()
@@ -151,11 +152,27 @@ def match(root, run_dir, index, slots, plan, registry, topology, seed=None):
                          'python': sys.executable, 'root': str(root)}
             processes.append(PolicyProcess(registry[plan['players'][slot]], variables, root,
                                            private / f'policy-{seat}.log'))
+            if processes[-1].transport == 'stdio':
+                presences.append(SeatPresence(plan['base'], created['id'], clients[seat].token))
         ready_by = time.monotonic() + 20
         while True:
+            for presence in presences:
+                presence.check()
             view = host.game(created['id'])
-            connected = {m['seat'] for m in view['members'] if m['connected']}
-            if all(p.transport == 'stdio' or seat in connected for seat, p in enumerate(processes)):
+            seated = {m['seat']: m for m in view['members'] if m['seat'] is not None}
+            # Stdio processes do not own the network. The harness connects and
+            # marks them ready; remote runners perform those steps themselves.
+            pending = next((seat for seat, policy in enumerate(processes)
+                            if policy.transport == 'stdio' and seated[seat]['connected']
+                            and not seated[seat].get('ready', False)), None)
+            if pending is not None:
+                try:
+                    clients[pending].command(created['id'], view['version'],
+                                             {'type': 'set_ready', 'ready': True})
+                except ServerError as error:
+                    if error.data['code'] != 'conflict':
+                        raise
+            elif all(m['connected'] and m.get('ready', False) for m in seated.values()):
                 try:
                     host.command(created['id'], view['version'], {'type': 'start'})
                     break
@@ -173,6 +190,8 @@ def match(root, run_dir, index, slots, plan, registry, topology, seed=None):
         policy_cursors = [0] * len(slots)
         last_decision = [-1] * len(slots)
         while time.monotonic() - started < plan['match_seconds']:
+            for presence in presences:
+                presence.check()
             last_view = host.game(created['id'])
             game = last_view['game']
             if last_view['version'] != last_version:
@@ -239,6 +258,11 @@ def match(root, run_dir, index, slots, plan, registry, topology, seed=None):
         if last_view and last_view.get('game'):
             result['turns'] = last_view['game']['turn']
         cleanup_errors = []
+        for presence in presences:
+            try:
+                presence.close()
+            except Exception as error:
+                cleanup_errors.append(str(error))
         for policy in processes:
             try:
                 policy.close()

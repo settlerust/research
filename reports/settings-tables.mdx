@@ -1,31 +1,13 @@
 ---
 date: "2026-09-12"
 title: "Search settings under the learned tables"
-summary: "Nine search-setting switches measured as seating-corrected swapped pairs against the tables baseline: halving dice scenarios, one sampled world, counts-only beliefs, and no proposals each cost confirmed wins, eight sampled worlds gain a confirmed +0.045 against builders for 1.8 times the decision cost and nothing against a table of searches, deeper-level scenarios cannot bind at depth 2, and the reciprocity scaling is refuted. No switch earns a place in the browser build."
+summary: "Reducing information inputs costs wins; more sampled worlds help only against builders and exceed the browser cost rule."
 ---
 
 # Search settings under the learned tables
 
-<ResearchCallout title="Finding · information inputs matter more under the stronger leaf; one switch gains strength, none earns the browser">
-Every switch is the depth-2 tables baseline plus one change, measured as a swapped
-pair on the same boards so the arena's seating term cancels. Halving the common
-random dice scenarios to four costs **−0.392 wins per game** (95% interval −0.444
-to −0.339, 128 seeds), collapsing the sampled hidden worlds to one costs
-**−0.109** (−0.150 to −0.069), sampling hands from public counts alone instead of
-the event history costs **−0.143** (−0.188 to −0.097), and never proposing a trade
-costs **−0.172** (−0.211 to −0.133). Scaling the willingness model by each
-partner's observed acceptance rate is the one refuted improvement: **−0.073**
-(−0.115 to −0.031). Doubling scenarios to sixteen changes nothing measurable
-(−0.026, −0.072 to +0.019) for 2.7 times the decision time. Doubling the sampled
-worlds to eight is the one switch that gains strength, **+0.045** (+0.009 to
-+0.081) pooled over 192 seeds against the builders, but the gain disappears at a
-table of three searches (−0.007, −0.045 to +0.031) and costs 1.8 times the
-decision time. Leaf-guided opponents read +0.031 (−0.006 to +0.068) over 192
-seeds and +0.033 (−0.009 to +0.075) against the population, positive everywhere
-and resolved nowhere, at 1.8 times the cost. `inner_scenarios` cannot bind at
-depth 2: its halves replayed identical games. Under the hand-written leaf the
-same switches read near zero; the learned leaf makes the search's information
-inputs worth more, not less.
+<ResearchCallout title="Keep the search’s information inputs">
+Four dice scenarios measured <ResultComparison value="-0.392" low="-0.444" high="-0.339" /> over 128 builder seeds. One sampled world, public-count-only beliefs, and no trade proposals also lose. Eight worlds gain against builders alone, at about 1.8 times the decision cost. No tested switch meets the browser rule.
 </ResearchCallout>
 
 <ResearchPlot asset="settings-tables-effects" />
@@ -78,60 +60,60 @@ half B seats it in slot 1. Slot 0 and slot 1 wins are out of 256.
 
 | Arm | Stage | Half | Slot 0 wins | Slot 1 wins | Run |
 | --- | --- | --- | ---: | ---: | --- |
-| scenarios 4 | dev 0-63 | A (candidate slot 0) | 65 | 153 | `3fd1468c-b6dd-4034-8dab-8a425db3079e` |
-| scenarios 4 | dev 0-63 | B (candidate slot 1) | 170 | 45 | `5f7e6a50-7e85-4e43-8748-119c88ead600` |
-| scenarios 4 | conf 800-863 | A (candidate slot 0) | 74 | 143 | `e17c2088-cd9e-4923-85c6-ac7a7db782c7` |
-| scenarios 4 | conf 800-863 | B (candidate slot 1) | 172 | 53 | `4a869564-5939-4b99-9157-1871a53b2854` |
-| scenarios 16 | dev 0-63 | A (candidate slot 0) | 120 | 104 | `9ffe22ba-705b-496a-bfd9-18d071e82176` |
-| scenarios 16 | dev 0-63 | B (candidate slot 1) | 132 | 101 | `01c56be0-d586-462d-8d8b-eae3e5d034ac` |
-| scenarios 16 | conf 800-863 | A (candidate slot 0) | 117 | 108 | `1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4` |
-| scenarios 16 | conf 800-863 | B (candidate slot 1) | 127 | 106 | `193a36f1-343e-444a-a3fd-4fb210c55c73` |
-| samples 1 | dev 0-63 | A (candidate slot 0) | 112 | 118 | `3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64` |
-| samples 1 | dev 0-63 | B (candidate slot 1) | 139 | 89 | `0c23f762-4fd0-4c97-a117-61d6d4d39d6c` |
-| samples 1 | conf 800-863 | A (candidate slot 0) | 115 | 113 | `aea949f2-a9ff-40b7-b78c-18a74bdb5900` |
-| samples 1 | conf 800-863 | B (candidate slot 1) | 142 | 84 | `4257e948-8124-482c-b5ff-360ca781352e` |
-| samples 8 | dev 0-63 | A (candidate slot 0) | 139 | 95 | `1af9541e-b1cf-49c7-b093-71709055684a` |
-| samples 8 | dev 0-63 | B (candidate slot 1) | 123 | 108 | `a2a07566-5d0c-4953-b66b-e26082940016` |
-| samples 8 | conf 800-863 | A (candidate slot 0) | 133 | 95 | `464e3582-9583-4ff3-8621-dc6dafd42073` |
-| samples 8 | conf 800-863 | B (candidate slot 1) | 124 | 99 | `5ed30a32-bedf-484b-9670-2f646e6ae913` |
-| samples 8 | ext 864-927 | A (candidate slot 0) | 137 | 89 | `ced3c42d-3f59-40bd-8122-23f56a557ee4` |
-| samples 8 | ext 864-927 | B (candidate slot 1) | 122 | 105 | `63a95104-cc5f-477f-b95a-65d3057749a8` |
-| samples 8 | pop 800-863 | A (candidate slot 0) | 77 | 79 | `04b9666b-4477-48c6-ad22-92747fd7e511` |
-| samples 8 | pop 800-863 | B (candidate slot 1) | 87 | 84 | `56d05a6f-3628-4621-a1c8-8985a45bf81b` |
-| samples 8 | ext 864-927, L2 | A (candidate slot 0) | 89 | 86 | `e43faed0-9b9a-4772-9bac-ef48d2f1b16c` |
-| samples 8 | ext 864-927, L2 | B (candidate slot 1) | 87 | 90 | `52b80fa7-ded4-43a8-827c-b31d1f80b08d` |
-| inner scenarios 2 | dev 0-63 | A (candidate slot 0) | 125 | 100 | `a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd` |
-| inner scenarios 2 | dev 0-63 | B (candidate slot 1) | 125 | 100 | `3773648a-3148-4a14-92f2-69879d3ff4d7` |
-| inner scenarios 2 | conf 800-863 | A (candidate slot 0) | 125 | 105 | `019bdc02-4c49-4a57-a021-5545de5c5adc` |
-| inner scenarios 2 | conf 800-863 | B (candidate slot 1) | 125 | 105 | `9059665a-ea82-41dd-9e4d-3e64c3ad7dc4` |
-| leaf opponents | dev 0-63 | A (candidate slot 0) | 133 | 95 | `b68009d6-968d-4e2f-8cde-1be984c37ee4` |
-| leaf opponents | dev 0-63 | B (candidate slot 1) | 120 | 103 | `8871f193-f795-456c-acb9-3e6849fec7f8` |
-| leaf opponents | conf 800-863 | A (candidate slot 0) | 124 | 104 | `6c9ee539-341b-4673-bfa0-062f60e967b2` |
-| leaf opponents | conf 800-863 | B (candidate slot 1) | 121 | 109 | `42f746df-64c4-4aac-bc21-42d6ec799d96` |
-| leaf opponents | pop 800-863 | A (candidate slot 0) | 84 | 81 | `10762c59-7367-415c-8b7a-78c8ca3d5fb0` |
-| leaf opponents | pop 800-863 | B (candidate slot 1) | 82 | 85 | `b3be0af1-94db-43ec-b9c7-73f3c04f4398` |
-| leaf opponents | ext 864-927 | A (candidate slot 0) | 133 | 92 | `c01c46b1-5822-4179-ab17-97faf8493bf4` |
-| leaf opponents | ext 864-927 | B (candidate slot 1) | 126 | 105 | `0727ad04-b9a0-4cd3-bf4e-22d97ba48637` |
-| leaf opponents | ext 864-927, L2 | A (candidate slot 0) | 93 | 70 | `e491b264-2cd7-40be-a690-9f78954cfbe2` |
-| leaf opponents | ext 864-927, L2 | B (candidate slot 1) | 92 | 76 | `2b29cd5c-e3b0-4111-be6b-c27f194d9115` |
-| counts only | dev 0-63 | A (candidate slot 0) | 110 | 110 | `23e8de84-c088-47cf-8ac3-4f7566bff28d` |
-| counts only | dev 0-63 | B (candidate slot 1) | 150 | 78 | `3a9a4b3d-f801-4bf8-8c77-ad41fe866d36` |
-| counts only | conf 800-863 | A (candidate slot 0) | 104 | 123 | `eb6630b3-ff16-422d-b4ee-d72fde52886c` |
-| counts only | conf 800-863 | B (candidate slot 1) | 132 | 77 | `10ebea8a-734c-4b3b-bbb8-06ced0391bdf` |
-| counts only | pop 800-863 | A (candidate slot 0) | 77 | 78 | `af5fff98-26e9-487e-9242-54a0265169f1` |
-| counts only | pop 800-863 | B (candidate slot 1) | 93 | 67 | `4cc39cbd-4028-4826-a430-26fa4859c0b7` |
-| no proposals | dev 0-63 | A (candidate slot 0) | 109 | 108 | `9bedb821-45f9-44f0-85a2-e02706d1c8f9` |
-| no proposals | dev 0-63 | B (candidate slot 1) | 150 | 76 | `e589d911-d674-4a2b-a4a8-d3fa6adbe707` |
-| no proposals | conf 800-863 | A (candidate slot 0) | 95 | 128 | `c8fd3f5e-4f79-4681-ae3b-f5da3d26957a` |
-| no proposals | conf 800-863 | B (candidate slot 1) | 149 | 79 | `23391ddb-91aa-4978-b161-687166e32a83` |
-| no proposals | pop 800-863 | A (candidate slot 0) | 57 | 98 | `4286c659-85ed-41b0-adaf-86fe35693892` |
-| no proposals | pop 800-863 | B (candidate slot 1) | 90 | 58 | `855d73a2-e67a-4833-aad7-78f676830947` |
-| reciprocity | dev 0-63 | A (candidate slot 0) | 120 | 101 | `18e10d4d-881e-4118-8674-22fd6ded30ac` |
-| reciprocity | dev 0-63 | B (candidate slot 1) | 139 | 84 | `7ebf608b-70da-469a-8935-6b9ba8e34355` |
-| reciprocity | conf 800-863 | A (candidate slot 0) | 104 | 114 | `f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9` |
-| reciprocity | conf 800-863 | B (candidate slot 1) | 128 | 99 | `f026e43d-3993-4fcc-b961-522eb34d8d25` |
-| reciprocity | pop 800-863 | A (candidate slot 0) | 65 | 98 | `a87bd827-e165-4301-9bd4-4d3f1d65f8c0` |
-| reciprocity | pop 800-863 | B (candidate slot 1) | 87 | 78 | `b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1` |
+| scenarios 4 | dev 0-63 | A (candidate slot 0) | 65 | 153 | [256-game engine cohort](/research/records/runs/3fd1468c-b6dd-4034-8dab-8a425db3079e) |
+| scenarios 4 | dev 0-63 | B (candidate slot 1) | 170 | 45 | [256-game engine cohort](/research/records/runs/5f7e6a50-7e85-4e43-8748-119c88ead600) |
+| scenarios 4 | conf 800-863 | A (candidate slot 0) | 74 | 143 | [256-game engine cohort](/research/records/runs/e17c2088-cd9e-4923-85c6-ac7a7db782c7) |
+| scenarios 4 | conf 800-863 | B (candidate slot 1) | 172 | 53 | [256-game engine cohort](/research/records/runs/4a869564-5939-4b99-9157-1871a53b2854) |
+| scenarios 16 | dev 0-63 | A (candidate slot 0) | 120 | 104 | [256-game engine cohort](/research/records/runs/9ffe22ba-705b-496a-bfd9-18d071e82176) |
+| scenarios 16 | dev 0-63 | B (candidate slot 1) | 132 | 101 | [256-game engine cohort](/research/records/runs/01c56be0-d586-462d-8d8b-eae3e5d034ac) |
+| scenarios 16 | conf 800-863 | A (candidate slot 0) | 117 | 108 | [256-game engine cohort](/research/records/runs/1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4) |
+| scenarios 16 | conf 800-863 | B (candidate slot 1) | 127 | 106 | [256-game engine cohort](/research/records/runs/193a36f1-343e-444a-a3fd-4fb210c55c73) |
+| samples 1 | dev 0-63 | A (candidate slot 0) | 112 | 118 | [256-game engine cohort](/research/records/runs/3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64) |
+| samples 1 | dev 0-63 | B (candidate slot 1) | 139 | 89 | [256-game engine cohort](/research/records/runs/0c23f762-4fd0-4c97-a117-61d6d4d39d6c) |
+| samples 1 | conf 800-863 | A (candidate slot 0) | 115 | 113 | [256-game engine cohort](/research/records/runs/aea949f2-a9ff-40b7-b78c-18a74bdb5900) |
+| samples 1 | conf 800-863 | B (candidate slot 1) | 142 | 84 | [256-game engine cohort](/research/records/runs/4257e948-8124-482c-b5ff-360ca781352e) |
+| samples 8 | dev 0-63 | A (candidate slot 0) | 139 | 95 | [256-game engine cohort](/research/records/runs/1af9541e-b1cf-49c7-b093-71709055684a) |
+| samples 8 | dev 0-63 | B (candidate slot 1) | 123 | 108 | [256-game engine cohort](/research/records/runs/a2a07566-5d0c-4953-b66b-e26082940016) |
+| samples 8 | conf 800-863 | A (candidate slot 0) | 133 | 95 | [256-game engine cohort](/research/records/runs/464e3582-9583-4ff3-8621-dc6dafd42073) |
+| samples 8 | conf 800-863 | B (candidate slot 1) | 124 | 99 | [256-game engine cohort](/research/records/runs/5ed30a32-bedf-484b-9670-2f646e6ae913) |
+| samples 8 | ext 864-927 | A (candidate slot 0) | 137 | 89 | [256-game engine cohort](/research/records/runs/ced3c42d-3f59-40bd-8122-23f56a557ee4) |
+| samples 8 | ext 864-927 | B (candidate slot 1) | 122 | 105 | [256-game engine cohort](/research/records/runs/63a95104-cc5f-477f-b95a-65d3057749a8) |
+| samples 8 | pop 800-863 | A (candidate slot 0) | 77 | 79 | [256-game engine cohort](/research/records/runs/04b9666b-4477-48c6-ad22-92747fd7e511) |
+| samples 8 | pop 800-863 | B (candidate slot 1) | 87 | 84 | [256-game engine cohort](/research/records/runs/56d05a6f-3628-4621-a1c8-8985a45bf81b) |
+| samples 8 | ext 864-927, L2 | A (candidate slot 0) | 89 | 86 | [256-game engine cohort](/research/records/runs/e43faed0-9b9a-4772-9bac-ef48d2f1b16c) |
+| samples 8 | ext 864-927, L2 | B (candidate slot 1) | 87 | 90 | [256-game engine cohort](/research/records/runs/52b80fa7-ded4-43a8-827c-b31d1f80b08d) |
+| inner scenarios 2 | dev 0-63 | A (candidate slot 0) | 125 | 100 | [256-game engine cohort](/research/records/runs/a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd) |
+| inner scenarios 2 | dev 0-63 | B (candidate slot 1) | 125 | 100 | [256-game engine cohort](/research/records/runs/3773648a-3148-4a14-92f2-69879d3ff4d7) |
+| inner scenarios 2 | conf 800-863 | A (candidate slot 0) | 125 | 105 | [256-game engine cohort](/research/records/runs/019bdc02-4c49-4a57-a021-5545de5c5adc) |
+| inner scenarios 2 | conf 800-863 | B (candidate slot 1) | 125 | 105 | [256-game engine cohort](/research/records/runs/9059665a-ea82-41dd-9e4d-3e64c3ad7dc4) |
+| leaf opponents | dev 0-63 | A (candidate slot 0) | 133 | 95 | [256-game engine cohort](/research/records/runs/b68009d6-968d-4e2f-8cde-1be984c37ee4) |
+| leaf opponents | dev 0-63 | B (candidate slot 1) | 120 | 103 | [256-game engine cohort](/research/records/runs/8871f193-f795-456c-acb9-3e6849fec7f8) |
+| leaf opponents | conf 800-863 | A (candidate slot 0) | 124 | 104 | [256-game engine cohort](/research/records/runs/6c9ee539-341b-4673-bfa0-062f60e967b2) |
+| leaf opponents | conf 800-863 | B (candidate slot 1) | 121 | 109 | [256-game engine cohort](/research/records/runs/42f746df-64c4-4aac-bc21-42d6ec799d96) |
+| leaf opponents | pop 800-863 | A (candidate slot 0) | 84 | 81 | [256-game engine cohort](/research/records/runs/10762c59-7367-415c-8b7a-78c8ca3d5fb0) |
+| leaf opponents | pop 800-863 | B (candidate slot 1) | 82 | 85 | [256-game engine cohort](/research/records/runs/b3be0af1-94db-43ec-b9c7-73f3c04f4398) |
+| leaf opponents | ext 864-927 | A (candidate slot 0) | 133 | 92 | [256-game engine cohort](/research/records/runs/c01c46b1-5822-4179-ab17-97faf8493bf4) |
+| leaf opponents | ext 864-927 | B (candidate slot 1) | 126 | 105 | [256-game engine cohort](/research/records/runs/0727ad04-b9a0-4cd3-bf4e-22d97ba48637) |
+| leaf opponents | ext 864-927, L2 | A (candidate slot 0) | 93 | 70 | [256-game engine cohort](/research/records/runs/e491b264-2cd7-40be-a690-9f78954cfbe2) |
+| leaf opponents | ext 864-927, L2 | B (candidate slot 1) | 92 | 76 | [256-game engine cohort](/research/records/runs/2b29cd5c-e3b0-4111-be6b-c27f194d9115) |
+| counts only | dev 0-63 | A (candidate slot 0) | 110 | 110 | [256-game engine cohort](/research/records/runs/23e8de84-c088-47cf-8ac3-4f7566bff28d) |
+| counts only | dev 0-63 | B (candidate slot 1) | 150 | 78 | [256-game engine cohort](/research/records/runs/3a9a4b3d-f801-4bf8-8c77-ad41fe866d36) |
+| counts only | conf 800-863 | A (candidate slot 0) | 104 | 123 | [256-game engine cohort](/research/records/runs/eb6630b3-ff16-422d-b4ee-d72fde52886c) |
+| counts only | conf 800-863 | B (candidate slot 1) | 132 | 77 | [256-game engine cohort](/research/records/runs/10ebea8a-734c-4b3b-bbb8-06ced0391bdf) |
+| counts only | pop 800-863 | A (candidate slot 0) | 77 | 78 | [256-game engine cohort](/research/records/runs/af5fff98-26e9-487e-9242-54a0265169f1) |
+| counts only | pop 800-863 | B (candidate slot 1) | 93 | 67 | [256-game engine cohort](/research/records/runs/4cc39cbd-4028-4826-a430-26fa4859c0b7) |
+| no proposals | dev 0-63 | A (candidate slot 0) | 109 | 108 | [256-game engine cohort](/research/records/runs/9bedb821-45f9-44f0-85a2-e02706d1c8f9) |
+| no proposals | dev 0-63 | B (candidate slot 1) | 150 | 76 | [256-game engine cohort](/research/records/runs/e589d911-d674-4a2b-a4a8-d3fa6adbe707) |
+| no proposals | conf 800-863 | A (candidate slot 0) | 95 | 128 | [256-game engine cohort](/research/records/runs/c8fd3f5e-4f79-4681-ae3b-f5da3d26957a) |
+| no proposals | conf 800-863 | B (candidate slot 1) | 149 | 79 | [256-game engine cohort](/research/records/runs/23391ddb-91aa-4978-b161-687166e32a83) |
+| no proposals | pop 800-863 | A (candidate slot 0) | 57 | 98 | [256-game engine cohort](/research/records/runs/4286c659-85ed-41b0-adaf-86fe35693892) |
+| no proposals | pop 800-863 | B (candidate slot 1) | 90 | 58 | [256-game engine cohort](/research/records/runs/855d73a2-e67a-4833-aad7-78f676830947) |
+| reciprocity | dev 0-63 | A (candidate slot 0) | 120 | 101 | [256-game engine cohort](/research/records/runs/18e10d4d-881e-4118-8674-22fd6ded30ac) |
+| reciprocity | dev 0-63 | B (candidate slot 1) | 139 | 84 | [256-game engine cohort](/research/records/runs/7ebf608b-70da-469a-8935-6b9ba8e34355) |
+| reciprocity | conf 800-863 | A (candidate slot 0) | 104 | 114 | [256-game engine cohort](/research/records/runs/f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9) |
+| reciprocity | conf 800-863 | B (candidate slot 1) | 128 | 99 | [256-game engine cohort](/research/records/runs/f026e43d-3993-4fcc-b961-522eb34d8d25) |
+| reciprocity | pop 800-863 | A (candidate slot 0) | 65 | 98 | [256-game engine cohort](/research/records/runs/a87bd827-e165-4301-9bd4-4d3f1d65f8c0) |
+| reciprocity | pop 800-863 | B (candidate slot 1) | 87 | 78 | [256-game engine cohort](/research/records/runs/b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1) |
 
 ## The effects
 
@@ -341,50 +323,74 @@ seating-corrected effects come from `analysis/settings_tables.py`, which reads
 the retained runs directly and writes `analysis/settings_tables.json`; the
 forest plot comes from `analysis/settings_tables_assets.py`. Half A experiments
 (candidate slot 0, control slot 1) and half B experiments (control slot 0,
-candidate slot 1): scenarios4 `d6cbff3d-7e92-4f47-bbc9-97da3c2532a9` and
-`33654a28-86e9-4026-93e2-111b34913669`, scenarios16
-`767a4f08-e4d9-48da-83bb-d2e952feaf69` and `f650a242-2e6a-4075-a80d-da4ee753441a`,
-samples1 `f959a49e-5745-4623-9bb9-e0a43f9ea964` and
-`e4f5ae29-919c-4bd4-83ae-98812ea00bc3`, samples8
-`97bd74e0-164b-4d79-bcab-390edc31c129` and `adf4e1c3-f93f-4f7e-9631-bd595a2beb2a`,
-inner_scenarios2 `e071b629-8043-4eff-8fb0-ac694cac0f78` and
-`f364cf12-1945-4653-9fe3-8bfa92fe5f38`, leaf_opponents
-`a20b6abd-d8b6-4f66-b634-5df40495953e` and `face5b0d-d070-4e83-91df-d6fb6ae5ee4b`,
-counts_only `ef501bc5-7196-4ad6-a939-09f00414d771` and
-`b3795b5e-aa62-40be-ad6c-53d075512ecb`, propose_false
-`e53c45bd-a7ee-4ef8-8772-3780c1cfef31` and `1172dcee-95da-44af-a86c-9f5ee0d12fbf`,
-reciprocity `95aac00b-f396-4a5c-b023-db360692802b` and
-`495e1a17-5a74-438e-b660-06219ca881c7` (development, seeds 0-63);
-scenarios4 `dcfd9ca5-170f-43a7-a1f0-36117e7c7990` and
-`ee1751fb-ec20-4df1-b402-6d97a405bd0d`, scenarios16
-`ed82c2ee-5197-4e70-a3e6-ae4a20d64a33` and `e5b13479-5578-4810-bd6f-da6b3fb779fb`,
-samples1 `142fdc9a-e4be-4418-9008-5b942dc78daf` and
-`bfb9bed6-58cd-48c5-aa91-2b029b5c0f9a`, samples8
-`449ea466-728b-45e0-a177-9c220e3e8415` and `13a7cf69-526c-4f94-b434-0ee56051a5f8`,
-inner_scenarios2 `25ed5f85-6ab3-4949-80d0-b3bce5237971` and
-`e2445b6e-c49c-4396-85f6-9052f8921028`, leaf_opponents
-`a5e38bc5-ff5d-4365-bdee-f89379bf64b6` and `b3c000ac-fec6-48ba-87e0-1cec1c89ba34`,
-counts_only `1667548f-63ed-4d58-bff0-a1477e978867` and
-`dfbd6b4c-1438-44e9-b69b-313d048f6fcf`, propose_false
-`87550a5a-5149-418b-a056-aa6d0a8372a9` and `a567b9c2-92a1-49b5-b7ef-c623fd51a197`,
-reciprocity `ca442984-d942-4e50-b036-e76b85372074` and
-`de3228ec-9440-4ac1-ac6d-81c2d99976e5` (confirmation, seeds 800-863);
-leaf_opponents `9aef447a-d703-454a-8970-92d463017015` and
-`bddfe32b-940f-4ea0-833f-2c0db3274a3c`, counts_only
-`d4778a73-5587-441c-8cbf-82a53f87d096` and `4efbf0e1-bea3-407f-8f8a-078f649805eb`,
-propose_false `3c661aad-8bcf-48cd-988b-0cbf3c50209d` and
-`001e2f3b-f70e-41b0-b061-247eeb855557`, reciprocity
-`4e7a760b-0fa1-4e5e-8269-aee7f6030105` and `5b23ab6d-1cbc-4e77-82e2-5c281248e7d0`,
-samples8 `82ff6f24-174a-4d2b-babf-fa1a95619589` and
-`75b81db1-c6e6-483b-aafc-8ad707ecc0f4` (population, seeds 800-863, tables
+candidate slot 1): scenarios4 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d6cbff3d-7e92-4f47-bbc9-97da3c2532a9.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/33654a28-86e9-4026-93e2-111b34913669.toml), scenarios16
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/767a4f08-e4d9-48da-83bb-d2e952feaf69.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f650a242-2e6a-4075-a80d-da4ee753441a.toml),
+samples1 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f959a49e-5745-4623-9bb9-e0a43f9ea964.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e4f5ae29-919c-4bd4-83ae-98812ea00bc3.toml), samples8
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/97bd74e0-164b-4d79-bcab-390edc31c129.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/adf4e1c3-f93f-4f7e-9631-bd595a2beb2a.toml),
+inner_scenarios2 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e071b629-8043-4eff-8fb0-ac694cac0f78.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f364cf12-1945-4653-9fe3-8bfa92fe5f38.toml), leaf_opponents
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a20b6abd-d8b6-4f66-b634-5df40495953e.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/face5b0d-d070-4e83-91df-d6fb6ae5ee4b.toml),
+counts_only [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ef501bc5-7196-4ad6-a939-09f00414d771.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b3795b5e-aa62-40be-ad6c-53d075512ecb.toml), propose_false
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e53c45bd-a7ee-4ef8-8772-3780c1cfef31.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1172dcee-95da-44af-a86c-9f5ee0d12fbf.toml),
+reciprocity [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/95aac00b-f396-4a5c-b023-db360692802b.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/495e1a17-5a74-438e-b660-06219ca881c7.toml) (development, seeds 0-63);
+scenarios4 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dcfd9ca5-170f-43a7-a1f0-36117e7c7990.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ee1751fb-ec20-4df1-b402-6d97a405bd0d.toml), scenarios16
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ed82c2ee-5197-4e70-a3e6-ae4a20d64a33.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e5b13479-5578-4810-bd6f-da6b3fb779fb.toml),
+samples1 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/142fdc9a-e4be-4418-9008-5b942dc78daf.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/bfb9bed6-58cd-48c5-aa91-2b029b5c0f9a.toml), samples8
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/449ea466-728b-45e0-a177-9c220e3e8415.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/13a7cf69-526c-4f94-b434-0ee56051a5f8.toml),
+inner_scenarios2 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/25ed5f85-6ab3-4949-80d0-b3bce5237971.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e2445b6e-c49c-4396-85f6-9052f8921028.toml), leaf_opponents
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a5e38bc5-ff5d-4365-bdee-f89379bf64b6.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b3c000ac-fec6-48ba-87e0-1cec1c89ba34.toml),
+counts_only [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1667548f-63ed-4d58-bff0-a1477e978867.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dfbd6b4c-1438-44e9-b69b-313d048f6fcf.toml), propose_false
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/87550a5a-5149-418b-a056-aa6d0a8372a9.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a567b9c2-92a1-49b5-b7ef-c623fd51a197.toml),
+reciprocity [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ca442984-d942-4e50-b036-e76b85372074.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/de3228ec-9440-4ac1-ac6d-81c2d99976e5.toml) (confirmation, seeds 800-863);
+leaf_opponents [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9aef447a-d703-454a-8970-92d463017015.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/bddfe32b-940f-4ea0-833f-2c0db3274a3c.toml), counts_only
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d4778a73-5587-441c-8cbf-82a53f87d096.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4efbf0e1-bea3-407f-8f8a-078f649805eb.toml),
+propose_false [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3c661aad-8bcf-48cd-988b-0cbf3c50209d.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/001e2f3b-f70e-41b0-b061-247eeb855557.toml), reciprocity
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4e7a760b-0fa1-4e5e-8269-aee7f6030105.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5b23ab6d-1cbc-4e77-82e2-5c281248e7d0.toml),
+samples8 [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/82ff6f24-174a-4d2b-babf-fa1a95619589.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/75b81db1-c6e6-483b-aafc-8ad707ecc0f4.toml) (population, seeds 800-863, tables
 baseline slot 2 and eta slot 3); samples8 extension
-`12b83328-8fd5-402f-aa7e-08c8dc8b38fd` and `fbd6fe9d-3771-4e25-bc1f-bf2fb38625bd`
-(L1), `d5cb3195-5a58-460a-bee7-ee62fe907d63` and
-`b16d5306-09ee-4af4-a7fe-e34494197bf0` (L2), leaf_opponents extension
-`e222c91f-2724-4730-8f81-9a1198ca4e1f` and `d46a4f48-401e-49fb-8a93-0dc5b4adeca1`
-(L1), `36817410-f3b0-4dd3-a61f-70bc9676bc06` and
-`4d02ea83-f6e1-4e4b-afd1-24ab954ffcb6` (L2), seeds 864-927. Runs:
-scenarios4 `3fd1468c-b6dd-4034-8dab-8a425db3079e` and `5f7e6a50-7e85-4e43-8748-119c88ead600` (dev), `e17c2088-cd9e-4923-85c6-ac7a7db782c7` and `4a869564-5939-4b99-9157-1871a53b2854` (conf); scenarios16 `9ffe22ba-705b-496a-bfd9-18d071e82176` and `01c56be0-d586-462d-8d8b-eae3e5d034ac` (dev), `1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4` and `193a36f1-343e-444a-a3fd-4fb210c55c73` (conf); samples1 `3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64` and `0c23f762-4fd0-4c97-a117-61d6d4d39d6c` (dev), `aea949f2-a9ff-40b7-b78c-18a74bdb5900` and `4257e948-8124-482c-b5ff-360ca781352e` (conf); samples8 `1af9541e-b1cf-49c7-b093-71709055684a` and `a2a07566-5d0c-4953-b66b-e26082940016` (dev), `464e3582-9583-4ff3-8621-dc6dafd42073` and `5ed30a32-bedf-484b-9670-2f646e6ae913` (conf), `04b9666b-4477-48c6-ad22-92747fd7e511` and `56d05a6f-3628-4621-a1c8-8985a45bf81b` (pop), `ced3c42d-3f59-40bd-8122-23f56a557ee4` and `63a95104-cc5f-477f-b95a-65d3057749a8` (ext L1), `e43faed0-9b9a-4772-9bac-ef48d2f1b16c` and `52b80fa7-ded4-43a8-827c-b31d1f80b08d` (ext L2); inner_scenarios2 `a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd` and `3773648a-3148-4a14-92f2-69879d3ff4d7` (dev), `019bdc02-4c49-4a57-a021-5545de5c5adc` and `9059665a-ea82-41dd-9e4d-3e64c3ad7dc4` (conf); leaf_opponents `b68009d6-968d-4e2f-8cde-1be984c37ee4` and `8871f193-f795-456c-acb9-3e6849fec7f8` (dev), `6c9ee539-341b-4673-bfa0-062f60e967b2` and `42f746df-64c4-4aac-bc21-42d6ec799d96` (conf), `10762c59-7367-415c-8b7a-78c8ca3d5fb0` and `b3be0af1-94db-43ec-b9c7-73f3c04f4398` (pop), `c01c46b1-5822-4179-ab17-97faf8493bf4` and `0727ad04-b9a0-4cd3-bf4e-22d97ba48637` (ext L1), `e491b264-2cd7-40be-a690-9f78954cfbe2` and `2b29cd5c-e3b0-4111-be6b-c27f194d9115` (ext L2); counts_only `23e8de84-c088-47cf-8ac3-4f7566bff28d` and `3a9a4b3d-f801-4bf8-8c77-ad41fe866d36` (dev), `eb6630b3-ff16-422d-b4ee-d72fde52886c` and `10ebea8a-734c-4b3b-bbb8-06ced0391bdf` (conf), `af5fff98-26e9-487e-9242-54a0265169f1` and `4cc39cbd-4028-4826-a430-26fa4859c0b7` (pop); propose_false `9bedb821-45f9-44f0-85a2-e02706d1c8f9` and `e589d911-d674-4a2b-a4a8-d3fa6adbe707` (dev), `c8fd3f5e-4f79-4681-ae3b-f5da3d26957a` and `23391ddb-91aa-4978-b161-687166e32a83` (conf), `4286c659-85ed-41b0-adaf-86fe35693892` and `855d73a2-e67a-4833-aad7-78f676830947` (pop); reciprocity `18e10d4d-881e-4118-8674-22fd6ded30ac` and `7ebf608b-70da-469a-8935-6b9ba8e34355` (dev), `f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9` and `f026e43d-3993-4fcc-b961-522eb34d8d25` (conf), `a87bd827-e165-4301-9bd4-4d3f1d65f8c0` and `b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1` (pop). Reproduce any half with `python3 -m harness.engine run EXPERIMENT --threads 6` and `SETTLERS_SERVER_DIR` at a server worktree; the seat specs are in each registration. Three interrupted duplicates from a scheduling error are retained in the run directory and named in the daily log. Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/12b83328-8fd5-402f-aa7e-08c8dc8b38fd.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/fbd6fe9d-3771-4e25-bc1f-bf2fb38625bd.toml)
+(L1), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d5cb3195-5a58-460a-bee7-ee62fe907d63.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b16d5306-09ee-4af4-a7fe-e34494197bf0.toml) (L2), leaf_opponents extension
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e222c91f-2724-4730-8f81-9a1198ca4e1f.toml) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d46a4f48-401e-49fb-8a93-0dc5b4adeca1.toml)
+(L1), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/36817410-f3b0-4dd3-a61f-70bc9676bc06.toml) and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4d02ea83-f6e1-4e4b-afd1-24ab954ffcb6.toml) (L2), seeds 864-927. Runs:
+scenarios4 [256-game engine cohort](/research/records/runs/3fd1468c-b6dd-4034-8dab-8a425db3079e) and [256-game engine cohort](/research/records/runs/5f7e6a50-7e85-4e43-8748-119c88ead600) (dev), [256-game engine cohort](/research/records/runs/e17c2088-cd9e-4923-85c6-ac7a7db782c7) and [256-game engine cohort](/research/records/runs/4a869564-5939-4b99-9157-1871a53b2854) (conf); scenarios16 [256-game engine cohort](/research/records/runs/9ffe22ba-705b-496a-bfd9-18d071e82176) and [256-game engine cohort](/research/records/runs/01c56be0-d586-462d-8d8b-eae3e5d034ac) (dev), [256-game engine cohort](/research/records/runs/1ce3cb16-3b2e-4311-8b3a-f5a3806d56a4) and [256-game engine cohort](/research/records/runs/193a36f1-343e-444a-a3fd-4fb210c55c73) (conf); samples1 [256-game engine cohort](/research/records/runs/3664eed7-9fd4-44b3-80ce-f5b9b3e5fb64) and [256-game engine cohort](/research/records/runs/0c23f762-4fd0-4c97-a117-61d6d4d39d6c) (dev), [256-game engine cohort](/research/records/runs/aea949f2-a9ff-40b7-b78c-18a74bdb5900) and [256-game engine cohort](/research/records/runs/4257e948-8124-482c-b5ff-360ca781352e) (conf); samples8 [256-game engine cohort](/research/records/runs/1af9541e-b1cf-49c7-b093-71709055684a) and [256-game engine cohort](/research/records/runs/a2a07566-5d0c-4953-b66b-e26082940016) (dev), [256-game engine cohort](/research/records/runs/464e3582-9583-4ff3-8621-dc6dafd42073) and [256-game engine cohort](/research/records/runs/5ed30a32-bedf-484b-9670-2f646e6ae913) (conf), [256-game engine cohort](/research/records/runs/04b9666b-4477-48c6-ad22-92747fd7e511) and [256-game engine cohort](/research/records/runs/56d05a6f-3628-4621-a1c8-8985a45bf81b) (pop), [256-game engine cohort](/research/records/runs/ced3c42d-3f59-40bd-8122-23f56a557ee4) and [256-game engine cohort](/research/records/runs/63a95104-cc5f-477f-b95a-65d3057749a8) (ext L1), [256-game engine cohort](/research/records/runs/e43faed0-9b9a-4772-9bac-ef48d2f1b16c) and [256-game engine cohort](/research/records/runs/52b80fa7-ded4-43a8-827c-b31d1f80b08d) (ext L2); inner_scenarios2 [256-game engine cohort](/research/records/runs/a4d5f35b-edd2-4c5e-ac3e-94e60e96b2fd) and [256-game engine cohort](/research/records/runs/3773648a-3148-4a14-92f2-69879d3ff4d7) (dev), [256-game engine cohort](/research/records/runs/019bdc02-4c49-4a57-a021-5545de5c5adc) and [256-game engine cohort](/research/records/runs/9059665a-ea82-41dd-9e4d-3e64c3ad7dc4) (conf); leaf_opponents [256-game engine cohort](/research/records/runs/b68009d6-968d-4e2f-8cde-1be984c37ee4) and [256-game engine cohort](/research/records/runs/8871f193-f795-456c-acb9-3e6849fec7f8) (dev), [256-game engine cohort](/research/records/runs/6c9ee539-341b-4673-bfa0-062f60e967b2) and [256-game engine cohort](/research/records/runs/42f746df-64c4-4aac-bc21-42d6ec799d96) (conf), [256-game engine cohort](/research/records/runs/10762c59-7367-415c-8b7a-78c8ca3d5fb0) and [256-game engine cohort](/research/records/runs/b3be0af1-94db-43ec-b9c7-73f3c04f4398) (pop), [256-game engine cohort](/research/records/runs/c01c46b1-5822-4179-ab17-97faf8493bf4) and [256-game engine cohort](/research/records/runs/0727ad04-b9a0-4cd3-bf4e-22d97ba48637) (ext L1), [256-game engine cohort](/research/records/runs/e491b264-2cd7-40be-a690-9f78954cfbe2) and [256-game engine cohort](/research/records/runs/2b29cd5c-e3b0-4111-be6b-c27f194d9115) (ext L2); counts_only [256-game engine cohort](/research/records/runs/23e8de84-c088-47cf-8ac3-4f7566bff28d) and [256-game engine cohort](/research/records/runs/3a9a4b3d-f801-4bf8-8c77-ad41fe866d36) (dev), [256-game engine cohort](/research/records/runs/eb6630b3-ff16-422d-b4ee-d72fde52886c) and [256-game engine cohort](/research/records/runs/10ebea8a-734c-4b3b-bbb8-06ced0391bdf) (conf), [256-game engine cohort](/research/records/runs/af5fff98-26e9-487e-9242-54a0265169f1) and [256-game engine cohort](/research/records/runs/4cc39cbd-4028-4826-a430-26fa4859c0b7) (pop); propose_false [256-game engine cohort](/research/records/runs/9bedb821-45f9-44f0-85a2-e02706d1c8f9) and [256-game engine cohort](/research/records/runs/e589d911-d674-4a2b-a4a8-d3fa6adbe707) (dev), [256-game engine cohort](/research/records/runs/c8fd3f5e-4f79-4681-ae3b-f5da3d26957a) and [256-game engine cohort](/research/records/runs/23391ddb-91aa-4978-b161-687166e32a83) (conf), [256-game engine cohort](/research/records/runs/4286c659-85ed-41b0-adaf-86fe35693892) and [256-game engine cohort](/research/records/runs/855d73a2-e67a-4833-aad7-78f676830947) (pop); reciprocity [256-game engine cohort](/research/records/runs/18e10d4d-881e-4118-8674-22fd6ded30ac) and [256-game engine cohort](/research/records/runs/7ebf608b-70da-469a-8935-6b9ba8e34355) (dev), [256-game engine cohort](/research/records/runs/f3d8c4eb-7bcb-4e57-b7a5-a8d52434d1a9) and [256-game engine cohort](/research/records/runs/f026e43d-3993-4fcc-b961-522eb34d8d25) (conf), [256-game engine cohort](/research/records/runs/a87bd827-e165-4301-9bd4-4d3f1d65f8c0) and [256-game engine cohort](/research/records/runs/b7d67993-9f91-4eaf-b0ac-d0b96a8ba0a1) (pop). Reproduce any half with `python3 -m harness.engine run EXPERIMENT --threads 6` and `SETTLERS_SERVER_DIR` at a server worktree; the seat specs are in each registration. Three interrupted duplicates from a scheduling error are retained in the run directory and named in the daily log. Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
 </AgentContext>
 
 [All studies](../approaches/README.md) · [Search under uncertainty](../approaches/search) · [Experiment log](../log/experiments.mdx)
+
+<AgentContext title="Detailed result and cohort context">
+
+Every switch is the depth-2 tables baseline plus one change, measured as a swapped
+pair on the same boards so the arena's seating term cancels. Halving the common
+random dice scenarios to four costs **−0.392 wins per game** (95% interval −0.444
+to −0.339, 128 seeds), collapsing the sampled hidden worlds to one costs
+**−0.109** (−0.150 to −0.069), sampling hands from public counts alone instead of
+the event history costs **−0.143** (−0.188 to −0.097), and never proposing a trade
+costs **−0.172** (−0.211 to −0.133). Scaling the willingness model by each
+partner's observed acceptance rate is the one refuted improvement: **−0.073**
+(−0.115 to −0.031). Doubling scenarios to sixteen changes nothing measurable
+(−0.026, −0.072 to +0.019) for 2.7 times the decision time. Doubling the sampled
+worlds to eight is the one switch that gains strength, **+0.045** (+0.009 to
++0.081) pooled over 192 seeds against the builders, but the gain disappears at a
+table of three searches (−0.007, −0.045 to +0.031) and costs 1.8 times the
+decision time. Leaf-guided opponents read +0.031 (−0.006 to +0.068) over 192
+seeds and +0.033 (−0.009 to +0.075) against the population, positive everywhere
+and resolved nowhere, at 1.8 times the cost. `inner_scenarios` cannot bind at
+depth 2: its halves replayed identical games. Under the hand-written leaf the
+same switches read near zero; the learned leaf makes the search's information
+inputs worth more, not less.
+
+</AgentContext>

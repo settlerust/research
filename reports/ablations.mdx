@@ -1,20 +1,13 @@
 ---
 date: "2026-09-09"
 title: "What each mechanism is worth"
-summary: "Eighteen one-change ablations on identical boards: lookahead and dice scenarios are decisive, single leaf terms and style sliders are worth at most a few games per hundred."
+summary: "Lookahead and dice scenarios dominate the original ablations; the later seating diagnosis limits the smaller single-order contrasts."
 ---
 
 # What each mechanism is worth
 
-<ResearchCallout title="Finding · two levers dominate, one belief mechanism survives, the rest are small">
-On 64 deterministic boards, each played once per seat rotation, removing the
-opponents' round and the next turn (depth 1) cost **−0.324 wins per game**
-(95% interval −0.413 to −0.235) against an unchanged depth-2 control, and
-averaging the round over two dice scenarios instead of eight cost **−0.410**
-(−0.489 to −0.331). Every other single change, whether a leaf term switched
-off or a style slider pushed to its limit, moved the contrast by less than
-0.1 wins per game with an interval that crossed zero; on 192 fresh seeds only
-event-based hand knowledge held up (**−0.066** when removed, −0.125 to −0.008).
+<ResearchCallout title="Keep lookahead and enough dice scenarios">
+Removing lookahead measured <ResultComparison value="-0.324" low="-0.413" high="-0.235" />; using two dice scenarios instead of eight measured <ResultComparison value="-0.410" low="-0.489" high="-0.331" />. Each development arm completed 256 deterministic games. The later [seating diagnosis](arena-seating.mdx) limits the single-order contrasts; fresh-seed confirmation and the smaller effects are below.
 </ResearchCallout>
 
 <ResearchPlot asset="ablation-contrasts-search" />
@@ -36,6 +29,8 @@ configuration, not a proof.
 
 ## The arms
 
+<AgentContext title="Full results and cohort ledger">
+
 | Approach | Change tested | Treatment wins | Control wins | Contrast (95% interval) |
 | --- | --- | ---: | ---: | --- |
 | Search | depth 1: no lookahead | 50 | 133 | −0.324 (−0.413 to −0.235) |
@@ -55,6 +50,8 @@ configuration, not a proof.
 | Containment | aggression slider at 1 | 99 | 94 | +0.020 (−0.084 to +0.123) |
 | Ports | port terms off | 97 | 92 | +0.020 (−0.086 to +0.125) |
 | Tempo | acquisition-time plan term off | 105 | 89 | +0.062 (−0.039 to +0.164) |
+
+</AgentContext>
 
 Each row is 256 games. Removing the plan term did not hurt at depth 2, which
 was unexpected: the card, production, and hand terms already carry most of the
@@ -102,7 +99,7 @@ should do.
 Truthful signals, bluffs, and bounded pliability need messages and a
 recipient that reads them; the fixed builders ignore conversation. Reputation
 has one mechanical proxy, a willingness model that learns each partner's
-acceptance rate from the public trade record. Its arm (run `7c17e2c7-a140-4fe5-b055-68bdea33ea60`) changed the
+acceptance rate from the public trade record. Its arm ([256-game engine cohort](/research/records/runs/7c17e2c7-a140-4fe5-b055-68bdea33ea60)) changed the
 contrast by -0.031 wins per game (95% interval -0.125 to +0.063):
 against builders that accept by a fixed rule there is nothing to learn, so the
 test needs a reciprocal opponent.
@@ -114,33 +111,46 @@ Engine-arena registrations under the approach studies, all with
 `deterministic = true`, seeds 0 to 63, four rotations, treatment slot 0
 `v2:{...one change...}`, control slot 1
 `v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}`, then `eta` and
-`fast`. Run IDs: opening `47db0437-fcc8-4bce-be06-57c2caadf5f9`, tempo
-`d4472a6a-7480-43c5-a045-bd23cc41f944`, expansion
-`52198182-e594-45d0-b71a-71c6f90835e4`, ports
-`03b1a60e-01fb-4a0f-85a6-db7c83a98472`, beliefs (event knowledge)
-`165fc976-0cb1-40af-a17b-14911bbdcc89`, beliefs (sampled worlds)
-`e5e7218e-5a00-4689-842d-01228f1bca19`, search (lookahead)
-`7586d662-410e-413b-a6d6-b1f8386ff39e`, search (scenarios)
-`917f7901-15a9-410f-b8f5-314a8041ab5b`, risk (exposure term)
-`0b9e852a-cc87-4d37-8694-ef01545b677e`, risk (slider)
-`d611102f-d5c0-4828-9131-1e746844ff65`, development (terms)
-`3fdce968-dd9a-4bba-9698-79bee17b6d28`, development (slider)
-`e2b45621-eead-4c98-ade1-8113ced106f5`, bargaining (proposals off)
-`0e7068ca-536d-4c35-a77c-e37f55119639`, bargaining (trade slider)
-`7ff05cd9-d1d7-477a-8386-f49ddefba3be`, containment (terms)
-`49df8c4e-96e9-497f-80ce-d8dd9ed19302`, containment (slider)
-`c4427fe6-e074-4598-83cc-aa2e4a0dc283`, adaptation
-`3807570d-117b-4b6f-b0c4-86b77767b6f5`, cross-play
-`729fc30f-edaa-4120-829d-125e68825e66`. Reproduce any arm with
+`fast`. Run IDs: opening [256-game engine cohort](/research/records/runs/47db0437-fcc8-4bce-be06-57c2caadf5f9), tempo
+[256-game engine cohort](/research/records/runs/d4472a6a-7480-43c5-a045-bd23cc41f944), expansion
+[256-game engine cohort](/research/records/runs/52198182-e594-45d0-b71a-71c6f90835e4), ports
+[256-game engine cohort](/research/records/runs/03b1a60e-01fb-4a0f-85a6-db7c83a98472), beliefs (event knowledge)
+[256-game engine cohort](/research/records/runs/165fc976-0cb1-40af-a17b-14911bbdcc89), beliefs (sampled worlds)
+[256-game engine cohort](/research/records/runs/e5e7218e-5a00-4689-842d-01228f1bca19), search (lookahead)
+[256-game engine cohort](/research/records/runs/7586d662-410e-413b-a6d6-b1f8386ff39e), search (scenarios)
+[256-game engine cohort](/research/records/runs/917f7901-15a9-410f-b8f5-314a8041ab5b), risk (exposure term)
+[256-game engine cohort](/research/records/runs/0b9e852a-cc87-4d37-8694-ef01545b677e), risk (slider)
+[256-game engine cohort](/research/records/runs/d611102f-d5c0-4828-9131-1e746844ff65), development (terms)
+[256-game engine cohort](/research/records/runs/3fdce968-dd9a-4bba-9698-79bee17b6d28), development (slider)
+[256-game engine cohort](/research/records/runs/e2b45621-eead-4c98-ade1-8113ced106f5), bargaining (proposals off)
+[256-game engine cohort](/research/records/runs/0e7068ca-536d-4c35-a77c-e37f55119639), bargaining (trade slider)
+[256-game engine cohort](/research/records/runs/7ff05cd9-d1d7-477a-8386-f49ddefba3be), containment (terms)
+[256-game engine cohort](/research/records/runs/49df8c4e-96e9-497f-80ce-d8dd9ed19302), containment (slider)
+[256-game engine cohort](/research/records/runs/c4427fe6-e074-4598-83cc-aa2e4a0dc283), adaptation
+[256-game engine cohort](/research/records/runs/3807570d-117b-4b6f-b0c4-86b77767b6f5), cross-play
+[256-game engine cohort](/research/records/runs/729fc30f-edaa-4120-829d-125e68825e66). Reproduce any arm with
 `just engine-run EXPERIMENT`; the forest plot comes from
 `analysis/ablation_assets.py`. Server commit `36c6899` carries the
 deterministic mode and ablation switches. Attribution: Claude Fable 5.1
 (claude-fable-5-1) through Claude Code. Confirmation runs: tempo
-`b4d274b1-d42c-44cb-bb54-25bfa331f346`, expansion
-`0ea66d80-04a1-470f-b6dc-384cf6f1dde6`, beliefs (event knowledge)
-`9fa439db-c29a-446b-94ea-147bae23e473`, beliefs (sampled worlds)
-`5b5b528d-de10-4a20-921f-68f1b286d6e9`, risk (slider)
-`837c9293-5996-49d1-8d1f-019c2dd395ee`, bargaining (trade slider)
-`1bfc00f0-05ed-4635-b499-69cb50bc4c80`; reciprocity
-`7c17e2c7-a140-4fe5-b055-68bdea33ea60`.
+[768-game engine cohort](/research/records/runs/b4d274b1-d42c-44cb-bb54-25bfa331f346), expansion
+[768-game engine cohort](/research/records/runs/0ea66d80-04a1-470f-b6dc-384cf6f1dde6), beliefs (event knowledge)
+[768-game engine cohort](/research/records/runs/9fa439db-c29a-446b-94ea-147bae23e473), beliefs (sampled worlds)
+[768-game engine cohort](/research/records/runs/5b5b528d-de10-4a20-921f-68f1b286d6e9), risk (slider)
+[768-game engine cohort](/research/records/runs/837c9293-5996-49d1-8d1f-019c2dd395ee), bargaining (trade slider)
+[768-game engine cohort](/research/records/runs/1bfc00f0-05ed-4635-b499-69cb50bc4c80); reciprocity
+[256-game engine cohort](/research/records/runs/7c17e2c7-a140-4fe5-b055-68bdea33ea60).
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+On 64 deterministic boards, each played once per seat rotation, removing the
+opponents' round and the next turn (depth 1) cost **−0.324 wins per game**
+(95% interval −0.413 to −0.235) against an unchanged depth-2 control, and
+averaging the round over two dice scenarios instead of eight cost **−0.410**
+(−0.489 to −0.331). Every other single change, whether a leaf term switched
+off or a style slider pushed to its limit, moved the contrast by less than
+0.1 wins per game with an interval that crossed zero; on 192 fresh seeds only
+event-based hand knowledge held up (**−0.066** when removed, −0.125 to −0.008).
+
 </AgentContext>

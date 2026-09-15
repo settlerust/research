@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "A small hand-written contribution helps at both tables",
+  "evidence": "measured",
+  "source": "Source: reports/leaf-blend.mdx, The blend arms; analysis/tables_retest.py. After-the-fact pools of seating-corrected swapped pairs over 192 L1 boards and 128 L2 boards, four rotations in each half, all cohorts 256 of 256 completed. 95% intervals over boards. Full-strength partial/withdrawn runs and unregistered screens are excluded from this figure and retained in the report.",
+  "caption": "Only quarter strength has pooled intervals above zero at both tables.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 1,
+    "ticks": [
+      "Quarter strength",
+      "Half strength"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.09,
+    "max": 0.13
+  },
+  "series": [
+    {
+      "label": "Builders: 192 boards",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.066,
+          "low": 0.024,
+          "high": 0.107
+        },
+        {
+          "x": 1,
+          "y": 0.016,
+          "low": -0.024,
+          "high": 0.057
+        }
+      ]
+    },
+    {
+      "label": "Population: 128 boards",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.064,
+          "low": 0.021,
+          "high": 0.108
+        },
+        {
+          "x": 1,
+          "y": -0.019,
+          "low": -0.064,
+          "high": 0.027
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

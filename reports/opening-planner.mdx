@@ -1,23 +1,16 @@
 ---
 date: "2026-09-11"
 title: "A draft-aware opening planner, calibrated to the leaf"
-summary: "Scoring the two setup sites as a portfolio and predicting the draft matches the search's own placement in strength once the valuation uses the leaf's currency, and explains every placement; a player's sense of balance lost thirty points until it did, and the apparent gain over the search was seating."
+summary: "Calibration repairs the pip-based planner, but its apparent advantage disappears when both seatings are measured."
 ---
 
 # A draft-aware opening planner, calibrated to the leaf
 
-<ResearchCallout title="Finding · the currency decides; the planner matches the search, it does not beat it">
-On 64 deterministic boards played once per seat rotation, a planner that
-valued setup sites in pips with a player's sense of balance lost to the
-search's own placement by **−0.301 wins per game** (95% interval −0.414 to
-−0.188). Calibrated to the leaf's resource values, with its structural terms
-shrunk to tie-breakers and its discrete strategies switched off, it appeared
-to win by +0.09 to +0.12 in single-seating screens and by +0.062 on fresh
-boards. Measured in both seatings on 128 boards, that gain is seating: the
-planner effect is **−0.017 wins per game** (−0.075 to +0.042) and the seating
-term +0.063 (+0.008 to +0.119). The planner is as strong as the search's
-placement, and unlike it every placement is balanced and explained.
+<ResearchCallout title="Calibration repaired the planner; a gain was not confirmed">
+The initial pip-based planner lost <ResultComparison value="-0.301" low="-0.414" high="-0.188" />. Calibrating it to the leaf produced <ResultComparison value="-0.017" low="-0.075" high="0.042" /> in swapped pairs on 128 boards. The apparent single-seating gains were seating effects; the calibrated planner gives explained portfolio choices with no measured strength difference.
 </ResearchCallout>
+
+<ResearchPlot asset="opening-planner-corrected-effects" />
 
 ## What changed
 
@@ -65,8 +58,8 @@ with the default at zero.
 
 ## Registered cohorts
 
-Experiment `d1bdca03-d27f-475c-b1ee-a8caf70937fe`, run
-`08fdd9a7-6e0a-4e2a-a1cc-8124294feae2`, boards 64 to 127, four rotations, all
+The [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d1bdca03-d27f-475c-b1ee-a8caf70937fe.toml), run
+[256-game engine cohort](/research/records/runs/08fdd9a7-6e0a-4e2a-a1cc-8124294feae2), boards 64 to 127, four rotations, all
 256 games complete: planner in slot 0, 110 wins (43.0%); previous placement in
 slot 1, 94 (36.7%); paired contrast +0.062 (−0.036 to +0.161). The registered
 rule asked for an interval excluding zero and was not met.
@@ -103,10 +96,25 @@ Screens were run with `cargo run --release -p settlers-arena --bin tournament
 -- --seat 'v2:{"depth":2,"opening_weights":{...}}' --seat
 'v2:{"depth":2,"opening":"search"}' --seat eta --seat fast --seeds 0-63
 --rotations 4 --deterministic` and are not filed as records. The confirmation
-is filed under `records/runs/08fdd9a7-6e0a-4e2a-a1cc-8124294feae2.md`; the
-swapped pairs are runs `b698064e-39e8-4d73-9844-ac3d5afefce6`,
-`da0b1591-e74e-4e56-96b1-1ece9b37900f`, `5e3c4985-251d-441f-bea8-512dfe3224b4`,
-and `d89ea4de-913b-4255-af42-ba2f18309e87` under the same study. The
+is filed under [256-game engine cohort](/research/records/runs/08fdd9a7-6e0a-4e2a-a1cc-8124294feae2); the
+swapped pairs are runs [256-game engine cohort](/research/records/runs/b698064e-39e8-4d73-9844-ac3d5afefce6),
+[256-game engine cohort](/research/records/runs/da0b1591-e74e-4e56-96b1-1ece9b37900f), [256-game engine cohort](/research/records/runs/5e3c4985-251d-441f-bea8-512dfe3224b4),
+and [256-game engine cohort](/research/records/runs/d89ea4de-913b-4255-af42-ba2f18309e87) under the same study. The
 planner's terms and settings are documented in the server's
 `docs/expectimax.md` under Opening placement.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+On 64 deterministic boards played once per seat rotation, a planner that
+valued setup sites in pips with a player's sense of balance lost to the
+search's own placement by **−0.301 wins per game** (95% interval −0.414 to
+−0.188). Calibrated to the leaf's resource values, with its structural terms
+shrunk to tie-breakers and its discrete strategies switched off, it appeared
+to win by +0.09 to +0.12 in single-seating screens and by +0.062 on fresh
+boards. Measured in both seatings on 128 boards, that gain is seating: the
+planner effect is **−0.017 wins per game** (−0.075 to +0.042) and the seating
+term +0.063 (+0.008 to +0.119). The planner is as strong as the search's
+placement, and unlike it every placement is balanced and explained.
+
 </AgentContext>

@@ -27,7 +27,7 @@ Use an event-aligned trajectory showing the concession, later offers, acceptance
 
 ## First ablation
 
-Scaling modeled willingness by each partner's observed acceptance rate changed the contrast by -0.031 wins per game (95% interval -0.125 to +0.063) on 64 deterministic boards (90 treatment wins against 98): against builders that accept by a fixed deficit rule, learning who accepts does not pay. A reciprocal opponent is the missing ingredient, and the fixed builders cannot supply it. Run `7c17e2c7-a140-4fe5-b055-68bdea33ea60`; see the [ablation report](../../reports/ablations.mdx).
+Scaling modeled willingness by each partner's observed acceptance rate changed the contrast by -0.031 wins per game (95% interval -0.125 to +0.063) on 64 deterministic boards (90 treatment wins against 98): against builders that accept by a fixed deficit rule, learning who accepts does not pay. A reciprocal opponent is the missing ingredient, and the fixed builders cannot supply it. [256-game engine cohort](/research/records/runs/7c17e2c7-a140-4fe5-b055-68bdea33ea60); see the [ablation report](../../reports/ablations.mdx).
 
 ## What could disprove it
 
@@ -49,8 +49,12 @@ Try the [pliability laboratory](../pliability/README.mdx) to see an explicit toy
 
 ## Tracked investigations
 
+<AgentContext title="Study findings and next steps">
+
 | Updated | Investigation | Status | Finding and next step |
 | --- | --- | --- | --- |
 | 2026-09-09 | [Learning who accepts](/research/approaches/reputation) | Active | Round one, 256 deterministic games: contrast -0.031 (interval -0.125 to +0.063); no effect against fixed builders. Next: Test reciprocity against an opponent whose acceptance depends on history, for example a second search seat with the same model. [Log 2026-09-09](/research/log/2026-09-09) |
+
+</AgentContext>
 
 [research-studies:end]: #

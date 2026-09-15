@@ -1,24 +1,16 @@
 ---
 date: "2026-09-11"
 title: "Hand-size risk: spending down, projected discards, and the risk weight"
-summary: "Three discard-risk mechanisms for the tunable search, measured against the unchanged depth-2 control on deterministic boards: every single-seating contrast is the size of the turn-order seating term, and the one swapped pair corrects to zero. No default changes."
+summary: "Projected discards become inconclusive after correcting seating; the other hand-risk changes do not justify new defaults."
 ---
 
 # Hand-size risk: spending down, projected discards, and the risk weight
 
-<ResearchCallout title="Finding · nothing beyond the turn-order seating term">
-The tunable search prices discard exposure with a leaf term (`hand_risk`) and
-ranks discards by the build cards they keep. Three hypotheses were tested as
-one-change arms against the unchanged depth-2 control: spending down when the
-hand passes the discard limit (`spend_down` adds bank trades and roads chosen
-only to shed cards), ranking discards by the target they preserve after the
-next expected production (`discard_projection`), and moving the `hand_risk`
-weight to 0, 2, or 4. The single-seating contrasts were +0.066 to +0.129 wins
-per game, the size of the seating term between two adjacent searches on these
-boards. The best arm, `discard_projection`, was re-measured as a swapped pair
-and corrects to **−0.029 wins per game** (95% interval −0.073 to +0.015).
-Nothing here pays; every default stays.
+<ResearchCallout title="Changing hand management did not confirm a gain">
+The strongest initial arm, projected discards, became <ResultComparison value="-0.029" low="-0.073" high="0.015" /> after measuring both seatings on the same 64 development boards. Spending down and changing the hand-risk weight had only single-seating gains. Keep the existing defaults; the diagnostics below show how behavior changed.
 </ResearchCallout>
+
+<ResearchPlot asset="hand-management-corrected" />
 
 ## The three mechanisms
 
@@ -103,18 +95,18 @@ five arms and +0.219 for a control-against-control pair on the same boards:
 they overstated everything and were the reason the seating question came up in
 this study. The switches remain in the search, off by default, documented in
 `docs/expectimax.md`. A protocol smoke of both switches together (run
-`1b8775f4`) completed four of four games; it is a plumbing check, not
+[4-game protocol cohort](/research/records/runs/1b8775f4-f51c-45f2-b3b8-ee30590aee96)) completed four of four games; it is a plumbing check, not
 evidence.
 
 <AgentContext>
 
 Candidate and control seats are `v2:{"depth":2}` plus the named switch or
-weight. Registrations and runs, all boards 0-63 deterministic: `47486c2e` /
-`901f81f4` (spend_down), `d09eaccb` / `dd2a5d1f` (discard_projection),
-`a78e5220` / `2bae826e` (hand_risk 0), `e79ff8a3` / `2f8fae6e` (hand_risk 2),
-`1a506239` / `af6fcb03` (hand_risk 4), and `945e89c0` / `43215190`
+weight. Registrations and runs, all boards 0-63 deterministic: [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/47486c2e-9555-4c4f-a444-7a0097dce271.toml) /
+[256-game engine cohort](/research/records/runs/901f81f4-922e-4de7-8269-f78f342f362b) (spend_down), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d09eaccb-ab3b-4d1f-9b2e-904cf4cf89e9.toml) / [256-game engine cohort](/research/records/runs/dd2a5d1f-f204-4389-9e89-5acb6f97932f) (discard_projection),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a78e5220-68c6-4726-a1cc-3a6849ac19f6.toml) / [256-game engine cohort](/research/records/runs/2bae826e-cea8-4de8-b39f-a72efcdebf55) (hand_risk 0), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e79ff8a3-f22e-4590-b9cc-67e17a2b0c20.toml) / `2f8fae6e` (hand_risk 2),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1a506239-e401-4340-a08c-8c948248fc30.toml) / [256-game engine cohort](/research/records/runs/af6fcb03-64fb-4aaf-9639-d1ccaad5f1a3) (hand_risk 4), and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/945e89c0-4928-421b-82d3-f003526cb7ed.toml) / [256-game engine cohort](/research/records/runs/43215190-c80d-44e6-a8d5-e922c344392c)
 (discard_projection, swapped seats). The pair's decision rule is in
-registration `945e89c0`; per the seating report the effect is half the
+registration [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/945e89c0-4928-421b-82d3-f003526cb7ed.toml); per the seating report the effect is half the
 per-board difference of the two slot-0-minus-slot-1 contrasts and the seating
 term half their sum, with 95% intervals over boards. All runs used server
 commit `9980af2` (branch `research/risk`), which predates the rotating
@@ -123,5 +115,21 @@ the pair cancels it regardless. The arena counted `turns_over_limit` from this
 study onward; older records lack the field. `python3
 analysis/hand_management.py` recomputes every number and the plot asset from
 the retained run folders.
+
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+The tunable search prices discard exposure with a leaf term (`hand_risk`) and
+ranks discards by the build cards they keep. Three hypotheses were tested as
+one-change arms against the unchanged depth-2 control: spending down when the
+hand passes the discard limit (`spend_down` adds bank trades and roads chosen
+only to shed cards), ranking discards by the target they preserve after the
+next expected production (`discard_projection`), and moving the `hand_risk`
+weight to 0, 2, or 4. The single-seating contrasts were +0.066 to +0.129 wins
+per game, the size of the seating term between two adjacent searches on these
+boards. The best arm, `discard_projection`, was re-measured as a swapped pair
+and corrects to **−0.029 wins per game** (95% interval −0.073 to +0.015).
+Nothing here pays; every default stays.
 
 </AgentContext>

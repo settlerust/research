@@ -4,7 +4,7 @@ Write ordinary Markdown or MDX in `README.md`, `docs/`, `approaches/`, `reports/
 or `log/`. The site maps `approaches/example/README.mdx` to
 `/research/approaches/example` and `reports/example.mdx` to
 `/research/reports/example`. Relative links to Markdown documents are rewritten
-to their site routes. Frontmatter supplies `title` and `summary`. Experiment reports also require a quoted `date: "YYYY-MM-DD"`. Navigation lists experiments from earliest to latest and reveals later entries with Show more. Run records stay available for linked reproduction notes but are excluded from browsing and search.
+to their site routes. Frontmatter supplies `title` and `summary`. Experiment reports also require a quoted `date: "YYYY-MM-DD"`. The [experiment timeline](/research/experiments) lists all reports newest first, with compact previews drawn from their first recorded chart or plot. Run records stay available for linked reproduction notes but are excluded from browsing and search.
 
 Use the project’s `settlers-writing-style` skill for research prose and captions. Code fences should name their language (`python`, `sh`, `rust`, `json`, or `mdx`). Shiki highlights them during server rendering; unknown languages remain plain text. Inline code keeps its compact style.
 
@@ -148,3 +148,53 @@ After a release, verify the changed experiment and approach routes. Report the
 research commit, release status, and verified URL, or clearly state that the work
 is locally validated and awaiting its release. Existing user authorization governs
 commit, push, and deployment; generating a report does not imply any of them.
+
+## Inline results and the experiment timeline
+
+Use counts to give a win rate a visible denominator. Comparisons use differences
+in wins per game, with their recorded 95% interval:
+
+```mdx
+<WinRate value="46" total="80" label="Learned leaf" />
+<ResultComparison value="0.066" low="0.024" high="0.107" />
+```
+
+These examples come from the learned-leaf protocol cohort and the quarter-blend
+engine comparison respectively; they are different experiments. Keep the source,
+lineup, completed denominator, and any failures in the surrounding explanation.
+The comparison is green only when the whole interval is above zero, red when it
+is below, and gray when it includes zero. Focus or hover to read the interval.
+All numeric props are quoted literals; the validator rejects impossible counts
+and intervals. A percentage is descriptive, not a significance test.
+
+`<ExperimentTimeline />` loads every report, sorted by its publication date with
+title as the tie-breaker. Its preview uses the first recorded chart or measured
+non-heatmap plot in the report; illustrative fixtures never become result previews.
+Each preview labels its units and shows at most three comparisons. Search filters
+titles and summaries. Reports without charts still appear. Keep frontmatter
+summaries short enough to explain the finding in one or two sentences.
+
+`<ResearchWorkflow />` shows the client/server observation loop. Use
+`<AgentContext title="Methods and reproduction">` to keep commands, audits,
+and detailed study ledgers available without interrupting the main explanation.
+The client guide lives at `/research/client`; the old experiment-log address
+redirects to `/research/experiments`.
+
+## Readable links and previews
+
+Give run links a useful label such as [the 80-game protocol cohort](/research/records/runs/de39917c-55da-40ad-a53a-5b8588898810).
+The UUID belongs in the destination, never in the visible label. The same rule
+applies to experiment registrations and audit tables. Keep exact IDs in command
+arguments only where needed to reproduce a run, inside `AgentContext`.
+
+Internal research links show a short summary on hover or keyboard focus. Run
+previews include status and planned, completed, incomplete, and unplayed counts;
+approach previews use the page's title and summary. Links to a heading show that
+section's explanation. First prose mentions of the common terms in
+[Research concepts](concepts.md) receive definition links automatically.
+Escape dismisses the preview. Clicking or tapping still opens the destination.
+External links keep their normal behavior and do not fetch third-party previews.
+
+Older chart assets keep their original IDs and hashes for verification; the
+renderer presents known run identifiers as readable record links. The full run
+page keeps the original record behind a provenance disclosure.

@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Endgame effects after measuring both seatings",
+  "evidence": "measured",
+  "source": "Source: reports/endgame-race.mdx, The swapped pairs; analysis/seating_pair.py. Study containment/endgame-seating, three pairs on boards 64\u2013127, each half 256 of 256 games completed. The per-board half-difference removes seating; intervals are 95%.",
+  "caption": "All three corrected intervals cross zero on the 64 fresh boards.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Race leaf",
+      "Hidden points",
+      "Leader bias"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.05,
+    "max": 0.07
+  },
+  "series": [
+    {
+      "label": "Fresh boards: seating-corrected",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.018,
+          "low": -0.018,
+          "high": 0.053
+        },
+        {
+          "x": 1,
+          "y": 0.006,
+          "low": -0.03,
+          "high": 0.041
+        },
+        {
+          "x": 2,
+          "y": 0.012,
+          "low": -0.018,
+          "high": 0.041
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

@@ -1,27 +1,20 @@
 ---
 date: "2026-09-09"
 title: "The learned leaf through the protocol arena"
-summary: "With the n-tuple tables as its leaf, the baseline's own search won 46 of 80 authoritative games against 25 for expectimax-v2-plan on deterministic paired seeds; the registered rule is met and the protocol baseline changes."
+summary: "The learned leaf wins 46 of 80 authoritative games against 25 for the same search with hand-written terms and becomes the baseline."
 ---
 
 # The learned leaf through the protocol arena
 
-<ResearchCallout title="Finding · the tables beat the protocol baseline, and become it">
-Through the authoritative server, on 20 deterministic seeds each played once
-per rotation of the four slots, `ntuple-leaf` (the `expectimax-v2-plan` search
-at depth 3 under 1.5 s with the learned hex plus portfolio tables as its leaf)
-won **46 of 80 games (57.5%)**; `expectimax-v2-plan` itself won **25
-(31.2%)**, the ETA builder 5 and the fast builder 4. The paired per-seed
-contrast is **+0.263 wins per game** (95% interval +0.094 to +0.431). All 80
-games completed validly with no timeout move, so the registered rule is met
-and `ntuple-leaf` is the new protocol-arena baseline.
+<ResearchCallout title="The learned leaf became the protocol baseline">
+With the search held fixed, the learned leaf won <WinRate value="46" total="80" label="ntuple-leaf" /> against <WinRate value="25" total="80" label="expectimax-v2-plan" />. All 80 games on 20 deterministic seeds completed validly without timeout moves. The paired effect, <ResultComparison value="0.263" low="0.094" high="0.431" />, met the registered rule.
 </ResearchCallout>
 
 <ResearchChart asset="ntuple-leaf-protocol-wins" />
 
 ## What was registered
 
-Experiment `a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9` was registered under
+The [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9.toml) was registered under
 `patterns/ntuple-leaf` before the candidate was frozen: the frozen tables at
 `artifacts/ntuple/hex-portfolio-main.bin` as the leaf of the baseline's exact
 search configuration (depth 3, 1.5 s budget, 8 scenarios, 4 sampled worlds) in
@@ -30,7 +23,7 @@ seeds 320 to 339 in deterministic mode, 80 games. The rule: all games complete
 validly with no server timeout moves; support only if the 95% interval of the
 paired per-seed win difference between slots 0 and 1 lies above zero.
 
-Run `e861616e-8100-43e6-a8d3-39047b5b6669` played all 80 with twelve matches in
+[80-game protocol cohort](/research/records/runs/e861616e-8100-43e6-a8d3-39047b5b6669) played all 80 with twelve matches in
 flight. The two searches ran as separate `remote` processes against the server
 and saw only their own seated view and event history; the tables were loaded
 from the file named in the policy registry, whose SHA-256
@@ -66,4 +59,19 @@ negotiating opponents or to play against humans. The tables decide more slowly
 than the hand-written leaf under the same budget, which the 1.5 s cap absorbs
 at depth 3 but which would matter under a tighter deadline.
 
-[Run record](/research/records/runs/e861616e-8100-43e6-a8d3-39047b5b6669) · Public frame source SHA-256: `20d74cd3af2c892ed69591e1c0479164c3bb76762bddc7ca15ac8a519955902c`.
+[Run record](/research/records/runs/e861616e-8100-43e6-a8d3-39047b5b6669)
+
+<AgentContext title="Detailed result and cohort context">
+
+Public frame source SHA-256: `20d74cd3af2c892ed69591e1c0479164c3bb76762bddc7ca15ac8a519955902c`.
+
+Through the authoritative server, on 20 deterministic seeds each played once
+per rotation of the four slots, `ntuple-leaf` (the `expectimax-v2-plan` search
+at depth 3 under 1.5 s with the learned hex plus portfolio tables as its leaf)
+won **46 of 80 games (57.5%)**; `expectimax-v2-plan` itself won **25
+(31.2%)**, the ETA builder 5 and the fast builder 4. The paired per-seed
+contrast is **+0.263 wins per game** (95% interval +0.094 to +0.431). All 80
+games completed validly with no timeout move, so the registered rule is met
+and `ntuple-leaf` is the new protocol-arena baseline.
+
+</AgentContext>

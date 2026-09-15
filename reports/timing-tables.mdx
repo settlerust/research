@@ -1,28 +1,16 @@
 ---
 date: "2026-09-11"
 title: "Development-card timing under the learned leaf"
-summary: "The three development-card timing switches re-measured against the learned tables leaf as swapped pairs: restricting purchases to stalled turns costs about 0.04 wins per game, holding knights for the unblock costs about 0.035, and the shaped knight schedule is worth nothing on the quarter blend. All three stay off."
+summary: "Restricting card purchases and knight plays loses in pooled stages; the knight-value schedule on the quarter blend is inconclusive."
 ---
 
 # Development-card timing under the learned leaf
 
-<ResearchCallout title="Finding · the two timing rules lose under the tables; the knight schedule is worth nothing on a usable blend">
-The three development-card switches of the [earlier timing
-study](knight-timing.mdx), which corrected to zero under the hand-written
-leaf, were re-measured against the learned tables leaf as swapped pairs on
-deterministic boards. The tables buy about 4.9 development cards per game
-against the hand leaf's 2.6, and the switches that second-guess that appetite
-now cost wins. `buy_tempo` (a purchase only when no build is affordable within
-the next own turn) reads **−0.043 wins per game** (95% interval −0.076 to
-−0.009) over the 192 boards of all three stages, an after-the-fact pooling.
-`hold_knight` (a main-phase knight play only when the robber blocks this
-seat's best hex) reads **−0.035** (−0.062 to −0.009). `knight_play_value`
-(the shaped knight schedule, a leaf term measured on the quarter blend of
-tables plus hand-written terms) reads **+0.001** (−0.016 to +0.017). On the
-full blend the same switch corrects to **+0.109** (+0.055 to +0.164) on the
-development boards, but the full blend itself loses 0.2 wins per game to the
-tables alone, so that reading does not transfer. No default changes.
+<ResearchCallout title="The timing restrictions lose; the knight schedule is inconclusive">
+After pooling the three stages, buying only when stalled measured <ResultComparison value="-0.043" low="-0.076" high="-0.009" />, and holding knights measured <ResultComparison value="-0.035" low="-0.062" high="-0.009" />. The knight-value schedule on the quarter blend measured <ResultComparison value="0.001" low="-0.016" high="0.017" />. These pools cover 192 boards across two lineups; no default changes.
 </ResearchCallout>
+
+<ResearchPlot asset="timing-tables-effects" />
 
 ## Design
 
@@ -51,8 +39,6 @@ first: the blended leaf dropped the `knight_play_value` flag, which would have
 made the switch inert under any blend; the blend now evaluates the hand
 terms with the flag, pinned by a test in the server's development suite.
 
-<ResearchPlot asset="timing-tables-effects" />
-
 ## The pairs
 
 Every half completed 256 of 256 games. The contrast columns give each half's
@@ -62,16 +48,16 @@ the switch loses.
 
 | Switch | Stage | Half A (run) | Half B (run) | Effect (95% interval) |
 | --- | --- | --- | --- | --- |
-| `buy_tempo` | development | +0.016 (−0.078 to +0.109), `f97d8683-79fd-4109-a1ef-7b106f8b3956` | +0.137 (+0.050 to +0.223), `176f12e2-d391-4402-9b7a-7fa5cc470570` | **−0.061 (−0.115 to −0.006)** |
-| `buy_tempo` | confirmation | +0.070 (−0.022 to +0.163), `3292674f-249b-44d7-967c-5481ac3045f1` | +0.082 (−0.024 to +0.188), `a86a5e49-0165-4c3d-ac6a-1a301a4cc496` | −0.006 (−0.070 to +0.058) |
-| `buy_tempo` | population | −0.094 (−0.178 to −0.010), `ea42e55d-da88-4794-a3b7-08c580473ee8` | +0.012 (−0.072 to +0.095), `64bbd775-5639-4bfe-bd5f-b0bcb0cef057` | −0.053 (−0.110 to +0.004) |
-| `hold_knight` | development | +0.062 (−0.023 to +0.148), `c5ffb6cf-45d1-48a1-a2d8-3b2fa3be7666` | +0.121 (+0.027 to +0.216), `4a18f4f2-f9cf-4f33-97e6-26e471bf6654` | −0.029 (−0.071 to +0.013) |
-| `hold_knight` | confirmation | +0.035 (−0.066 to +0.136), `30180b9b-3de5-46d8-ae0e-30e259e21c4d` | +0.086 (−0.024 to +0.196), `e6c5fbd4-7f3d-4639-a41e-caac6e6c9022` | −0.025 (−0.076 to +0.026) |
-| `hold_knight` | population | −0.086 (−0.171 to −0.001), `873ab9ef-b922-498b-84d4-17f28380a5fa` | +0.016 (−0.070 to +0.101), `08636046-1590-4736-be1a-7b1fe0b5e018` | **−0.051 (−0.098 to −0.004)** |
-| `knight_play_value`, quarter blend | development | +0.133 (+0.035 to +0.231), `d493c5b4-e8fa-4e07-84f3-83d995d73d53` | +0.137 (+0.040 to +0.234), `8a8b0ffb-2e38-4252-913f-06496c939ff0` | −0.002 (−0.031 to +0.027) |
-| `knight_play_value`, quarter blend | confirmation | +0.105 (−0.004 to +0.214), `8263d242-7450-4e05-a2c3-7483c2d527a2` | +0.105 (−0.009 to +0.220), `e3fc4a9c-0e3b-4700-9dfe-1bd58c317c26` | +0.000 (−0.028 to +0.028) |
-| `knight_play_value`, quarter blend | population | +0.043 (−0.038 to +0.124), `a6afd7a8-248a-4e0f-a4db-b2ca75d8ee31` | +0.035 (−0.052 to +0.122), `5046ec2d-3835-42f5-9fc0-3ea829bbafeb` | +0.004 (−0.026 to +0.034) |
-| `knight_play_value`, full blend | development | +0.125 (+0.013 to +0.237), `b41de3cf-c42a-4b0a-b37d-065d7c1e1c1b` | −0.094 (−0.207 to +0.019), `41c8da11-f31a-440a-a1ee-61737f4439c7` | **+0.109 (+0.055 to +0.164)** |
+| `buy_tempo` | development | +0.016 (−0.078 to +0.109), [256-game engine cohort](/research/records/runs/f97d8683-79fd-4109-a1ef-7b106f8b3956) | +0.137 (+0.050 to +0.223), [256-game engine cohort](/research/records/runs/176f12e2-d391-4402-9b7a-7fa5cc470570) | **−0.061 (−0.115 to −0.006)** |
+| `buy_tempo` | confirmation | +0.070 (−0.022 to +0.163), [256-game engine cohort](/research/records/runs/3292674f-249b-44d7-967c-5481ac3045f1) | +0.082 (−0.024 to +0.188), [256-game engine cohort](/research/records/runs/a86a5e49-0165-4c3d-ac6a-1a301a4cc496) | −0.006 (−0.070 to +0.058) |
+| `buy_tempo` | population | −0.094 (−0.178 to −0.010), [256-game engine cohort](/research/records/runs/ea42e55d-da88-4794-a3b7-08c580473ee8) | +0.012 (−0.072 to +0.095), [256-game engine cohort](/research/records/runs/64bbd775-5639-4bfe-bd5f-b0bcb0cef057) | −0.053 (−0.110 to +0.004) |
+| `hold_knight` | development | +0.062 (−0.023 to +0.148), [256-game engine cohort](/research/records/runs/c5ffb6cf-45d1-48a1-a2d8-3b2fa3be7666) | +0.121 (+0.027 to +0.216), [256-game engine cohort](/research/records/runs/4a18f4f2-f9cf-4f33-97e6-26e471bf6654) | −0.029 (−0.071 to +0.013) |
+| `hold_knight` | confirmation | +0.035 (−0.066 to +0.136), [256-game engine cohort](/research/records/runs/30180b9b-3de5-46d8-ae0e-30e259e21c4d) | +0.086 (−0.024 to +0.196), [256-game engine cohort](/research/records/runs/e6c5fbd4-7f3d-4639-a41e-caac6e6c9022) | −0.025 (−0.076 to +0.026) |
+| `hold_knight` | population | −0.086 (−0.171 to −0.001), [256-game engine cohort](/research/records/runs/873ab9ef-b922-498b-84d4-17f28380a5fa) | +0.016 (−0.070 to +0.101), [256-game engine cohort](/research/records/runs/08636046-1590-4736-be1a-7b1fe0b5e018) | **−0.051 (−0.098 to −0.004)** |
+| `knight_play_value`, quarter blend | development | +0.133 (+0.035 to +0.231), [256-game engine cohort](/research/records/runs/d493c5b4-e8fa-4e07-84f3-83d995d73d53) | +0.137 (+0.040 to +0.234), [256-game engine cohort](/research/records/runs/8a8b0ffb-2e38-4252-913f-06496c939ff0) | −0.002 (−0.031 to +0.027) |
+| `knight_play_value`, quarter blend | confirmation | +0.105 (−0.004 to +0.214), [256-game engine cohort](/research/records/runs/8263d242-7450-4e05-a2c3-7483c2d527a2) | +0.105 (−0.009 to +0.220), [256-game engine cohort](/research/records/runs/e3fc4a9c-0e3b-4700-9dfe-1bd58c317c26) | +0.000 (−0.028 to +0.028) |
+| `knight_play_value`, quarter blend | population | +0.043 (−0.038 to +0.124), [256-game engine cohort](/research/records/runs/a6afd7a8-248a-4e0f-a4db-b2ca75d8ee31) | +0.035 (−0.052 to +0.122), [256-game engine cohort](/research/records/runs/5046ec2d-3835-42f5-9fc0-3ea829bbafeb) | +0.004 (−0.026 to +0.034) |
+| `knight_play_value`, full blend | development | +0.125 (+0.013 to +0.237), [256-game engine cohort](/research/records/runs/b41de3cf-c42a-4b0a-b37d-065d7c1e1c1b) | −0.094 (−0.207 to +0.019), [256-game engine cohort](/research/records/runs/41c8da11-f31a-440a-a1ee-61737f4439c7) | **+0.109 (+0.055 to +0.164)** |
 
 Half B's contrast is slot 0 (control) minus slot 1 (candidate), so a real
 effect makes the two halves point in opposite directions. Both `buy_tempo`
@@ -172,13 +158,13 @@ Candidate seats add one switch to the tables baseline
 the `knight_play_value` arm and its control replace the leaf object with
 `{"tables": ..., "hand": 0.25}` (quarter blend, primary evidence) or
 `"hand": 1.0` (full blend, development stage only). Registrations:
-`b6b12fdd`/`7385ffd6`, `750b7ebc`/`be7df6ce`, `afb09868`/`5e75db43`
-(buy_tempo); `b7467b5e`/`75774a6d`, `4d8b27cc`/`56cb999e`,
-`6fe05d29`/`b21f1bdb` (hold_knight); `80e5bceb`/`858e2a4d`,
-`c9a94c3d`/`941be1a7`, `8e35acce`/`274d88a0` (knight_play_value, quarter
-blend); `89dd235d`/`c9ba1dac` (knight_play_value, full blend, development).
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b6b12fdd-9cff-47c9-9140-7a6330feabf4.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7385ffd6-017d-41dc-9cb9-bdbfe192e1b5.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/750b7ebc-9428-492f-9b5f-b2d4de9d992a.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/be7df6ce-1a7c-4943-bf38-fd6b8ae5d513.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/afb09868-6c8a-416c-bfbf-1d39fd4b3536.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5e75db43-2be3-4c8c-ab00-f7346fed7297.toml)
+(buy_tempo); [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b7467b5e-5b69-4bf8-b7b5-76ae177131f7.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/75774a6d-7398-4336-8711-5bdba1e206fc.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4d8b27cc-edc5-483b-94e6-f543e97eca5b.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/56cb999e-5a1c-4852-b06b-74d93f91c692.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6fe05d29-9d2a-405d-8e5b-59138ecb27e8.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b21f1bdb-e49a-4025-9668-82580c8ba176.toml) (hold_knight); [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/80e5bceb-5b8d-4428-9292-33c8d378e709.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/858e2a4d-452b-4c12-8ba2-8bb88c5897e7.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c9a94c3d-d7c8-4087-8b60-7289e0094655.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/941be1a7-0882-4bfe-8441-face9cd8b6fc.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8e35acce-ebd3-4f7a-a07e-50327018d5fb.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/274d88a0-2692-4784-9593-0d949b05693a.toml) (knight_play_value, quarter
+blend); [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/89dd235d-c117-4688-a355-eb1cc6ad541b.toml)/[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c9ba1dac-5ef3-45ed-ba97-d91a9e5c5c2b.toml) (knight_play_value, full blend, development).
 The full-blend registrations for the confirmation and population stages
-(`00d8c63d`, `e5715fe9`, `e4ddbc81`, `2d22c801`) were withdrawn before
+([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/00d8c63d-5ed9-47ef-aacf-c8efdfae7288.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e5715fe9-b44b-4273-a3b0-64ae25ca1b7e.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e4ddbc81-32bb-4a70-b17f-38958ae86a9d.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2d22c801-4004-4baa-9551-1c2defee2a0b.toml)) were withdrawn before
 running when the blend screen measured hand 1.0 at −0.207 against the tables
 alone. Every pair ran on server branch `research/timing-tables`, which fixes
 the blended leaf to honor `knight_play_value` (test in
@@ -191,5 +177,25 @@ number, the pooled estimates, and the plot asset from the retained runs;
 `analysis/seating_pair.py` gives the same effect for any one pair from its
 two games.jsonl files. Mean decision times compare candidate and control
 within each run; absolute values carry the shared machine's load.
+
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+The three development-card switches of the [earlier timing
+study](knight-timing.mdx), which corrected to zero under the hand-written
+leaf, were re-measured against the learned tables leaf as swapped pairs on
+deterministic boards. The tables buy about 4.9 development cards per game
+against the hand leaf's 2.6, and the switches that second-guess that appetite
+now cost wins. `buy_tempo` (a purchase only when no build is affordable within
+the next own turn) reads **−0.043 wins per game** (95% interval −0.076 to
+−0.009) over the 192 boards of all three stages, an after-the-fact pooling.
+`hold_knight` (a main-phase knight play only when the robber blocks this
+seat's best hex) reads **−0.035** (−0.062 to −0.009). `knight_play_value`
+(the shaped knight schedule, a leaf term measured on the quarter blend of
+tables plus hand-written terms) reads **+0.001** (−0.016 to +0.017). On the
+full blend the same switch corrects to **+0.109** (+0.055 to +0.164) on the
+development boards, but the full blend itself loses 0.2 wins per game to the
+tables alone, so that reading does not transfer. No default changes.
 
 </AgentContext>

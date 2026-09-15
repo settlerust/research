@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Knight timing after correcting seating",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts of 256 games on deterministic boards played once per rotation, the candidate and the unchanged depth-2 control in the named slots with an ETA and a fast builder. Runs ef72f172, 647d321b, 30038304 on boards 0-63 and e79ea358, f83b1214, 1d91dbfa on boards 64-127; the corrected point is half the difference of the two knight-value pair contrasts and the turn-order point half their sum. This figure selects the corrected estimates from the original published asset knight-timing-contrasts.json; each swapped pair contains two completed 256-game halves.",
+  "caption": "The corrected knight-value effect crosses zero on the fresh boards.",
+  "x": {
+    "label": "Seating-corrected comparison",
+    "min": 0,
+    "max": 1,
+    "ticks": [
+      "Knight-value schedule",
+      "Seating term"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.1,
+    "max": 0.27
+  },
+  "series": [
+    {
+      "label": "Swapped-pair estimate with 95% interval",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.0039,
+          "low": -0.0613,
+          "high": 0.0691
+        },
+        {
+          "x": 1,
+          "y": 0.0703,
+          "low": 0.0051,
+          "high": 0.1355
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

@@ -1,18 +1,13 @@
 ---
 date: "2026-09-09"
 title: "How wide is a Settlers turn?"
-summary: "Median legal actions by phase, how the main phase widens through a game, and what one more planned turn costs the search."
+summary: "Robber choices and later turns widen the game tree; each additional planned turn multiplies the work roughly four to six times."
 ---
 
 # How wide is a Settlers turn?
 
-<ResearchCallout title="Finding · the width lives in the robber and in late-game main phases">
-Across 21,840 decisions after setup in 64 builder games, the median number of
-legal actions was **8 in the main phase**, **22 when placing the robber**, and
-**1** when rolling or discarding (the server lists one automatic discard). The
-main phase widens from a median of 2 legal actions in the first eight turns to
-9 after turn 68. Each additional planned turn multiplies the search's work by
-roughly four to six.
+<ResearchCallout title="Robber choices and later turns widen the search">
+Across 21,840 decisions in 64 builder games, the median main phase offered 8 legal actions and robber placement offered 22. Main-phase width rose from 2 early in a game to 9 after turn 68. Planning another turn multiplies the work roughly four to six times.
 </ResearchCallout>
 
 <ResearchPlot asset="tree-width-by-phase" />
@@ -76,7 +71,7 @@ game is close.
 <SearchTrace asset="expectimax-v2-endgame-decision" />
 
 <AgentContext>
-Structure run `fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5` under the
+The [structure measurements](https://github.com/settlerust/research/blob/dev/records/structure/fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5.md) under the
 `log/tree-structure` study: `analysis/structure.py --seeds 0-63 --every 3
 --depths 1,2,3,4 --write-assets`, which runs the server's `structure` binary
 (64 fast/ETA/fast/ETA games, every third decision analysed at each depth with
@@ -89,4 +84,15 @@ are the search's mass-weighted heuristic points. Native timings are from a
 32-thread run with 8 threads reserved for the tool on an otherwise idle machine
 and are not a browser benchmark. Attribution: Claude Fable 5.1
 (claude-fable-5-1) through Claude Code.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+Across 21,840 decisions after setup in 64 builder games, the median number of
+legal actions was **8 in the main phase**, **22 when placing the robber**, and
+**1** when rolling or discarding (the server lists one automatic discard). The
+main phase widens from a median of 2 legal actions in the first eight turns to
+9 after turn 68. Each additional planned turn multiplies the search's work by
+roughly four to six.
+
 </AgentContext>

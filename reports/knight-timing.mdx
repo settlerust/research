@@ -1,24 +1,16 @@
 ---
 date: "2026-09-11"
 title: "When to buy and play development cards"
-summary: "Three development-card timing switches for the tunable search, measured against the unchanged depth-2 control on deterministic boards: after the turn-order seating correction, none of them changes the win rate, and every default stays."
+summary: "Card-timing switches change purchases and army awards, but the corrected knight-value effect is inconclusive."
 ---
 
 # When to buy and play development cards
 
-<ResearchCallout title="Finding · nothing beyond the turn-order seating term">
-The tunable search gained three development-card switches: `knight_play_value`
-values a knight play by the production it unblocks and its distance to the
-largest army instead of the flat knight weight, `buy_tempo` offers a card
-purchase only when no build is affordable within the next own turn, and
-`hold_knight` reserves main-phase knight plays for the robber on this seat's
-best hex so the knight is held for the before-the-roll unblock. Against the
-unchanged depth-2 control the single-seating contrasts were +0.043 to +0.145
-wins per game, the size of the seating term between two adjacent searches. The
-one arm re-measured as a swapped pair, `knight_play_value`, corrects to
-**+0.004 wins per game** (95% interval −0.061 to +0.069) on fresh boards. No
-default changes.
+<ResearchCallout title="Card timing changes behavior without a confirmed gain">
+The knight-value schedule measured <ResultComparison value="0.004" low="-0.061" high="0.069" /> in the fresh-board swapped pair. The earlier positive contrasts were the size of the seating effect. Buying only when stalled and holding knights changed purchases and army awards, but no default changes.
 </ResearchCallout>
+
+<ResearchPlot asset="knight-timing-corrected" />
 
 ## The three switches
 
@@ -104,12 +96,12 @@ size do. The switches remain in the search, off by default, documented in
 <AgentContext>
 
 Candidate and control seats are `v2:{"depth":2,"samples":4,"scenarios":8,"inner_scenarios":4}`
-plus the named switch. Registrations and runs: `000e59d2` / `ef72f172`
-(knight_play_value, boards 0-63), `0b22df5c` / `647d321b` (buy_tempo, 0-63),
-`119cbcf2` / `30038304` (hold_knight, 0-63), `20360d5d` / `e79ea358`
-(knight_play_value, 64-127), `8f739fd6` / `f83b1214` (hold_knight, 64-127),
-`a6371eaf` / `1d91dbfa` (knight_play_value, 64-127, swapped seats). The swapped
-pair's decision rule is in registration `a6371eaf`; per the seating report the
+plus the named switch. Registrations and runs: [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/000e59d2-beb5-4ad4-aeac-4210c7e6d282.toml) / [256-game engine cohort](/research/records/runs/ef72f172-c6c1-48d5-ab06-b178b4cea9e9)
+(knight_play_value, boards 0-63), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0b22df5c-bcdf-40cd-923e-2e484dae499d.toml) / [256-game engine cohort](/research/records/runs/647d321b-b370-4abe-b50c-2300404474d7) (buy_tempo, 0-63),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/119cbcf2-9791-4dd5-a1f7-c3766b60e44d.toml) / [256-game engine cohort](/research/records/runs/30038304-768f-4892-8d0c-c734885a92e4) (hold_knight, 0-63), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/20360d5d-f450-4102-8af0-83a3797f7891.toml) / [256-game engine cohort](/research/records/runs/e79ea358-e2e6-4d09-88e1-2a773c0002c8)
+(knight_play_value, 64-127), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8f739fd6-446d-4dfc-bd2d-80c838b82ec1.toml) / [256-game engine cohort](/research/records/runs/f83b1214-86de-4614-ba06-6f97d0f04aba) (hold_knight, 64-127),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a6371eaf-cfc2-42fb-9bde-0f86b52af778.toml) / [256-game engine cohort](/research/records/runs/1d91dbfa-e2ba-4186-9232-ece1102d4557) (knight_play_value, 64-127, swapped seats). The swapped
+pair's decision rule is in registration [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a6371eaf-cfc2-42fb-9bde-0f86b52af778.toml); per the seating report the
 effect is half the difference of the two slot-0-minus-slot-1 contrasts and the
 seating term half their sum, with the two independent intervals combined in
 quadrature and halved. All runs used server commit `46578c0` (branch
@@ -120,5 +112,21 @@ weight. `python3 analysis/knight_timing.py` recomputes every number and the
 plot asset from the retained run folders. The harness summary now aggregates
 knights played, army awards, and the first city turn from the arena's per-game
 records.
+
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+The tunable search gained three development-card switches: `knight_play_value`
+values a knight play by the production it unblocks and its distance to the
+largest army instead of the flat knight weight, `buy_tempo` offers a card
+purchase only when no build is affordable within the next own turn, and
+`hold_knight` reserves main-phase knight plays for the robber on this seat's
+best hex so the knight is held for the before-the-roll unblock. Against the
+unchanged depth-2 control the single-seating contrasts were +0.043 to +0.145
+wins per game, the size of the seating term between two adjacent searches. The
+one arm re-measured as a swapped pair, `knight_play_value`, corrects to
+**+0.004 wins per game** (95% interval −0.061 to +0.069) on fresh boards. No
+default changes.
 
 </AgentContext>

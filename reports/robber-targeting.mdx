@@ -1,14 +1,16 @@
 ---
 date: "2026-09-11"
 title: "Robber placement and victim choice"
-summary: "Three robber-targeting switches looked better than the default shortlist on development boards, but the apparent gains were mostly the arena's seating term: swapped pairs on fresh seeds show no positive effect, and choosing victims by the card this seat needs is measurably worse than choosing by hand size."
+summary: "Seating correction removes the apparent targeting gains; choosing victims by the needed resource loses games."
 ---
 
 # Robber placement and victim choice
 
-<ResearchCallout title="Finding · the targeting gains were the arena seating term; no switch helps, one hurts">
-With the arm in slot 0, all three switches beat the unchanged depth-2 control on seeds 0 to 63: `leader` **+0.125** (95% interval +0.021 to +0.229), `need` **+0.160** (+0.057 to +0.263), `threat` **+0.117** (+0.022 to +0.212), each over 256 paired games. Fresh-seed confirmations on 64 to 127 read +0.035, +0.039, and +0.035 with intervals crossing zero, which first looked like a small real effect. It was not: this arena design gives two identical searches in adjacent slots a [seating term](../reports/arena-seating.mdx), and swapped pairs on the same fresh seeds cancel it. Bias-free, the effects are leader **−0.023** (−0.073 to +0.026), need **−0.045** (−0.086 to −0.004, the only interval excluding zero), and threat **−0.033** (−0.084 to +0.018). All three switches stay off by default; the need rule is refuted at this table, and the seating term is now a standing hazard for any two-search cohort in this arena.
+<ResearchCallout title="The targeting gains disappear after correcting seating">
+Stealing the resource this seat needs measured <ResultComparison value="-0.045" low="-0.086" high="-0.004" /> in fresh-board swapped pairs. Leader and threat targeting also show no positive effect. The original single-seating gains included the turn-order advantage; all three switches stay off.
 </ResearchCallout>
+
+<ResearchPlot asset="robber-targeting-corrected" />
 
 <ResearchPlot asset="robber-targeting-contrasts" />
 
@@ -26,17 +28,21 @@ The search shortlists four robber placements by a static score and lets the look
 
 Every cohort seats the arm and the unchanged control `v2:{"depth":2}` with `eta` and `fast` on 64 deterministic seeds played once per rotation (256 games). All games completed; there were no invalid moves, stalls, or interruptions.
 
+<AgentContext title="Full results and cohort ledger">
+
 | Arm | Seeds | Orientation | Arm wins | Control wins | Contrast (95% interval) | Run |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| leader | 0-63 | arm slot 0 | 124 | 92 | +0.125 (+0.021 to +0.229) | `ccf05c4f-15a1-4774-a273-40b7d5491873` |
-| need | 0-63 | arm slot 0 | 130 | 89 | +0.160 (+0.057 to +0.263) | `9109daab-18d0-4a2a-94e3-a7fa11c94a7a` |
-| threat | 0-63 | arm slot 0 | 122 | 92 | +0.117 (+0.022 to +0.212) | `0ce9ecc0-7374-4c7c-8178-4d99db3ed0e1` |
-| leader | 64-127 | arm slot 0 | 112 | 103 | +0.035 (−0.047 to +0.117) | `a722f475-8cc5-4e2a-896b-4167764b2456` |
-| need | 64-127 | arm slot 0 | 109 | 99 | +0.039 (−0.062 to +0.140) | `e214be7c-f184-4840-af3e-e82e7c23ffad` |
-| threat | 64-127 | arm slot 0 | 110 | 101 | +0.035 (−0.056 to +0.126) | `1d943a44-ffb0-459d-b487-733d26d50189` |
-| leader | 64-127 | arm slot 1 | 93 | 114 | −0.082 (−0.166 to +0.002) | `10834001-571d-439c-83d2-9e31e1d5997b` |
-| need | 64-127 | arm slot 1 | 86 | 119 | −0.129 (−0.217 to −0.041) | `165a28ac-94d3-4ebb-bbdf-989abb243bea` |
-| threat | 64-127 | arm slot 1 | 90 | 116 | −0.102 (−0.183 to −0.020) | `cb91296b-ac8d-4f86-9ad6-5ba4d57af8ec` |
+| leader | 0-63 | arm slot 0 | 124 | 92 | +0.125 (+0.021 to +0.229) | [256-game engine cohort](/research/records/runs/ccf05c4f-15a1-4774-a273-40b7d5491873) |
+| need | 0-63 | arm slot 0 | 130 | 89 | +0.160 (+0.057 to +0.263) | [256-game engine cohort](/research/records/runs/9109daab-18d0-4a2a-94e3-a7fa11c94a7a) |
+| threat | 0-63 | arm slot 0 | 122 | 92 | +0.117 (+0.022 to +0.212) | [256-game engine cohort](/research/records/runs/0ce9ecc0-7374-4c7c-8178-4d99db3ed0e1) |
+| leader | 64-127 | arm slot 0 | 112 | 103 | +0.035 (−0.047 to +0.117) | [256-game engine cohort](/research/records/runs/a722f475-8cc5-4e2a-896b-4167764b2456) |
+| need | 64-127 | arm slot 0 | 109 | 99 | +0.039 (−0.062 to +0.140) | [256-game engine cohort](/research/records/runs/e214be7c-f184-4840-af3e-e82e7c23ffad) |
+| threat | 64-127 | arm slot 0 | 110 | 101 | +0.035 (−0.056 to +0.126) | [256-game engine cohort](/research/records/runs/1d943a44-ffb0-459d-b487-733d26d50189) |
+| leader | 64-127 | arm slot 1 | 93 | 114 | −0.082 (−0.166 to +0.002) | [256-game engine cohort](/research/records/runs/10834001-571d-439c-83d2-9e31e1d5997b) |
+| need | 64-127 | arm slot 1 | 86 | 119 | −0.129 (−0.217 to −0.041) | [256-game engine cohort](/research/records/runs/165a28ac-94d3-4ebb-bbdf-989abb243bea) |
+| threat | 64-127 | arm slot 1 | 90 | 116 | −0.102 (−0.183 to −0.020) | [256-game engine cohort](/research/records/runs/cb91296b-ac8d-4f86-9ad6-5ba4d57af8ec) |
+
+</AgentContext>
 
 ## Why the slot-0 contrasts are not arm effects
 
@@ -70,7 +76,13 @@ The screens on 16 seeds (unregistered, 64 games each) read +0.312, +0.219, and +
 <AgentContext>
 Implementation: `SearchConfig.robber` (`leader`, `need`, `threat`) in `crates/expectimax/src/v2`, documented in `docs/expectimax.md` under "Robber targeting"; the scoring lives in the free `robber_rows` function, shared with the endgame leader bias. The need bonus reads `ResourceKnowledge` expected hands taken at the root of the decision, and the need itself is the largest missing-card gap toward the builds the seat is closest to affording. All switches off reproduce the previous scoring bit for bit: 32 deterministic games are identical before and after the change, and again after the merge with the endgame switches. The arena's `GameRecord` carries one compact row per robber placement (`player`, `hex`, `victim`, the leader among the mover's rivals, and that seat's highest-pip hex, cities double); `analysis/robber_obvious.py` computes the shares, `analysis/robber_bias.py` the bias-free effects, and `analysis/robber_assets.py` the plot from the retained runs.
 
-Reproduction: `python3 -m harness.engine run EXPERIMENT --threads 8` in the research checkout with `SETTLERS_SERVER_DIR` pointing at a server worktree containing the switches. Experiments `15173b9c`, `6c2d07c6`, and `0c77ef63` are the 0-63 cohorts; `247cadd4`, `af5f61b5`, and `e36e5562` the same-orientation confirmations; `1ba816f0`, `d918fac6`, and `7e2a2610` the swapped pairs under `containment/robber-targeting-bias`. Arm seat: `v2:{"depth":2,"robber":{"leader":true}}` (and `need`, `threat`); control `v2:{"depth":2}`. Focused tests in `crates/expectimax/tests/internal/v2_robber.rs`.
+Reproduction: `python3 -m harness.engine run EXPERIMENT --threads 8` in the research checkout with `SETTLERS_SERVER_DIR` pointing at a server worktree containing the switches. Experiments [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/15173b9c-502e-4e5a-8037-8220bca77707.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6c2d07c6-e7f0-4f91-8e75-43e590f1b1f1.toml), and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0c77ef63-6296-410b-a0c5-191d054e055a.toml) are the 0-63 cohorts; [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/247cadd4-561b-461a-9448-2e1f500735cb.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/af5f61b5-5edd-4e56-b9da-c5fef93d737e.toml), and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e36e5562-3fbf-45ce-92e4-cd7c845cc3e3.toml) the same-orientation confirmations; [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1ba816f0-8a68-4bef-8700-ca05f51c2a93.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d918fac6-a824-440b-a3e6-24c4d93743f3.toml), and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7e2a2610-5074-48a6-82a2-961041593d44.toml) the swapped pairs under `containment/robber-targeting-bias`. Arm seat: `v2:{"depth":2,"robber":{"leader":true}}` (and `need`, `threat`); control `v2:{"depth":2}`. Focused tests in `crates/expectimax/tests/internal/v2_robber.rs`.
 </AgentContext>
 
 [All studies](../approaches/README.md) · [Leader containment](../approaches/containment) · [Experiment log](../log/experiments.mdx)
+
+<AgentContext title="Detailed result and cohort context">
+
+With the arm in slot 0, all three switches beat the unchanged depth-2 control on seeds 0 to 63: `leader` **+0.125** (95% interval +0.021 to +0.229), `need` **+0.160** (+0.057 to +0.263), `threat` **+0.117** (+0.022 to +0.212), each over 256 paired games. Fresh-seed confirmations on 64 to 127 read +0.035, +0.039, and +0.035 with intervals crossing zero, which first looked like a small real effect. It was not: this arena design gives two identical searches in adjacent slots a [seating term](../reports/arena-seating.mdx), and swapped pairs on the same fresh seeds cancel it. Bias-free, the effects are leader **−0.023** (−0.073 to +0.026), need **−0.045** (−0.086 to −0.004, the only interval excluding zero), and threat **−0.033** (−0.084 to +0.018). All three switches stay off by default; the need rule is refuted at this table, and the seating term is now a standing hazard for any two-search cohort in this arena.
+
+</AgentContext>

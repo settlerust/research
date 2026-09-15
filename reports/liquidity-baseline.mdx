@@ -1,16 +1,13 @@
 ---
 date: "2026-09-08"
 title: "Can exchange-aware planning beat ETA?"
-summary: "A frozen 80-game ablation: 25% versus 32.5%. Keep ETA as the baseline."
+summary: "The exchange-aware estimator wins 20 of 80 games against ETA’s 26 and fails its preregistered improvement rule."
 ---
 
 # Can exchange-aware planning beat ETA?
 
-<ResearchCallout title="First finding · keep ETA as the baseline">
-Liquidity won **20/80 games (25%)**. ETA won **26/80 (32.5%)**.
-The observed difference was **−7.5 percentage points**. The preregistered
-improvement rule failed; this experiment does not establish that either policy
-is inherently stronger.
+<ResearchCallout title="The exchange-aware estimator did not pass">
+Liquidity won <WinRate value="20" total="80" /> and ETA won <WinRate value="26" total="80" />. The −7.5 percentage-point gap failed the preregistered improvement rule. ETA remained the baseline at this stage; this one-table result does not establish either policy as inherently stronger.
 </ResearchCallout>
 
 **80 planned · 80 attempted · 80 valid completions · 0 incomplete · 0 unplayed.**
@@ -82,8 +79,17 @@ bank shortages. The server alone checks actual legality and determines outcomes.
 Native decision latency is unavailable in harness measurements; zero in the
 legacy counter is not zero computation. Timing is not a throughput result.
 
-The frozen evaluation is `d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e` and the run is
-`de39917c-55da-40ad-a53a-5b8588898810`. Sources and binary hashes match the final
+See the [frozen evaluation protocol](https://github.com/settlerust/research/blob/dev/experiments/d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e.toml) and its
+[80-game protocol cohort](/research/records/runs/de39917c-55da-40ad-a53a-5b8588898810). Sources and binary hashes match the final
 four-game smoke. Verified archives are local; no external publication or backup
 is claimed. Attribution: Codex; exact model identifier unknown.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+Liquidity won **20/80 games (25%)**. ETA won **26/80 (32.5%)**.
+The observed difference was **−7.5 percentage points**. The preregistered
+improvement rule failed; this experiment does not establish that either policy
+is inherently stronger.
+
 </AgentContext>

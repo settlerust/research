@@ -1,90 +1,113 @@
 ---
-title: "2. Write your first policy"
-summary: Build a persistent Python agent that reads observations and events, returns legal commands, and lets the harness manage authenticated requests.
+title: Client protocol reference
+summary: The observation and command contract, persistent stdio adapters, event cursors, and independent network clients.
 ---
 
-# Write your first policy
+# Client protocol reference
 
-After [connecting to the server](quickstart.md), make a small Python player. Save this as `policies/my_agent.py`. It uses the bundled example's priority rules so the first milestone is a working agent:
+A policy reads its own `GameView` and emits a server `Command`. Start with the
+[working Python client](client.mdx); use this reference when extending its
+behavior or connecting directly over the network.
 
-```python
-import json
-import sys
-from legal_first import choose
+## The stdio contract
 
-for line in sys.stdin:
-    message = json.loads(line)
-    # Each message contains view, topology, and new visible event batches.
-    command = choose(message["view"])
-    print(json.dumps(command), flush=True)
-```
-
-`choose` returns a protocol command or `None` when there is nothing to do. Replace it with your own decision rule once the first match works. Keep stdout for JSON responses; write diagnostics to stderr. The process stays alive across decisions, so ordinary Python state can hold your agent's memory.
-
-## Understand the input and output
-
-All policies ultimately read `GameView` and write the server's `Command` JSON
-schema. The authoritative documentation and schemas are served at `/v1/schema`
-and `/v1/topology` with authentication; a server checkout also includes
-`docs/api.md` and `docs/protocol.schema.json`. Protocol version is currently 1.
-
-## Stdio adapters
-
-Add an entry in `policies/registry.toml` with `transport = "stdio"` and an argv
-array. Commands run from the research root. Supported placeholders are
-`{python}`, `{root}`, `{server}`, `{base}`, `{game}`, `{token_file}`, and `{name}`.
-Never interpolate shell command strings. Compile Rust or TypeScript policies
-before registering a run; point the command at the resulting executable.
-
-The harness starts one persistent process per seat. Each line on stdin is:
+The harness starts one persistent process per seat, working from `research/`.
+Each input line has this shape; the nested objects are abbreviated here:
 
 ```json
 {"protocol":1,"view":{"id":"…","version":8,"game":{}},"topology":{},"events":[]}
 ```
 
-The abbreviated objects above are complete typed protocol data at runtime.
-Return one JSON line containing a `Command`, or `null` if there is no action:
+Return one JSON line containing a command, or `null` when there is nothing to do:
 
 ```json
 {"type":"act","action":{"type":"roll"}}
 ```
 
-Flush stdout after every response; send diagnostics to stderr. Responses have a
-16 KiB limit and a preregistered decision deadline. `policies/legal_first.py` is a
-working example. The process retains its own memory across decisions. `events`
-contains newly delivered batches for that participant, including directed
-communications it may see. Empty redacted batches still advance the independent
-history cursor. A snapshot version is not an event cursor.
+| Field or behavior | Contract |
+| --- | --- |
+| `view` | This participant's current observation, including its own hand and public game state |
+| `topology` | Board coordinates and hex, vertex, edge, and port connections |
+| `events` | Newly delivered batches filtered for this participant, including directed messages it may see |
+| stdout | One JSON response per input line, flushed, at most 16 KiB |
+| stderr | Diagnostic output retained privately |
+| Memory | The process survives decisions within one game; a new game starts a new process |
+| Deadline | Five seconds by default for stdio input and response; fixed in the experiment |
 
-The harness owns each seat's authenticated REST client, snapshots, envelope UUID,
-expected version, and retries. A transport ambiguity retries the same entire
-envelope. A conflict fetches fresh state and asks the policy again. Only the
-server determines legality, trades, random draws, and the winner. `legal_actions`
-contains useful finite actions but is not exhaustive for all discard/trade
-quantities. Policies may emit other legal commands.
+`legal_actions` offers useful finite actions but is not exhaustive for arbitrary
+trade quantities or discards. A policy may emit other legal commands. The server
+validates legality and remains responsible for rules, randomness, and scoring.
 
-## Independent network processes
+## Register an executable
 
-`transport = "remote"` starts a process that owns its HTTP/WebSocket connection.
-The harness prejoins the seat and writes its token to the supplied private token
-file. The process must reuse that identity, connect its WebSocket (so readiness
-is visible), wait for start, and exit after a terminal state. Each player has a
-distinct token. The existing `fast` and `eta` Rust runners implement this contract.
+```toml
+[my-agent]
+transport = "stdio"
+command = ["{python}", "policies/my_agent.py"]
+description = "My observation-driven player"
+```
 
-Remote policies can act simultaneously; the server resolves ordering. Stdio
-decisions are scheduled sequentially by seat. Record this transport difference
-when studying negotiation timing or fairness. Native runtime stderr and all
-credentials stay in ignored private directories and never enter public archives.
+Commands are argv arrays, never shell strings. Supported placeholders are
+`{python}`, `{root}`, `{server}`, `{base}`, `{game}`, `{token_file}`, and `{name}`.
+Compile a Rust or TypeScript policy before running; point the registry to its
+executable. Double literal braces in JSON command arguments, as the frozen
+search entries in `policies/registry.toml` do.
 
-## Public replay encoding
+## What the harness handles
 
-Topology uses integer pointy-hex coordinates. Scale x by sqrt(3) relative to y
-to draw regular hexagons. A hex byte stores its dice total in the high nibble and
-terrain in the low nibble: 0 desert, then brick/lumber/wool/grain/ore as 1–5.
-Buildings use 0 empty, 1–4 settlements, 5–8 cities; owner is `(value - 1) % 4`.
-Road values are null or seat index. Player points are public midgame; the server
-reveals final scoring at the terminal state.
+| Responsibility | Behavior |
+| --- | --- |
+| Identities | Creates the table and prejoins every policy with a distinct credential |
+| Readiness | Keeps a WebSocket connected for each stdio seat and marks it ready before the host starts |
+| Requests | Submits commands with an expected snapshot version and request UUID |
+| Ambiguous delivery | Retries the exact same envelope, preserving request identity |
+| Version conflicts | Fetches fresh state and asks the policy again |
+| History | Advances a separate cursor for each participant and delivers its filtered events |
+| Evidence | Retains public spectator frames, event tapes, results, source snapshots, and digests |
 
-## Next: play a complete game
+A snapshot version is not an event cursor. Empty redacted batches still advance
+history. The stdio presence connection drains WebSocket frames; observations
+and participant history still arrive through REST. A lost presence connection
+invalidates the run, preserving the failure instead of silently continuing.
+Never feed spectator replays, another seat's hand, or server archives into a player policy.
 
-Continue to [3. Play against computer policies](play-policies.md) to register this script and choose opponents.
+<AgentContext title="Direct network clients and wire details">
+
+## Own the HTTP and WebSocket connection
+
+`transport = "remote"` starts a process that owns its network connection. The
+harness has already joined its seat and written its token to the supplied
+private token file. Reuse that identity, connect the WebSocket so the seat is
+reported as connected, wait for start, and exit after a terminal state.
+
+The `server` checkout includes Python, TypeScript, and Rust clients under
+`clients/`, with examples in `docs/clients.md`. Its
+`crates/policies/src/bin/remote.rs` runner implements this contract for the
+builders and expectimax searches.
+
+Remote processes can act concurrently; stdio decisions are scheduled
+sequentially by seat. Keep this difference fixed when studying negotiation
+timing or fairness. Remote search budgets come from their configured policy;
+the harness's stdio decision deadline does not control their computation.
+
+A direct client owns pending envelopes, token renewal, reconnect, and recovery
+from its last event cursor. The complete lifecycle and retry rules are in
+`server/docs/api.md`. The authoritative schemas live in
+`server/docs/protocol.schema.json`; an authenticated client can also request
+`/v1/schema` and `/v1/topology` from the server. Protocol version is currently 1.
+
+## Board encoding
+
+| Data | Encoding |
+| --- | --- |
+| Hex coordinates | Integer pointy-hex topology; scale x by √3 relative to y for regular hexagons |
+| Hex byte | High nibble: dice total; low nibble: terrain |
+| Terrain | 0 desert, then brick, lumber, wool, grain, ore as 1–5 |
+| Buildings | 0 empty, 1–4 settlements, 5–8 cities; owner is `(value - 1) % 4` |
+| Roads | `null` or seat index |
+| Points | Public points midgame; final scoring is revealed at the terminal state |
+
+Use the [registered replay component](publishing.md#flat-replay) when publishing
+a game, so the notebook keeps one shared rendering of the board.
+
+</AgentContext>

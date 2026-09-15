@@ -4,7 +4,7 @@ set positional-arguments := true
 default:
     @just --list
 
-# Build the existing Rust server and fast/eta policies (requires SETTLERS_SERVER_DIR or ../server).
+# Build the Rust server and remote search/builder runner (requires SETTLERS_SERVER_DIR or ../server).
 setup:
     python3 -m harness.cli setup
 

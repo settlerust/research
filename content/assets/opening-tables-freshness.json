@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "The opening result changes when reused boards are removed",
+  "evidence": "measured",
+  "source": "Source: reports/opening-planner-tables.mdx, The search-ranked opening against the planner; analysis/opening_tables.py. Development: boards 0\u201363, one swapped pair (512 completed games). Fresh builders: 800\u2013927, two pairs (1,024 completed games). Population: 800\u2013927, two pairs (1,024 completed games). The 128-board pools are after-the-fact. Reported 95% intervals over boards.",
+  "caption": "The positive reused-board result does not resolve on fresh boards or at the population table.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Reused development boards",
+      "Fresh builder boards",
+      "Population boards"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.08,
+    "max": 0.25
+  },
+  "series": [
+    {
+      "label": "Search placement minus planner",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.135,
+          "low": 0.045,
+          "high": 0.225
+        },
+        {
+          "x": 1,
+          "y": 0.024,
+          "low": -0.038,
+          "high": 0.087
+        },
+        {
+          "x": 2,
+          "y": 0.001,
+          "low": -0.059,
+          "high": 0.061
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

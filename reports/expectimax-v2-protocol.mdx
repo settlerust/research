@@ -1,17 +1,13 @@
 ---
 date: "2026-09-09"
 title: "The frozen candidate through the protocol arena"
-summary: "80 authoritative games: the depth-3 candidate won 38.8% against the compared ETA slot's 31.2%, short of its registered rule."
+summary: "The first frozen search wins 31 of 80 authoritative games, short of its registered improvement rule."
 ---
 
 # The frozen candidate through the protocol arena
 
-<ResearchCallout title="Finding · positive direction, rule not met">
-Run `e4949ebe-8132-4428-aae9-37ae1e0c3748` completed **80 of 80** games through
-the authoritative server with no timeout moves. `expectimax-v2-deep` won
-**31 (38.8%)**; the ETA builder in the compared slot won **25 (31.2%)**. The
-registered rule asked for a 10-point gap with a one-sided exact test at
-p ≤ 0.05; the gap is 7.5 points and p = 0.25. The cohort is inconclusive.
+<ResearchCallout title="The first protocol cohort did not confirm the gain">
+The candidate won <WinRate value="31" total="80" label="Search" /> against <WinRate value="25" total="80" label="Compared ETA slot" />. Its 7.5-point gap missed the registered 10-point requirement. ETA remained the baseline for this experiment; the [corrected search](expectimax-v2-plan-protocol.mdx) was tested separately.
 </ResearchCallout>
 
 <ResearchChart asset="expectimax-v2-protocol-wins" />
@@ -40,8 +36,8 @@ The first scheduled game, selected by schedule rather than outcome.
 <GameReplay asset="expectimax-v2-protocol-game" />
 
 <AgentContext>
-Experiment `e36c2351-eed2-49cc-9cc7-595d5029bf97` under study
-`search/expectimax-v2`; its first run `f3933ecf-afbe-4fe4-839f-40777a9d280c`
+The [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e36c2351-eed2-49cc-9cc7-595d5029bf97.toml) under study
+`search/expectimax-v2`; its first [invalid attempt](/research/records/runs/f3933ecf-afbe-4fe4-839f-40777a9d280c)
 is retained as invalid (no game started: the harness read the candidate's
 inline JSON braces as placeholders; the registry now doubles them). The rerun
 used `just run e36c2351-eed2-49cc-9cc7-595d5029bf97 --parallel 12`. The exact
@@ -49,4 +45,14 @@ test counts wins by the candidate slot and the compared ETA slot only
 (31 against 25; P(X ≥ 31 | n = 56, p = 0.5) = 0.25). Public frame source
 SHA-256: `de85febbac98d365952f2e08a1a66b286da09f45e0cb2b85b2181221c7263232`.
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+[80-game protocol cohort](/research/records/runs/e4949ebe-8132-4428-aae9-37ae1e0c3748) completed **80 of 80** games through
+the authoritative server with no timeout moves. `expectimax-v2-deep` won
+**31 (38.8%)**; the ETA builder in the compared slot won **25 (31.2%)**. The
+registered rule asked for a 10-point gap with a one-sided exact test at
+p ≤ 0.05; the gap is 7.5 points and p = 0.25. The cohort is inconclusive.
+
 </AgentContext>

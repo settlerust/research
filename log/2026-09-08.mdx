@@ -11,19 +11,19 @@ events, and retains compact run records. The notebook renders those records and
 selected game exhibits through components from the design Storybook.
 
 A restricted local connection prevented the first preflight. Its invalid record
-is `6637673e-bb0f-4d1a-8956-6723ed8bd51c`. The next attempt,
-`f7e76bf5-5045-4e08-8e54-ce62275013a5`, exposed a cleanup failure when signaling
+is [invalid attempt](/research/records/runs/6637673e-bb0f-4d1a-8956-6723ed8bd51c). The next attempt,
+[invalid attempt](/research/records/runs/f7e76bf5-5045-4e08-8e54-ce62275013a5), exposed a cleanup failure when signaling
 an already exited policy group. A terminal snapshot exists, but finalization
 failed; that attempt is not valid match evidence. Its early summary reports no
 finalized matches, not proof that no game was created. The cleanup now checks
 process state and preserves results even if cleanup itself fails.
 
-After the correction, run `28504a38-48ac-455f-9e47-30193e09e266` completed four
-short three-point Rust games. Run `23b9302c-62d1-40e1-ad2b-923f99f5429f` completed
+After the correction, [4-game protocol cohort](/research/records/runs/28504a38-48ac-455f-9e47-30193e09e266) completed four
+short three-point Rust games. [4-game protocol cohort](/research/records/runs/23b9302c-62d1-40e1-ad2b-923f99f5429f) completed
 four short games with the Python legal-first policy and Rust opponents. These
 verify the two policy transports; neither run establishes a strength ranking.
 
-Run `0fd99290-4982-4f53-b663-04503f308be2` completed four normal ten-point games.
+[4-game protocol cohort](/research/records/runs/0fd99290-4982-4f53-b663-04503f308be2) completed four normal ten-point games.
 The [first arena report](/research/reports/baseline-smoke) contains its recorded
 win rates and a selected public replay. A hash-verified archive exists locally;
 there is no cloud backup or public artifact URL yet.
@@ -32,7 +32,7 @@ This was infrastructure and publishing work, not a new strategic research
 contribution. The next useful experiment is a preregistered comparison with a
 larger fixed cohort and a specific change to the value of a build.
 
-A final two-player check, `77bb8109-f474-47a0-ac6c-874e0dd95ce8`, completed both
+A final two-player check, [2-game protocol cohort](/research/records/runs/77bb8109-f474-47a0-ac6c-874e0dd95ce8), completed both
 short games after tightening the policy I/O deadline. Its archive inventory also
 retains the exact harness and policy sources for dirty working trees.
 
@@ -53,8 +53,8 @@ Implemented `liquidity` and same-source `eta-control`/`fast-control` opponents i
 an isolated research worktree. No language model selected game moves; the native
 processes received only their own participant views.
 
-Fresh evaluation `d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e`, run
-`de39917c-55da-40ad-a53a-5b8588898810`, completed 80/80 valid games. Liquidity won
+Fresh evaluation [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e.toml), run
+[80-game protocol cohort](/research/records/runs/de39917c-55da-40ad-a53a-5b8588898810), completed 80/80 valid games. Liquidity won
 20, ETA won 26; the observed difference was −7.5 percentage points. The registered
 +10-point/one-sided-p≤0.05 promotion rule failed (p=0.849). Retain ETA as baseline;
 do not claim the richer estimator is a general improvement or proven inferior.
@@ -68,7 +68,7 @@ do not identify the causal failure. A decision trace is the next useful diagnost
 The [complete audit](../reports/liquidity-audit.md) retains four readiness failures,
 a partial smoke stopped by the communication limit, successful smokes, an excluded
 smoke after a failed build used the prior binary, and the first evaluation
-`83f0efb5-0d42-47d8-a53c-99f136d55a80` stopped by archive backpressure (2 complete,
+[invalid attempt](/research/records/runs/83f0efb5-0d42-47d8-a53c-99f136d55a80) stopped by archive backpressure (2 complete,
 1 invalid, 77 unplayed). Shared readiness, offer-budget and idempotent retry fixes
 preceded the fresh cohort; the strategic estimator was not tuned to these outcomes.
 Guarded build recipes prevent another stale-binary launch. Sources and configured
@@ -101,9 +101,9 @@ engine arena as the development tier and the protocol arena as the confirmation
 tier; `just engine-register` and `just engine-run` file and execute engine
 experiments with the same study ownership as protocol runs.
 
-Calibration run `25a7ddd7-8c86-44d7-9bb8-3582f9cf219e` (512 paired builder
+Calibration [512-game engine cohort](/research/records/runs/25a7ddd7-8c86-44d7-9bb8-3582f9cf219e) (512 paired builder
 games) ranks ETA above fast, matching the protocol arena. Run
-`4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c` shows the reference losing to both
+[256-game engine cohort](/research/records/runs/4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c) shows the reference losing to both
 builders (13.3% against 30.1%; paired contrast −0.168, interval −0.251 to
 −0.085). Both are in the [calibration report](../reports/engine-arena-calibration.mdx).
 
@@ -115,33 +115,33 @@ nothing. Pricing production as cards over the remaining rolls did not change
 that. Adding the builders' acquisition-time idea, a target valued by its gain
 divided by one plus the turns until affordable, fixed it: cities rose to 1.95
 per game and mean points matched ETA. Registered run
-`77928683-3ef2-4ee7-90f0-04f7b2885c53` then showed v2 at depth 2 winning 34.0%
+[256-game engine cohort](/research/records/runs/77928683-3ef2-4ee7-90f0-04f7b2885c53) then showed v2 at depth 2 winning 34.0%
 of 256 slot-games against ETA's 24.2%, paired contrast +0.098 (interval +0.005
-to +0.190), at 25 ms per decision. Run `9dc44463-a29d-4d38-af29-91483f109370` (depth 3, 1.5 s budget, 16
+to +0.190), at 25 ms per decision. [256-game engine cohort](/research/records/runs/9dc44463-a29d-4d38-af29-91483f109370) (depth 3, 1.5 s budget, 16
 scenarios, 8 worlds) won 32.0% with a paired contrast of +0.078 (interval −0.022
 to +0.178): the registered rule was not met and depth 3 is not distinguishable
 from depth 2 on these boards, although the unregistered 16-seed sweep had
 suggested 42%. Details are in the
 [development report](../reports/expectimax-v2-development.mdx). A frozen
 depth-3 candidate is registered as protocol experiment
-`e36c2351-eed2-49cc-9cc7-595d5029bf97`. Its first run,
-`f3933ecf-afbe-4fe4-839f-40777a9d280c`, is invalid: no game started because the
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e36c2351-eed2-49cc-9cc7-595d5029bf97.toml). Its first run,
+[invalid attempt](/research/records/runs/f3933ecf-afbe-4fe4-839f-40777a9d280c), is invalid: no game started because the
 harness formats registry arguments with placeholder braces and the candidate's
 inline JSON configuration was read as a placeholder. The registry now doubles
 those braces; the candidate itself is unchanged. All twelve attempted matches
-are retained as invalid. The rerun, `e4949ebe-8132-4428-aae9-37ae1e0c3748`,
+are retained as invalid. The rerun, [80-game protocol cohort](/research/records/runs/e4949ebe-8132-4428-aae9-37ae1e0c3748),
 completed all 80 games with twelve matches in flight and no server timeout
 moves: the candidate won 31 (38.8%) and the compared ETA slot 25 (31.2%), a
 7.5-point gap with a one-sided exact test at p = 0.25. The registered rule
 required 10 points and p ≤ 0.05, so the protocol cohort is inconclusive: the
 direction favours the candidate, the evidence does not establish it.
 
-Protocol infrastructure: smoke `0f46efd7-d7b4-465e-bdc3-ade0d70bde23` was
+Protocol infrastructure: smoke [censored attempt](/research/records/runs/0f46efd7-d7b4-465e-bdc3-ade0d70bde23) was
 censored before any game started because the server's `remote` runner never
 sent the readiness handshake the current server requires. The runner now sends
 it, retries the same envelope on backpressure, and can seat `v1` or `v2`; smoke
-`dbb6f336-03fc-481f-858b-4f6c30bb1c1c` completed two games, and
-`32073407-32e3-4ba1-9f55-a9b452cce4dc` completed four games with four matches
+[2-game protocol cohort](/research/records/runs/dbb6f336-03fc-481f-858b-4f6c30bb1c1c) completed two games, and
+[4-game protocol cohort](/research/records/runs/32073407-32e3-4ba1-9f55-a9b452cce4dc) completed four games with four matches
 in flight at once using the new `--parallel` option and an `expectimax-v2` seat.
 These smokes check plumbing only.
 

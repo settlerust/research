@@ -1,31 +1,16 @@
 ---
 date: "2026-09-12"
 title: "Blending the learned leaf, and the endgame switches under it"
-summary: "Adding the hand-written leaf terms to the learned tables at quarter strength wins about +0.07 wins per game over the tables alone and holds at a three-search table; at full strength the blend loses about 0.2; halving the tables scale is refuted, doubling it changes trading without changing wins; the endgame race and hidden-points leaves do nothing under the blend."
+summary: "Quarter-strength hand-written terms improve the learned leaf at both engine tables for about 40% more decision time."
 ---
 
 # Blending the learned leaf, and the endgame switches under it
 
-<ResearchCallout title="Finding · a quarter of the hand-written terms improves the learned leaf; the endgame switches stay off">
-The learned tables price end-of-turn positions in win probability, and the
-hand-written terms price them in points. Added on top of the tables, the
-hand-written terms at quarter strength (`leaf.hand` 0.25) beat the tables alone
-by **+0.074 wins per game** (95% interval +0.011 to +0.138) on seeds 0 to 63,
-**+0.088** (+0.006 to +0.170) on the extension seeds 864 to 927, and **+0.080**
-(+0.015 to +0.146) there at a three-search population table; pooled
-after-the-fact over 192 L1 seeds the effect is **+0.066 (+0.024 to +0.107)** and
-over 128 L2 seeds **+0.064 (+0.021 to +0.108)**. Half strength is weaker
-(+0.016 over 192 L1 seeds, interval crossing zero), and full strength is much
-worse than the tables alone: the withdrawn full-blend half lost from the
-favorable seat (−0.117) and an unregistered screen of the pair read −0.207.
-Halving the tables scale to 500 is **refuted** (−0.135 on fresh seeds, −0.097
-pooled), doubling it to 2000 is a cost-free nothing (+0.029 pooled over 192 L1
-seeds, crossing zero). The endgame race leaf is **−0.037 (−0.066 to −0.008)**
-pooled over its two L1 stages under the blend, and expected hidden points reads
-+0.003 (−0.017 to +0.023) pooled over its 192 L1 seeds and −0.009 (−0.037 to
-+0.019) over its 128 L2 seeds, every interval crossing zero. The race and hidden-points switches stay off; the
-quarter-strength blend is the one candidate worth a protocol cohort.
+<ResearchCallout title="A quarter-strength blend is worth a protocol test">
+Adding hand-written terms at quarter weight improved the learned leaf by <ResultComparison value="0.066" low="0.024" high="0.107" /> against builders and <ResultComparison value="0.064" low="0.021" high="0.108" /> at the population table. These are after-the-fact pools over 192 and 128 boards. The gain costs about 40% more decision time and is not yet protocol-confirmed.
 </ResearchCallout>
+
+<ResearchPlot asset="leaf-blend-pooled-effects" />
 
 ## The arms
 
@@ -168,70 +153,74 @@ All cohorts are 256 deterministic games; every one completed. "Contrast" is the
 registered slot-0-minus-slot-1 paired contrast of that half; the seating term
 is half the sum of a pair's two contrasts.
 
+<AgentContext title="Full results and cohort ledger">
+
 | Arm | Stage | Half | Candidate wins / control wins | Contrast (95% interval) | Experiment | Run |
 | --- | --- | --- | --- | --- | --- | --- |
-| hand 0.25 | 1 (0-63, L1) | A | 138 / 87 | +0.199 (+0.107 to +0.291) | `337fa8bf-6dac-4798-ac5d-ef898b9511fc` | `0a0e710b-9012-41fe-a947-393274a76c94` |
-| hand 0.25 | 1 (0-63, L1) | B | 109 / 122 | +0.051 (-0.051 to +0.153) (control minus candidate) | `90b1cbe0-525c-440b-988e-f2ae7664e280` | `6df6bf94-1853-46dc-b169-c8a2e5d7e7ba` |
-| hand 0.25 | 2 (800-863, L1) | A | 120 / 102 | +0.070 (-0.032 to +0.173) | `643e51c4-d1e7-4545-8b2b-3f4cb64fe22a` | `02c6ea23-1d12-45c2-9b4c-f3b4d3c0ef61` |
-| hand 0.25 | 2 (800-863, L1) | B | 116 / 116 | +0.000 (-0.096 to +0.096) (control minus candidate) | `805db13b-33b8-4b74-aa92-69398e726fa9` | `6c737da9-c10a-46e5-9c53-b91c882e599a` |
-| hand 0.25 | 3 (800-863, L2) | A | 92 / 74 | +0.070 (-0.012 to +0.153) | `f97d1156-4294-4ad2-8331-234e206d72a0` | `d016da61-ed26-4072-b3ff-98c8afb95705` |
-| hand 0.25 | 3 (800-863, L2) | B | 83 / 76 | -0.027 (-0.115 to +0.061) (control minus candidate) | `4924410e-b8e9-4752-9e0a-198bb826daaa` | `8fcd82d8-09a4-4f85-968b-7f20120a83dc` |
-| hand 0.25 | ext L1 (864-927) | A | 141 / 98 | +0.168 (+0.047 to +0.289) | `c0c8534f-9256-4576-a468-1959395cedfe` | `532b7ed6-b77c-4ab8-ac9f-37537a9a90f7` |
-| hand 0.25 | ext L1 (864-927) | B | 120 / 118 | -0.008 (-0.119 to +0.103) (control minus candidate) | `fb7327b6-8b65-44f0-bbb0-6ed513c1ab20` | `d828c9b6-e8e6-45bc-8ae8-08a9f7b80b26` |
-| hand 0.25 | ext L2 (864-927) | A | 107 / 75 | +0.125 (+0.031 to +0.219) | `9449ea85-5571-4a39-8ec3-f78a74c5c3c5` | `7697562f-eff1-4032-a32a-535ce8c323b5` |
-| hand 0.25 | ext L2 (864-927) | B | 84 / 75 | -0.035 (-0.124 to +0.054) (control minus candidate) | `7287289b-adfa-4a85-8644-9570d8c6c10b` | `9bae1e81-3ef3-41ad-aa6b-55876d2c2167` |
-| hand 0.5 | 1 (0-63, L1) | A | 133 / 95 | +0.148 (+0.046 to +0.251) | `5f6a5f32-2629-4f89-8fc6-e3e8088e1e36` | `4a6bfee0-c5ca-4689-8c8b-0cac8df16a0d` |
-| hand 0.5 | 1 (0-63, L1) | B | 104 / 119 | +0.059 (-0.045 to +0.163) (control minus candidate) | `9023a299-3644-4748-b349-4d6ff03b8ac5` | `39a0cdba-b3ab-4ed1-813d-537b3a60b103` |
-| hand 0.5 | 2 (800-863, L1) | A | 128 / 103 | +0.098 (-0.010 to +0.205) | `f453131d-e920-4739-8f1c-fe0a2d57bdd7` | `81267946-c11f-4a2b-9c9a-bd31c7b102c0` |
-| hand 0.5 | 2 (800-863, L1) | B | 116 / 115 | -0.004 (-0.115 to +0.107) (control minus candidate) | `9b7d17c5-f145-4467-a452-98fc6d1c913e` | `281c1452-fd54-4b8f-85fb-f1192b6fa15f` |
-| hand 0.5 | 3 (800-863, L2) | A | 87 / 83 | +0.016 (-0.079 to +0.110) | `ff2f050d-e848-4301-83ce-202d1abd1522` | `9bc75aea-a683-4d77-a99b-286a16083352` |
-| hand 0.5 | 3 (800-863, L2) | B | 77 / 95 | +0.070 (-0.029 to +0.169) (control minus candidate) | `82f2db3f-6d33-49eb-b8d9-6ba914b23217` | `807ae9e0-580f-4630-b4f6-d1c566eea0b7` |
-| hand 0.5 | ext L1 (864-927) | A | 120 / 114 | +0.023 (-0.084 to +0.131) | `245f9d8a-5ebd-4cc3-9cb6-2f3a7e99b6ce` | `86c15927-05fb-4b44-bdc2-9a631f070f0d` |
-| hand 0.5 | ext L1 (864-927) | B | 105 / 135 | +0.117 (+0.002 to +0.233) (control minus candidate) | `a39dce2b-1918-4f22-b1c1-9584946b9e2f` | `822ec329-678c-4dfd-9f2c-d347f5216438` |
-| hand 0.5 | ext L2 (864-927) | A | 86 / 80 | +0.023 (-0.068 to +0.115) | `b4d35e5e-fbc9-4937-b236-b53f001d00f6` | `b4e9e09c-4c38-4480-9cf6-23516107d05f` |
-| hand 0.5 | ext L2 (864-927) | B | 79 / 90 | +0.043 (-0.051 to +0.137) (control minus candidate) | `905ad279-73cf-4145-a42f-b0ef6561192e` | `32aa4be1-e50c-44e2-b7d2-8731f30257b4` |
-| hand 1.0 | 1 (0-63, L1), half A only | A | 93 / 123 | -0.117 (-0.233 to -0.002) | `f2f21530-bf8d-400d-bfec-8614e6e0a607` | `0d12835e-5262-4daf-9f2f-6a9b7288f2d6` |
-| scale 500 | 1 (0-63, L1) | A | 117 / 108 | +0.035 (-0.046 to +0.116) | `af67389d-785d-4bf0-894f-436836d8c2db` | `a1830777-dcba-4e54-b394-833fc04adc0e` |
-| scale 500 | 1 (0-63, L1) | B | 91 / 130 | +0.152 (+0.052 to +0.253) (control minus candidate) | `fe58e64c-b9bb-493b-a4a3-411c5aff3c9f` | `5d969f99-0067-4244-bb11-b88a3805bf63` |
-| scale 500 | 2 (800-863, L1) | A | 107 / 117 | -0.039 (-0.143 to +0.065) | `1a694630-8483-4512-849b-cfc7ca54bae1` | `e0efc71e-f9d0-4d77-a57e-988bb4607654` |
-| scale 500 | 2 (800-863, L1) | B | 87 / 146 | +0.230 (+0.147 to +0.314) (control minus candidate) | `07a0544f-008e-4dae-a3c9-e6c00985e6f0` | `b8662419-bf13-4333-b02f-bee9037ed7cb` |
-| scale 2000 | 1 (0-63, L1) | A | 141 / 94 | +0.184 (+0.089 to +0.278) | `d5ed6196-0d94-4513-b8c4-6e8c83e39967` | `d45f668c-558f-435e-9957-38e33e7ac864` |
-| scale 2000 | 1 (0-63, L1) | B | 101 / 122 | +0.082 (-0.016 to +0.180) (control minus candidate) | `f10eb77e-ebb8-4711-90d8-a28b5e9ead0b` | `75a28eed-d4f4-480a-95d7-8cec86ebdfec` |
-| scale 2000 | 2 (800-863, L1) | A | 118 / 108 | +0.039 (-0.069 to +0.147) | `ad20b42d-9937-4515-acb1-7669b0f20aa8` | `f9eb5200-ee12-4d9e-bcc3-fde9a73d24d4` |
-| scale 2000 | 2 (800-863, L1) | B | 111 / 126 | +0.059 (-0.056 to +0.173) (control minus candidate) | `91718fce-02e4-4248-a9e1-3e43bd76c118` | `1e9155d6-7a37-4f4a-92f2-d911b4cdaed0` |
-| scale 2000 | 3 (800-863, L2) | A | 87 / 85 | +0.008 (-0.089 to +0.104) | `a1c94c34-3de8-4b37-a06a-792d93d66a5c` | `7b35abeb-7384-4b24-b5d4-b7ad8da5bc13` |
-| scale 2000 | 3 (800-863, L2) | B | 91 / 75 | -0.062 (-0.148 to +0.023) (control minus candidate) | `6dd18a29-bf0b-46e2-8ca4-bc815e07480d` | `bbc95080-0a94-4b8c-aad9-a298f2531349` |
-| scale 2000 | ext L1 (864-927) | A | 135 / 100 | +0.137 (+0.029 to +0.244) | `9d6eb9ca-7db0-4154-b64e-e15af957cac3` | `00a7596e-cbad-4576-8be7-0ea9849655d3` |
-| scale 2000 | ext L1 (864-927) | B | 110 / 121 | +0.043 (-0.057 to +0.143) (control minus candidate) | `a2e97981-b6a7-4d3b-8a3b-ac416a6bfbac` | `691cd581-79b3-46a8-89ba-4682c878cc3d` |
-| scale 2000 | ext L2 (864-927) | A | 100 / 76 | +0.094 (+0.001 to +0.187) | `5e1b1d2c-8839-4bfb-8d65-0c3295df027a` | `bf588ca4-2392-4311-9783-9ecf88062a8b` |
-| scale 2000 | ext L2 (864-927) | B | 83 / 90 | +0.027 (-0.072 to +0.126) (control minus candidate) | `4e2462ab-e524-439e-8242-c385d511bc0f` | `b04b06d7-eb29-4be3-b759-bee7e517fb9d` |
-| race | 1 (0-63, L1) | A | 129 / 100 | +0.113 (+0.024 to +0.203) | `2539e502-82fd-4435-8037-36576576149e` | `a2305e39-c6ae-47cc-a48b-11a98a6a889f` |
-| race | 1 (0-63, L1) | B | 92 / 141 | +0.191 (+0.099 to +0.284) (control minus candidate) | `afbb74be-1797-488e-bf6d-f507a2f7d211` | `62a9c08a-525d-4647-8039-74762ece8915` |
-| race | 2 (800-863, L1) | A | 123 / 104 | +0.074 (-0.037 to +0.186) | `2d7728ec-73da-4373-9bab-173c7d0fd233` | `89995f9e-f3f9-476a-8d60-cea1c872882c` |
-| race | 2 (800-863, L1) | B | 95 / 132 | +0.145 (+0.035 to +0.254) (control minus candidate) | `2ebd63d7-5030-44a7-aa22-e2c5b7eecf75` | `a6160ac7-4b29-45fb-bede-7c7581ee49c3` |
-| race | 3 (800-863, L2) | A | 84 / 83 | +0.004 (-0.086 to +0.094) | `583bb9b9-93eb-46f0-b881-3c04a8a09a43` | `a84adf0d-5d3e-4508-bae6-4895bb988a5c` |
-| race | 3 (800-863, L2) | B | 81 / 82 | +0.004 (-0.075 to +0.083) (control minus candidate) | `062e4f27-86af-4f43-a785-403963a72faa` | `cfa68fe3-5a0a-4b8c-a272-b18eabcf8d7d` |
-| hidden points | 1 (0-63, L1) | A | 137 / 97 | +0.156 (+0.064 to +0.249) | `d7a3e2a6-12d7-49a3-bdea-73cb384d849f` | `f71f0519-603f-4735-8b7c-216a027b4bfa` |
-| hidden points | 1 (0-63, L1) | B | 102 / 129 | +0.105 (+0.012 to +0.199) (control minus candidate) | `0cee9b32-0a0e-45e9-9417-00816fed3055` | `ffb5282f-aca3-4b7d-b6e2-0043cbb3c8a9` |
-| hidden points | 2 (800-863, L1) | A | 125 / 104 | +0.082 (-0.025 to +0.189) | `c1fa5380-eb76-4b2e-b0d5-a5bbcc1191d6` | `21e1875d-8d52-4b46-a236-bc6b0f1c9269` |
-| hidden points | 2 (800-863, L1) | B | 102 / 128 | +0.102 (-0.009 to +0.212) (control minus candidate) | `fc9a2726-8e79-4922-9454-7f0adf034d56` | `ebca2e51-db2d-4d95-bdc0-0f90abb85e03` |
-| hidden points | 3 (800-863, L2) | A | 83 / 84 | -0.004 (-0.092 to +0.084) | `707228f9-bf2c-480c-97bf-85e7915acbd6` | `b7620d3e-e3c8-4f76-bd09-9cf142d9664f` |
-| hidden points | 3 (800-863, L2) | B | 74 / 86 | +0.047 (-0.044 to +0.138) (control minus candidate) | `dcb44409-a705-4ab1-81b4-1d2a42b77111` | `14d5ecc2-f876-4b89-bfc7-86afabbe2c5b` |
-| hidden points | ext L1 (864-927) | A | 130 / 107 | +0.090 (-0.011 to +0.191) | `cb65e133-a18f-4d33-b4ea-afb2e2112cfe` | `48063a4d-6412-4cbd-9241-bf8be44de2cd` |
-| hidden points | ext L1 (864-927) | B | 103 / 129 | +0.102 (-0.003 to +0.206) (control minus candidate) | `4de83cf0-edca-45c8-8ee4-ae2025495157` | `c4037bf3-c3f0-4d66-9c1d-b6eacb8eee14` |
-| hidden points | ext L2 (864-927) | A | 91 / 82 | +0.035 (-0.046 to +0.117) | `e612fc8c-038c-4115-a7fc-ae0b625fa2e3` | `eee597b6-f2e5-4d72-898d-014f7b7c5567` |
-| hidden points | ext L2 (864-927) | B | 85 / 90 | +0.020 (-0.073 to +0.112) (control minus candidate) | `59099138-66bf-4389-b184-b5eb99e3bcec` | `8d3434f3-4ff9-4f8e-b446-157887f3aa2b` |
-| hidden points | 1 on hand 1.0 (0-63, L1) | A | 95 / 104 | -0.035 (-0.148 to +0.078) | `e7b09434-e4a4-409c-9bbc-6eeb56c3f65a` | `b827db8d-00f4-43ba-95d3-6b726da9ce42` |
-| hidden points | 1 on hand 1.0 (0-63, L1) | B | 101 / 107 | +0.023 (-0.101 to +0.148) (control minus candidate) | `f1d399f2-c7dd-4235-99d8-e2f997d6b006` | `66738182-65d1-4db7-9163-81008c59d149` |
+| hand 0.25 | 1 (0-63, L1) | A | 138 / 87 | +0.199 (+0.107 to +0.291) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/337fa8bf-6dac-4798-ac5d-ef898b9511fc.toml) | [256-game engine cohort](/research/records/runs/0a0e710b-9012-41fe-a947-393274a76c94) |
+| hand 0.25 | 1 (0-63, L1) | B | 109 / 122 | +0.051 (-0.051 to +0.153) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/90b1cbe0-525c-440b-988e-f2ae7664e280.toml) | [256-game engine cohort](/research/records/runs/6df6bf94-1853-46dc-b169-c8a2e5d7e7ba) |
+| hand 0.25 | 2 (800-863, L1) | A | 120 / 102 | +0.070 (-0.032 to +0.173) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/643e51c4-d1e7-4545-8b2b-3f4cb64fe22a.toml) | [256-game engine cohort](/research/records/runs/02c6ea23-1d12-45c2-9b4c-f3b4d3c0ef61) |
+| hand 0.25 | 2 (800-863, L1) | B | 116 / 116 | +0.000 (-0.096 to +0.096) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/805db13b-33b8-4b74-aa92-69398e726fa9.toml) | [256-game engine cohort](/research/records/runs/6c737da9-c10a-46e5-9c53-b91c882e599a) |
+| hand 0.25 | 3 (800-863, L2) | A | 92 / 74 | +0.070 (-0.012 to +0.153) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f97d1156-4294-4ad2-8331-234e206d72a0.toml) | [256-game engine cohort](/research/records/runs/d016da61-ed26-4072-b3ff-98c8afb95705) |
+| hand 0.25 | 3 (800-863, L2) | B | 83 / 76 | -0.027 (-0.115 to +0.061) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4924410e-b8e9-4752-9e0a-198bb826daaa.toml) | [256-game engine cohort](/research/records/runs/8fcd82d8-09a4-4f85-968b-7f20120a83dc) |
+| hand 0.25 | ext L1 (864-927) | A | 141 / 98 | +0.168 (+0.047 to +0.289) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c0c8534f-9256-4576-a468-1959395cedfe.toml) | [256-game engine cohort](/research/records/runs/532b7ed6-b77c-4ab8-ac9f-37537a9a90f7) |
+| hand 0.25 | ext L1 (864-927) | B | 120 / 118 | -0.008 (-0.119 to +0.103) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/fb7327b6-8b65-44f0-bbb0-6ed513c1ab20.toml) | [256-game engine cohort](/research/records/runs/d828c9b6-e8e6-45bc-8ae8-08a9f7b80b26) |
+| hand 0.25 | ext L2 (864-927) | A | 107 / 75 | +0.125 (+0.031 to +0.219) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9449ea85-5571-4a39-8ec3-f78a74c5c3c5.toml) | [256-game engine cohort](/research/records/runs/7697562f-eff1-4032-a32a-535ce8c323b5) |
+| hand 0.25 | ext L2 (864-927) | B | 84 / 75 | -0.035 (-0.124 to +0.054) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7287289b-adfa-4a85-8644-9570d8c6c10b.toml) | [256-game engine cohort](/research/records/runs/9bae1e81-3ef3-41ad-aa6b-55876d2c2167) |
+| hand 0.5 | 1 (0-63, L1) | A | 133 / 95 | +0.148 (+0.046 to +0.251) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5f6a5f32-2629-4f89-8fc6-e3e8088e1e36.toml) | [256-game engine cohort](/research/records/runs/4a6bfee0-c5ca-4689-8c8b-0cac8df16a0d) |
+| hand 0.5 | 1 (0-63, L1) | B | 104 / 119 | +0.059 (-0.045 to +0.163) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9023a299-3644-4748-b349-4d6ff03b8ac5.toml) | [256-game engine cohort](/research/records/runs/39a0cdba-b3ab-4ed1-813d-537b3a60b103) |
+| hand 0.5 | 2 (800-863, L1) | A | 128 / 103 | +0.098 (-0.010 to +0.205) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f453131d-e920-4739-8f1c-fe0a2d57bdd7.toml) | [256-game engine cohort](/research/records/runs/81267946-c11f-4a2b-9c9a-bd31c7b102c0) |
+| hand 0.5 | 2 (800-863, L1) | B | 116 / 115 | -0.004 (-0.115 to +0.107) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9b7d17c5-f145-4467-a452-98fc6d1c913e.toml) | [256-game engine cohort](/research/records/runs/281c1452-fd54-4b8f-85fb-f1192b6fa15f) |
+| hand 0.5 | 3 (800-863, L2) | A | 87 / 83 | +0.016 (-0.079 to +0.110) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ff2f050d-e848-4301-83ce-202d1abd1522.toml) | [256-game engine cohort](/research/records/runs/9bc75aea-a683-4d77-a99b-286a16083352) |
+| hand 0.5 | 3 (800-863, L2) | B | 77 / 95 | +0.070 (-0.029 to +0.169) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/82f2db3f-6d33-49eb-b8d9-6ba914b23217.toml) | [256-game engine cohort](/research/records/runs/807ae9e0-580f-4630-b4f6-d1c566eea0b7) |
+| hand 0.5 | ext L1 (864-927) | A | 120 / 114 | +0.023 (-0.084 to +0.131) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/245f9d8a-5ebd-4cc3-9cb6-2f3a7e99b6ce.toml) | [256-game engine cohort](/research/records/runs/86c15927-05fb-4b44-bdc2-9a631f070f0d) |
+| hand 0.5 | ext L1 (864-927) | B | 105 / 135 | +0.117 (+0.002 to +0.233) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a39dce2b-1918-4f22-b1c1-9584946b9e2f.toml) | [256-game engine cohort](/research/records/runs/822ec329-678c-4dfd-9f2c-d347f5216438) |
+| hand 0.5 | ext L2 (864-927) | A | 86 / 80 | +0.023 (-0.068 to +0.115) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b4d35e5e-fbc9-4937-b236-b53f001d00f6.toml) | [256-game engine cohort](/research/records/runs/b4e9e09c-4c38-4480-9cf6-23516107d05f) |
+| hand 0.5 | ext L2 (864-927) | B | 79 / 90 | +0.043 (-0.051 to +0.137) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/905ad279-73cf-4145-a42f-b0ef6561192e.toml) | [256-game engine cohort](/research/records/runs/32aa4be1-e50c-44e2-b7d2-8731f30257b4) |
+| hand 1.0 | 1 (0-63, L1), half A only | A | 93 / 123 | -0.117 (-0.233 to -0.002) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f2f21530-bf8d-400d-bfec-8614e6e0a607.toml) | [256-game engine cohort](/research/records/runs/0d12835e-5262-4daf-9f2f-6a9b7288f2d6) |
+| scale 500 | 1 (0-63, L1) | A | 117 / 108 | +0.035 (-0.046 to +0.116) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/af67389d-785d-4bf0-894f-436836d8c2db.toml) | [256-game engine cohort](/research/records/runs/a1830777-dcba-4e54-b394-833fc04adc0e) |
+| scale 500 | 1 (0-63, L1) | B | 91 / 130 | +0.152 (+0.052 to +0.253) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/fe58e64c-b9bb-493b-a4a3-411c5aff3c9f.toml) | [256-game engine cohort](/research/records/runs/5d969f99-0067-4244-bb11-b88a3805bf63) |
+| scale 500 | 2 (800-863, L1) | A | 107 / 117 | -0.039 (-0.143 to +0.065) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1a694630-8483-4512-849b-cfc7ca54bae1.toml) | [256-game engine cohort](/research/records/runs/e0efc71e-f9d0-4d77-a57e-988bb4607654) |
+| scale 500 | 2 (800-863, L1) | B | 87 / 146 | +0.230 (+0.147 to +0.314) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/07a0544f-008e-4dae-a3c9-e6c00985e6f0.toml) | [256-game engine cohort](/research/records/runs/b8662419-bf13-4333-b02f-bee9037ed7cb) |
+| scale 2000 | 1 (0-63, L1) | A | 141 / 94 | +0.184 (+0.089 to +0.278) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d5ed6196-0d94-4513-b8c4-6e8c83e39967.toml) | [256-game engine cohort](/research/records/runs/d45f668c-558f-435e-9957-38e33e7ac864) |
+| scale 2000 | 1 (0-63, L1) | B | 101 / 122 | +0.082 (-0.016 to +0.180) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f10eb77e-ebb8-4711-90d8-a28b5e9ead0b.toml) | [256-game engine cohort](/research/records/runs/75a28eed-d4f4-480a-95d7-8cec86ebdfec) |
+| scale 2000 | 2 (800-863, L1) | A | 118 / 108 | +0.039 (-0.069 to +0.147) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ad20b42d-9937-4515-acb1-7669b0f20aa8.toml) | [256-game engine cohort](/research/records/runs/f9eb5200-ee12-4d9e-bcc3-fde9a73d24d4) |
+| scale 2000 | 2 (800-863, L1) | B | 111 / 126 | +0.059 (-0.056 to +0.173) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/91718fce-02e4-4248-a9e1-3e43bd76c118.toml) | [256-game engine cohort](/research/records/runs/1e9155d6-7a37-4f4a-92f2-d911b4cdaed0) |
+| scale 2000 | 3 (800-863, L2) | A | 87 / 85 | +0.008 (-0.089 to +0.104) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a1c94c34-3de8-4b37-a06a-792d93d66a5c.toml) | [256-game engine cohort](/research/records/runs/7b35abeb-7384-4b24-b5d4-b7ad8da5bc13) |
+| scale 2000 | 3 (800-863, L2) | B | 91 / 75 | -0.062 (-0.148 to +0.023) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6dd18a29-bf0b-46e2-8ca4-bc815e07480d.toml) | [256-game engine cohort](/research/records/runs/bbc95080-0a94-4b8c-aad9-a298f2531349) |
+| scale 2000 | ext L1 (864-927) | A | 135 / 100 | +0.137 (+0.029 to +0.244) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9d6eb9ca-7db0-4154-b64e-e15af957cac3.toml) | [256-game engine cohort](/research/records/runs/00a7596e-cbad-4576-8be7-0ea9849655d3) |
+| scale 2000 | ext L1 (864-927) | B | 110 / 121 | +0.043 (-0.057 to +0.143) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a2e97981-b6a7-4d3b-8a3b-ac416a6bfbac.toml) | [256-game engine cohort](/research/records/runs/691cd581-79b3-46a8-89ba-4682c878cc3d) |
+| scale 2000 | ext L2 (864-927) | A | 100 / 76 | +0.094 (+0.001 to +0.187) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5e1b1d2c-8839-4bfb-8d65-0c3295df027a.toml) | [256-game engine cohort](/research/records/runs/bf588ca4-2392-4311-9783-9ecf88062a8b) |
+| scale 2000 | ext L2 (864-927) | B | 83 / 90 | +0.027 (-0.072 to +0.126) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4e2462ab-e524-439e-8242-c385d511bc0f.toml) | [256-game engine cohort](/research/records/runs/b04b06d7-eb29-4be3-b759-bee7e517fb9d) |
+| race | 1 (0-63, L1) | A | 129 / 100 | +0.113 (+0.024 to +0.203) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2539e502-82fd-4435-8037-36576576149e.toml) | [256-game engine cohort](/research/records/runs/a2305e39-c6ae-47cc-a48b-11a98a6a889f) |
+| race | 1 (0-63, L1) | B | 92 / 141 | +0.191 (+0.099 to +0.284) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/afbb74be-1797-488e-bf6d-f507a2f7d211.toml) | [256-game engine cohort](/research/records/runs/62a9c08a-525d-4647-8039-74762ece8915) |
+| race | 2 (800-863, L1) | A | 123 / 104 | +0.074 (-0.037 to +0.186) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2d7728ec-73da-4373-9bab-173c7d0fd233.toml) | [256-game engine cohort](/research/records/runs/89995f9e-f3f9-476a-8d60-cea1c872882c) |
+| race | 2 (800-863, L1) | B | 95 / 132 | +0.145 (+0.035 to +0.254) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2ebd63d7-5030-44a7-aa22-e2c5b7eecf75.toml) | [256-game engine cohort](/research/records/runs/a6160ac7-4b29-45fb-bede-7c7581ee49c3) |
+| race | 3 (800-863, L2) | A | 84 / 83 | +0.004 (-0.086 to +0.094) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/583bb9b9-93eb-46f0-b881-3c04a8a09a43.toml) | [256-game engine cohort](/research/records/runs/a84adf0d-5d3e-4508-bae6-4895bb988a5c) |
+| race | 3 (800-863, L2) | B | 81 / 82 | +0.004 (-0.075 to +0.083) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/062e4f27-86af-4f43-a785-403963a72faa.toml) | [256-game engine cohort](/research/records/runs/cfa68fe3-5a0a-4b8c-a272-b18eabcf8d7d) |
+| hidden points | 1 (0-63, L1) | A | 137 / 97 | +0.156 (+0.064 to +0.249) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d7a3e2a6-12d7-49a3-bdea-73cb384d849f.toml) | [256-game engine cohort](/research/records/runs/f71f0519-603f-4735-8b7c-216a027b4bfa) |
+| hidden points | 1 (0-63, L1) | B | 102 / 129 | +0.105 (+0.012 to +0.199) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0cee9b32-0a0e-45e9-9417-00816fed3055.toml) | [256-game engine cohort](/research/records/runs/ffb5282f-aca3-4b7d-b6e2-0043cbb3c8a9) |
+| hidden points | 2 (800-863, L1) | A | 125 / 104 | +0.082 (-0.025 to +0.189) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c1fa5380-eb76-4b2e-b0d5-a5bbcc1191d6.toml) | [256-game engine cohort](/research/records/runs/21e1875d-8d52-4b46-a236-bc6b0f1c9269) |
+| hidden points | 2 (800-863, L1) | B | 102 / 128 | +0.102 (-0.009 to +0.212) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/fc9a2726-8e79-4922-9454-7f0adf034d56.toml) | [256-game engine cohort](/research/records/runs/ebca2e51-db2d-4d95-bdc0-0f90abb85e03) |
+| hidden points | 3 (800-863, L2) | A | 83 / 84 | -0.004 (-0.092 to +0.084) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/707228f9-bf2c-480c-97bf-85e7915acbd6.toml) | [256-game engine cohort](/research/records/runs/b7620d3e-e3c8-4f76-bd09-9cf142d9664f) |
+| hidden points | 3 (800-863, L2) | B | 74 / 86 | +0.047 (-0.044 to +0.138) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dcb44409-a705-4ab1-81b4-1d2a42b77111.toml) | [256-game engine cohort](/research/records/runs/14d5ecc2-f876-4b89-bfc7-86afabbe2c5b) |
+| hidden points | ext L1 (864-927) | A | 130 / 107 | +0.090 (-0.011 to +0.191) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/cb65e133-a18f-4d33-b4ea-afb2e2112cfe.toml) | [256-game engine cohort](/research/records/runs/48063a4d-6412-4cbd-9241-bf8be44de2cd) |
+| hidden points | ext L1 (864-927) | B | 103 / 129 | +0.102 (-0.003 to +0.206) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4de83cf0-edca-45c8-8ee4-ae2025495157.toml) | [256-game engine cohort](/research/records/runs/c4037bf3-c3f0-4d66-9c1d-b6eacb8eee14) |
+| hidden points | ext L2 (864-927) | A | 91 / 82 | +0.035 (-0.046 to +0.117) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e612fc8c-038c-4115-a7fc-ae0b625fa2e3.toml) | [256-game engine cohort](/research/records/runs/eee597b6-f2e5-4d72-898d-014f7b7c5567) |
+| hidden points | ext L2 (864-927) | B | 85 / 90 | +0.020 (-0.073 to +0.112) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/59099138-66bf-4389-b184-b5eb99e3bcec.toml) | [256-game engine cohort](/research/records/runs/8d3434f3-4ff9-4f8e-b446-157887f3aa2b) |
+| hidden points | 1 on hand 1.0 (0-63, L1) | A | 95 / 104 | -0.035 (-0.148 to +0.078) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e7b09434-e4a4-409c-9bbc-6eeb56c3f65a.toml) | [256-game engine cohort](/research/records/runs/b827db8d-00f4-43ba-95d3-6b726da9ce42) |
+| hidden points | 1 on hand 1.0 (0-63, L1) | B | 101 / 107 | +0.023 (-0.101 to +0.148) (control minus candidate) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f1d399f2-c7dd-4235-99d8-e2f997d6b006.toml) | [256-game engine cohort](/research/records/runs/66738182-65d1-4db7-9163-81008c59d149) |
+
+</AgentContext>
 
 Withdrawn before running, with reasons in [the daily log](../log/2026-09-11):
-the hand 1.0 half B (`b6f5f82e-9a8a-4fd5-b9f5-bc7357fcaa9c`) and the race
-halves on the full blend (`47a866d0-b46b-49d4-bf92-fd0b520bc19f`,
-`348e041a-9c73-43d8-93dc-80ce0ae5ec10`), because the full blend measured much
+the hand 1.0 half B ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b6f5f82e-9a8a-4fd5-b9f5-bc7357fcaa9c.toml)) and the race
+halves on the full blend ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/47a866d0-b46b-49d4-bf92-fd0b520bc19f.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/348e041a-9c73-43d8-93dc-80ce0ae5ec10.toml)), because the full blend measured much
 weaker than the tables alone and a switch on top of it says nothing about a
 configuration anyone would use; and the scale 500 stage 3 halves
-(`7bd62467-9637-490f-a3cf-d9fe1a4a1bca`,
-`436be4ef-b624-4d11-b3cc-6de6851facbc`), because stage 2 refuted the arm.
+([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7bd62467-9637-490f-a3cf-d9fe1a4a1bca.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/436be4ef-b624-4d11-b3cc-6de6851facbc.toml)), because stage 2 refuted the arm.
 
 ## What could still be wrong
 
@@ -273,3 +262,26 @@ Reproduction: `python3 -m harness.engine run EXPERIMENT --threads 6` in the rese
 </AgentContext>
 
 [All studies](../approaches/README.md) · [Learned pattern values](../approaches/patterns) · [Log 2026-09-11](../log/2026-09-11)
+
+<AgentContext title="Detailed result and cohort context">
+
+The learned tables price end-of-turn positions in win probability, and the
+hand-written terms price them in points. Added on top of the tables, the
+hand-written terms at quarter strength (`leaf.hand` 0.25) beat the tables alone
+by **+0.074 wins per game** (95% interval +0.011 to +0.138) on seeds 0 to 63,
+**+0.088** (+0.006 to +0.170) on the extension seeds 864 to 927, and **+0.080**
+(+0.015 to +0.146) there at a three-search population table; pooled
+after-the-fact over 192 L1 seeds the effect is **+0.066 (+0.024 to +0.107)** and
+over 128 L2 seeds **+0.064 (+0.021 to +0.108)**. Half strength is weaker
+(+0.016 over 192 L1 seeds, interval crossing zero), and full strength is much
+worse than the tables alone: the withdrawn full-blend half lost from the
+favorable seat (−0.117) and an unregistered screen of the pair read −0.207.
+Halving the tables scale to 500 is **refuted** (−0.135 on fresh seeds, −0.097
+pooled), doubling it to 2000 is a cost-free nothing (+0.029 pooled over 192 L1
+seeds, crossing zero). The endgame race leaf is **−0.037 (−0.066 to −0.008)**
+pooled over its two L1 stages under the blend, and expected hidden points reads
++0.003 (−0.017 to +0.023) pooled over its 192 L1 seeds and −0.009 (−0.037 to
++0.019) over its 128 L2 seeds, every interval crossing zero. The race and hidden-points switches stay off; the
+quarter-strength blend is the one candidate worth a protocol cohort.
+
+</AgentContext>

@@ -1,28 +1,13 @@
 ---
 date: "2026-09-12"
 title: "Robber targeting under the learned leaf"
-summary: "Four robber and endgame targeting switches, each tested as swapped pairs against the learned-tables baseline, all correct to between −0.005 and +0.031 wins per game with intervals crossing zero; the mechanisms fire, none is worth the browser."
+summary: "No pooled robber-targeting effect meets the rule at both tables, so all four switches stay off."
 ---
 
 # Robber targeting under the learned leaf
 
-<ResearchCallout title="Finding · under the learned tables, every targeting switch is inconclusive">
-The three robber-targeting switches and the late-game leader bias, refuted or
-zeroed under the hand-written leaf, were retested one at a time against the
-search with the learned n-tuple tables, each as a swapped pair in a builders
-lineup (eta and fast) and a population lineup (a third tables search and eta).
-Every cohort completed. The seating-corrected effects pooled over all stages
-are **leader +0.007** (95% interval −0.035 to +0.049) and **+0.031** (−0.030 to
-+0.092), **need +0.016** (−0.008 to +0.041) and **+0.009** (−0.018 to +0.036),
-**threat −0.005** (−0.042 to +0.033) and **+0.043** (−0.005 to +0.091), and
-**block leader +0.011** (−0.005 to +0.027) and **+0.015** (−0.007 to +0.036)
-wins per game, builders and population lineups in that order. Only one cohort
-of the ten cells excluded zero: the block leader extension in the population
-lineup, +0.033 (+0.007 to +0.060). No switch reaches the registered bar of
-+0.03 pooled with an interval excluding zero, and combining the two arms that
-read positive (need plus block leader) gave **+0.035** (−0.015 to +0.085) in
-the builders lineup and **−0.039** (−0.090 to +0.012) in the population lineup.
-All switches stay off by default.
+<ResearchCallout title="No robber-targeting switch meets the rule">
+Every pooled targeting interval crosses zero at both tables. Combining the two positive-looking arms also remains inconclusive. One population extension was positive on its own, but that did not survive pooling. All cohorts completed and all four switches stay off.
 </ResearchCallout>
 
 <ResearchPlot asset="robber-tables-effects" />
@@ -75,47 +60,51 @@ one cohort whose interval excluded zero is named below.
 All 36 cohorts completed all 256 games: 9,216 games, no invalid moves, stalls,
 or timeouts. One half (leader, development, half B) was interrupted at 143 of
 256 games by a shell timeout on the controlling session and was rerun from
-scratch; the partial run `b3a6c3ac-f9f6-4468-9259-835b8200f8d7` is filed as
+scratch; the partial [interrupted attempt](/research/records/runs/b3a6c3ac-f9f6-4468-9259-835b8200f8d7) is filed as
 interrupted and its games were not pooled.
+
+<AgentContext title="Full results and cohort ledger">
 
 | Arm | Cohort | Half | Experiment | Run | Slot 0 | Slot 1 | Slot 2 | Slot 3 |
 | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: |
-| leader | dev 0-63, builders | A | `792be780-1744-4fbf-9378-d076dfc82144` | `00c2cbe1-592c-445c-a843-e44996943007` | 129 | 99 | 13 | 15 |
-| leader | dev 0-63, builders | B | `96d43c3b-0e38-4178-a37e-c8e7f3aa4fd5` | `38728ce3-fa05-495d-97f2-58ff22f98b77` | 133 | 93 | 21 | 9 |
-| need | dev 0-63, builders | A | `65b1ddb2-a85e-40fc-9bdd-0fb6627b9207` | `5c2f8ab4-bbe1-44e5-aed0-c9cc394c9f7d` | 127 | 100 | 19 | 10 |
-| need | dev 0-63, builders | B | `55e137f4-0443-486e-92c2-eb52eb52e819` | `c8749e28-9907-4ee7-a427-3ba033ac8943` | 129 | 100 | 18 | 9 |
-| threat | dev 0-63, builders | A | `7bbc7aa7-0ace-437b-903f-ab953be6766e` | `47060353-4746-495b-bea5-dfbb485016af` | 122 | 103 | 19 | 12 |
-| threat | dev 0-63, builders | B | `2d811991-6b3c-491c-a934-75bab4ad4f44` | `e0c6acab-fc5c-4f6e-8c26-74f4e8c730dc` | 120 | 104 | 21 | 11 |
-| block leader | dev 0-63, builders | A | `a01d63ec-23bf-49fd-9389-784d13a418c8` | `2321b99f-1592-480e-a057-4b76f6627586` | 125 | 101 | 17 | 13 |
-| block leader | dev 0-63, builders | B | `20ec74b1-732f-444f-bc54-323edbdabd99` | `56625a37-fd84-4006-9966-c4a0148b9f53` | 123 | 104 | 16 | 13 |
-| leader | conf 800-863, builders | A | `bdf5010a-8fc2-4c10-8458-9cdc9b40badf` | `8129fb6c-36c6-495d-aee5-3771ffc81add` | 127 | 93 | 17 | 19 |
-| leader | conf 800-863, builders | B | `f1fadb40-1a77-4ece-bac1-6a2cba898577` | `026bd4f5-7a8b-40b0-b4e3-239e17a3daa3` | 125 | 108 | 15 | 8 |
-| need | conf 800-863, builders | A | `26a2fb68-4a00-4f37-af89-78b7640ddc8f` | `20b15545-5d1a-4640-968c-77aae8aba3a9` | 126 | 95 | 25 | 10 |
-| need | conf 800-863, builders | B | `284171c8-2889-4a5b-9c0e-e3d39470be1e` | `3c579646-cf00-439f-937d-6a0e93122bcf` | 127 | 103 | 20 | 6 |
-| threat | conf 800-863, builders | A | `3420701a-4121-46ca-887d-16204bf7aea9` | `227b8813-f6db-467e-8097-209dd66c1323` | 124 | 108 | 15 | 9 |
-| threat | conf 800-863, builders | B | `565a46fd-b928-45a4-8d18-4d45bb558409` | `059e8938-8aa0-48ef-9172-a5639f7a6149` | 127 | 103 | 19 | 7 |
-| block leader | conf 800-863, builders | A | `6e645e60-e3fd-446a-903e-8485a4dab634` | `d8adbaf5-38ab-480b-a537-cab33ff0b188` | 125 | 104 | 20 | 7 |
-| block leader | conf 800-863, builders | B | `4e9d4801-e1ba-4bb5-ab14-d85896644269` | `6278b419-683c-40ac-b88d-0bcb277ed647` | 127 | 106 | 18 | 5 |
-| leader | pop 800-863, population | A | `1dde9819-6779-425b-b292-0a72c30d0cff` | `6b0408e8-f320-4a9a-bb12-0dfe95ece0fb` | 89 | 80 | 76 | 11 |
-| leader | pop 800-863, population | B | `b2878c09-38ca-47c9-8db3-3adc07fd37ca` | `44be36ac-3467-4caa-9ef7-d209f7dd5242` | 80 | 87 | 73 | 16 |
-| need | pop 800-863, population | A | `fef82bc6-bcd8-4468-8c7d-85dacc428376` | `a75e3de9-2103-4777-b6ef-536c2b6bd194` | 83 | 86 | 75 | 12 |
-| need | pop 800-863, population | B | `2385270c-2b73-42ea-8888-af3c506b6597` | `2b2182d5-1106-4372-84e4-0e2a9688d011` | 87 | 86 | 72 | 11 |
-| threat | pop 800-863, population | A | `62b6c4e8-5145-4aa5-9f5a-8c50340c88cc` | `7a435890-2fcb-4d51-8770-d952f457ae39` | 87 | 84 | 70 | 15 |
-| threat | pop 800-863, population | B | `f85f55d3-6521-473d-b9bc-d95f46bbe20e` | `8319a450-6849-42e7-b7c4-272c847b2f03` | 72 | 91 | 81 | 12 |
-| block leader | pop 800-863, population | A | `72d97267-0add-477b-936c-91392502d222` | `f2207f5e-8fd8-4891-8be1-529e52d2611e` | 78 | 89 | 76 | 13 |
-| block leader | pop 800-863, population | B | `458b1c88-1dd1-4629-9e57-b9c178093535` | `a626fe42-d01b-416a-bfd5-2edac7a9823c` | 80 | 89 | 76 | 11 |
-| need | ext 864-927, builders | A | `2b68a0f5-354c-4bfd-8c99-1af08c9f1d53` | `54d7090b-182d-402a-a8cd-3676029d2cb6` | 128 | 106 | 14 | 8 |
-| need | ext 864-927, builders | B | `3e6d14bf-8156-45e0-9554-e62d1a07973d` | `d55af6e8-087b-40a4-8d89-23b048cb3465` | 118 | 116 | 17 | 5 |
-| block leader | ext 864-927, builders | A | `4d64e731-9814-442a-9276-79b3e50c71e5` | `06d296f3-c13c-4853-9157-15ba7be1ad82` | 132 | 99 | 16 | 9 |
-| block leader | ext 864-927, builders | B | `57c39f3a-f23a-4e0e-8885-d16fa5cc88f2` | `38ecd1ca-3d73-49a7-987a-90ba4d73907f` | 127 | 106 | 15 | 8 |
-| need | ext 864-927, population | A | `924f0b5b-bcbf-4a10-924f-85db842b2b67` | `33d3b566-cab8-4f89-a773-f636998ee8f8` | 94 | 81 | 66 | 15 |
-| need | ext 864-927, population | B | `3203b993-81aa-481b-8dc2-de192c832937` | `da3ec107-4a6d-48ec-8f63-fec5f70572d9` | 88 | 88 | 65 | 15 |
-| block leader | ext 864-927, population | A | `4094eeea-1266-4a75-bcf9-7b122821f697` | `3a4f4e34-a565-46c4-abb0-5574f3d326b1` | 97 | 79 | 65 | 15 |
-| block leader | ext 864-927, population | B | `7ef0acfd-3c48-4b51-bab2-adea16b6b307` | `844109d4-ad9d-446a-9970-c0e36661d689` | 88 | 87 | 66 | 15 |
-| need + block leader | final 928-991, builders | A | `b5d23033-a6de-4324-8bae-8791679bd018` | `9e11f6ff-3e1a-4000-9f4c-73fdb3e4de1d` | 131 | 94 | 15 | 16 |
-| need + block leader | final 928-991, builders | B | `da65be79-63a4-4608-b017-77c513bbae2a` | `ffc247e0-2b08-446f-9052-de608430f6e5` | 122 | 103 | 17 | 14 |
-| need + block leader | final 928-991, population | A | `2043385b-de9f-45bc-8dda-c3aea99753e9` | `97c0c56c-0b81-4972-ab29-961d3c4ff888` | 87 | 86 | 72 | 11 |
-| need + block leader | final 928-991, population | B | `fc2983ec-6f8e-4977-b8df-3d404d977a71` | `3d8efaee-2a46-459d-ae24-191ebdbc9b52` | 94 | 73 | 83 | 6 |
+| leader | dev 0-63, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/792be780-1744-4fbf-9378-d076dfc82144.toml) | [256-game engine cohort](/research/records/runs/00c2cbe1-592c-445c-a843-e44996943007) | 129 | 99 | 13 | 15 |
+| leader | dev 0-63, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/96d43c3b-0e38-4178-a37e-c8e7f3aa4fd5.toml) | [256-game engine cohort](/research/records/runs/38728ce3-fa05-495d-97f2-58ff22f98b77) | 133 | 93 | 21 | 9 |
+| need | dev 0-63, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/65b1ddb2-a85e-40fc-9bdd-0fb6627b9207.toml) | [256-game engine cohort](/research/records/runs/5c2f8ab4-bbe1-44e5-aed0-c9cc394c9f7d) | 127 | 100 | 19 | 10 |
+| need | dev 0-63, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/55e137f4-0443-486e-92c2-eb52eb52e819.toml) | [256-game engine cohort](/research/records/runs/c8749e28-9907-4ee7-a427-3ba033ac8943) | 129 | 100 | 18 | 9 |
+| threat | dev 0-63, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7bbc7aa7-0ace-437b-903f-ab953be6766e.toml) | [256-game engine cohort](/research/records/runs/47060353-4746-495b-bea5-dfbb485016af) | 122 | 103 | 19 | 12 |
+| threat | dev 0-63, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2d811991-6b3c-491c-a934-75bab4ad4f44.toml) | [256-game engine cohort](/research/records/runs/e0c6acab-fc5c-4f6e-8c26-74f4e8c730dc) | 120 | 104 | 21 | 11 |
+| block leader | dev 0-63, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a01d63ec-23bf-49fd-9389-784d13a418c8.toml) | [256-game engine cohort](/research/records/runs/2321b99f-1592-480e-a057-4b76f6627586) | 125 | 101 | 17 | 13 |
+| block leader | dev 0-63, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/20ec74b1-732f-444f-bc54-323edbdabd99.toml) | [256-game engine cohort](/research/records/runs/56625a37-fd84-4006-9966-c4a0148b9f53) | 123 | 104 | 16 | 13 |
+| leader | conf 800-863, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/bdf5010a-8fc2-4c10-8458-9cdc9b40badf.toml) | [256-game engine cohort](/research/records/runs/8129fb6c-36c6-495d-aee5-3771ffc81add) | 127 | 93 | 17 | 19 |
+| leader | conf 800-863, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f1fadb40-1a77-4ece-bac1-6a2cba898577.toml) | [256-game engine cohort](/research/records/runs/026bd4f5-7a8b-40b0-b4e3-239e17a3daa3) | 125 | 108 | 15 | 8 |
+| need | conf 800-863, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/26a2fb68-4a00-4f37-af89-78b7640ddc8f.toml) | [256-game engine cohort](/research/records/runs/20b15545-5d1a-4640-968c-77aae8aba3a9) | 126 | 95 | 25 | 10 |
+| need | conf 800-863, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/284171c8-2889-4a5b-9c0e-e3d39470be1e.toml) | [256-game engine cohort](/research/records/runs/3c579646-cf00-439f-937d-6a0e93122bcf) | 127 | 103 | 20 | 6 |
+| threat | conf 800-863, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3420701a-4121-46ca-887d-16204bf7aea9.toml) | [256-game engine cohort](/research/records/runs/227b8813-f6db-467e-8097-209dd66c1323) | 124 | 108 | 15 | 9 |
+| threat | conf 800-863, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/565a46fd-b928-45a4-8d18-4d45bb558409.toml) | [256-game engine cohort](/research/records/runs/059e8938-8aa0-48ef-9172-a5639f7a6149) | 127 | 103 | 19 | 7 |
+| block leader | conf 800-863, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6e645e60-e3fd-446a-903e-8485a4dab634.toml) | [256-game engine cohort](/research/records/runs/d8adbaf5-38ab-480b-a537-cab33ff0b188) | 125 | 104 | 20 | 7 |
+| block leader | conf 800-863, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4e9d4801-e1ba-4bb5-ab14-d85896644269.toml) | [256-game engine cohort](/research/records/runs/6278b419-683c-40ac-b88d-0bcb277ed647) | 127 | 106 | 18 | 5 |
+| leader | pop 800-863, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1dde9819-6779-425b-b292-0a72c30d0cff.toml) | [256-game engine cohort](/research/records/runs/6b0408e8-f320-4a9a-bb12-0dfe95ece0fb) | 89 | 80 | 76 | 11 |
+| leader | pop 800-863, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b2878c09-38ca-47c9-8db3-3adc07fd37ca.toml) | [256-game engine cohort](/research/records/runs/44be36ac-3467-4caa-9ef7-d209f7dd5242) | 80 | 87 | 73 | 16 |
+| need | pop 800-863, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/fef82bc6-bcd8-4468-8c7d-85dacc428376.toml) | [256-game engine cohort](/research/records/runs/a75e3de9-2103-4777-b6ef-536c2b6bd194) | 83 | 86 | 75 | 12 |
+| need | pop 800-863, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2385270c-2b73-42ea-8888-af3c506b6597.toml) | [256-game engine cohort](/research/records/runs/2b2182d5-1106-4372-84e4-0e2a9688d011) | 87 | 86 | 72 | 11 |
+| threat | pop 800-863, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/62b6c4e8-5145-4aa5-9f5a-8c50340c88cc.toml) | [256-game engine cohort](/research/records/runs/7a435890-2fcb-4d51-8770-d952f457ae39) | 87 | 84 | 70 | 15 |
+| threat | pop 800-863, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f85f55d3-6521-473d-b9bc-d95f46bbe20e.toml) | [256-game engine cohort](/research/records/runs/8319a450-6849-42e7-b7c4-272c847b2f03) | 72 | 91 | 81 | 12 |
+| block leader | pop 800-863, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/72d97267-0add-477b-936c-91392502d222.toml) | [256-game engine cohort](/research/records/runs/f2207f5e-8fd8-4891-8be1-529e52d2611e) | 78 | 89 | 76 | 13 |
+| block leader | pop 800-863, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/458b1c88-1dd1-4629-9e57-b9c178093535.toml) | [256-game engine cohort](/research/records/runs/a626fe42-d01b-416a-bfd5-2edac7a9823c) | 80 | 89 | 76 | 11 |
+| need | ext 864-927, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2b68a0f5-354c-4bfd-8c99-1af08c9f1d53.toml) | [256-game engine cohort](/research/records/runs/54d7090b-182d-402a-a8cd-3676029d2cb6) | 128 | 106 | 14 | 8 |
+| need | ext 864-927, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3e6d14bf-8156-45e0-9554-e62d1a07973d.toml) | [256-game engine cohort](/research/records/runs/d55af6e8-087b-40a4-8d89-23b048cb3465) | 118 | 116 | 17 | 5 |
+| block leader | ext 864-927, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4d64e731-9814-442a-9276-79b3e50c71e5.toml) | [256-game engine cohort](/research/records/runs/06d296f3-c13c-4853-9157-15ba7be1ad82) | 132 | 99 | 16 | 9 |
+| block leader | ext 864-927, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/57c39f3a-f23a-4e0e-8885-d16fa5cc88f2.toml) | [256-game engine cohort](/research/records/runs/38ecd1ca-3d73-49a7-987a-90ba4d73907f) | 127 | 106 | 15 | 8 |
+| need | ext 864-927, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/924f0b5b-bcbf-4a10-924f-85db842b2b67.toml) | [256-game engine cohort](/research/records/runs/33d3b566-cab8-4f89-a773-f636998ee8f8) | 94 | 81 | 66 | 15 |
+| need | ext 864-927, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3203b993-81aa-481b-8dc2-de192c832937.toml) | [256-game engine cohort](/research/records/runs/da3ec107-4a6d-48ec-8f63-fec5f70572d9) | 88 | 88 | 65 | 15 |
+| block leader | ext 864-927, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4094eeea-1266-4a75-bcf9-7b122821f697.toml) | [256-game engine cohort](/research/records/runs/3a4f4e34-a565-46c4-abb0-5574f3d326b1) | 97 | 79 | 65 | 15 |
+| block leader | ext 864-927, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7ef0acfd-3c48-4b51-bab2-adea16b6b307.toml) | [256-game engine cohort](/research/records/runs/844109d4-ad9d-446a-9970-c0e36661d689) | 88 | 87 | 66 | 15 |
+| need + block leader | final 928-991, builders | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b5d23033-a6de-4324-8bae-8791679bd018.toml) | [256-game engine cohort](/research/records/runs/9e11f6ff-3e1a-4000-9f4c-73fdb3e4de1d) | 131 | 94 | 15 | 16 |
+| need + block leader | final 928-991, builders | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/da65be79-63a4-4608-b017-77c513bbae2a.toml) | [256-game engine cohort](/research/records/runs/ffc247e0-2b08-446f-9052-de608430f6e5) | 122 | 103 | 17 | 14 |
+| need + block leader | final 928-991, population | A | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2043385b-de9f-45bc-8dda-c3aea99753e9.toml) | [256-game engine cohort](/research/records/runs/97c0c56c-0b81-4972-ab29-961d3c4ff888) | 87 | 86 | 72 | 11 |
+| need + block leader | final 928-991, population | B | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/fc2983ec-6f8e-4977-b8df-3d404d977a71.toml) | [256-game engine cohort](/research/records/runs/3d8efaee-2a46-459d-ae24-191ebdbc9b52) | 94 | 73 | 83 | 6 |
+
+</AgentContext>
 
 ## Seating-corrected effects
 
@@ -263,9 +252,30 @@ Reproduction: in the research checkout with
 `SETTLERS_SERVER_DIR=~/settlers/.worktrees/server-robber-tables`,
 `python3 -m harness.engine run EXPERIMENT --threads 6` replays any cohort;
 deterministic tapes make every run reproducible. The interrupted partial is
-run `b3a6c3ac-f9f6-4468-9259-835b8200f8d7` (143 of 256 games, replaced by
-`38728ce3-fa05-495d-97f2-58ff22f98b77`). Seating-corrected effects:
+[interrupted attempt](/research/records/runs/b3a6c3ac-f9f6-4468-9259-835b8200f8d7) (143 of 256 games, replaced by
+[256-game engine cohort](/research/records/runs/38728ce3-fa05-495d-97f2-58ff22f98b77)). Seating-corrected effects:
 `python3 analysis/seating_pair.py runs/HALF_A/games.jsonl runs/HALF_B/games.jsonl`.
 </AgentContext>
 
 [All studies](../approaches/README.md) · [Leader containment](../approaches/containment) · [Experiment log](../log/experiments.mdx)
+
+<AgentContext title="Detailed result and cohort context">
+
+The three robber-targeting switches and the late-game leader bias, refuted or
+zeroed under the hand-written leaf, were retested one at a time against the
+search with the learned n-tuple tables, each as a swapped pair in a builders
+lineup (eta and fast) and a population lineup (a third tables search and eta).
+Every cohort completed. The seating-corrected effects pooled over all stages
+are **leader +0.007** (95% interval −0.035 to +0.049) and **+0.031** (−0.030 to
++0.092), **need +0.016** (−0.008 to +0.041) and **+0.009** (−0.018 to +0.036),
+**threat −0.005** (−0.042 to +0.033) and **+0.043** (−0.005 to +0.091), and
+**block leader +0.011** (−0.005 to +0.027) and **+0.015** (−0.007 to +0.036)
+wins per game, builders and population lineups in that order. Only one cohort
+of the ten cells excluded zero: the block leader extension in the population
+lineup, +0.033 (+0.007 to +0.060). No switch reaches the registered bar of
++0.03 pooled with an interval excluding zero, and combining the two arms that
+read positive (need plus block leader) gave **+0.035** (−0.015 to +0.085) in
+the builders lineup and **−0.039** (−0.090 to +0.012) in the population lineup.
+All switches stay off by default.
+
+</AgentContext>

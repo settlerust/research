@@ -1,68 +1,72 @@
 ---
-title: "3. Play against computer policies"
-summary: Register your agent, choose fast, ETA, or liquidity opponents, run matches, and inspect actions and conversation in a replay.
+title: Choose research opponents
+summary: Choose the current learned-leaf baseline, hand-written search, or optional builders, then run and inspect a fixed lineup.
 ---
 
-# Put your agent at the table
+# Choose research opponents
 
-You now have a process that reads an observation and returns a command. Register it so the harness can create one independent instance per seat.
+Start with **`ntuple-leaf`**, the current protocol baseline. It is the
+`expectimax-v2-plan` search with learned position values. The
+[client guide](client.mdx) takes your own process from its first move to a
+registered simulation; this page helps choose the other seats.
 
-## Register your policy
+## Current searches
 
-Create `policies/my_agent.py` using the previous page's example, then add this entry to `policies/registry.toml`:
-
-```toml
-[my-agent]
-transport = "stdio"
-command = ["{python}", "policies/my_agent.py"]
-description = "My first observation-driven player"
-```
-
-Commands are argument arrays, executed from the research checkout. The harness supplies the Python interpreter and manages each seat's identity, requests, and retries.
-
-## Choose opponents
-
-| Policy | What it does | Preparation |
+| Policy | What changes | Preparation |
 | --- | --- | --- |
-| `legal-first` | Picks from a fixed priority list of legal actions; useful for checking the protocol | Included Python example |
-| `fast` | Uses the existing Rust fast builder with its trading wrapper | `just setup` |
-| `eta` | Plans with estimated resource acquisition time and a trading wrapper | `just setup` |
-| `liquidity` | Experimental exchange-aware acquisition estimator; did not earn promotion in the first evaluation | `just build-liquidity` |
-| `eta-control`, `fast-control` | Frozen study comparators sharing the liquidity runner and protocol adaptations | `just build-liquidity` |
-| `expectimax-v1` | The frozen reference expectimax at its default configuration | `just setup` |
-| `expectimax-v2` | The tunable turn-level expectimax at its default depth-2 configuration | `just setup` |
-| `expectimax-v2-deep` | The frozen depth-3 candidate with a 1.5 s budget, 16 scenarios and 8 sampled worlds | `just setup` |
+| `ntuple-leaf` | Current protocol baseline: [learned leaf](concepts.md#learned-leaf), depth 3, 1.5 s search budget | `just setup` and `just tables` |
+| `expectimax-v2-plan` | Previous protocol baseline: same frozen search with a hand-written leaf | `just setup` |
+| `expectimax-v2` | Tunable search at its default depth-2 configuration | `just setup` |
+| `ntuple-leaf-deep` | Depth cap 4 and 4 s budget; did not improve on `ntuple-leaf` in its protocol cohort | `just setup` and `just tables` |
+| `ntuple-leaf-tt` | Adds a cache retained across a turn; protocol strength comparison was inconclusive | `just setup` and `just tables` |
 
-These are policy descriptions, not a general strength ranking. Start with a small, fixed lineup:
-
-```sh
-just policies
-just match my-agent fast eta legal-first --games 4
-```
-
-Each policy appears once in each seat. The server chooses the opening player and randomness independently. To check the bundled Python example before writing your own, use:
+The [evidence boundary](status.md) records what these comparisons established.
+The deeper and cached variants are available for investigation; they have not
+replaced the baseline.
 
 ```sh
-just match legal-first fast eta fast --games 4
+just match ntuple-leaf expectimax-v2-plan ntuple-leaf expectimax-v2-plan --games 4
 ```
 
-A stdio adapter gets one decision at a time. Remote Rust policies own their connections and may act concurrently. Keep this difference fixed when comparing negotiation timing.
+## Builders and historical references
 
-## Read what happened
+| Policy | Use | Preparation |
+| --- | --- | --- |
+| `fast` | Simple Rust builder with a trading wrapper | `just setup` |
+| `eta` | Builder using estimated resource acquisition time | `just setup` |
+| `legal-first` | Minimal Python adapter for checking legality and client plumbing | Included |
+| `expectimax-v1` | Frozen reference search | `just setup` |
+| `expectimax-v2-deep` | Historical depth-3, 1.5 s candidate with more scenarios and sampled worlds | `just setup` |
+| `liquidity` | Exchange-aware estimator from the first study; did not earn promotion | `just build-liquidity` |
+| `eta-control`, `fast-control` | Frozen comparators sharing the liquidity study's runner | `just build-liquidity` |
 
-The result table lists completion counts, wins, and public points for each competitor slot. A failure, deadline, or interruption remains in the record and stops the remaining schedule. Fix it before registering another run; do not count an unfinished game as a loss.
-
-To watch a live research table, open `/game/GAME_ID` in a web client connected to the same server. To retain a completed game as a notebook exhibit, use the run UUID printed by the harness:
+Use builders when reproducing earlier lineups or studying behavior against
+simpler opponents:
 
 ```sh
-just publish RUN_UUID --match 0 --slug my-first-game
-just check
+just match ntuple-leaf expectimax-v2-plan eta fast --games 4
 ```
 
-The resulting report includes a public board replay, actions, and any public conversation captured in the event tape. The board uses selected observed positions; the timeline explains the events between them. Read the [first arena replay](../reports/baseline-smoke.mdx) for an existing example. Publishing a local report does not launch or deploy the website.
+`just policies` prints the complete registry. Commands run from the research
+checkout; each seat gets a separate process and credential, even when a policy
+name appears twice.
 
-## Turn the smoke test into research
+## Read the result
 
-Once your policy reliably finishes games, use the [Research experiment program](experiment-program.md) to register a hypothesis, freeze opponents and budgets, and keep a fresh evaluation cohort. The [Roadmap](roadmap.md) identifies the open questions those experiments can resolve.
+Each row represents a **competitor slot**, not every instance of that policy
+combined. Four games rotate the lineup through the seats. They check the setup;
+a strength study also needs frozen budgets, fresh seeds, and both relative
+orders of the candidate and reference.
 
-Previous: [2. Write your first policy](protocol.md).
+The result keeps completed, incomplete, and unplayed games separate. A failed
+match stops new work, and in-flight parallel games finish before the result is
+finalized. Read `runs/RUN_UUID/summary.json` and the individual `result.json`
+files before registering another run.
+
+For a recorded example, open the [learned-leaf game](../reports/ntuple-leaf-protocol.mdx).
+To watch your own game live, a web client must connect to the same server and
+open `/game/GAME_ID`. That optional viewer is separate from running experiments
+with only the two repositories.
+
+Continue with [the client and simulation guide](client.mdx#4-register-a-longer-simulation)
+or [publish a selected replay](publishing.md).

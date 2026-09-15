@@ -1,20 +1,16 @@
 ---
 date: "2026-09-11"
 title: "Pricing trades by who you are trading with"
-summary: "A search that prices every swap by the partner's threat, counters thin offers, asks two for one from stocked partners, and declines with a reason wins a fifth of a game more than the same search accepting any helpful swap."
+summary: "The original bargaining-package gain becomes inconclusive after the seating correction; follow-up arms isolate the useful mechanisms."
 ---
 
 # Pricing trades by who you are trading with
 
-<ResearchCallout title="Finding · +0.219 wins per game at a table of two searches">
-On 64 deterministic boards played once per seat rotation, the depth-2 search
-with threat-aware bargaining won **137 of 256** slot-games (53.5%) against
-**81** (31.6%) for the identical search with plain acceptance and proposals,
-paired contrast **+0.219 wins per game** (95% interval +0.124 to +0.314), with
-an ETA and a fast builder in the other seats. This is development-tier
-evidence from run `4228f4f7-4427-42a4-8c0f-3976e1d26c76`; the plain seat
-accepts any swap that reduces its build deficit, which is a generous partner.
+<ResearchCallout title="The original package-wide strength claim was withdrawn">
+The first cohort measured <ResultComparison value="0.219" low="0.124" high="0.314" />, but identical searches in the same seats already differed by +0.176. Against that null the corrected estimate is <ResultComparison value="0.043" low="-0.082" high="0.168" />, which crosses zero. The [follow-up arms](bargaining-arms.mdx) isolate the useful mechanisms.
 </ResearchCallout>
+
+<ResearchPlot asset="bargaining-package-correction" />
 
 ## The decision that changed
 
@@ -74,8 +70,20 @@ seating rather than bargaining; the corrected estimate and the one-change
 arms are in the [arms report](bargaining-arms.mdx).
 
 <AgentContext>
-The cohort is filed under `records/runs/4228f4f7-4427-42a4-8c0f-3976e1d26c76.md`
-from experiment `0250ba3c-1631-427e-bddc-9930a1504334`. The mechanism is
+The cohort is filed under [256-game engine cohort](/research/records/runs/4228f4f7-4427-42a4-8c0f-3976e1d26c76)
+from the [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0250ba3c-1631-427e-bddc-9930a1504334.toml). The mechanism is
 documented in the server's `docs/expectimax.md` under Bargaining; the switch
 `bargain: false` reproduces the plain control.
+</AgentContext>
+
+<AgentContext title="Original single-seating result (superseded by the correction above)">
+
+On 64 deterministic boards played once per seat rotation, the depth-2 search
+with threat-aware bargaining won **137 of 256** slot-games (53.5%) against
+**81** (31.6%) for the identical search with plain acceptance and proposals,
+paired contrast **+0.219 wins per game** (95% interval +0.124 to +0.314), with
+an ETA and a fast builder in the other seats. This is development-tier
+evidence from [256-game engine cohort](/research/records/runs/4228f4f7-4427-42a4-8c0f-3976e1d26c76); the plain seat
+accepts any swap that reduces its build deficit, which is a generous partner.
+
 </AgentContext>

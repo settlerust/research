@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Prediction switches under the learned leaf",
+  "evidence": "measured",
+  "source": "Source: reports/prediction-tables.mdx and the per-lineup synthesis in reports/tables-retest.mdx; analysis/prediction_tables.py. Builders are after-the-fact pools of boards 0\u201363 and 800\u2013863, population uses 800\u2013863. Each pair is 512 completed games; all 18 finalized halves completed 256 games. An interrupted attempt and six withdrawn full-blend registrations are excluded from the completed denominator and preserved in the report. Denial runs on the quarter blend, other arms on tables alone. Reported 95% intervals.",
+  "caption": "Every pooled prediction interval crosses zero at both tables.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Predicted opponents",
+      "Predicted threat",
+      "Deny predicted sites"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.08,
+    "max": 0.12
+  },
+  "series": [
+    {
+      "label": "Builders: 128 boards",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.005,
+          "low": -0.047,
+          "high": 0.037
+        },
+        {
+          "x": 1,
+          "y": 0.004,
+          "low": -0.032,
+          "high": 0.04
+        },
+        {
+          "x": 2,
+          "y": -0.018,
+          "low": -0.045,
+          "high": 0.01
+        }
+      ]
+    },
+    {
+      "label": "Population: 64 boards",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.004,
+          "low": -0.06,
+          "high": 0.052
+        },
+        {
+          "x": 1,
+          "y": 0.047,
+          "low": -0.004,
+          "high": 0.098
+        },
+        {
+          "x": 2,
+          "y": 0.023,
+          "low": -0.009,
+          "high": 0.056
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

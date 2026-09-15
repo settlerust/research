@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Separating the bargaining package from seating",
+  "evidence": "measured",
+  "source": "Source: reports/threat-aware-bargaining.mdx and reports/bargaining-arms.mdx; run 4228f4f7 and identical-seat null 91ddb42d, each 256 games on 64 boards with four rotations. The third estimate subtracts the null; this is a null-adjusted comparison, not a swapped pair. Reported 95% intervals.",
+  "caption": "The package-wide estimate becomes inconclusive after removing the identical-seat contrast.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Original slot contrast",
+      "Identical-seat null",
+      "After null correction"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.11,
+    "max": 0.34
+  },
+  "series": [
+    {
+      "label": "Development boards 0\u201363",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.219,
+          "low": 0.124,
+          "high": 0.314
+        },
+        {
+          "x": 1,
+          "y": 0.176,
+          "low": 0.083,
+          "high": 0.268
+        },
+        {
+          "x": 2,
+          "y": 0.043,
+          "low": -0.082,
+          "high": 0.168
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

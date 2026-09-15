@@ -127,6 +127,24 @@ class HarnessTests(unittest.TestCase):
 
 
 class ReplayActivityTests(unittest.TestCase):
+    def test_public_trade_responses_keep_recorded_sender_and_offer_context(self):
+        from harness.replay import public_activity
+        events = [
+            {'type': 'joined', 'seat': 0, 'name': 'Juniper'},
+            {'type': 'joined', 'seat': 1, 'name': 'Atlas'},
+            {'type': 'trade_offered', 'offer': {'id': 'offer-1', 'from': 0, 'to': [1],
+                'give': [1, 0, 0, 0, 0], 'receive': [0, 1, 0, 0, 0]}},
+            {'type': 'trade_thinking', 'offer_id': 'offer-1', 'player': 1},
+            {'type': 'trade_rejected', 'offer_id': 'offer-1', 'player': 1},
+            {'type': 'trade_thinking', 'offer_id': 'unrecorded-offer', 'player': 2},
+        ]
+        activity = public_activity([{'sequence': 12, 'timestamp_ms': 200, 'events': events}])
+        self.assertEqual(activity[1]['action'], 'trade_thinking')
+        self.assertEqual(activity[1]['player'], 1)
+        self.assertEqual(activity[1]['text'], 'Considering a trade offer from Juniper.')
+        self.assertEqual(activity[2]['text'], 'Declined a trade offer from Juniper.')
+        self.assertEqual(activity[3]['text'], 'Considering a trade offer.')
+
     def test_public_replay_keeps_actions_and_chat_but_excludes_private_extras(self):
         from harness.replay import public_activity
         events = [

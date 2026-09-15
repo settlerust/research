@@ -1,0 +1,191 @@
+---
+title: Build a research client
+summary: Write a persistent policy, connect it to the local game server, and run a reproducible simulation with the research and server repositories.
+---
+
+# Build a research client
+
+Write a policy that reads one observation and returns one command. The research
+harness connects it to the local server, creates a separate identity for every
+seat, and records the games. **Only the `research` and `server` repositories are
+needed**, even for long simulations.
+
+<ResearchWorkflow />
+
+## 1. Start the local server
+
+From `research/`, build once and keep the server running:
+
+```sh
+just setup
+just tables
+just server
+```
+
+This needs Python 3.11+, Rust 1.96+, and `just`. Keep `server/` beside `research/`,
+or set `SETTLERS_SERVER_DIR` to its absolute path. The [server guide](quickstart.md)
+covers connection settings and first-run troubleshooting. Use a second terminal
+in `research/` for the remaining commands.
+
+## 2. Write your policy
+
+Save this as `policies/my_agent.py`:
+
+```python
+import json
+import sys
+from legal_first import choose
+
+for line in sys.stdin:
+    message = json.loads(line)
+    view = message["view"]
+    # Replace choose with your own decision rule.
+    # message["events"] contains newly delivered events for this seat.
+    # message["topology"] describes the board's hexes, vertices, and edges.
+    command = choose(view)
+    print(json.dumps(command), flush=True)
+```
+
+The imported chooser is a working, deliberately simple starting point from
+`policies/legal_first.py`. The process stays alive for one game, so you can retain
+memory between decisions. A new game starts a fresh process.
+
+| Your policy receives | Your policy returns |
+| --- | --- |
+| Its own hand, the public board, players, and available actions in `view` | A protocol command, such as `{"type":"act","action":{"type":"roll"}}` |
+| New event batches filtered for this participant | `null` when it has nothing to do |
+| Board coordinates and connections in `topology` | Exactly one JSON line, flushed to stdout |
+
+Use stderr for diagnostic messages. The server validates every command; its
+`legal_actions` list supplies useful choices without enumerating every possible
+trade bundle or discard. The [protocol reference](protocol.md) explains events,
+deadlines, and custom network clients.
+
+## 3. Add it to the registry and play
+
+Append this entry to `policies/registry.toml`:
+
+```toml
+[my-agent]
+transport = "stdio"
+command = ["{python}", "policies/my_agent.py"]
+description = "My observation-driven player"
+```
+
+```sh
+just doctor
+just policies
+just match my-agent ntuple-leaf expectimax-v2-plan ntuple-leaf --games 1
+```
+
+`ntuple-leaf` is the current protocol baseline: expectimax with learned position
+values. `expectimax-v2-plan` is the preceding hand-written-leaf search. To use
+the simpler builders instead, choose `my-agent eta fast eta`.
+
+The harness prints the game ID, completion status, and final results. Fix any
+invalid or censored game before increasing the count. This first match checks
+the client, not strategic strength.
+
+## 4. Register a longer simulation
+
+Choose a fresh seed range, fixed opponents, a game budget, and a decision rule
+before running. The example below checks reliability across **160 games**:
+20 seeds, four seat rotations, and two orders of the candidate and reference.
+The seeds are an example; choose unused evaluation seeds for a strength study.
+
+```sh
+just study log/my-client-evaluation --title 'My client evaluation' \
+  --question 'Does my client finish games against a fixed search lineup?'
+
+just register --study log/my-client-evaluation \
+  --players my-agent ntuple-leaf expectimax-v2-plan ntuple-leaf \
+  --seeds 20000-20019 --decision-seconds 5 \
+  --hypothesis 'My client completes every game within the frozen budgets.' \
+  --decision-rule 'All 160 games across both orders must complete validly; no strength claim.'
+
+just register --study log/my-client-evaluation \
+  --players ntuple-leaf my-agent expectimax-v2-plan ntuple-leaf \
+  --seeds 20000-20019 --decision-seconds 5 \
+  --hypothesis 'My client completes every game within the frozen budgets.' \
+  --decision-rule 'All 160 games across both orders must complete validly; no strength claim.'
+```
+
+Each registration prints a different experiment UUID and freezes 80 games.
+Review both `experiments/UUID.toml` files before running them. `--seeds` determines
+the game count; no separate `--games` value is needed.
+
+```sh
+just run FIRST_EXPERIMENT_UUID --parallel 2
+# Inspect the first result before starting the second registration.
+just run SECOND_EXPERIMENT_UUID --parallel 2
+```
+
+The [paired seeds](concepts.md#paired-contrast) are played once in each seat rotation. Rotations do **not** swap
+the relative order of two competitors; that is why the second registration is
+needed. These [swapped pairs](concepts.md#swapped-pairs) account for seating effects.
+The [seating experiment](../reports/arena-seating.mdx) explains the bias.
+For a strength claim, register a candidate-oriented comparison across both
+orders and use the [experiment program](experiment-program.md).
+
+## 5. Watch progress and keep the result
+
+The runner prints a line after each finished match and updates
+`runs/RUN_UUID/summary.json`. Start with one or two concurrent matches. More
+parallel games share CPU with the searches and may hit time budgets.
+
+| File | What to inspect |
+| --- | --- |
+| `runs/RUN_UUID/summary.json` | Completed games, wins per competitor slot, and incomplete games |
+| `runs/RUN_UUID/match-0000/result.json` | Game ID, status, elapsed time, and error if one occurred |
+| `runs/RUN_UUID/match-0000/private/policy-0.log` | Seat 0 diagnostics; keep private |
+| `records/runs/RUN_UUID.md` | Compact finalized result and evidence digests |
+
+Keep both terminals alive for a long run. For unattended work, run the server
+and runner in persistent terminal sessions such as `tmux`, and keep the machine
+awake. The schedule does not resume after a process exit or reboot. Running the
+same experiment again creates a new run; it does not continue the old one.
+
+After inspection, retain a verified archive at a durable local destination:
+
+```sh
+just archive RUN_UUID /absolute/path/to/durable/artifacts
+```
+
+The archive excludes credentials and private process logs. File the result and
+any failed attempts in the study using the [research workflow](research-workflow.md).
+You can add a [chart and selected game replay](publishing.md) without installing
+the website; the separate web application renders those artifacts when built.
+
+<AgentContext>
+
+## Budgets and stop behavior
+
+New registrations default to ten points, a 600-second cap per match, a
+3,000-turn cap, and a five-second stdio decision deadline. `--decision-seconds`
+changes the stdio deadline. Remote searches use their own configured search
+budget and the server's turn deadline. Set the match and turn caps in the new
+TOML before its first run; completed registrations remain immutable.
+
+A failure stops new matches. With parallel execution, in-flight games finish
+and remain in the result. Incomplete games are not losses. Inspect the first
+failure before spending the remaining budget, and keep interrupted runs.
+
+## Connect directly instead of using stdio
+
+Use `transport = "remote"` when your process must own HTTP/WebSocket traffic.
+The harness prejoins its seat and passes a private token file. Reuse that token,
+connect the WebSocket so the seat appears connected, wait for start, and exit
+after the terminal state. Do not request a replacement guest identity.
+
+The `server` repository includes clients in `clients/python`,
+`clients/typescript`, and `clients/rust`, with examples in `docs/clients.md`.
+The working Rust runner is `crates/policies/src/bin/remote.rs`.
+The [research protocol reference](protocol.md) covers request identity and event
+cursors. Stdio policies act sequentially by seat; remote processes may act
+concurrently, so keep transport fixed in timing or negotiation comparisons.
+
+Your policy may use only its own observations and filtered events. Spectator
+captures, other credentials, hidden hands, seeds, and server archives do not
+belong in a deployable policy's input.
+
+</AgentContext>

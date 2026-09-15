@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "The calibrated planner after correcting seating",
+  "evidence": "measured",
+  "source": "Source: reports/opening-planner.mdx, swapped-pair results; runs b698064e, da0b1591, 5e3c4985, d89ea4de. Every 64-board stage plays both seatings with four rotations (512 games); pooled estimate combines 128 boards. Reported 95% intervals.",
+  "caption": "The calibrated planner and search placement have no measured strength difference.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Boards 0\u201363",
+      "Boards 64\u2013127",
+      "Pooled 128 boards"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.13,
+    "max": 0.1
+  },
+  "series": [
+    {
+      "label": "Planner minus search placement",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.006,
+          "low": -0.087,
+          "high": 0.075
+        },
+        {
+          "x": 1,
+          "y": -0.027,
+          "low": -0.111,
+          "high": 0.057
+        },
+        {
+          "x": 2,
+          "y": -0.017,
+          "low": -0.075,
+          "high": 0.042
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

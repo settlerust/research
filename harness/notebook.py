@@ -163,8 +163,14 @@ def href(name):
 
 
 def render(studies):
-    lines = ['| Updated | Investigation | Status | Finding and next step |', '| --- | --- | --- | --- |']
-    for study in studies:
+    run_ids = [identifier for study in studies for identifier in study['runs']]
+    def evidence(value):
+        def replace(match):
+            found = [identifier for identifier in run_ids if identifier.startswith(match[0])]
+            return f'[run record](/research/records/runs/{found[0]})' if len(found) == 1 else match[0]
+        return re.sub(r'\b[a-f0-9]{8}(?:-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?\b', replace, cell(value))
+    lines = ['| Updated | Investigation | Status | Finding and next step |' , '| --- | --- | --- | --- |']
+    for study in sorted(studies, key=lambda item: (item["updated"], item["id"]), reverse=True):
         owner = study['id'].split('/')[0]
         destination = href(study['reports'][0]) if study['reports'] else (
             f'/research/approaches/{owner}' if owner != 'log' else '/research/docs/experiment-program')
@@ -172,12 +178,12 @@ def render(studies):
                    for name in study['reports'][1:]]
         sources += [f'[Log {Path(name).stem}]({href(name)})' for name in study['logs']]
         lines.append(f'| {study["updated"]} | [{cell(study["title"])}]({destination}) | {study["status"].capitalize()} | '
-                     f'{cell(study["outcome"])} Next: {cell(study["next_step"])} {" · ".join(sources)} |')
+                     f'{evidence(study["outcome"])} Next: {evidence(study["next_step"])} {" · ".join(sources)} |')
     return '\n'.join(lines) + '\n'
 
 
 def replace_section(source, content):
-    section = f'{START}\n\n## Tracked investigations\n\n{content}\n{END}'
+    section = f'{START}\n\n## Tracked investigations\n\n<AgentContext title="Study findings and next steps">\n\n{content}\n</AgentContext>\n\n{END}'
     if START not in source and END not in source:
         return source.rstrip() + '\n\n' + section + '\n'
     if source.count(START) != 1 or source.count(END) != 1 or source.index(START) > source.index(END):
@@ -190,11 +196,14 @@ def replace_section(source, content):
 def sync(root, check=False):
     studies = collect(root)
     outputs = {}
-    index = ('---\ntitle: Experiment log\nsummary: Dated investigations, their findings, and the next questions to test.\n---\n\n'
-             '# Experiment log\n\n'
-             'Follow each investigation from its approach to its reports and dated notes. '
-             'Proposed work is not evidence; completed work can include a negative result. '
-             'Entries are ordered by when the investigation began.\n\n' + render(studies))
+    index = ('---\ntitle: Experiments\nsummary: Every published experiment, newest first, with recorded results and links to the full evidence.\n---\n\n'
+             '# Experiments\n\n'
+             'Browse the findings, compare the recorded results, and open a report for its full experiment. '
+             'Green intervals sit above zero, red below; gray intervals leave the direction unresolved.\n\n'
+             '<ExperimentTimeline />\n\n'
+             '<AgentContext title="All study records and next steps">\n\n'
+             'The ledger also includes proposed studies, ongoing work, failures, and supporting reports.\n\n'
+             + render(studies) + '\n</AgentContext>\n')
     outputs[root / 'log/experiments.mdx'] = index
     for path in [root / 'docs/roadmap.md', *sorted((root / 'approaches').glob('*/README.mdx'))]:
         selected = studies if path.name == 'roadmap.md' else [s for s in studies if s['id'].split('/')[0] == path.parent.name]

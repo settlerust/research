@@ -1,24 +1,13 @@
 ---
 date: "2026-09-09"
 title: "Lookup tables as the leaf of the search"
-summary: "N-tuple tables of hex and portfolio patterns, learned by self-play in under two hours, replace the hand-written leaf of expectimax-v2 and beat it on fresh seeds at every depth tested; played one ply they beat the two-turn search, at depth 2 they beat the hand-written leaf at depth 3, and through the protocol arena they beat the baseline 46 to 25."
+summary: "Learned pattern tables improve the same search across tested depths, then pass the authoritative protocol cohort."
 ---
 
 # Lookup tables as the leaf of the search
 
-<ResearchCallout title="Finding · the learned leaf beats the hand-written leaf at every depth (development tier)">
-Lookup tables of hex and portfolio patterns, learned from 96,000 self-play
-games, replaced the leaf of `expectimax-v2` with nothing else changed. On 64
-fresh deterministic boards played once per rotation, the tables at depth 2 won
-**130 of 256 slot-games against 74** for the hand-written leaf in the same
-search, a paired contrast of **+0.219 wins per game** (95% interval +0.124 to
-+0.314). Played one ply with no search, they still beat the two-turn search
-over the hand-written leaf (+0.164); at depth 2 they beat the hand-written
-leaf at depth 3 under 1.5 s (+0.156); and at depth 3 against depth 3 the margin
-is **+0.242** (+0.140 to +0.345). Through the authoritative server the same
-tables inside the baseline's search then [won 46 of 80 games against 25 for
-`expectimax-v2-plan`](ntuple-leaf-protocol.mdx), and the protocol baseline
-changes.
+<ResearchCallout title="Learning the leaf improved the same search">
+At depth 2, the learned tables won <WinRate value="130" total="256" label="Learned leaf" /> against <WinRate value="74" total="256" label="Hand-written leaf" />: <ResultComparison value="0.219" low="0.124" high="0.314" /> on 64 fresh boards. The gain also held at depth 3, then [passed an 80-game protocol cohort](ntuple-leaf-protocol.mdx). The plots separate development screens, training, and confirmation.
 </ResearchCallout>
 
 <ResearchPlot asset="ntuple-screens" />
@@ -210,12 +199,16 @@ cohort is the per-seed difference in wins between slots 0 and 1.
 
 <ResearchChart asset="ntuple-screen-equal-depth-wins" />
 
+<AgentContext title="Full results and cohort ledger">
+
 | Screen | Registration | Run | Tables wins | Hand wins | ETA | Fast | Contrast (95% interval) | Reading |
 | --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
-| Equal depth: tables d2 vs hand d2 | `ea8af9cc` | `09fb758b` | 130 | 74 | 32 | 20 | +0.219 (+0.124 to +0.314) | supported; the rule asked for at least +0.10 |
-| One ply: tables d1 vs hand d2 | `6a712b5a` | `d249aa28` | 121 | 79 | 35 | 21 | +0.164 (+0.058 to +0.270) | the tables without any search beat the two-turn search |
-| Buys a ply: tables d2 vs hand d3, 1.5 s | `9ed38762` | `169b0772` | 122 | 82 | 37 | 15 | +0.156 (+0.051 to +0.262) | the learned leaf is worth more than a planned turn |
-| Deployment depth: tables d3 vs hand d3, 1.5 s | `acf5812a` | `ec904c96` | 135 | 73 | 30 | 18 | +0.242 (+0.140 to +0.345) | the margin transfers to depth 3 |
+| Equal depth: tables d2 vs hand d2 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ea8af9cc-c1f0-42b9-a388-b241e62cc7e0.toml) | [256-game engine cohort](/research/records/runs/09fb758b-051f-435c-aaa8-8c9454c3baa3) | 130 | 74 | 32 | 20 | +0.219 (+0.124 to +0.314) | supported; the rule asked for at least +0.10 |
+| One ply: tables d1 vs hand d2 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6a712b5a-0169-45e5-a14b-51b53ed0582b.toml) | [256-game engine cohort](/research/records/runs/d249aa28-d737-4f4e-b068-12542f4679b9) | 121 | 79 | 35 | 21 | +0.164 (+0.058 to +0.270) | the tables without any search beat the two-turn search |
+| Buys a ply: tables d2 vs hand d3, 1.5 s | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9ed38762-4927-4f9e-bb2b-b45e893a1834.toml) | [256-game engine cohort](/research/records/runs/169b0772-f6c8-46ff-8eb3-aa8b5f0f6cfb) | 122 | 82 | 37 | 15 | +0.156 (+0.051 to +0.262) | the learned leaf is worth more than a planned turn |
+| Deployment depth: tables d3 vs hand d3, 1.5 s | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/acf5812a-4596-4d09-b401-9c29758df92b.toml) | [256-game engine cohort](/research/records/runs/ec904c96-b029-4d1b-8d37-393cc15ebb5a) | 135 | 73 | 30 | 18 | +0.242 (+0.140 to +0.345) | the margin transfers to depth 3 |
+
+</AgentContext>
 
 <ResearchChart asset="ntuple-screen-depth3-wins" />
 
@@ -306,10 +299,14 @@ frozen and screened against the frozen 96,000-game tables on fresh seeds
 (340 to 403 for the earlier cohorts; 404 to 467 here), the only comparison
 that counts.
 
+<AgentContext title="Full results and cohort ledger">
+
 | Screen | Registration | Run | Candidate wins | Frozen tables wins | Contrast (95% interval) | Reading |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| Default settings, four hours, vs frozen tables | `caf6e656` | `dee1f84c` | 109 | 101 | +0.031 (−0.082 to +0.145) | inconclusive |
-| λ 0.3, four hours, vs frozen tables | `714fa798` | `a144ba45` | 106 | 92 | +0.055 (−0.046 to +0.155) | inconclusive |
+| Default settings, four hours, vs frozen tables | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/caf6e656-fccc-424f-addf-f0ed62e384f8.toml) | [256-game engine cohort](/research/records/runs/dee1f84c-7e07-4ae7-ac8c-e8ae30998e6b) | 109 | 101 | +0.031 (−0.082 to +0.145) | inconclusive |
+| λ 0.3, four hours, vs frozen tables | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/714fa798-4f0c-469b-8d96-efaa71898aff.toml) | [256-game engine cohort](/research/records/runs/a144ba45-27e3-46b5-8ad2-3e45525f4a17) | 106 | 92 | +0.055 (−0.046 to +0.155) | inconclusive |
+
+</AgentContext>
 
 Neither longer training nor the λ change produced tables measurably better
 than the ones frozen after 96,000 games. The plateau the first run stopped on
@@ -335,12 +332,16 @@ The first registered configuration, `ntuple-leaf-deep` (depth cap 4, 4 s
 budget, 5,000,000 transitions, gap 20), played the depth-3 baseline
 configuration on seeds 468 to 531:
 
+<AgentContext title="Full results and cohort ledger">
+
 | Screen | Registration | Run | Deep wins | Depth-3 wins | Contrast (95% interval) | Reading |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| Tables, depth 4 (4 s, gap 20) vs depth 3 (1.5 s) | `c36715d4` | `57717b3e` | 129 | 109 | +0.078 (−0.039 to +0.196) | inconclusive |
-| Hand-written leaf, the same two configurations | `6d9624c9` | `90009612` | 89 | 102 | −0.051 (−0.176 to +0.074) | inconclusive |
-| Tables at equal time: cap 4 vs cap 3, both 10 s, 32 seeds | `8dc65a70` | `4e81a0cd` | 60 | 52 | +0.062 (−0.105 to +0.230) | inconclusive |
-| Gap rule alone: baseline (depth 3, 1.5 s) with gap 20 vs without | `0ce4a417` | `a32e7819` | 120 | 103 | +0.066 (−0.044 to +0.177) | not weaker, 42% less time |
+| Tables, depth 4 (4 s, gap 20) vs depth 3 (1.5 s) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c36715d4-a947-4166-86a5-8ef0bca620c6.toml) | [256-game engine cohort](/research/records/runs/57717b3e-f5ab-4fa2-85a4-d35bf41c2868) | 129 | 109 | +0.078 (−0.039 to +0.196) | inconclusive |
+| Hand-written leaf, the same two configurations | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6d9624c9-90bb-4427-8381-e706cec9389a.toml) | [256-game engine cohort](/research/records/runs/90009612-234c-4b68-b2b3-fa93885f84b9) | 89 | 102 | −0.051 (−0.176 to +0.074) | inconclusive |
+| Tables at equal time: cap 4 vs cap 3, both 10 s, 32 seeds | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8dc65a70-0b16-44fb-97b6-4fc7d4471ab8.toml) | [128-game engine cohort](/research/records/runs/4e81a0cd-174e-42e3-aa5b-9c41be3c55cc) | 60 | 52 | +0.062 (−0.105 to +0.230) | inconclusive |
+| Gap rule alone: baseline (depth 3, 1.5 s) with gap 20 vs without | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0ce4a417-5521-4d5c-9478-fa2d0374176d.toml) | [256-game engine cohort](/research/records/runs/a32e7819-1d3d-4dc0-9065-13eabc9f2a86) | 120 | 103 | +0.066 (−0.044 to +0.177) | not weaker, 42% less time |
+
+</AgentContext>
 
 The effort counters say why the gain is small: with the time rule still at
 30% of the budget the deep seat completed depth 4 on few decisions (mean
@@ -349,7 +350,7 @@ single-candidate positions as depth 1) and mostly spent its budget finishing
 depth 3 where the 1.5 s seat had to abort (858 ms against 447 ms per
 decision). The protocol cohort settled the question for this configuration. Through
 the authoritative server, `ntuple-leaf-deep` against `ntuple-leaf` with the
-two builders on 20 deterministic seeds (`372d07bc`, run `8f6dd1a7`, an 8 s
+two builders on 20 deterministic seeds ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/372d07bc-183f-4970-a93a-f65db4d9e964.toml), [80-game protocol cohort](/research/records/runs/8f6dd1a7-d354-4e5c-a590-7b23c2f9f2fd), an 8 s
 deadline, no timeout moves): **27 wins to 43**, a contrast of **−0.200** (95%
 interval −0.357 to −0.043). The registered rule reads an interval below zero
 as a refutation, so the baseline stays `ntuple-leaf` and the depth-4
@@ -396,3 +397,20 @@ on one layout; none of the learning settings (step size, lambda, point reward,
 warm-up) has been varied beyond the pilot's single ablation of the point
 reward. Self-play against copies of the tables could learn a style that beats
 itself; the builders at every table are the guard against that.
+
+<AgentContext title="Detailed result and cohort context">
+
+Lookup tables of hex and portfolio patterns, learned from 96,000 self-play
+games, replaced the leaf of `expectimax-v2` with nothing else changed. On 64
+fresh deterministic boards played once per rotation, the tables at depth 2 won
+**130 of 256 slot-games against 74** for the hand-written leaf in the same
+search, a paired contrast of **+0.219 wins per game** (95% interval +0.124 to
++0.314). Played one ply with no search, they still beat the two-turn search
+over the hand-written leaf (+0.164); at depth 2 they beat the hand-written
+leaf at depth 3 under 1.5 s (+0.156); and at depth 3 against depth 3 the margin
+is **+0.242** (+0.140 to +0.345). Through the authoritative server the same
+tables inside the baseline's search then [won 46 of 80 games against 25 for
+`expectimax-v2-plan`](ntuple-leaf-protocol.mdx), and the protocol baseline
+changes.
+
+</AgentContext>

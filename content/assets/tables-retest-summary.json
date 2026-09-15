@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "What survives at both tables",
+  "evidence": "measured",
+  "source": "Source: reports/tables-retest.mdx, The evidence; analysis/tables_retest.py recomputes archived run outcomes. Selected rows of the complete 145-pair, 74,240-game program. After-the-fact pools by lineup: counters and bargaining use 128 builder / 64 population boards; quarter blend, eight worlds, and opening use 192 / 128 boards. Both seatings and four rotations per board; reported normal 95% intervals over boards.",
+  "caption": "Counters and bargaining help at both tables; the quarter blend is the clearest next candidate.",
+  "x": {
+    "label": "Comparison",
+    "min": 0,
+    "max": 4,
+    "ticks": [
+      "Counters off",
+      "Bargaining off",
+      "Quarter blend",
+      "Eight worlds",
+      "Search opening"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.24,
+    "max": 0.14
+  },
+  "series": [
+    {
+      "label": "Builder table",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.094,
+          "low": -0.135,
+          "high": -0.052
+        },
+        {
+          "x": 1,
+          "y": -0.165,
+          "low": -0.213,
+          "high": -0.117
+        },
+        {
+          "x": 2,
+          "y": 0.066,
+          "low": 0.024,
+          "high": 0.107
+        },
+        {
+          "x": 3,
+          "y": 0.045,
+          "low": 0.009,
+          "high": 0.081
+        },
+        {
+          "x": 4,
+          "y": 0.061,
+          "low": 0.009,
+          "high": 0.113
+        }
+      ]
+    },
+    {
+      "label": "Population table",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.119,
+          "low": -0.176,
+          "high": -0.062
+        },
+        {
+          "x": 1,
+          "y": -0.098,
+          "low": -0.152,
+          "high": -0.044
+        },
+        {
+          "x": 2,
+          "y": 0.064,
+          "low": 0.021,
+          "high": 0.108
+        },
+        {
+          "x": 3,
+          "y": -0.007,
+          "low": -0.045,
+          "high": 0.031
+        },
+        {
+          "x": 4,
+          "y": 0.001,
+          "low": -0.059,
+          "high": 0.061
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

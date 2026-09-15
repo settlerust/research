@@ -98,7 +98,7 @@ def exhibit(root, run_id, match_index, slug):
     outputs[2].write_text(
         f'---\ndate: "{result["started_at"][:10]}"\ntitle: "{slug.replace("-", " ").title()}"\nsummary: "Recorded protocol matches and one selected game."\n---\n\n'
         f'# {slug.replace("-", " ").title()}\n\n'
-        f"Run `{run_id}` has status **{summary['status']}**. "
+        f"The [recorded cohort](/research/records/runs/{run_id}) has status **{summary['status']}**. "
         f"{summary['completed']} of {summary['planned']} planned matches completed. "
         'This is descriptive evidence from server-generated, unpaired games.\n\n'
         + summary_table(summary) + '\n\n'
@@ -107,6 +107,6 @@ def exhibit(root, run_id, match_index, slug):
         + 'This game was selected to demonstrate the replay. It does not establish which policy is stronger.\n\n'
         + f'<GameReplay asset="{slug}-game" />\n\n'
         + f'[Run record](/research/records/runs/{run_id}) · '
-        + f'Public frame source SHA-256: `{digest(match_folder / "frames.jsonl")}`.\n'
+        + f'\n\n<AgentContext title="Source verification">\n\nPublic frame source SHA-256: `{digest(match_folder / "frames.jsonl")}`.\n\n</AgentContext>\n'
     )
     print(f'/research/reports/{slug}')

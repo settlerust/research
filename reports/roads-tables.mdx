@@ -1,26 +1,13 @@
 ---
 date: "2026-09-12"
 title: "Road blocking under the learned leaf"
-summary: "Two road switches that corrected to zero under the hand-written leaf stay at zero under the learned n-tuple tables: the opponent-expansion road shortlist is worth nothing in three lineups and two leaf contexts, and gating the longest-road contention credit by road production is refuted under the blended leaf at about -0.06 wins per game."
+summary: "Road blocking shows no useful gain under the tables; the production gate hurts on the quarter blend."
 ---
 
 # Road blocking under the learned leaf
 
-<ResearchCallout title="Finding · under the learned tables the blocking shortlist does nothing and the production gate hurts">
-The two road switches of the [road-blocking study](../approaches/expansion) were
-re-measured with the learned n-tuple tables as the search's leaf, each as a
-registered swapped pair in three lineups and two leaf contexts (7,424 games, all
-completed). `opponent_expansion` 0.5, which under the tables acts only through
-the road shortlist, measures **−0.003 wins per game** (95% interval −0.011 to
-+0.005) pooled over the 128 builders-lineup seeds and +0.002 (−0.007 to +0.011)
-with three searches at the table. On top of the blended leaf (tables plus
-quarter-strength hand terms) it reads +0.010 (−0.017 to +0.037) over 192
-builders seeds and **−0.033 (−0.060 to −0.006)** over 128 population seeds.
-`road_contention_gate` 1.0 reads **−0.020** (−0.045 to +0.004) pooled over all
-192 tables-leaf boards and **−0.060 (−0.095 to −0.024)** over the 128
-builders seeds under the blend, the one context where its leaf term is live at
-strength. Under the hand-written leaf both switches had already corrected to
-+0.008 and −0.004. Both stay off everywhere, the browser included.
+<ResearchCallout title="Road blocking did not help; the production gate can hurt">
+Under the tables alone, blocking measured <ResultComparison value="-0.003" low="-0.011" high="0.005" /> over 128 builder seeds. On the quarter blend, the production gate measured <ResultComparison value="-0.060" low="-0.095" high="-0.024" />. All 7,424 games completed across the study; both switches stay off.
 </ResearchCallout>
 
 <ResearchPlot asset="roads-tables-effects" />
@@ -62,55 +49,71 @@ to 927. Every cohort completed 256 of 256 games.
 
 `opponent_expansion` 0.5 under the tables alone (shortlist only):
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage | Half | Run | Slot 0 wins | Slot 1 wins | Contrast (95% interval) |
 | --- | --- | --- | ---: | ---: | --- |
-| 1 dev, builders | A | `4529da10-c5ab-49f8-be24-6bb5e7e317e1` | 124 | 101 | +0.090 (−0.006 to +0.186) |
-| 1 dev, builders | B | `86136b36-66e2-49a8-aa95-e5de0d802e61` | 126 | 99 | +0.105 (+0.014 to +0.197) |
-| 2 confirm, builders | A | `4629e513-2dac-459e-a018-e5faef0ed50a` | 126 | 104 | +0.086 (−0.021 to +0.192) |
-| 2 confirm, builders | B | `044327fe-d6f2-4c0e-8ae3-cfa7b0492ab5` | 126 | 105 | +0.082 (−0.024 to +0.188) |
-| 3 population | A | `36a7adfd-d1ce-49d3-a25f-ccec8f616c23` | 81 | 91 | −0.039 (−0.127 to +0.048) |
-| 3 population | B | `4aa3d3a3-b395-4248-9837-ca3c09eb0ec1` | 80 | 91 | −0.043 (−0.126 to +0.040) |
+| 1 dev, builders | A | [256-game engine cohort](/research/records/runs/4529da10-c5ab-49f8-be24-6bb5e7e317e1) | 124 | 101 | +0.090 (−0.006 to +0.186) |
+| 1 dev, builders | B | [256-game engine cohort](/research/records/runs/86136b36-66e2-49a8-aa95-e5de0d802e61) | 126 | 99 | +0.105 (+0.014 to +0.197) |
+| 2 confirm, builders | A | [256-game engine cohort](/research/records/runs/4629e513-2dac-459e-a018-e5faef0ed50a) | 126 | 104 | +0.086 (−0.021 to +0.192) |
+| 2 confirm, builders | B | [256-game engine cohort](/research/records/runs/044327fe-d6f2-4c0e-8ae3-cfa7b0492ab5) | 126 | 105 | +0.082 (−0.024 to +0.188) |
+| 3 population | A | [256-game engine cohort](/research/records/runs/36a7adfd-d1ce-49d3-a25f-ccec8f616c23) | 81 | 91 | −0.039 (−0.127 to +0.048) |
+| 3 population | B | [256-game engine cohort](/research/records/runs/4aa3d3a3-b395-4248-9837-ca3c09eb0ec1) | 80 | 91 | −0.043 (−0.126 to +0.040) |
+
+</AgentContext>
 
 `road_contention_gate` 1.0 under the tables alone (shortlist gating only):
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage | Half | Run | Slot 0 wins | Slot 1 wins | Contrast (95% interval) |
 | --- | --- | --- | ---: | ---: | --- |
-| 1 dev, builders | A | `10dead1d-160a-4c00-8b08-b1f77a5c75b3` | 120 | 104 | +0.063 (−0.034 to +0.159) |
-| 1 dev, builders | B | `86184ec9-2a1a-4944-bca0-c6a983829794` | 126 | 100 | +0.102 (+0.010 to +0.193) |
-| 2 confirm, builders | A | `82e6046b-1ba5-44d9-998c-fa4ec398244f` | 117 | 113 | +0.016 (−0.086 to +0.117) |
-| 2 confirm, builders | B | `773e53b5-26ce-42e4-8aa5-2565363f1f99` | 122 | 109 | +0.051 (−0.051 to +0.153) |
-| 3 population | A | `c29e9c07-6499-464c-9cb7-4aa7c090c159` | 76 | 94 | −0.070 (−0.159 to +0.019) |
-| 3 population | B | `ad9a07b9-939c-49c4-99d2-df93b7b51b47` | 78 | 84 | −0.023 (−0.109 to +0.062) |
+| 1 dev, builders | A | [256-game engine cohort](/research/records/runs/10dead1d-160a-4c00-8b08-b1f77a5c75b3) | 120 | 104 | +0.063 (−0.034 to +0.159) |
+| 1 dev, builders | B | [256-game engine cohort](/research/records/runs/86184ec9-2a1a-4944-bca0-c6a983829794) | 126 | 100 | +0.102 (+0.010 to +0.193) |
+| 2 confirm, builders | A | [256-game engine cohort](/research/records/runs/82e6046b-1ba5-44d9-998c-fa4ec398244f) | 117 | 113 | +0.016 (−0.086 to +0.117) |
+| 2 confirm, builders | B | [256-game engine cohort](/research/records/runs/773e53b5-26ce-42e4-8aa5-2565363f1f99) | 122 | 109 | +0.051 (−0.051 to +0.153) |
+| 3 population | A | [256-game engine cohort](/research/records/runs/c29e9c07-6499-464c-9cb7-4aa7c090c159) | 76 | 94 | −0.070 (−0.159 to +0.019) |
+| 3 population | B | [256-game engine cohort](/research/records/runs/ad9a07b9-939c-49c4-99d2-df93b7b51b47) | 78 | 84 | −0.023 (−0.109 to +0.062) |
+
+</AgentContext>
 
 `opponent_expansion` 0.5 on the 0.25 blend (shortlist plus leaf term):
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage | Half | Run | Slot 0 wins | Slot 1 wins | Contrast (95% interval) |
 | --- | --- | --- | ---: | ---: | --- |
-| 1 dev, builders | A | `f9113c62-9c89-4095-9e81-cbb6c06d5dc0` | 140 | 94 | +0.180 (+0.086 to +0.273) |
-| 1 dev, builders | B | `ba368081-2db1-4998-9e81-902ef7a7bace` | 129 | 97 | +0.125 (+0.023 to +0.227) |
-| 2 confirm, builders | A | `c07b2268-3e6b-4055-93f1-bc6405019ca0` | 125 | 108 | +0.066 (−0.036 to +0.169) |
-| 2 confirm, builders | B | `3fb6583b-bc5c-4b8e-a19e-c62cf6c8f650` | 122 | 108 | +0.055 (−0.054 to +0.164) |
-| 3 population | A | `bd42145a-ca36-457b-954b-46c298027787` | 88 | 85 | +0.012 (−0.075 to +0.098) |
-| 3 population | B | `f95c0335-c77f-4d94-8026-b05cb06e855c` | 103 | 70 | +0.129 (+0.039 to +0.219) |
-| 4 ext, builders | A | `90d394ae-fc62-4426-aca0-5f04bd54f2a6` | 131 | 104 | +0.105 (−0.001 to +0.212) |
-| 4 ext, builders | B | `4e5d2807-1875-431f-b3ea-60a88f1ed2d9` | 128 | 99 | +0.113 (+0.015 to +0.212) |
-| 4 ext, population | A | `66a398f5-9b69-442f-84f3-fd1fa219fd46` | 84 | 79 | +0.020 (−0.071 to +0.110) |
-| 4 ext, population | B | `ff3fe1b1-e62e-4271-8c35-4bb44e07764f` | 89 | 80 | +0.035 (−0.049 to +0.120) |
+| 1 dev, builders | A | [256-game engine cohort](/research/records/runs/f9113c62-9c89-4095-9e81-cbb6c06d5dc0) | 140 | 94 | +0.180 (+0.086 to +0.273) |
+| 1 dev, builders | B | [256-game engine cohort](/research/records/runs/ba368081-2db1-4998-9e81-902ef7a7bace) | 129 | 97 | +0.125 (+0.023 to +0.227) |
+| 2 confirm, builders | A | [256-game engine cohort](/research/records/runs/c07b2268-3e6b-4055-93f1-bc6405019ca0) | 125 | 108 | +0.066 (−0.036 to +0.169) |
+| 2 confirm, builders | B | [256-game engine cohort](/research/records/runs/3fb6583b-bc5c-4b8e-a19e-c62cf6c8f650) | 122 | 108 | +0.055 (−0.054 to +0.164) |
+| 3 population | A | [256-game engine cohort](/research/records/runs/bd42145a-ca36-457b-954b-46c298027787) | 88 | 85 | +0.012 (−0.075 to +0.098) |
+| 3 population | B | [256-game engine cohort](/research/records/runs/f95c0335-c77f-4d94-8026-b05cb06e855c) | 103 | 70 | +0.129 (+0.039 to +0.219) |
+| 4 ext, builders | A | [256-game engine cohort](/research/records/runs/90d394ae-fc62-4426-aca0-5f04bd54f2a6) | 131 | 104 | +0.105 (−0.001 to +0.212) |
+| 4 ext, builders | B | [256-game engine cohort](/research/records/runs/4e5d2807-1875-431f-b3ea-60a88f1ed2d9) | 128 | 99 | +0.113 (+0.015 to +0.212) |
+| 4 ext, population | A | [256-game engine cohort](/research/records/runs/66a398f5-9b69-442f-84f3-fd1fa219fd46) | 84 | 79 | +0.020 (−0.071 to +0.110) |
+| 4 ext, population | B | [256-game engine cohort](/research/records/runs/ff3fe1b1-e62e-4271-8c35-4bb44e07764f) | 89 | 80 | +0.035 (−0.049 to +0.120) |
+
+</AgentContext>
 
 `road_contention_gate` 1.0 on the 0.25 blend (shortlist gating plus leaf term):
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage | Half | Run | Slot 0 wins | Slot 1 wins | Contrast (95% interval) |
 | --- | --- | --- | ---: | ---: | --- |
-| 1 dev, builders | A | `eaec0233-a70b-4af4-8346-604a003e8f8c` | 122 | 109 | +0.051 (−0.046 to +0.147) |
-| 1 dev, builders | B | `160505ec-d7fb-4c53-b8a0-59f6ecccad22` | 138 | 94 | +0.172 (+0.083 to +0.260) |
-| 2 confirm, builders | A | `8d3680d8-d891-41be-a3e1-ca1ec203e7b2` | 116 | 115 | +0.004 (−0.115 to +0.123) |
-| 2 confirm, builders | B | `79e0863d-47ac-47c4-adc2-2ef8b800d544` | 131 | 100 | +0.121 (+0.009 to +0.233) |
-| 3 population | A | `4425d52b-8a9b-49f9-9c0d-1eecc7c4edb4` | 92 | 81 | +0.043 (−0.053 to +0.139) |
-| 3 population | B | `5b51b4e0-633d-43ac-bf47-59d5ccd532e0` | 85 | 85 | 0.000 (−0.089 to +0.089) |
+| 1 dev, builders | A | [256-game engine cohort](/research/records/runs/eaec0233-a70b-4af4-8346-604a003e8f8c) | 122 | 109 | +0.051 (−0.046 to +0.147) |
+| 1 dev, builders | B | [256-game engine cohort](/research/records/runs/160505ec-d7fb-4c53-b8a0-59f6ecccad22) | 138 | 94 | +0.172 (+0.083 to +0.260) |
+| 2 confirm, builders | A | [256-game engine cohort](/research/records/runs/8d3680d8-d891-41be-a3e1-ca1ec203e7b2) | 116 | 115 | +0.004 (−0.115 to +0.123) |
+| 2 confirm, builders | B | [256-game engine cohort](/research/records/runs/79e0863d-47ac-47c4-adc2-2ef8b800d544) | 131 | 100 | +0.121 (+0.009 to +0.233) |
+| 3 population | A | [256-game engine cohort](/research/records/runs/4425d52b-8a9b-49f9-9c0d-1eecc7c4edb4) | 92 | 81 | +0.043 (−0.053 to +0.139) |
+| 3 population | B | [256-game engine cohort](/research/records/runs/5b51b4e0-633d-43ac-bf47-59d5ccd532e0) | 85 | 85 | 0.000 (−0.089 to +0.089) |
+
+</AgentContext>
 
 The one full-blend cohort that was already running when the blend moved to
-0.25, stage 1 half A at `hand`:1.0 (run `4af53f81-6e2b-4a10-bdff-26fc68d192c3`,
-experiment `661b57ce-4262-40db-ab34-c2a84d6d5960`), finished with the
+0.25, stage 1 half A at `hand`:1.0 ([256-game engine cohort](/research/records/runs/4af53f81-6e2b-4a10-bdff-26fc68d192c3),
+the [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/661b57ce-4262-40db-ab34-c2a84d6d5960.toml)), finished with the
 candidate ahead 106 to 96, a single-seating contrast of +0.039 (−0.066 to
 +0.144). Its partner registration was withdrawn, so it has no swapped half and
 carries the seating term unmeasured.
@@ -225,24 +228,24 @@ tables-only candidates add `"weights":{"opponent_expansion":0.5}` or
 Reproduction: `python3 -m harness.engine run EXPERIMENT --threads 6` in a
 research checkout with `SETTLERS_SERVER_DIR` pointing at a server build of
 `settlers-arena`. Stage 1 pairs (seeds 0-63, builders): experiments
-`0b788486-7d5b-4d4c-a5c9-3989d6317337` / `b8549250-edc9-4f21-a4b7-96fbaafd4782`
-(blocking, tables), `25c0c3ef-acce-4275-aa62-58fd11bba45e` /
-`0b2dc424-752f-422c-94a9-3b91c60838dc` (gate, tables),
-`20520824-b14b-48a2-94d2-468b77fa4d3a` / `19dcce6e-a687-42fe-9652-4ebd7e21b169`
-(blocking, blend), `849b3f9f-e311-41a9-8462-ca01898eda3d` /
-`95a95d6d-de73-400b-bf2c-f999c4c9f04c` (gate, blend). Stage 2 (seeds 800-863,
-builders): `7159bd47-2352-49de-9dd2-497f8a3247a0` /
-`f10f72f3-3e38-4ed2-bb13-58283d529243`, `d8769e27-605a-4c7c-880a-bf2adaaed80e`
-/ `dba26122-eb55-425a-877a-510ccd1fbc35`, `ab1261cd-a9b2-4828-8002-3706e6db088b`
-/ `8866aa31-389c-419c-b031-3040f00bb8d7`, `4915a44c-ca93-45cf-86f3-31e11c282d42`
-/ `a8c21c94-a6d6-4b1b-9344-274989d58976`. Stage 3 (seeds 800-863, population):
-`82629df7-0f8a-4006-a042-60d0a6ebd16c` / `8e3cc677-7fcf-4a2c-842c-e663cc626632`,
-`5e8dd398-7515-4117-b0e0-bd0ab50e2a57` / `1af5542d-6c6d-4334-a282-a51d481449a0`,
-`0bf9d6ee-2cf7-4928-b3d1-0a7cc79799df` / `9c0cf8af-99c2-42ab-ba96-e51b9aa6d3bd`,
-`52a94b11-6ccc-4e9b-9396-6bb01d581011` / `a94f59d0-72bf-4245-af2b-2a3e1c7a7acc`.
-Stage 4 extension (seeds 864-927): `dd8dfd4f-9922-4621-b175-5c52db0df335` /
-`85c4582f-dd60-4705-a15b-7e0ec9aa757f` (builders), `ddf036cd-b4b2-49cd-9473-aff82f0a336e`
-/ `38d6d46d-d777-45fb-87d6-81972cf3f570` (population). The ten withdrawn
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0b788486-7d5b-4d4c-a5c9-3989d6317337.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/b8549250-edc9-4f21-a4b7-96fbaafd4782.toml)
+(blocking, tables), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/25c0c3ef-acce-4275-aa62-58fd11bba45e.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0b2dc424-752f-422c-94a9-3b91c60838dc.toml) (gate, tables),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/20520824-b14b-48a2-94d2-468b77fa4d3a.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/19dcce6e-a687-42fe-9652-4ebd7e21b169.toml)
+(blocking, blend), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/849b3f9f-e311-41a9-8462-ca01898eda3d.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/95a95d6d-de73-400b-bf2c-f999c4c9f04c.toml) (gate, blend). Stage 2 (seeds 800-863,
+builders): [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7159bd47-2352-49de-9dd2-497f8a3247a0.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f10f72f3-3e38-4ed2-bb13-58283d529243.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d8769e27-605a-4c7c-880a-bf2adaaed80e.toml)
+/ [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dba26122-eb55-425a-877a-510ccd1fbc35.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ab1261cd-a9b2-4828-8002-3706e6db088b.toml)
+/ [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8866aa31-389c-419c-b031-3040f00bb8d7.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/4915a44c-ca93-45cf-86f3-31e11c282d42.toml)
+/ [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a8c21c94-a6d6-4b1b-9344-274989d58976.toml). Stage 3 (seeds 800-863, population):
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/82629df7-0f8a-4006-a042-60d0a6ebd16c.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8e3cc677-7fcf-4a2c-842c-e663cc626632.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5e8dd398-7515-4117-b0e0-bd0ab50e2a57.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1af5542d-6c6d-4334-a282-a51d481449a0.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0bf9d6ee-2cf7-4928-b3d1-0a7cc79799df.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9c0cf8af-99c2-42ab-ba96-e51b9aa6d3bd.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/52a94b11-6ccc-4e9b-9396-6bb01d581011.toml) / [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a94f59d0-72bf-4245-af2b-2a3e1c7a7acc.toml).
+Stage 4 extension (seeds 864-927): [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/dd8dfd4f-9922-4621-b175-5c52db0df335.toml) /
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/85c4582f-dd60-4705-a15b-7e0ec9aa757f.toml) (builders), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ddf036cd-b4b2-49cd-9473-aff82f0a336e.toml)
+/ [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/38d6d46d-d777-45fb-87d6-81972cf3f570.toml) (population). The ten withdrawn
 `hand`:1.0 registrations are listed in the 2026-09-11 log. Analysis:
 `analysis/roads_tables.py` (per-pair effects and diagnostics),
 `analysis/roads_tables_pool.py` (after-the-fact pooling),
@@ -252,3 +255,22 @@ run are under `records/artifacts/`.
 </AgentContext>
 
 [All studies](../approaches/README.md) · [Expansion and races](../approaches/expansion) · [Experiment log](../log/experiments.mdx)
+
+<AgentContext title="Detailed result and cohort context">
+
+The two road switches of the [road-blocking study](../approaches/expansion) were
+re-measured with the learned n-tuple tables as the search's leaf, each as a
+registered swapped pair in three lineups and two leaf contexts (7,424 games, all
+completed). `opponent_expansion` 0.5, which under the tables acts only through
+the road shortlist, measures **−0.003 wins per game** (95% interval −0.011 to
++0.005) pooled over the 128 builders-lineup seeds and +0.002 (−0.007 to +0.011)
+with three searches at the table. On top of the blended leaf (tables plus
+quarter-strength hand terms) it reads +0.010 (−0.017 to +0.037) over 192
+builders seeds and **−0.033 (−0.060 to −0.006)** over 128 population seeds.
+`road_contention_gate` 1.0 reads **−0.020** (−0.045 to +0.004) pooled over all
+192 tables-leaf boards and **−0.060 (−0.095 to −0.024)** over the 128
+builders seeds under the blend, the one context where its leaf term is live at
+strength. Under the hand-written leaf both switches had already corrected to
++0.008 and −0.004. Both stay off everywhere, the browser included.
+
+</AgentContext>

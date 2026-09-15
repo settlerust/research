@@ -5,7 +5,7 @@ summary: How to register a study, compare policies fairly, report uncertainty, a
 
 # Research experiment program
 
-These are draft study designs. They are not registered experiments, implemented candidate policies, scheduled runs, or measured results. Each approach page specifies its mechanism, treatment arms, diagnostics, and failure conditions. This document supplies the shared design needed to make a comparison interpretable.
+Change one mechanism, freeze the comparison, and evaluate it on fresh games. The envelopes below are drafts to adapt and register before collecting evidence. Use `ntuple-leaf` as the current protocol reference; the [current evidence](status.md) explains why.
 
 The [experiment log](../log/experiments.mdx) tracks investigations and findings.
 Use the [research workflow](research-workflow.md) to give each registration an
@@ -52,7 +52,7 @@ Choose the minimum effect worth detecting before the fresh cohort. Estimate an a
 
 ## Freeze the opponents, not just their names
 
-For the first mechanical study, use the available fixed `fast` and `eta` versions. Retain competitor slots separately when a policy appears more than once. For social studies, first implement and verify these behavioral controls:
+For a new mechanical candidate, compare against the frozen `ntuple-leaf` baseline. Keep `fast` and `eta` available as inexpensive smoke opponents or fixed additional seats, and record their exact versions. Retain competitor slots separately when a policy appears more than once. Social studies also need verified behavioral controls:
 
 | Opponent class | Controlled behavior | What it tests |
 | --- | --- | --- |
@@ -84,7 +84,7 @@ Every decision should retain observation version, legal candidate IDs, fixed ref
 
 Primary strength analysis uses whole games. Trade acceptance, calibration, opponent targeting, timing, cumulative foregone value, and reputation proxies explain possible mechanisms. They are not substitutes for wins. Log available opportunities: zero reciprocation when no future trade was possible differs from repeated refusal.
 
-For a policy contrast use an unpaired game-level analysis, retaining the full within-game outcome vector. Resample whole games, stratified by lineup, or use a preregistered game-level model; do not resample turns or repeated policy seats as independent observations. Persistent-memory studies require session or group clusters and randomized reset conditions. The public API supplies no paired seeds.
+Match the analysis to the randomization. Ordinary server games are unpaired: resample whole games, stratified by lineup, or use a preregistered game-level model. For deterministic paired cohorts, analyze the per-seed contrast and keep rotations within their seed. Do not treat turns or repeated policy seats as independent games. Persistent-memory studies require session or group clusters and randomized reset conditions. Research orchestration may pin deterministic seeds; the policy never receives them.
 
 ## What counts as support
 
@@ -123,15 +123,31 @@ them as unregistered and they carry no evidential weight.
 
 ## Ablations
 
-An ablation seats a search with exactly one change in slot 0 and the unchanged
-control in slot 1, with the fixed builders in the other seats, on deterministic
-paired boards. The primary outcome is the per-seed difference in wins between
-the two slots with a 95% interval over seeds; an interval that excludes zero
-supports or refutes the change, and one that crosses zero is inconclusive. A
-64-seed screen (256 games) resolves effects of about 0.1 wins per game; smaller
-effects need a registered confirmation on fresh seeds, never an extension of
-the screening cohort. The [ablation report](../reports/ablations.mdx) applies
-this design across the atlas.
+An ablation changes one mechanism while keeping the rest of the search fixed.
+For two-search lineups, run both orientations on the same deterministic boards:
+
+| Half | Slot 0 | Slot 1 | Remaining seats |
+| --- | --- | --- | --- |
+| A | Candidate | Frozen control | Fixed opponents |
+| B | Frozen control | Candidate | The same opponents |
+
+Rotate all four slots through the seats within each half. The effect is half
+the difference of the two slot-0-minus-slot-1 contrasts, calculated per seed;
+half their sum estimates the seating term. Rotating without swapping keeps
+the searches adjacent in the same order and can create a false gain.
+
+The [endgame study](../reports/endgame-race.mdx) shows why this matters:
+its promising single-seating results became inconclusive after the correction.
+
+<ResearchPlot asset="endgame-corrected-effects" />
+
+Each corrected point combines both seatings on 64 boards, with four rotations
+per half (512 games). Its interval crosses zero, so the study did not confirm
+an improvement. Choose the sample count and minimum useful effect before the
+run; a small unresolved effect needs a separately registered fresh cohort.
+The [original ablation report](../reports/ablations.mdx) preserves the earlier
+single-seating design, and the [seating diagnosis](../reports/arena-seating.mdx)
+explains the correction.
 
 ## Compare policies fairly
 

@@ -1,23 +1,16 @@
 ---
 date: "2026-09-12"
 title: "Reading the next build under the learned leaf"
-summary: "The three build-prediction switches, retested as swapped pairs with the learned n-tuple tables as the leaf, do not separate from zero; the denial leaf term loses fresh seeds for the second time at double the decision cost, and the predictor reads a tables search worse than it read the hand-leaf search."
+summary: "Prediction switches remain inconclusive under the tables; denial loses on fresh boards at twice the decision cost."
 ---
 
 # Reading the next build under the learned leaf
 
-<ResearchCallout title="Finding · no prediction switch survives the learned leaf; the denial term loses fresh seeds again">
-Retested as swapped pairs against the tables baseline, the predicted space
-threat reads **+0.047 wins per game** on the population lineup (95% interval
-−0.004 to +0.098), +0.014 on the development boards, and −0.006 on fresh
-builders boards, every interval crossing zero. The predicted opponent model
-reads −0.010, +0.000, and −0.004 across the same stages. The denial leaf term,
-measured on the quarter blend of tables and hand-written terms, reads +0.002
-on the development boards and **−0.037 (−0.071 to −0.003) on fresh seeds**, the
-one interval that excludes zero, on the wrong side, and its seat spends about
-twice the decision time of its control. No switch becomes a default under
-either leaf.
+<ResearchCallout title="Prediction still did not produce a confirmed improvement">
+The denial term measured <ResultComparison value="-0.037" low="-0.071" high="-0.003" /> on fresh builder boards while taking about twice as long to decide. The predicted threat and opponent model remain inconclusive. All 18 completed halves finished 256 games each; the interrupted attempt and withdrawn registrations are retained below.
 </ResearchCallout>
+
+<ResearchPlot asset="prediction-tables-pooled-effects" />
 
 ## The question
 
@@ -61,11 +54,15 @@ halves completed 256 of 256 games.
 
 ## Predicted space threat
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage, seeds | Half A experiment, run | Half B experiment, run | Effect (95% interval) | Seating term |
 | --- | --- | --- | --- | --- |
-| Population, 800 to 863 | `2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166`, `98b12730-0997-4f13-932a-671536080240` | `078dc121-0ee7-44f2-80c6-25b150fe5c14`, `5d4485eb-5a7d-4525-8d5e-83b059633c39` | **+0.047 (−0.004 to +0.098)** | −0.027 |
-| Development, 0 to 63 | `7a37ead7-5990-4ced-8ea6-cc139c14d3cb`, `2fb51aa4-ec78-441a-ac88-4f3a1a1b077d` | `e8ed1b4d-9b55-41c0-b81a-72ca3446a6f0`, `7c07bce7-df9f-4bfb-b95c-73f1cc1a0f54` | +0.014 (−0.037 to +0.064) | +0.150 |
-| Confirmation, 800 to 863 | `721e6d22-cda9-4bbd-920f-a4c97caa1293`, `97c2c3c7-f23c-484f-8316-d8ef40f35728` | `d9e60b56-b687-4452-8a44-8e7a342a1f97`, `e6694d7e-7ca2-4a3c-b63a-7f98ad345a59` | −0.006 (−0.057 to +0.045) | +0.100 |
+| Population, 800 to 863 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166.toml), [256-game engine cohort](/research/records/runs/98b12730-0997-4f13-932a-671536080240) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/078dc121-0ee7-44f2-80c6-25b150fe5c14.toml), [256-game engine cohort](/research/records/runs/5d4485eb-5a7d-4525-8d5e-83b059633c39) | **+0.047 (−0.004 to +0.098)** | −0.027 |
+| Development, 0 to 63 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7a37ead7-5990-4ced-8ea6-cc139c14d3cb.toml), [256-game engine cohort](/research/records/runs/2fb51aa4-ec78-441a-ac88-4f3a1a1b077d) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e8ed1b4d-9b55-41c0-b81a-72ca3446a6f0.toml), [256-game engine cohort](/research/records/runs/7c07bce7-df9f-4bfb-b95c-73f1cc1a0f54) | +0.014 (−0.037 to +0.064) | +0.150 |
+| Confirmation, 800 to 863 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/721e6d22-cda9-4bbd-920f-a4c97caa1293.toml), [256-game engine cohort](/research/records/runs/97c2c3c7-f23c-484f-8316-d8ef40f35728) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d9e60b56-b687-4452-8a44-8e7a342a1f97.toml), [256-game engine cohort](/research/records/runs/e6694d7e-7ca2-4a3c-b63a-7f98ad345a59) | −0.006 (−0.057 to +0.045) | +0.100 |
+
+</AgentContext>
 
 The single-seating contrasts inside each pair were +0.164, +0.137, +0.094,
 +0.105: mostly the seating term, which the pair design removes. The pooled
@@ -82,11 +79,15 @@ at a decision time within 5 percent of its control in every half.
 
 ## Predicted opponent model
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage, seeds | Half A experiment, run | Half B experiment, run | Effect (95% interval) | Seating term |
 | --- | --- | --- | --- | --- |
-| Development, 0 to 63 | `0f311f07-69b0-43a2-b00d-e65260e78c68`, `cd0eef08-680b-4639-9dba-8eb9e98ff79a` | `f7646e35-5a6e-4923-92eb-8ed00c0dbc55`, `4dc942bd-5343-444d-aef8-9e89b60cc004` | −0.010 (−0.066 to +0.046) | +0.096 |
-| Confirmation, 800 to 863 | `131bd98f-9842-4da4-9ce6-4f818f018982`, `596e8dd0-957e-49e8-bd30-47df5d0a6312` | `906aeeee-fb36-4c4c-8e4c-bfb515c8e3b9`, `26be7683-0b30-4cdb-a27a-1900a11adcc4` | +0.000 (−0.063 to +0.063) | +0.055 |
-| Population, 800 to 863 | `832402a0-649a-4afe-a6b5-0120eafe42f7`, `3e1db769-42a7-48e3-842e-311d45776d32` | `7bed7450-6301-44bb-81cb-bafb69a54399`, `15282f9d-520d-4290-8931-bf0739e88983` | −0.004 (−0.060 to +0.052) | −0.012 |
+| Development, 0 to 63 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0f311f07-69b0-43a2-b00d-e65260e78c68.toml), [256-game engine cohort](/research/records/runs/cd0eef08-680b-4639-9dba-8eb9e98ff79a) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f7646e35-5a6e-4923-92eb-8ed00c0dbc55.toml), [256-game engine cohort](/research/records/runs/4dc942bd-5343-444d-aef8-9e89b60cc004) | −0.010 (−0.066 to +0.046) | +0.096 |
+| Confirmation, 800 to 863 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/131bd98f-9842-4da4-9ce6-4f818f018982.toml), [256-game engine cohort](/research/records/runs/596e8dd0-957e-49e8-bd30-47df5d0a6312) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/906aeeee-fb36-4c4c-8e4c-bfb515c8e3b9.toml), [256-game engine cohort](/research/records/runs/26be7683-0b30-4cdb-a27a-1900a11adcc4) | +0.000 (−0.063 to +0.063) | +0.055 |
+| Population, 800 to 863 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/832402a0-649a-4afe-a6b5-0120eafe42f7.toml), [256-game engine cohort](/research/records/runs/3e1db769-42a7-48e3-842e-311d45776d32) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7bed7450-6301-44bb-81cb-bafb69a54399.toml), [256-game engine cohort](/research/records/runs/15282f9d-520d-4290-8931-bf0739e88983) | −0.004 (−0.060 to +0.052) | −0.012 |
+
+</AgentContext>
 
 Pooled over the 128 builders-lineup seeds: −0.005 (−0.047 to +0.037), so no
 extension runs. The candidate's own behaviour matches its control within noise
@@ -97,11 +98,15 @@ decision time is within 5 percent of the control's.
 
 ## Denial leaf term on the quarter blend
 
+<AgentContext title="Full results and cohort ledger">
+
 | Stage, seeds | Half A experiment, run | Half B experiment, run | Effect (95% interval) | Seating term |
 | --- | --- | --- | --- | --- |
-| Development, 0 to 63 | `39f22891-3b02-4f8b-9d2a-54a68ecf8d65`, `3bbbfea8-c08e-4910-9926-566ba647d534` | `ad623e9c-d09c-4328-8f90-868cc0cc719c`, `b0c63544-f1ba-4a4c-924d-03ef381c4dbb` | +0.002 (−0.040 to +0.044) | +0.123 |
-| Confirmation, 800 to 863 | `3b404013-a489-4f0f-8c72-d5139030896a`, `106ab3c6-89e2-47f5-a17b-50f4e91ecbc8` | `f454b374-037c-4ea9-9dcc-34b9222d3fe6`, `591c905a-0d87-4216-8b35-df28b3256109` | **−0.037 (−0.071 to −0.003)** | +0.057 |
-| Population, 800 to 863 | `1fda980d-5933-4182-8629-bb38219163ef`, `5463cc1a-fd0f-467b-a33a-63992e8ebe08` | `29355633-9630-484b-893c-5fa59b8bd158`, `ec5e3a3e-e989-40a6-bc77-701a2bbfc519` | +0.023 (−0.009 to +0.056) | −0.004 |
+| Development, 0 to 63 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/39f22891-3b02-4f8b-9d2a-54a68ecf8d65.toml), [256-game engine cohort](/research/records/runs/3bbbfea8-c08e-4910-9926-566ba647d534) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ad623e9c-d09c-4328-8f90-868cc0cc719c.toml), [256-game engine cohort](/research/records/runs/b0c63544-f1ba-4a4c-924d-03ef381c4dbb) | +0.002 (−0.040 to +0.044) | +0.123 |
+| Confirmation, 800 to 863 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3b404013-a489-4f0f-8c72-d5139030896a.toml), [256-game engine cohort](/research/records/runs/106ab3c6-89e2-47f5-a17b-50f4e91ecbc8) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/f454b374-037c-4ea9-9dcc-34b9222d3fe6.toml), [256-game engine cohort](/research/records/runs/591c905a-0d87-4216-8b35-df28b3256109) | **−0.037 (−0.071 to −0.003)** | +0.057 |
+| Population, 800 to 863 | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/1fda980d-5933-4182-8629-bb38219163ef.toml), [256-game engine cohort](/research/records/runs/5463cc1a-fd0f-467b-a33a-63992e8ebe08) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/29355633-9630-484b-893c-5fa59b8bd158.toml), [256-game engine cohort](/research/records/runs/ec5e3a3e-e989-40a6-bc77-701a2bbfc519) | +0.023 (−0.009 to +0.056) | −0.004 |
+
+</AgentContext>
 
 The confirmation interval excludes zero below: on fresh seeds the term costs
 wins, repeating the hand-leaf study's fall from +0.061 on the development
@@ -194,21 +199,36 @@ played on the engine arena of the server worktree
 games; none was censored or invalid. `analysis/prediction_tables.py` computes
 each pair's seating-corrected effect, seating term, and pooled candidate and
 control diagnostics from the retained `games.jsonl`; reproduce any cohort with
-`just engine-run EXPERIMENT`. Run `83989250-85e2-4fe5-a9fd-c2a1c5aedef7`
-(experiment `2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166`) was interrupted after 6
+`just engine-run EXPERIMENT`. [interrupted attempt](/research/records/runs/83989250-85e2-4fe5-a9fd-c2a1c5aedef7)
+(the [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2a3e7ddb-a627-4e0a-a5ea-0f1934e6d166.toml)) was interrupted after 6
 games when the agent's session tooling killed the detached process; it is filed
 as interrupted and half A was rerun from scratch as
-`98b12730-0997-4f13-932a-671536080240`. Six registrations for the denial arm
+[256-game engine cohort](/research/records/runs/98b12730-0997-4f13-932a-671536080240). Six registrations for the denial arm
 on the full blend (`hand 1.0`) were withdrawn before running when the
 `patterns/leaf-blend` screen measured that blend far below the tables alone:
-`2324c88f-9407-455f-a76c-daafd52bf7e1`, `adb816b7-c2f2-4a47-a545-60b035870e45`,
-`d160d8e0-2d2a-45cb-ba12-f5fa82956d3a`,
-`6f0f27f8-286c-424a-9786-7b43875e62cb`,
-`c62b41d6-5c90-447a-8196-6acb9b6200f1`, and
-`ff104571-dcc2-48f0-9dd5-0bae29a7cff5`; the quarter-blend replacements are the
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/2324c88f-9407-455f-a76c-daafd52bf7e1.toml), [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/adb816b7-c2f2-4a47-a545-60b035870e45.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d160d8e0-2d2a-45cb-ba12-f5fa82956d3a.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6f0f27f8-286c-424a-9786-7b43875e62cb.toml),
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c62b41d6-5c90-447a-8196-6acb9b6200f1.toml), and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ff104571-dcc2-48f0-9dd5-0bae29a7cff5.toml); the quarter-blend replacements are the
 three denial pairs above. The prediction-accuracy table comes from an
 unregistered diagnostic kept under `runs/screens-prediction-tables/`, 64 games
 with `--predict-diag 0`. Pooled 128-seed estimates are after-the-fact
 poolings named as such; no extension cohort ran, because no arm met its
 condition. Attribution: GLM-5.3 (baseten/zai-org/GLM-5.3) through opencode.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+Retested as swapped pairs against the tables baseline, the predicted space
+threat reads **+0.047 wins per game** on the population lineup (95% interval
+−0.004 to +0.098), +0.014 on the development boards, and −0.006 on fresh
+builders boards, every interval crossing zero. The predicted opponent model
+reads −0.010, +0.000, and −0.004 across the same stages. The denial leaf term,
+measured on the quarter blend of tables and hand-written terms, reads +0.002
+on the development boards and **−0.037 (−0.071 to −0.003) on fresh seeds**, the
+one interval that excludes zero, on the wrong side, and its seat spends about
+twice the decision time of its control. No switch becomes a default under
+either leaf.
+
 </AgentContext>

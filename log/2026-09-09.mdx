@@ -6,7 +6,7 @@ summary: A turn-planning bug is found and fixed; the corrected candidate wins 47
 # A planning defect, a protocol cohort, and new exhibits
 
 The protocol confirmation of the frozen depth-3 candidate,
-`e4949ebe-8132-4428-aae9-37ae1e0c3748`, completed all 80 games with twelve
+[80-game protocol cohort](/research/records/runs/e4949ebe-8132-4428-aae9-37ae1e0c3748), completed all 80 games with twelve
 matches in flight: 31 wins (38.8%) against the compared ETA slot's 25 (31.2%),
 a 7.5-point gap at p = 0.25, short of the registered rule. The
 [protocol report](../reports/expectimax-v2-protocol.mdx) records it.
@@ -25,23 +25,23 @@ steps to the best few actions. Every earlier v2 cohort and the structure
 measurement used the defective search; their records stand as recorded, and
 the corrected search is a new candidate with its own cohorts.
 
-Registered cohort `d5eb6354-2b59-4ca4-8ab0-fefee3690cb3`, run
-`a0c91849-4abf-4f1c-9de1-6255e1ef73e6`, measured the corrected search at
+The [registered cohort](https://github.com/settlerust/research/blob/dev/experiments/d5eb6354-2b59-4ca4-8ab0-fefee3690cb3.toml), run
+[256-game engine cohort](/research/records/runs/a0c91849-4abf-4f1c-9de1-6255e1ef73e6), measured the corrected search at
 depth 2 on the same 64 boards as before: 129 of 256 slot-games (50.4%) against
 the compared ETA slot's 20.3%, paired contrast +0.301 (interval +0.190 to
 +0.412), at 87 ms per decision. The [corrected search report](../reports/expectimax-v2-corrected.mdx)
-records it. Cohort `11cb5a59-5490-4a78-96cf-2332d8364cf2`, run
-`156f77ff-b781-42d6-b6e0-999bdf9506fe`, put depth 3 under a 1.5 s budget on
+records it. Cohort [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/11cb5a59-5490-4a78-96cf-2332d8364cf2.toml), run
+[256-game engine cohort](/research/records/runs/156f77ff-b781-42d6-b6e0-999bdf9506fe), put depth 3 under a 1.5 s budget on
 the same boards: 147 of 256 (57.4%) against 16.0%, paired contrast +0.414
 (interval +0.327 to +0.502), 360 ms per decision. Depth now pays. Cohort
-`8d5b24cd-e6ed-4a04-87c8-c1d0db7b747c`, run
-`436f4740-c7a5-48f2-9e35-9f1ce92c3af5`, seated depth 2 against the frozen
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8d5b24cd-e6ed-4a04-87c8-c1d0db7b747c.toml), run
+[256-game engine cohort](/research/records/runs/436f4740-c7a5-48f2-9e35-9f1ce92c3af5), seated depth 2 against the frozen
 reference with an ETA and a fast builder: 46.9% against the reference's 13.3%,
 paired contrast +0.336 (interval +0.249 to +0.423). A corrected
 depth-3 candidate is frozen as `expectimax-v2-plan`
-and registered as protocol experiment `49427921-feaf-4291-a5bf-79500acdcae7`.
+and registered as protocol the [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/49427921-feaf-4291-a5bf-79500acdcae7.toml).
 
-Structure run `fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5` measured the tree with
+The [structure measurements](https://github.com/settlerust/research/blob/dev/records/structure/fcd6c0c1-af77-4d2f-b43d-5c598f8d5ff5.md) measured the tree with
 the corrected search: median legal actions of 8 in the main phase and 22 for
 the robber, main-phase width rising from 2 to 9 through a game, and search cost
 multiplying by four to six per planned turn (medians of 15, 92, 465 and 1654 ms
@@ -50,8 +50,8 @@ has the charts and a term-by-term decision exhibit. An earlier structure run
 with the defective search was discarded before publication.
 
 The protocol confirmation of the corrected candidate,
-`49427921-feaf-4291-a5bf-79500acdcae7`, run
-`0df1bae1-1928-4bcc-8fb6-a5519621bb76`, completed 80 of 80 games with twelve in
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/49427921-feaf-4291-a5bf-79500acdcae7.toml), run
+[80-game protocol cohort](/research/records/runs/0df1bae1-1928-4bcc-8fb6-a5519621bb76), completed 80 of 80 games with twelve in
 flight and no timeout moves: 47 wins (58.8%) against the compared ETA slot's 11
 (13.8%), a 45-point gap at p = 1.0 × 10⁻⁶. The registered rule is met and the
 [protocol report](../reports/expectimax-v2-plan-protocol.mdx) makes
@@ -73,11 +73,11 @@ seed index at creation; seats never receive it. Both harness tiers register
 deterministic paired cohorts: `just engine-register --deterministic` and
 `just register --seeds A-B`, whose records report a paired seed contrast.
 
-Protocol smoke `7d654352-7a65-4a1d-935f-136ce1b23ae8` checked the tape through
-the server. Its first run, `f3b1fe74-aef9-46d0-8e35-54b9ee6695a9`, is invalid:
+Protocol smoke [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7d654352-7a65-4a1d-935f-136ce1b23ae8.toml) checked the tape through
+the server. Its first run, [invalid attempt](/research/records/runs/f3b1fe74-aef9-46d0-8e35-54b9ee6695a9), is invalid:
 every game was rejected at creation because the running server binary predated
 the setting. After rebuilding and restarting, run
-`3d50d380-0b87-42c3-82d5-d30666933fe6` completed all 8 games, and on each seed
+[8-game protocol cohort](/research/records/runs/3d50d380-0b87-42c3-82d5-d30666933fe6) completed all 8 games, and on each seed
 all four rotations rolled the same totals by index over their shared 68 and 66
 rolls. These are plumbing checks, not strength evidence.
 
@@ -89,31 +89,31 @@ builder. Lookahead and dice scenarios are decisive; every single leaf term and
 style slider is within 0.1 wins per game of the control with an interval that
 crosses zero. The [ablation report](../reports/ablations.mdx) has the forest
 plot and the method. Six borderline arms are registered again on 192 fresh
-seeds (64 to 255) and a reciprocity arm (`cba5c2a6-9a7c-414c-81f8-b9dc8ef8f4a7`)
+seeds (64 to 255) and a reciprocity arm ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/cba5c2a6-9a7c-414c-81f8-b9dc8ef8f4a7.toml))
 is registered under `reputation/reciprocity`; their runs are recorded below
 when they complete.
 
 | Study | Run | Treatment wins | Control wins | Contrast (95% interval) |
 | --- | --- | ---: | ---: | --- |
-| opening/search-placement | `47db0437-fcc8-4bce-be06-57c2caadf5f9` | 87 | 96 | -0.035 (-0.133 to +0.062) |
-| tempo/acquisition-time-term | `d4472a6a-7480-43c5-a045-bd23cc41f944` | 105 | 89 | +0.062 (-0.039 to +0.164) |
-| expansion/site-value-terms | `52198182-e594-45d0-b71a-71c6f90835e4` | 87 | 106 | -0.074 (-0.169 to +0.021) |
-| ports/port-value-terms | `03b1a60e-01fb-4a0f-85a6-db7c83a98472` | 97 | 92 | +0.020 (-0.086 to +0.125) |
-| beliefs/event-knowledge | `165fc976-0cb1-40af-a17b-14911bbdcc89` | 78 | 101 | -0.090 (-0.201 to +0.021) |
-| beliefs/sampled-worlds | `e5e7218e-5a00-4689-842d-01228f1bca19` | 89 | 102 | -0.051 (-0.166 to +0.064) |
-| search/lookahead | `7586d662-410e-413b-a6d6-b1f8386ff39e` | 50 | 133 | -0.324 (-0.413 to -0.235) |
-| search/scenario-count | `917f7901-15a9-410f-b8f5-314a8041ab5b` | 27 | 132 | -0.410 (-0.489 to -0.331) |
-| risk/discard-exposure | `0b9e852a-cc87-4d37-8694-ef01545b677e` | 90 | 96 | -0.023 (-0.134 to +0.087) |
-| risk/risk-appetite | `d611102f-d5c0-4828-9131-1e746844ff65` | 88 | 104 | -0.062 (-0.175 to +0.050) |
-| development/card-terms | `3fdce968-dd9a-4bba-9698-79bee17b6d28` | 91 | 100 | -0.035 (-0.144 to +0.074) |
-| development/card-appetite | `e2b45621-eead-4c98-ade1-8113ced106f5` | 98 | 90 | +0.031 (-0.070 to +0.132) |
-| bargaining/offer-policy | `0e7068ca-536d-4c35-a77c-e37f55119639` | 83 | 90 | -0.027 (-0.132 to +0.077) |
-| bargaining/trade-openness | `7ff05cd9-d1d7-477a-8386-f49ddefba3be` | 80 | 104 | -0.094 (-0.192 to +0.005) |
-| containment/opponent-terms | `49df8c4e-96e9-497f-80ce-d8dd9ed19302` | 96 | 96 | +0.000 (-0.105 to +0.105) |
-| containment/aggression | `c4427fe6-e074-4598-83cc-aa2e4a0dc283` | 99 | 94 | +0.020 (-0.084 to +0.123) |
-| adaptation/opponent-model | `3807570d-117b-4b6f-b0c4-86b77767b6f5` | 88 | 90 | -0.008 (-0.111 to +0.096) |
-| reputation/reciprocity | `7c17e2c7-a140-4fe5-b055-68bdea33ea60` | 90 | 98 | -0.031 (-0.125 to +0.063) |
-| population/cross-play | `729fc30f-edaa-4120-829d-125e68825e66` | builder 66, raider 59, gambler 69, trader 62 of 256 | | four presets, no dominant style |
+| opening/search-placement | [256-game engine cohort](/research/records/runs/47db0437-fcc8-4bce-be06-57c2caadf5f9) | 87 | 96 | -0.035 (-0.133 to +0.062) |
+| tempo/acquisition-time-term | [256-game engine cohort](/research/records/runs/d4472a6a-7480-43c5-a045-bd23cc41f944) | 105 | 89 | +0.062 (-0.039 to +0.164) |
+| expansion/site-value-terms | [256-game engine cohort](/research/records/runs/52198182-e594-45d0-b71a-71c6f90835e4) | 87 | 106 | -0.074 (-0.169 to +0.021) |
+| ports/port-value-terms | [256-game engine cohort](/research/records/runs/03b1a60e-01fb-4a0f-85a6-db7c83a98472) | 97 | 92 | +0.020 (-0.086 to +0.125) |
+| beliefs/event-knowledge | [256-game engine cohort](/research/records/runs/165fc976-0cb1-40af-a17b-14911bbdcc89) | 78 | 101 | -0.090 (-0.201 to +0.021) |
+| beliefs/sampled-worlds | [256-game engine cohort](/research/records/runs/e5e7218e-5a00-4689-842d-01228f1bca19) | 89 | 102 | -0.051 (-0.166 to +0.064) |
+| search/lookahead | [256-game engine cohort](/research/records/runs/7586d662-410e-413b-a6d6-b1f8386ff39e) | 50 | 133 | -0.324 (-0.413 to -0.235) |
+| search/scenario-count | [256-game engine cohort](/research/records/runs/917f7901-15a9-410f-b8f5-314a8041ab5b) | 27 | 132 | -0.410 (-0.489 to -0.331) |
+| risk/discard-exposure | [256-game engine cohort](/research/records/runs/0b9e852a-cc87-4d37-8694-ef01545b677e) | 90 | 96 | -0.023 (-0.134 to +0.087) |
+| risk/risk-appetite | [256-game engine cohort](/research/records/runs/d611102f-d5c0-4828-9131-1e746844ff65) | 88 | 104 | -0.062 (-0.175 to +0.050) |
+| development/card-terms | [256-game engine cohort](/research/records/runs/3fdce968-dd9a-4bba-9698-79bee17b6d28) | 91 | 100 | -0.035 (-0.144 to +0.074) |
+| development/card-appetite | [256-game engine cohort](/research/records/runs/e2b45621-eead-4c98-ade1-8113ced106f5) | 98 | 90 | +0.031 (-0.070 to +0.132) |
+| bargaining/offer-policy | [256-game engine cohort](/research/records/runs/0e7068ca-536d-4c35-a77c-e37f55119639) | 83 | 90 | -0.027 (-0.132 to +0.077) |
+| bargaining/trade-openness | [256-game engine cohort](/research/records/runs/7ff05cd9-d1d7-477a-8386-f49ddefba3be) | 80 | 104 | -0.094 (-0.192 to +0.005) |
+| containment/opponent-terms | [256-game engine cohort](/research/records/runs/49df8c4e-96e9-497f-80ce-d8dd9ed19302) | 96 | 96 | +0.000 (-0.105 to +0.105) |
+| containment/aggression | [256-game engine cohort](/research/records/runs/c4427fe6-e074-4598-83cc-aa2e4a0dc283) | 99 | 94 | +0.020 (-0.084 to +0.123) |
+| adaptation/opponent-model | [256-game engine cohort](/research/records/runs/3807570d-117b-4b6f-b0c4-86b77767b6f5) | 88 | 90 | -0.008 (-0.111 to +0.096) |
+| reputation/reciprocity | [256-game engine cohort](/research/records/runs/7c17e2c7-a140-4fe5-b055-68bdea33ea60) | 90 | 98 | -0.031 (-0.125 to +0.063) |
+| population/cross-play | [256-game engine cohort](/research/records/runs/729fc30f-edaa-4120-829d-125e68825e66) | builder 66, raider 59, gambler 69, trader 62 of 256 | | four presets, no dominant style |
 
 Browser timing: on 40 sampled main-phase positions the WASM build runs 1.26 to
 1.38 times slower than native by depth (asset `search-cost-wasm`), so a
@@ -126,12 +126,12 @@ knowledge is supported; the rest show no effect or stay unresolved.
 
 | Study | Run | Treatment wins | Control wins | Contrast (95% interval) |
 | --- | --- | ---: | ---: | --- |
-| tempo/acquisition-time-term | `b4d274b1-d42c-44cb-bb54-25bfa331f346` | 307 | 277 | +0.039 (95% interval -0.021 to +0.099) |
-| expansion/site-value-terms | `0ea66d80-04a1-470f-b6dc-384cf6f1dde6` | 275 | 287 | -0.016 (95% interval -0.078 to +0.047) |
-| beliefs/event-knowledge | `9fa439db-c29a-446b-94ea-147bae23e473` | 250 | 301 | -0.066 (95% interval -0.125 to -0.008) |
-| beliefs/sampled-worlds | `5b5b528d-de10-4a20-921f-68f1b286d6e9` | 271 | 280 | -0.012 (95% interval -0.072 to +0.048) |
-| risk/risk-appetite | `837c9293-5996-49d1-8d1f-019c2dd395ee` | 261 | 303 | -0.055 (95% interval -0.118 to +0.008) |
-| bargaining/trade-openness | `1bfc00f0-05ed-4635-b499-69cb50bc4c80` | 281 | 293 | -0.016 (95% interval -0.075 to +0.043) |
+| tempo/acquisition-time-term | [768-game engine cohort](/research/records/runs/b4d274b1-d42c-44cb-bb54-25bfa331f346) | 307 | 277 | +0.039 (95% interval -0.021 to +0.099) |
+| expansion/site-value-terms | [768-game engine cohort](/research/records/runs/0ea66d80-04a1-470f-b6dc-384cf6f1dde6) | 275 | 287 | -0.016 (95% interval -0.078 to +0.047) |
+| beliefs/event-knowledge | [768-game engine cohort](/research/records/runs/9fa439db-c29a-446b-94ea-147bae23e473) | 250 | 301 | -0.066 (95% interval -0.125 to -0.008) |
+| beliefs/sampled-worlds | [768-game engine cohort](/research/records/runs/5b5b528d-de10-4a20-921f-68f1b286d6e9) | 271 | 280 | -0.012 (95% interval -0.072 to +0.048) |
+| risk/risk-appetite | [768-game engine cohort](/research/records/runs/837c9293-5996-49d1-8d1f-019c2dd395ee) | 261 | 303 | -0.055 (95% interval -0.118 to +0.008) |
+| bargaining/trade-openness | [768-game engine cohort](/research/records/runs/1bfc00f0-05ed-4635-b499-69cb50bc4c80) | 281 | 293 | -0.016 (95% interval -0.075 to +0.043) |
 
 
 ## Learned pattern values: an n-tuple leaf
@@ -143,7 +143,7 @@ file and swaps the leaf inside the otherwise unchanged search; the arena and
 the `remote` protocol seat load it once per process, and the browser build
 rejects it (the tables are a server-side policy by decision). The hand-written
 leaf is unchanged: the refactored search replays run
-`d611102f-d5c0-4828-9131-1e746844ff65` bit for bit on its first seeds.
+[256-game engine cohort](/research/records/runs/d611102f-d5c0-4828-9131-1e746844ff65) bit for bit on its first seeds.
 
 Tables are trained by self-play on the engine. Every seat plans its turn with
 the depth-1 search over the tables on the true state; the leaf reads only that
@@ -179,11 +179,11 @@ with the frozen tables at `artifacts/ntuple/hex-portfolio-main.bin` in slot 0:
 
 | Cohort | Registration | Slot 0 | Slot 1 | Seeds |
 | --- | --- | --- | --- | --- |
-| Equal depth (engine) | `ea8af9cc-c1f0-42b9-a388-b241e62cc7e0` | tables, depth 2 | hand-written leaf, depth 2 | 256 to 319, 256 games |
-| One ply (engine) | `6a712b5a-0169-45e5-a14b-51b53ed0582b` | tables, depth 1 | hand-written leaf, depth 2 | 256 to 319, 256 games |
-| Buys a ply (engine) | `9ed38762-4927-4f9e-bb2b-b45e893a1834` | tables, depth 2 | hand-written leaf, depth 3, 1.5 s | 256 to 319, 256 games |
-| Deployment depth (engine) | `acf5812a-4596-4d09-b401-9c29758df92b` | tables, depth 3, 1.5 s | hand-written leaf, depth 3, 1.5 s | 256 to 319, 256 games |
-| Protocol confirmation | `a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9` | `ntuple-leaf` (depth 3, 1.5 s) | `expectimax-v2-plan` | 320 to 339, 80 games |
+| Equal depth (engine) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/ea8af9cc-c1f0-42b9-a388-b241e62cc7e0.toml) | tables, depth 2 | hand-written leaf, depth 2 | 256 to 319, 256 games |
+| One ply (engine) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6a712b5a-0169-45e5-a14b-51b53ed0582b.toml) | tables, depth 1 | hand-written leaf, depth 2 | 256 to 319, 256 games |
+| Buys a ply (engine) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/9ed38762-4927-4f9e-bb2b-b45e893a1834.toml) | tables, depth 2 | hand-written leaf, depth 3, 1.5 s | 256 to 319, 256 games |
+| Deployment depth (engine) | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/acf5812a-4596-4d09-b401-9c29758df92b.toml) | tables, depth 3, 1.5 s | hand-written leaf, depth 3, 1.5 s | 256 to 319, 256 games |
+| Protocol confirmation | [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9.toml) | `ntuple-leaf` (depth 3, 1.5 s) | `expectimax-v2-plan` | 320 to 339, 80 games |
 
 Every engine cohort seats an ETA and a fast builder in the other two slots; the
 protocol cohort seats `eta` and `fast`. Their runs are recorded below when they
@@ -202,20 +202,20 @@ an ETA and a fast builder:
 
 | Cohort | Run | Tables wins | Hand wins | Contrast (95% interval) |
 | --- | --- | ---: | ---: | --- |
-| Equal depth, d2 vs d2 | `09fb758b-051f-435c-aaa8-8c9454c3baa3` | 130 | 74 | +0.219 (+0.124 to +0.314) |
-| One ply, d1 vs d2 | `d249aa28-d737-4f4e-b068-12542f4679b9` | 121 | 79 | +0.164 (+0.058 to +0.270) |
-| Buys a ply, d2 vs d3 (1.5 s) | `169b0772-f6c8-46ff-8eb3-aa8b5f0f6cfb` | 122 | 82 | +0.156 (+0.051 to +0.262) |
-| Deployment depth, d3 vs d3 (1.5 s) | `ec904c96-b029-4d1b-8d37-393cc15ebb5a` | 135 | 73 | +0.242 (+0.140 to +0.345) |
+| Equal depth, d2 vs d2 | [256-game engine cohort](/research/records/runs/09fb758b-051f-435c-aaa8-8c9454c3baa3) | 130 | 74 | +0.219 (+0.124 to +0.314) |
+| One ply, d1 vs d2 | [256-game engine cohort](/research/records/runs/d249aa28-d737-4f4e-b068-12542f4679b9) | 121 | 79 | +0.164 (+0.058 to +0.270) |
+| Buys a ply, d2 vs d3 (1.5 s) | [256-game engine cohort](/research/records/runs/169b0772-f6c8-46ff-8eb3-aa8b5f0f6cfb) | 122 | 82 | +0.156 (+0.051 to +0.262) |
+| Deployment depth, d3 vs d3 (1.5 s) | [256-game engine cohort](/research/records/runs/ec904c96-b029-4d1b-8d37-393cc15ebb5a) | 135 | 73 | +0.242 (+0.140 to +0.345) |
 
 Every registered rule is met: the learned leaf beats the hand-written leaf at
 equal depth by more than the +0.10 the rule asked for, is worth more than a
 planned turn of search, and keeps its margin at the baseline's depth. The
 [report](../reports/ntuple-leaf.mdx) has the training curve, the decoded hex
 table, and the build profile. The protocol cohort
-`a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9` is running as run
-`e861616e-8100-43e6-a8d3-39047b5b6669`; its outcome is recorded below.
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/a5e9b3f1-8ace-418f-b8e8-bd54c825c5c9.toml) is running as run
+[80-game protocol cohort](/research/records/runs/e861616e-8100-43e6-a8d3-39047b5b6669); its outcome is recorded below.
 
-The protocol cohort completed: run `e861616e-8100-43e6-a8d3-39047b5b6669`
+The protocol cohort completed: [80-game protocol cohort](/research/records/runs/e861616e-8100-43e6-a8d3-39047b5b6669)
 played all 80 games with twelve matches in flight and no timeout moves;
 `ntuple-leaf` won 46 (57.5%) against 25 (31.2%) for `expectimax-v2-plan`, with
 `eta` at 5 and `fast` at 4, a paired contrast of +0.263 wins per game over 20
@@ -231,12 +231,12 @@ Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
 
 Two cohorts under `patterns/ntuple-followups`, seeds 340 to 403, 256 games each,
 with the frozen tables at depth 2. With a second hand-written search replacing
-the fast builder (`5af081f1-c109-4390-9bea-2ca7f451d43a`, run
-`b5bd6e07-98f8-42aa-ac82-79b060e116cf`), the tables won 107 slot-games against
+the fast builder ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5af081f1-c109-4390-9bea-2ca7f451d43a.toml), run
+[256-game engine cohort](/research/records/runs/b5bd6e07-98f8-42aa-ac82-79b060e116cf)), the tables won 107 slot-games against
 63 and 58 for the two hand-written seats and 28 for ETA: contrast +0.172 (95%
 interval +0.056 to +0.287), supported. In a symmetric field of two table seats
-and two hand-written seats (`94097c5c-0247-4d7e-a10f-ca855680de21`, run
-`8a6a8227-3951-410c-b278-fc27944f4005`) each table seat won 76 against 52 for
+and two hand-written seats ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/94097c5c-0247-4d7e-a10f-ca855680de21.toml), run
+[256-game engine cohort](/research/records/runs/8a6a8227-3951-410c-b278-fc27944f4005)) each table seat won 76 against 52 for
 each hand-written seat: contrast +0.094 (+0.004 to +0.183). That lineup is
 unchanged by a two-seat shift, so its four rotations come in identical pairs
 and the cohort holds 128 distinct games; the interval over seeds is therefore
@@ -293,10 +293,10 @@ validation cohort at 150,075 games; the λ 0.3 run reached +0.292 at 270,135
 games. Both best points were frozen (`records/artifacts/ntuple-long-*.md`)
 and screened against the frozen 96,000-game tables on seeds 404 to 467 under
 `patterns/ntuple-followups`: the default run's tables won 109 slot-games to
-101 (`caf6e656-fccc-424f-addf-f0ed62e384f8`, run
-`dee1f84c-7e07-4ae7-ac8c-e8ae30998e6b`, contrast +0.031, 95% interval −0.082
-to +0.145) and the λ 0.3 tables 106 to 92 (`714fa798-4f0c-469b-8d96-efaa71898aff`,
-run `a144ba45-27e3-46b5-8ad2-3e45525f4a17`, +0.055, −0.046 to +0.155). Both
+101 ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/caf6e656-fccc-424f-addf-f0ed62e384f8.toml), run
+[256-game engine cohort](/research/records/runs/dee1f84c-7e07-4ae7-ac8c-e8ae30998e6b), contrast +0.031, 95% interval −0.082
+to +0.145) and the λ 0.3 tables 106 to 92 ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/714fa798-4f0c-469b-8d96-efaa71898aff.toml),
+[256-game engine cohort](/research/records/runs/a144ba45-27e3-46b5-8ad2-3e45525f4a17), +0.055, −0.046 to +0.155). Both
 inconclusive: longer training and the λ change do not measurably improve on
 the frozen tables. The trainer's driver now resolves its output path; these
 runs' table files were written under the server checkout and moved back
@@ -306,22 +306,22 @@ before freezing, with the digests recorded.
 
 `ntuple-leaf-deep` (depth cap 4, 4 s budget, 5,000,000 transitions, gap 20)
 against the depth-3 baseline configuration on seeds 468 to 531
-(`c36715d4-a947-4166-86a5-8ef0bca620c6`, run
-`57717b3e-f5ab-4fa2-85a4-d35bf41c2868`): 129 wins to 109, contrast +0.078
+([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/c36715d4-a947-4166-86a5-8ef0bca620c6.toml), run
+[256-game engine cohort](/research/records/runs/57717b3e-f5ab-4fa2-85a4-d35bf41c2868)): 129 wins to 109, contrast +0.078
 (95% interval −0.039 to +0.196), inconclusive. The deep seat completed depth 4
 on few decisions (mean completed depth 1.98) because the 30% time rule stops
 deepening after a depth-3 completion that took longer than 1.2 s; it mostly
 bought depth-3 completions the 1.5 s seat had to abort. An equal-time
 comparison, a depth cap of 4 against a cap of 3 under 10 s budgets on seeds
-572 to 603, is registered as `8dc65a70-0b16-44fb-97b6-4fc7d4471ab8`.
+572 to 603, is registered as [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8dc65a70-0b16-44fb-97b6-4fc7d4471ab8.toml).
 The same two configurations with the hand-written leaf
-(`6d9624c9-90bb-4427-8381-e706cec9389a`, run
-`90009612-234c-4b68-b2b3-fa93885f84b9`): 89 wins to 102, contrast −0.051 (95%
+([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/6d9624c9-90bb-4427-8381-e706cec9389a.toml), run
+[256-game engine cohort](/research/records/runs/90009612-234c-4b68-b2b3-fa93885f84b9)): 89 wins to 102, contrast −0.051 (95%
 interval −0.176 to +0.074), inconclusive. Under this budget the fourth ply
 buys nothing measurable for either leaf.
 
-The protocol cohort `372d07bc-183f-4970-a93a-f65db4d9e964`, run
-`8f6dd1a7-d354-4e5c-a590-7b23c2f9f2fd`, seated `ntuple-leaf-deep` against
+The [registered protocol cohort](https://github.com/settlerust/research/blob/dev/experiments/372d07bc-183f-4970-a93a-f65db4d9e964.toml), run
+[80-game protocol cohort](/research/records/runs/8f6dd1a7-d354-4e5c-a590-7b23c2f9f2fd), seated `ntuple-leaf-deep` against
 `ntuple-leaf` with the two builders on seeds 532 to 551 under an 8 s deadline:
 80 of 80 games valid with no timeout moves, 27 wins to 43, contrast −0.200 (95%
 interval −0.357 to −0.043). The rule reads that as a refutation: the depth-4
@@ -330,15 +330,15 @@ protocol, and the baseline stays `ntuple-leaf`. A gap-rule-only cohort
 (the baseline configuration with `deepen_gap` 20 against without) is
 registered to separate the deepening rule from the depth cap.
 
-The equal-time comparison (`8dc65a70-0b16-44fb-97b6-4fc7d4471ab8`, run
-`4e81a0cd-174e-42e3-aa5b-9c41be3c55cc`, seeds 572 to 603, 10 s budgets, 20
+The equal-time comparison ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/8dc65a70-0b16-44fb-97b6-4fc7d4471ab8.toml), run
+[128-game engine cohort](/research/records/runs/4e81a0cd-174e-42e3-aa5b-9c41be3c55cc), seeds 572 to 603, 10 s budgets, 20
 million transitions, deepening while under 60% of the budget): the cap of 4
 won 60 to 52 against the cap of 3, contrast +0.062 (95% interval −0.105 to
 +0.230), inconclusive; the deep seat completed a mean depth of 2.85 against
 2.34 and spent 3.5 s per decision against 0.7 s, aborting 17% of its attempts.
 
-The gap rule alone (`0ce4a417-5521-4d5c-9478-fa2d0374176d`, run
-`a32e7819-1d3d-4dc0-9065-13eabc9f2a86`, seeds 604 to 667): the baseline
+The gap rule alone ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/0ce4a417-5521-4d5c-9478-fa2d0374176d.toml), run
+[256-game engine cohort](/research/records/runs/a32e7819-1d3d-4dc0-9065-13eabc9f2a86), seeds 604 to 667): the baseline
 configuration with `deepen_gap` 20 against without, 120 wins to 103, contrast
 +0.066 (95% interval −0.044 to +0.177), at 262 ms per decision against 448 ms.
 The rule does not weaken the search and saves 42% of decision time.
@@ -352,19 +352,19 @@ indistinguishable positions are grouped in first-appearance order so sums no
 longer depend on the key. The grouping change is the one non-identical step:
 runs recorded before it stand as recorded and are not replayable move for move.
 The equal-nodes pair under `search/transpositions`
-(`968bb602-4742-472e-97ad-b77d6b83a1ab`, run
-`a278a790-1e12-435f-90ed-95c516a6a94f`, fresh tables; and
-`420a6324-b780-4998-b61c-c047e672cf7f`, run
-`e02cf22e-6cb2-4dba-a08d-ab45b1a4556a`, shared tables) played 128 identical
+([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/968bb602-4742-472e-97ad-b77d6b83a1ab.toml), run
+[128-game engine cohort](/research/records/runs/a278a790-1e12-435f-90ed-95c516a6a94f), fresh tables; and
+[registered protocol](https://github.com/settlerust/research/blob/dev/experiments/420a6324-b780-4998-b61c-c047e672cf7f.toml), run
+[128-game engine cohort](/research/records/runs/e02cf22e-6cb2-4dba-a08d-ab45b1a4556a), shared tables) played 128 identical
 games; the shared tables decided 11.7% faster (654 ms against 741 ms) with 16%
 fewer transitions, short of the 15% the rule asked for.
-The equal-time cohort (`04515fd6-3f1a-4d87-9baf-b603885badb9`, run
-`392cc1bc-8a64-4adc-825f-3058c66e006a`, seeds 700 to 763): turn tables against
+The equal-time cohort ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/04515fd6-3f1a-4d87-9baf-b603885badb9.toml), run
+[256-game engine cohort](/research/records/runs/392cc1bc-8a64-4adc-825f-3058c66e006a), seeds 700 to 763): turn tables against
 fresh tables at depth 3 under 1.5 s, 107 wins to 115, contrast −0.031 (95%
 interval −0.145 to +0.082), inconclusive; the turn tables decided in 368 ms
 against 434 ms at the same completed depth (2.23 against 2.20).
-The protocol cohort (`77be5dcd-ba5e-4fd8-8014-a9aec230ed07`, run
-`bd18246c-4161-49e7-9391-a2530bdb3434`, seeds 764 to 783): `ntuple-leaf-tt`
+The protocol cohort ([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/77be5dcd-ba5e-4fd8-8014-a9aec230ed07.toml), run
+[80-game protocol cohort](/research/records/runs/bd18246c-4161-49e7-9391-a2530bdb3434), seeds 764 to 783): `ntuple-leaf-tt`
 27 wins to 36 for `ntuple-leaf`, contrast −0.113 (95% interval −0.265 to
 +0.040), all games valid; inconclusive, and the baseline stays `ntuple-leaf`.
 The [transposition report](../reports/transpositions.mdx) has the concept

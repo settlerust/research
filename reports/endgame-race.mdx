@@ -1,26 +1,16 @@
 ---
 date: "2026-09-11"
 title: "Endgame racing and stopping the leader"
-summary: "Three endgame switches looked worth a seventh to a sixth of a win per game in one seating; the arena's seating term explains those contrasts, and swapped pairs put the seating-corrected effects at +0.02 or less with intervals crossing zero."
+summary: "Swapped pairs remove the apparent endgame gains. Every corrected interval crosses zero and the switches stay off."
 ---
 
 # Endgame racing and stopping the leader
 
-<ResearchCallout title="Finding · the single-seating contrasts were seating; the corrected effects are zero to +0.02">
-Three switches, each tested alone with the candidate in slot 0 and the
-unchanged depth-2 control in slot 1, looked strong: a race leaf against a
-near-winning leader **+0.129**, expected hidden victory points **+0.172**, and
-a late robber and road bias toward the leader **+0.168** wins per game on
-seeds 0 to 63. That slot design carries a measured seating term (slot 0 wins
-more than slot 1 by +0.05 to +0.18 between two identical searches), and the
-sizes matched it. Swapped pairs on fresh boards, which average the two
-seatings, put the seating-corrected effects at **+0.018** (95% interval
-−0.018 to +0.053) for the race leaf, **+0.006** (−0.030 to +0.041) for hidden
-points, and **+0.012** (−0.018 to +0.041) for the leader bias, each with an
-interval that crosses zero. The earlier strength claim is withdrawn: none of
-the three switches is confirmed, the defaults stay unchanged, and every
-effect larger than about +0.05 wins per game is excluded.
+<ResearchCallout title="The apparent endgame gains were seating effects">
+All three corrected intervals cross zero. The original strength claim is withdrawn and every switch stays off. Swapped pairs on 64 fresh boards rule out gains larger than about 0.05 wins per game in this depth-2 lineup.
 </ResearchCallout>
+
+<ResearchPlot asset="endgame-corrected-effects" />
 
 ## The three switches
 
@@ -59,7 +49,7 @@ The first six cohorts seated the candidate in slot 0 and the control in slot 1
 and rotated the four slots through the seats on every board, so both searches
 sat in every seat; but slot 1 always sits one seat after slot 0, and the
 bargaining code makes that order worth +0.05 to +0.18 wins per game to the
-earlier seat (null pairs `91ddb42d` and `689a1947` on boards 0 to 63, `9d213ed0`
+earlier seat (null pairs [256-game engine cohort](/research/records/runs/91ddb42d-82ab-460b-95c2-b8d340658369) and [256-game engine cohort](/research/records/runs/689a1947-ee7a-4767-ac08-d8302f407c50) on boards 0 to 63, [256-game engine cohort](/research/records/runs/9d213ed0-a04f-442b-8d89-1dd3fdd99ab1)
 on boards 64 to 127, in the [bargaining arms report](../reports/bargaining-arms.mdx)).
 The contrasts below are the size of that term and are superseded.
 
@@ -101,12 +91,12 @@ The seating terms match the null pairs measured on the same boards. All three
 registered rules fail to confirm: every mean is below +0.05 wins per game and
 every interval crosses zero.
 
-The pair runs are `3e8ec893-c404-4a08-a15d-0c9bd7a3b656` and
-`8bacdaf4-8be4-47ea-93df-c0e26156f94d` (race),
-`6638df3f-4e04-41ac-881e-8fc11c12c4ce` and
-`26f98193-ebf6-4edb-bf34-a722052b9053` (hidden points), and
-`77b249a6-80a7-4a4d-98d9-a0a55d3006d6` and
-`e6e854a2-8469-4b76-acec-1942b96e2f17` (leader bias), each 256 of 256 games
+The pair runs are [256-game engine cohort](/research/records/runs/3e8ec893-c404-4a08-a15d-0c9bd7a3b656) and
+[256-game engine cohort](/research/records/runs/8bacdaf4-8be4-47ea-93df-c0e26156f94d) (race),
+[256-game engine cohort](/research/records/runs/6638df3f-4e04-41ac-881e-8fc11c12c4ce) and
+[256-game engine cohort](/research/records/runs/26f98193-ebf6-4edb-bf34-a722052b9053) (hidden points), and
+[256-game engine cohort](/research/records/runs/77b249a6-80a7-4a4d-98d9-a0a55d3006d6) and
+[256-game engine cohort](/research/records/runs/e6e854a2-8469-4b76-acec-1942b96e2f17) (leader bias), each 256 of 256 games
 at eight threads on the current engine.
 
 ## Diagnostics
@@ -128,4 +118,22 @@ confirmed configurations, or against the learned tables leaf. The switches
 stay off by default and any future endgame cohort is registered as a swapped
 pair from the start.
 
-[All runs](../records/runs) · [Study](../approaches/containment) · [Log 2026-09-11](../log/2026-09-11)
+[Retained run records](https://github.com/settlerust/research/tree/dev/records/runs) · [Study](../approaches/containment) · [Log 2026-09-11](../log/2026-09-11)
+
+<AgentContext title="Detailed result and cohort context">
+
+Three switches, each tested alone with the candidate in slot 0 and the
+unchanged depth-2 control in slot 1, looked strong: a race leaf against a
+near-winning leader **+0.129**, expected hidden victory points **+0.172**, and
+a late robber and road bias toward the leader **+0.168** wins per game on
+seeds 0 to 63. That slot design carries a measured seating term (slot 0 wins
+more than slot 1 by +0.05 to +0.18 between two identical searches), and the
+sizes matched it. Swapped pairs on fresh boards, which average the two
+seatings, put the seating-corrected effects at **+0.018** (95% interval
+−0.018 to +0.053) for the race leaf, **+0.006** (−0.030 to +0.041) for hidden
+points, and **+0.012** (−0.018 to +0.041) for the leader bias, each with an
+interval that crosses zero. The earlier strength claim is withdrawn: none of
+the three switches is confirmed, the defaults stay unchanged, and every
+effect larger than about +0.05 wins per game is excluded.
+
+</AgentContext>

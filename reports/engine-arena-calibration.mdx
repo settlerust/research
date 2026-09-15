@@ -1,17 +1,13 @@
 ---
 date: "2026-09-08"
 title: "An offline arena that agrees with the protocol arena"
-summary: "512 paired builder games and 256 reference games: ETA beats fast by 10 points, and the frozen expectimax reference loses to both."
+summary: "The offline engine arena reproduces the protocol ordering of ETA and fast builders, establishing a development tool."
 ---
 
 # An offline arena that agrees with the protocol arena
 
-<ResearchCallout title="Finding · the engine arena reproduces the protocol ordering">
-On 128 boards played once per seat rotation, the ETA builder won **154 of 512
-slot-games (30.1%)** and the fast builder **102 (19.9%)**. The paired seed
-contrast is **−0.102 wins per game** for fast against ETA (95% interval −0.157 to
-−0.046). The protocol arena's earlier 80-game cohort ranked the same two
-builders the same way.
+<ResearchCallout title="The engine arena agrees on the builder ordering">
+ETA won <WinRate value="154" total="512" />; the compared fast slot won <WinRate value="102" total="512" />. This matches the earlier protocol ordering. The 128-board engine cohort supports using this arena for development; a fresh protocol cohort is still required for promotion.
 </ResearchCallout>
 
 The engine arena plays complete games inside one process using the server's
@@ -31,7 +27,7 @@ boundary changes.
 
 ## The frozen reference loses to the builders
 
-Run `4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c` seated the reference `expectimax-v1`
+[256-game engine cohort](/research/records/runs/4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c) seated the reference `expectimax-v1`
 at its default configuration against two ETA builders and one fast builder.
 It won **34 of 256 slot-games (13.3%)** against ETA's 30.1% and 32.4% in the
 other two slots. The paired contrast against ETA is **−0.168** (95% interval
@@ -47,9 +43,9 @@ stays frozen as the comparator that the [tunable search](expectimax-v2-developme
 is measured against.
 
 <AgentContext>
-Experiments `3b4587ea-1ab3-42bb-99fb-597a3324cd77` (builders, run
-`25a7ddd7-8c86-44d7-9bb8-3582f9cf219e`) and `e5972f4e-88d1-4832-b70b-e279a536430a`
-(reference, run `4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c`) are engine-arena
+Experiments [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/3b4587ea-1ab3-42bb-99fb-597a3324cd77.toml) (builders, run
+[512-game engine cohort](/research/records/runs/25a7ddd7-8c86-44d7-9bb8-3582f9cf219e)) and [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/e5972f4e-88d1-4832-b70b-e279a536430a.toml)
+(reference, [256-game engine cohort](/research/records/runs/4969a9d0-cbcf-4b74-9b57-1e25f09ffa2c)) are engine-arena
 registrations under the `log/engine-arena` study. Reproduce with
 `just build-arena` and `just engine-run EXPERIMENT` from this repository; the
 run manifest records the tournament binary hash and both repositories' Git
@@ -60,4 +56,14 @@ The paired contrast is the per-seed mean of slot-0 wins minus slot-1 wins over
 the seed's rotations, with a normal-approximation interval over seeds. It is a
 development-tier statistic and not the protocol arena's preregistered test.
 Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+</AgentContext>
+
+<AgentContext title="Detailed result and cohort context">
+
+On 128 boards played once per seat rotation, the ETA builder won **154 of 512
+slot-games (30.1%)** and the fast builder **102 (19.9%)**. The paired seed
+contrast is **−0.102 wins per game** for fast against ETA (95% interval −0.157 to
+−0.046). The protocol arena's earlier 80-game cohort ranked the same two
+builders the same way.
+
 </AgentContext>

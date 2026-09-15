@@ -6,13 +6,33 @@ summary: "Four ten-point games validate the arena and public replay workflow."
 
 # First games through the research arena
 
-Run `0fd99290-4982-4f53-b663-04503f308be2` has status **completed**. 4 of 4 planned matches completed. This is descriptive evidence from server-generated, unpaired games.
-
-<ResearchCallout title="A working arena, not a strategy ranking">
+<ResearchCallout title="Four completed games establish a working arena">
 All four ten-point games finished without a recorded server timeout. The games
 used the existing fast and ETA builders, with a different seat assignment in
 each match. Four games are far too few to distinguish these policies reliably.
 </ResearchCallout>
+
+<ResearchChart asset="baseline-smoke-wins" />
+
+## One game, viewed from above
+
+The first scheduled game finished on turn 63 with seven player trades and
+sixteen bank trades. It was chosen before inspecting the replay. These counts
+describe this game alone.
+
+The replay contains forty observed positions. Changes between them are grouped;
+the activity panel preserves the public actions and conversation through each
+position. Both source tapes remain in the archive.
+
+<GameReplay asset="baseline-smoke-game" />
+
+[Run record](/research/records/runs/0fd99290-4982-4f53-b663-04503f308be2)
+
+<AgentContext title="Cohort details and reproduction">
+
+Public frame source SHA-256: `88b6ccd7acc5e2c279f2998bd8892d80ba97f34e20b7393e2738ad5939c843f3`.
+
+The run completed 4 of 4 planned, server-generated unpaired games.
 
 | Slot / policy | Wins | Losses | Completed | Win rate | 95% Wilson interval | Mean points |
 | --- | ---: | ---: | ---: | ---: | --- | ---: |
@@ -21,29 +41,9 @@ each match. Four games are far too few to distinguish these policies reliably.
 | 2 / fast | 1 | 3 | 4 | 25.0% | 4.6%–69.9% | 8.25 |
 | 3 / eta | 1 | 3 | 4 | 25.0% | 4.6%–69.9% | 7.25 |
 
-<ResearchChart asset="baseline-smoke-wins" />
 
-## One game, viewed from above
-
-We selected the first scheduled game before inspecting the replay, so the
-example is easy to reproduce from the run's artifacts. It finished on turn 63.
-The public event tape records seven player trades and sixteen bank trades. These
-counts describe this game, not an average over the experiment.
-
-Use the slider to inspect the occupied intersections and expanding road networks.
-Jump to the final position to see the winner's public score. The forty captured
-positions are observations of a fast-moving game; board changes between them
-are grouped. Use Play to advance automatically and the activity panel to read the
-public actions and conversation through each position. Both source tapes remain
-in the run archive.
-
-<GameReplay asset="baseline-smoke-game" />
-
-[Run record](/research/records/runs/0fd99290-4982-4f53-b663-04503f308be2) · Public frame source SHA-256: `88b6ccd7acc5e2c279f2998bd8892d80ba97f34e20b7393e2738ad5939c843f3`.
-
-<AgentContext>
-The frozen protocol is `experiments/5f5d7949-8306-4a5f-af2f-989bba1973d4.toml`.
-The local archive receipt is `records/artifacts/0fd99290-4982-4f53-b663-04503f308be2.md`.
+See the [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/5f5d7949-8306-4a5f-af2f-989bba1973d4.toml).
+See the [local archive receipt](https://github.com/settlerust/research/blob/dev/records/artifacts/0fd99290-4982-4f53-b663-04503f308be2.md).
 Public event counts come from `match-0000/result.json` in that archive. No remote
 upload has been performed. The baseline code and harness were still in working
 trees; the manifest retains hashes rather than claiming a clean release build.

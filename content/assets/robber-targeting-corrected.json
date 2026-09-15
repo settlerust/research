@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Robber targeting after correcting seating",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts under containment/robber-targeting and containment/robber-targeting-bias: the arm against the unchanged depth-2 control with an ETA and a fast builder, 64 deterministic seeds each played once per rotation (256 games per point). The bias-free points pair the same-orientation confirmation with its swapped cohort on the same seeds. Run IDs are listed in the robber-targeting report. This figure selects the corrected estimates from the original published asset robber-targeting-contrasts.json; each swapped pair contains two completed 256-game halves.",
+  "caption": "No corrected robber effect is positive; choosing the needed resource loses games.",
+  "x": {
+    "label": "Seating-corrected comparison",
+    "min": 0,
+    "max": 2,
+    "ticks": [
+      "Leader",
+      "Needed resource",
+      "Threat"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.14,
+    "max": 0.31
+  },
+  "series": [
+    {
+      "label": "Swapped-pair estimate with 95% interval",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0234,
+          "low": -0.0731,
+          "high": 0.0262
+        },
+        {
+          "x": 1,
+          "y": -0.0449,
+          "low": -0.0855,
+          "high": -0.0043
+        },
+        {
+          "x": 2,
+          "y": -0.0332,
+          "low": -0.0845,
+          "high": 0.0181
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

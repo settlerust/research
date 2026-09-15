@@ -1,64 +1,138 @@
 ---
-title: "1. Connect to the game server"
-summary: Start an authoritative server, check the connection, and understand the observation–decision–command loop.
+title: Run the research server
+summary: Start a local server and play with the current search policies using only the research and server repositories.
 ---
 
-# Connect your first agent
+# Run the research server
 
-By the end of this tutorial, your agent will read its own game observation, choose a legal action, and play a complete game against computer policies. The server runs the rules, dice, trades, and scoring. Your policy supplies decisions.
+You need **two repositories**, Python 3.11+, Rust 1.96+, and `just`. The Python
+harness has no third-party dependencies. A browser, website checkout, database
+service, and cloud account are unnecessary for running experiments.
 
-## Start the server
+```text
+settlers/
+  research/   policies, experiments, results, and this guide
+  server/     authoritative game server and Rust search players
+```
 
-Work from the research checkout. Install Python 3.11 or newer and `just`. The Python harness has no third-party dependencies. To build the bundled server and Rust opponents, install Rust and keep the server checkout alongside this one as `../server`.
+## 1. Build the server and search players
+
+Run these commands from `research/`:
 
 ```sh
-# Only needed if the server checkout lives somewhere else:
-export SETTLERS_SERVER_DIR=/path/to/settlers/server
 just setup
+just tables
+```
+
+`setup` builds the release server and its remote policy runner, including the
+expectimax searches. `tables` unpacks and verifies the committed learned tables
+used by **`ntuple-leaf`, the current protocol baseline**. No model download or
+training run is needed. If the server checkout is elsewhere, set
+`SETTLERS_SERVER_DIR=/absolute/path/to/server` before running these commands.
+
+## 2. Keep the server running
+
+```sh
 just server
 ```
 
-`just server` stays in the foreground at `http://127.0.0.1:5555`. Leave it running and open another terminal in the research checkout:
+Leave this terminal open. The server listens at `http://127.0.0.1:5555` and keeps
+its local state, event archive, and signing key in `.runtime/server/`. Restarting
+it with the same directory preserves games and identities.
+
+## 3. Play a first game
+
+Open a second terminal in `research/`:
 
 ```sh
 just doctor
-just policies
+just match ntuple-leaf expectimax-v2-plan ntuple-leaf expectimax-v2-plan --games 1
 ```
 
-The doctor checks the server connection and protocol. The policy list shows the available player commands. If you already have a server, set `SETTLERS_SERVER_URL` to its address instead of starting another one. Remote `fast` and `eta` opponents still need their locally built executables; a lineup made entirely of stdio policies needs only Python and a reachable server.
+The doctor prints the server's health and protocol version. The match command
+prints an experiment ID, a run ID, then the game result. It plays a real ten-point
+game with four independent search processes. This [smoke run](concepts.md#smoke-run) checks your setup; it does not compare
+policy strength.
 
-## Follow one decision
+For one full rotation through the seats, use the same command with `--games 4`.
+Next, [build your own client](client.mdx) and register a longer simulation.
 
-1. The harness creates an agent research table and a separate identity for each seat.
-2. It sends your process that seat's observation, board topology, and newly delivered events.
-3. Your process returns a command such as rolling, building a road, or offering a trade.
-4. The harness submits it with the observed version and a request ID. The server validates and applies it.
-5. Your next observation shows the result. Continue until the server declares a winner.
+## Choose the table you need
 
-Your agent can remember earlier observations and messages. It can see its own hand and public information about opponents. A spectator replay is for people inspecting a game; it must never be used as an agent's input.
+| Table | Command | Use |
+| --- | --- | --- |
+| Current search players | `just match ntuple-leaf expectimax-v2-plan ntuple-leaf expectimax-v2-plan --games 4` | Develop against learned and hand-written search leaves |
+| Historical evaluation lineup | `just match ntuple-leaf expectimax-v2-plan eta fast --games 4` | Reproduce the policy mix used when the learned leaf became the baseline |
+| Simple builders | `just match fast eta fast eta --games 4` | Check a cheaper baseline or behavior against builders |
+| Python adapter | `just match legal-first ntuple-leaf expectimax-v2-plan ntuple-leaf --games 1` | Check a custom-client starting point |
 
-## Check the connection before coding
+`ntuple-leaf` uses expectimax with learned position values. `expectimax-v2-plan`
+uses the same frozen depth-3 search with a hand-written leaf. Both have a 1.5 s
+search budget per decision. `fast` and `eta` are simpler Rust builders, included
+by `just setup`. The [opponent guide](play-policies.md) lists the other choices.
+
+<AgentContext>
+
+## Connection settings
+
+| Setting | Default | When to change it |
+| --- | --- | --- |
+| `SETTLERS_SERVER_DIR` | Sibling `../server` | Server source is elsewhere |
+| `SETTLERS_BIND` | `127.0.0.1:5555` | A second local server needs another port |
+| `SETTLERS_SERVER_URL` | `http://127.0.0.1:5555` | The harness should connect to another address |
+
+The server bind address and the client's URL are separate. For example:
 
 ```sh
-just match fast eta fast eta --games 4
+# Server terminal, from research/
+SETTLERS_BIND=127.0.0.1:5556 just server
 ```
 
-The harness rotates the lineup through the seats and prints completion counts and outcomes. This first run checks the setup. Four games are too few to rank these policies. If a match fails, the schedule stops and retains the reason so you can fix the problem before continuing.
+```sh
+# Client terminal, from research/
+export SETTLERS_SERVER_URL=http://127.0.0.1:5556
+just doctor
+```
 
-Continue to [2. Write your first policy](protocol.md).
+Stop the previous server before reusing its storage. Two simultaneous servers
+need separate research runtime directories as well as different ports.
+`just server` uses port 5555; starting the server directly from its own repository
+defaults to port 8080.
 
-## Play offline in the engine arena
+## If the first game does not start
 
-The server checkout also builds an offline arena that plays paired-seed games
-on every core without a network. After `just build-arena`, register an engine
-experiment under a study and run it:
+| Symptom | Next step |
+| --- | --- |
+| Connection refused | Keep `just server` running and check `SETTLERS_SERVER_URL` |
+| Missing `server` or `remote` executable | Run `just setup` with the correct `SETTLERS_SERVER_DIR` |
+| Missing learned tables | Run `just tables` from `research/` |
+| Policy exits or never becomes ready | Read `runs/RUN_UUID/match-0000/private/policy-SEAT.log` |
+| Match or decision deadline exceeded | Inspect the retained result; lower concurrency before trying a fresh run |
+
+A failed match stops the schedule and remains in the result. `Ctrl-C` stops the
+owned policy processes and records an interruption; the server retains the game.
+Its later timeout actions do not become completed evidence for that run.
+
+## Optional offline development
+
+The [engine arena](concepts.md#engine-arena) runs games without HTTP or WebSockets and uses the same two
+repositories. It accepts built-in Rust seat specifications, not arbitrary stdio
+clients. Use it for search development; verify a frozen candidate through the
+server before changing the protocol baseline.
 
 ```sh
-just engine-register --study search/expectimax-v2 --seats v2 eta fast eta --seeds 0-63 \
-  --hypothesis '...' --decision-rule '...'
+just build-arena
+just study log/search-development --title 'Local search development' \
+  --question 'Which search configuration should advance to a protocol comparison?'
+just engine-register --study log/search-development \
+  --seats v2 v2 v2 v2 --seeds 0-3 --deterministic \
+  --hypothesis 'This fixed configuration completes a development smoke.' \
+  --decision-rule 'All games must complete; make no strength claim.'
 just engine-run EXPERIMENT_ID
 ```
 
-Engine runs are development-tier evidence; a frozen candidate still needs a
-protocol cohort before the evidence boundary changes.
+`v2` is the default hand-written search, not the registered `ntuple-leaf` alias.
+See `server/docs/expectimax.md` for Rust configurations and learned-table paths,
+and the [experiment program](experiment-program.md) for the two evidence tiers.
 
+</AgentContext>

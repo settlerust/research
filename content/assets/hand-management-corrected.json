@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "title": "Projected discards after correcting seating",
+  "evidence": "measured",
+  "source": "Engine-arena cohorts of 256 games on deterministic boards 0-63 played once per rotation, the candidate and the unchanged depth-2 control in the named slots with an ETA and a fast builder. Runs 901f81f4, dd2a5d1f, 2bae826e, 2f8fae6e, af6fcb03, and 43215190 with the seats swapped; the corrected point is half the difference of the two projection contrasts and the turn-order point half their sum. This figure selects the corrected estimates from the original published asset hand-management-contrasts.json; each swapped pair contains two completed 256-game halves.",
+  "caption": "The corrected discard effect crosses zero; the seating term remains positive.",
+  "x": {
+    "label": "Seating-corrected comparison",
+    "min": 0,
+    "max": 1,
+    "ticks": [
+      "Projected discards",
+      "Seating term"
+    ]
+  },
+  "y": {
+    "label": "Change in wins per game",
+    "min": -0.1,
+    "max": 0.31
+  },
+  "series": [
+    {
+      "label": "Swapped-pair estimate with 95% interval",
+      "points": [
+        {
+          "x": 0,
+          "y": -0.0293,
+          "low": -0.0732,
+          "high": 0.0146
+        },
+        {
+          "x": 1,
+          "y": 0.1543,
+          "low": 0.0637,
+          "high": 0.2449
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

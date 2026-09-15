@@ -53,10 +53,14 @@ These are descriptive secondary measures, without multiple significance tests.
 
 From the research checkout, with the verified raw run locally available:
 
+<AgentContext title="Run the archived analysis">
+
 ```sh
 python3 -m analysis.liquidity de39917c-55da-40ad-a53a-5b8588898810
 just check
 ```
+
+</AgentContext>
 
 The script validates the finalized inventory before reading result rows and public
 rule events. It writes ignored per-game rows and analysis output under
@@ -78,7 +82,7 @@ seat, without pairing seeds or fixing the starting player.
 
 ## Evidence identity
 
-- Experiment: `d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e`.
+- Experiment: [registered protocol](https://github.com/settlerust/research/blob/dev/experiments/d9cbd52e-0a90-4c4b-8fae-23c0372f1d6e.toml).
 - [Run record](../records/runs/de39917c-55da-40ad-a53a-5b8588898810.md).
 - Inventory SHA-256: `063a024a2f341520bdf1188904b7ddc66a23836087fb7a14abef06c976ab6046`.
 - Analysis source SHA-256: `f22fc5d15a3c27cd6e0de0e4c17ff51506159974bbfca5775061f25a95d47898`.
@@ -90,8 +94,8 @@ executable hashes and Git states. The executable is identical to the final
 successful smoke; the frozen policy sources were checked unchanged after the run.
 The policies were built from dirty working trees, not a named release.
 
-The verified bundle is `artifacts/liquidity-study/de39917c-55da-40ad-a53a-5b8588898810.tar.gz`.
-Its receipt is `records/artifacts/de39917c-55da-40ad-a53a-5b8588898810.md`.
+The verified bundle is [80-game protocol cohort](/research/records/runs/de39917c-55da-40ad-a53a-5b8588898810).
+See its [archive receipt](https://github.com/settlerust/research/blob/dev/records/artifacts/de39917c-55da-40ad-a53a-5b8588898810.md).
 Archive SHA-256: `6535a03b78dcb8bac31e0100ce872a8c27b4ee59ae6902397e0bbb103eb99a54`.
 Local integrity does not imply a remote backup.
 
