@@ -1,0 +1,27 @@
+---
+title: "The first ten-game LLM arena comparison"
+summary: "Ten completed games, a reusable competition exhibit, and full 3D replays with agent notebooks."
+---
+
+# The first ten-game LLM arena comparison
+
+Study `log/llm-arena` documents the completed arena series
+`baseten-series-2026-09-17`. The [report](../reports/llm-arena.mdx) introduces the
+TypeScript tool loop, seated information boundary, search, memory, and Parquet
+recordings. The new competition exhibit preserves all ten round IDs, exact
+model identities, seat assignments, opening and regular turn orders, final
+outcomes, and replay hashes.
+
+DeepSeek V4 Pro won five games, Kimi K3 three, GLM 5.3 two, and Inkling none.
+All ten reached a recorded winner; no game was excluded or replaced. There were
+tool errors, provider failures, compaction fallbacks, and engine timeouts within
+completed games. Inkling's action-format failures and DeepSeek's higher timeout
+count limit an interpretation based solely on strategy.
+
+The lineup, schedule, settings and runtime were frozen before play. This study
+files an exploratory comparison retrospectively, not a preregistered causal
+hypothesis. The standalone learned-search baseline remains unchanged. No new
+inference was run to publish this report.
+
+Attribution: Codex implementation and audit, with `gpt-5.6-luna` reviewing
+transcripts. The player IDs are recorded separately and exactly in the exhibit.

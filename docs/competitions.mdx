@@ -1,0 +1,136 @@
+---
+title: "Publishing an arena competition"
+summary: "A versioned competition contract connects model identities, seating, recorded outcomes, and full 3D replays."
+---
+
+# Publishing an arena competition
+
+A competition is a small, versioned JSON exhibit. It names the entrants, preserves
+the order and outcome of every scheduled game, and points to full Parquet
+replays. The [first LLM comparison](../reports/llm-arena.mdx) is a complete example.
+
+Store the asset in `content/assets/` and embed it by name:
+
+```mdx
+<ResearchCompetition asset="llm-arena-first-competition" />
+```
+
+The underlying React component takes a typed `competition` prop. Its TypeScript
+contract, strict runtime parser, and standings calculation live together in
+`design/src/components/research/competition.ts`, exported through
+`@settlers/design/research`. Web validates the asset before rendering or staging.
+Unknown fields are rejected, preventing private transcripts or credentials from
+accidentally becoming part of this metadata exhibit.
+
+## Identities and order
+
+| Field | Meaning |
+| --- | --- |
+| `schema`, `kind` | Exactly `1` and `"competition"` |
+| `id`, `title`, `date`, `caption` | Stable competition slug, display name, ISO publication date, and evidence context |
+| `participants` | Entrants with unique `id`, display `name`, exact provider `model` identifier, `provider`, and `input` of `text` or `text-and-image` |
+| `runtimeSha256` | Digest of the frozen runtime used by the producer |
+| `conditions` | Victory target, active/spectating budgets, concurrency, context limits, search budget, request/turn/token caps, and reasoning effort |
+| `replayBaseUrl` | Root-relative viewer base such as `/replay`, or an explicit HTTPS viewer base |
+| `rounds` | Every scheduled game, in consecutive one-based round-number order |
+
+Entrant IDs identify player instances, not model families. Two Kimi entrants can
+share the same `model` value while using different IDs and names. Every round
+maps four distinct entrant IDs to board seats. A larger competition can rotate
+entrants between games; a player's win rate uses its completed appearances.
+
+Each round has `number`, `gameId`, `seed`, `seats`, `openingOrder`, `turnOrder`,
+`outcome`, and `replay`. Array indices in `seats` are the engine's **zero-based
+board seats**. Both order arrays are permutations of `[0, 1, 2, 3]`, read from
+the recorded engine state. `openingOrder` describes the first setup pass; the
+second pass reverses it. `turnOrder` is the repeating regular-turn sequence.
+Never infer turn order from array position, model name, or final rank.
+
+The UI labels seats one through four for readers. It lists each round's players
+in regular turn order and preserves a distinct opening order when needed.
+
+## Run conditions
+
+Conditions apply to every round in the exhibit. Preserve separate competitions
+when changing the common runtime or these settings.
+
+| Condition | Meaning |
+| --- | --- |
+| `pointsToWin` | Engine victory target |
+| `turnSeconds` | Wall-clock budget for an active player activation, including inference and tools |
+| `spectatorSeconds` | Budget for an off-turn activation |
+| `spectateEveryTurns` | Regular cadence of off-turn activations; new offers can also trigger them |
+| `concurrency` | Maximum simultaneous games in the series |
+| `contextWindowMoves` | Decision cycles before conversation compaction |
+| `contextRecentMoves` | Maximum recent exchanges preserved verbatim after compaction |
+| `contextMaxChars` | Historical character limit that can trigger earlier compaction |
+| `searchMilliseconds` | Default automatic search-advice budget, bounded by remaining activation time |
+| `maxTurns` | Game-wide engine turn limit |
+| `maxRequests` | Game-wide provider request cap, including compaction |
+| `maxTokens` | Requested output-token cap per provider response |
+| `reasoningEffort` | Requested reasoning-effort setting; provider handling can differ |
+
+## Outcomes and recordings
+
+`outcome` is a discriminated union:
+
+```ts
+type CompetitionOutcome =
+  | {
+      status: "completed";
+      winnerSeat: 0 | 1 | 2 | 3;
+      points: [number, number, number, number];
+      turns: number;
+      durationSeconds: number;
+    }
+  | { status: "pending" | "running" }
+  | { status: "incomplete" | "failed"; reason: string };
+```
+
+Final points use board-seat order. The winner comes from the engine, not from
+sorting visible scores. A completed winner must meet the victory target; a
+pending, running, failed, or incomplete game has no fabricated winner or score.
+
+`replay` is either `null` or an object containing the finalized Parquet file's
+`sha256` and `bytes`. Running and pending rounds cannot claim a published replay.
+A finalized partial recording may accompany an incomplete game. With a replay
+present, the round links to `replayBaseUrl + "/" + gameId`. That viewer must serve
+the recording at `/replays/<gameId>.parquet`; the metadata does not contain or
+upload the recording. No local machine path belongs in the asset.
+
+## Derived standings
+
+The component calculates wins, completed appearances, win rates, average final
+points, average finishing place, and 95% Wilson intervals from the rounds.
+Standings are not duplicated in the asset. The recorded winner ranks first;
+remaining players rank by revealed final points, averaging tied places.
+Incomplete games remain visible and do not enter these averages.
+
+Wins determine the leader. Average finish only orders rows with equal wins;
+equal-win leaders remain tied. A majority requires more than half of all
+scheduled games. Five wins out of ten is a plurality when every other entrant
+has fewer wins. Zero completed appearances show no rate or interval, rather
+than a measured zero percent.
+
+<AgentContext title="Validation and reuse">
+
+The parser checks unique entrant and game IDs, consecutive rounds, four distinct
+participants per table, complete seat permutations, valid dates, safe replay
+paths, nonnegative finite scores, outcome fields, and SHA-256 formatting. Keep
+the TypeScript contract and parser together when adding a schema version.
+
+The runtime digest and file digest are provenance claims, not proof that a file
+has been uploaded. Check published Parquet hashes against the source recordings
+before making replay links available. The initial exhibit was generated from
+the arena's frozen plan and verified final state, then compared against its
+recorded outcomes and byte-identical static files.
+
+The React component is server-renderable and does not fetch game files while a
+reader browses a report. Replay navigation loads the selected game on demand.
+Storybook covers completed, tied, unfinished, missing-recording, and mobile
+states. Tests reject inconsistent identities, orders, outcomes, and unsafe links.
+
+Run `just notebook`, `just check`, and `just site-check` in research, plus the
+design and web checks when changing the shared contract or component.
+
+</AgentContext>

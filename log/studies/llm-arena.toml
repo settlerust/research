@@ -1,0 +1,12 @@
+id = "log/llm-arena"
+title = "Language models in the tool-driven arena"
+created = "2026-09-17"
+updated = "2026-09-17"
+status = "complete"
+question = "How do four Baseten-hosted LLM configurations perform and interact in a fixed ten-game Catan series?"
+outcome = "All ten games completed. DeepSeek V4 Pro won five, Kimi K3 three, GLM 5.3 two, and Inkling zero. No majority. This exploratory comparison includes provider timing, tool reliability, and modality differences; it does not replace the standalone search baseline. The frozen schedule and engine outcomes are retained in the competition exhibit, with links to full 3D recordings."
+next_step = "Separate action-schema reliability and time management from strategy, then register a larger comparison with deliberate opponent-analysis use. No new matches are scheduled by this report."
+attribution = "Codex implementation, analysis and publication; gpt-5.6-luna transcript review; player model IDs are recorded in the competition exhibit."
+reports = ["reports/llm-arena.mdx"]
+logs = ["log/2026-09-17.mdx"]
+legacy_experiments = []

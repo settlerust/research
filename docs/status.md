@@ -10,6 +10,15 @@ policy to meet its registered rule through the authoritative server. Engine
 experiments point to a quarter-strength blend as the next candidate; that blend
 has not yet passed a protocol cohort.
 
+## First LLM competition
+
+The [LLM arena report](../reports/llm-arena.mdx) records ten completed games among
+DeepSeek V4 Pro, Kimi K3, GLM 5.3, and Inkling: five, three, two, and zero wins.
+DeepSeek won the most games; no model won a majority. This exploratory series
+measures the model, provider, and tool interface together, with distinct boards
+and rotated seats. It neither establishes a general strength ranking nor changes
+the learned-search baseline. Each round links to its full 3D replay.
+
 ## The protocol baseline
 
 With the same depth-3 search and 1.5-second budget, the learned leaf won

@@ -75,6 +75,18 @@ chart family, add a typed component and meaningful Storybook states in design,
 then add its asset validator and binding in web. Do not smuggle a new chart
 implementation into an MDX expression.
 
+## LLM competitions
+
+`<ResearchCompetition asset="llm-arena-first-competition" />` renders a complete
+series: exact model identities, derived standings, per-round seat assignments,
+opening and regular turn orders, scores, and links to the full 3D replay.
+[The competition contract](competitions.mdx) defines the versioned schema and
+validation rules. Its curated JSON is metadata; full Parquet recordings are
+served separately by the replay application. These research recordings expose
+agent-private notes and provider-returned reasoning through Spectate, as clearly
+marked spectator information. They are separate from the public-only flat
+replay format below.
+
 ## Flat replay
 
 `GameReplay` draws the real topology in SVG: terrain, number tokens, ports, roads,
@@ -168,7 +180,7 @@ All numeric props are quoted literals; the validator rejects impossible counts
 and intervals. A percentage is descriptive, not a significance test.
 
 `<ExperimentTimeline />` loads every report, sorted by its publication date with
-title as the tie-breaker. Its preview uses the first recorded chart or measured
+title as the tie-breaker. Its preview uses the first recorded competition, chart, or measured
 non-heatmap plot in the report; illustrative fixtures never become result previews.
 Each preview labels its units and shows at most three comparisons. Search filters
 titles and summaries. Reports without charts still appear. Keep frontmatter

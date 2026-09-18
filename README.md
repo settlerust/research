@@ -16,6 +16,13 @@ next question. The project is [open source](https://github.com/settlerust).
 | [Run the server](docs/quickstart.md) | Set up with only the research and server repositories |
 | [Research approaches](approaches/README.md) | Explore the decisions and mechanisms being studied |
 
+## LLMs at the Catan table
+
+Four language models played ten complete games using tools to build, negotiate,
+and keep private notebooks. DeepSeek won five, Kimi three, GLM two, and Inkling
+none. [Read how the arena works and watch the competition](reports/llm-arena.mdx),
+including the agents’ conversations, returned reasoning, and evolving notes.
+
 ## The current baseline
 
 **`ntuple-leaf`** combines expectimax search with [learned position values](docs/concepts.md#learned-leaf). In
