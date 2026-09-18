@@ -1,199 +1,240 @@
 ---
-date: "2026-09-17"
-title: "LLMs at the Catan table"
-summary: "Inside the open-source arena: ten games between DeepSeek, Kimi, GLM and Inkling, with every move, conversation and private notebook available to replay."
+date: "2026-09-18"
+title: "Kimi, GLM, and DeepSeek"
+summary: "GLM won six of ten Catan games against DeepSeek, Kimi K3 and learned expectimax. Inspect the trades, private plans and timing failures in each replay."
 ---
 
-# LLMs at the Catan table
+# Kimi, GLM, and DeepSeek
 
-DeepSeek won five of our first ten comparison games, Kimi three, and GLM two.
-Inkling won none. No model won a majority. The interesting differences were
-not just in strategy: agents varied in how reliably they used tools, remembered
-the board, negotiated for resources, and acted before their time expired.
+**GLM 5.3 won six of ten games**, a majority of this Catan competition.
+DeepSeek won two; Kimi K3 and **Expert**, an expectimax player using learned
+n-tuple tables, won one each. All ten scheduled games reached an engine-recorded
+winner. None was excluded or replaced.
 
-The open-source arena lets language models play complete games of Catan through
-tools. The Rust engine enforces the rules; the models choose what to do. Every
-round below opens the full 3D game. Its **Spectate** tab separates private notes
-and returned reasoning from public conversation and game actions.
+<ResearchCompetition asset="llm-arena-expert-competition" />
 
-<ResearchCompetition asset="llm-arena-first-competition" />
+The three language models run on Baseten. Expert runs locally without an LLM.
 
-## What a player sees
+GLM finished ahead of Expert in seven games. Its average finish was 2.00 and its
+average final score was 8.1 points. The rest of the table resists a simple ranking:
+DeepSeek won more than Expert, but Expert had the better average finish
+(2.40 versus 2.60) and score (6.7 versus 6.3), and finished ahead of DeepSeek in
+six games, with one tie. Kimi averaged third place and 6.0 points, but won the
+longest game and finished one point behind the winner in round nine.
 
-Each seat receives a system prompt identifying its player, opponents, time
-budget, and available tools. Its observation includes its own resource and
-development cards, public scores and card counts, bank supply, offers, and
-recent events. Opponent hands, notebooks, future cards, and random seeds remain
-outside the player's view.
+The registered hypothesis, that at least one LLM would win more games than
+Expert, is supported descriptively. Ten games still leave substantial
+uncertainty: GLM's approximate 95% Wilson win-rate interval is 31–83%,
+DeepSeek's is 6–51%, and the two one-win players' intervals are 2–40%.
+These are finishes at one four-player table, not separate head-to-head matches
+or a universal model rating. The [completed-run audit](../records/runs/63ac76cc-e098-4974-8b2f-61a5d3d85be5.md)
+records the denominator, checks and limitations.
 
-The board arrives in several consistent representations: tile resources and
-numbers, coordinate rows, vertex adjacency, road endpoints, ports, and legal
-actions. Models configured for vision also receive a rendered 2D board image.
-The replay uses the game's normal 3D viewer; the image supplied to a player is
-a separate input representation.
+## What decided games
 
-## A turn is an agent loop
+In [round one](/replay/kimi-glm-deepseek-expert-text-2026-09-17-01), GLM won
+without building a city. Four settlements, Longest Road, Largest Army and two
+hidden victory cards made ten points. On turn 68 it played its third knight,
+stole grain from DeepSeek, exchanged four grain for brick and built the winning
+settlement. This was a win assembled from several scoring routes rather than
+one large production engine.
 
-The TypeScript harness gives an active player two minutes by default. It can
-make several calls within that budget. Inference, search, and tool execution
-all spend the same clock, and each tool response includes the remaining time
-and a fresh observation.
+[Round nine](/replay/kimi-glm-deepseek-expert-text-2026-09-17-09) shows
+DeepSeek turning trade history into a persistent preference. GLM supplied it
+with grain for brick on turn 25, for ore on turn 37 and for wool on turn 41.
+DeepSeek's scratchpad began saying “Trust seat2” while remembering Expert's
+rejections. It then finished with a city upgrade on turn 61, beating Kimi 10–9.
+The trades and private preference are recorded; they do not establish a mutual
+alliance or show that trusting GLM caused the win.
 
-| Tool | What the player can do |
-| --- | --- |
-| `play_action` | Build, buy or play cards, move the robber, roll, and propose, accept, reject or counter a trade through a typed action union |
-| `analyze` | Rank legal moves with expectimax and learned n-tuple values, or study another seat using sampled hidden information; choose a time budget and depth |
-| `chat` | Talk to the table or selected opponents; conversation alone does not execute a trade |
-| `notes` | List, read, write, append or delete private documents by slug |
+In [round ten](/replay/kimi-glm-deepseek-expert-text-2026-09-17-10), Expert's
+Monopoly took five wool from Kimi on turn 36. Kimi subsequently called Expert
+“hostile” in its scratchpad. The competition later became a road race: Expert
+took Longest Road on turn 80 and Kimi reclaimed it on turn 81. Kimi upgraded a
+city on turn 89 and built the winning settlement on turn 101, finishing 10–9
+over DeepSeek. Its notebook changed from trusting an early trade partner to
+tracking resource shortages, road threats and opponents refusing late offers.
 
-The engine rolls automatically before the loop when the player has no playable
-knight. With a knight available, the model decides whether to play it before
-rolling, including the robber destination and victim. Returning no tools ends
-the activation; in the main phase, the harness records an end-turn action.
-Unfinished mandatory decisions use the engine's recorded timeout rule.
+Expert's [round-four win](/replay/kimi-glm-deepseek-expert-text-2026-09-17-04)
+came from two cities, one settlement, Largest Army and three victory cards.
+Buying the last development card ended the game on turn 69. The baseline also
+finished on nine points in two losses, so its single win understates how often
+it remained competitive.
 
-Off-turn players can negotiate, chat, take notes, and analyze. In this series,
-they received 15-second spectating windows every four turns and when new offers
-arrived. An offer can expire or be taken by another player while a model is
-thinking, so a rejected tool call does not always mean an illegal strategy.
+## Cooperation was mostly transactional
 
-## Memory lasts across turns
+The table completed **84 trades from 463 offers**, about 18%. Another 181
+offers expired and 45 closed when the turn ended. These are distinct offers,
+not one count per recipient. Trading was a substantial form of cooperation,
+but most proposals did not become exchanges.
 
-Each seat keeps its own conversation history across active and spectating
-windows. After 20 decision cycles, or when the history exceeds 60,000 characters,
-the harness compacts older exchanges and retains up to four recent ones. A bounded
-model summary falls back to an extractive summary when necessary. Memory starts
-fresh for each game.
+There were only 25 standalone chat messages: 23 from DeepSeek and two from
+Kimi. This excludes text attached to trade offers. Kimi explicitly appealed to
+leader containment in round eight, asking Expert for lumber because GLM held
+both awards. DeepSeek mostly explained how a proposed exchange would fund its
+next build. GLM sent no standalone chat while participating in 53 completed
+trades, the most of any player. Each trade counts for both participants.
 
-The suggested documents are `plan`, `strategy`, `friends`, and `enemies`. Their
-latest contents are loaded into that seat's system prompt on each request.
-The notebooks can hold long-term plans and grudges, but they are the agent's
-account of the game, not an authoritative ledger. We observed notes that
-miscounted earlier trades or returned to an already-blocked settlement site.
+The clearest social memory was in private notes, not sustained conversation.
+DeepSeek recorded 131 scratchpad updates, Kimi 97 and GLM 48. The reviewed
+examples show remembered help and grudges, but do not demonstrate a durable
+alliance or coordinated embargo.
 
-## The first ten-game comparison
+## Acting before the deadline
 
-All four models ran through Baseten. Each game used a distinct board seed and
-the same frozen harness, tools, learned search checkpoint, and two-minute active
-budget. The schedule counterbalanced actual starting positions in four-game
-blocks, giving each model two or three starts in each position over ten games.
-Two games ran concurrently. All ten reached an engine-recorded winner; none
-were replaced or excluded.
+The same two-minute turn ceiling produced very different behavior.
 
-This is an exploratory comparison of these four configured agents. It is not a
-comparison against the standalone search policy or a general model leaderboard.
-DeepSeek received text representations; the other three also received images.
-The exact model IDs and settings are available in the competition's details.
-Earlier harness-development games are not included in this denominator.
-
-DeepSeek's 50% win rate has a 95% Wilson interval of 24–76%. Kimi's interval is
-11–60%, GLM's 6–51%, and Inkling's 0–28%. Ten games leave substantial uncertainty,
-especially between the top three. Average finishing place follows the engine
-winner, then final revealed points, averaging tied places. It describes the
-finish, not the distance from an eventual win.
-
-## What happened at the table
-
-In [Game 6](/replay/baseten-series-2026-09-17-06), all ten completed trades
-involved Inkling, which nevertheless finished last. Kimi privately called it a
-“reliable trade partner” and marked GLM as hostile after robber attacks. On turn
-39, DeepSeek refused Kimi's request for two ore. Inkling accepted a reduced
-one-for-one offer, and Kimi immediately built a city. Cooperation was practical
-and often asymmetric; these exchanges did not establish an alliance.
-
-Kimi's [Game 9 win](/replay/baseten-series-2026-09-17-09) showed a sharper
-tactical sequence: a turn-49 Monopoly collected nine wool, followed by a
-settlement. On turn 57, taking Longest Road brought Kimi to 11 points. Its card
-timing was not uniformly good: a lumber Monopoly in Game 5 collected nothing.
-
-GLM combined three cities with both awards to win
-[Game 8](/replay/baseten-series-2026-09-17-08). DeepSeek used several different
-scoring paths across its wins: settlements and awards in Game 1, four cities
-and Largest Army in Game 3, and a final development-card purchase in
-[Game 10](/replay/baseten-series-2026-09-17-10). Some winning sequences depended
-on favorable draws as well as planning.
-
-## Reliability is part of the result
-
-| Agent | Tool errors / calls | Engine timeouts | Private note updates |
+| Player | Reported generated tokens | Active request errors | Engine timeouts |
 | --- | ---: | ---: | ---: |
-| DeepSeek V4 Pro | 22 / 906 | 36 | 129 |
-| Kimi K3 | 41 / 1,060 | 9 | 101 |
-| GLM 5.3 | 44 / 1,073 | 2 | 118 |
-| Inkling | 319 / 936 | 11 | 0 |
+| GLM 5.3 | 87,091 | 6 | 5 |
+| DeepSeek | 1,904,657 | 104 | 110 |
+| Kimi K3 | 202,156 | 51 | 43 |
+| Expert | 0 | 0 | 5 |
 
-Many DeepSeek and Kimi errors concerned offers that had expired or been taken.
-Inkling's failures were more often malformed arguments, missing action fields,
-and invalid board locations. Its 0/10 result combines strategy with substantial
-tool-use difficulty. Engine timeouts include forced decisions such as discards;
-they are not a count of whole turns lost. Provider latency and failed compaction
-requests also affected execution.
+Generated tokens include returned reasoning, off-turn responses and successful
+compaction responses. They exclude input tokens and unreported work from failed
+requests. Active request errors exclude intentional cancellations and off-turn
+errors; an engine timeout is a separate recorded rule event. These columns
+overlap and should not be added together. Off-turn request errors were also
+common: 103 for GLM, 123 for DeepSeek and 124 for Kimi.
 
-All agents received automatic search advice, but they rarely requested more
-analysis. The ten games contain only one completed explicit expert-search
-report. A useful follow-up would separate tool reliability, time management,
-and deliberate use of opponent analysis before attributing differences to
-strategic reasoning alone.
+DeepSeek generated about 22 times as many tokens as GLM. One response on turn
+31 of round ten spent 101 seconds and all 16,384 output tokens repeatedly
+trying to interpret board adjacency, ending at the output limit without a tool
+call. The text map did not eliminate spatial confusion. Across the series,
+15 of its active decision responses hit an output limit. Extra reasoning was
+not consistently converted into a move.
 
-## One file preserves the match
+Service failures also matter. Kimi recorded 48 HTTP 500 errors on decision
+requests, versus four for DeepSeek and one for GLM. It would be misleading to
+attribute every missed move to strategy. Tool receipts recorded 73 errors in
+total, including 37 expired activations and ten aborted operations; only five
+were schema validation failures, all from DeepSeek. Legal-action failures and
+trade races account for other errors. These are different failure modes.
 
-The arena writes an append-only journal during play and finalizes a single
-Parquet file for each game. It retains the prompts, provider responses, returned
-reasoning, tool calls and results, public events, private notebook revisions,
-snapshots, failures, and engine outcome. The viewer seeks through that record
-with the playback track and reconstructs each notebook at the selected time.
+GLM combined the most wins with the fewest generated tokens and few engine
+timeouts in this run. That is useful evidence for this timed configuration,
+but does not isolate model strategy from inference latency, tool reliability,
+input modality or the shared search advice.
 
-These research replays intentionally include all agents' private material for
-inspection. A seated model never receives another seat's private record. Only
-reasoning actually returned by the provider is shown; missing internal reasoning
-is not reconstructed. API credentials are excluded from the archive.
+## The comparison
 
-<AgentContext title="Run a competition and publish its results">
+Each round used a distinct board and a fresh private memory for each player.
+Starting positions are counterbalanced in four-game blocks, so each entrant
+starts in each position two or three times across the ten games. Two games ran
+at once. The stop rule retained any failed or incomplete attempt and stopped
+new launches for investigation; no match in this series triggered it.
 
-The arena is a self-contained TypeScript repository with vendored Rust/WASM
-rules, search, and learned tables. It requires Node.js 24 or later. Set
-`BASETEN_API_KEY` and `BASETEN_BASE_URL` in `arena/.env`, then install and verify:
+Wins are the primary outcome. Places rank the engine winner first, then the
+revealed final scores, with average ranks for ties. The win-rate intervals
+assume independent games under these conditions. Ten different boards with
+counterbalanced starts do not provide a paired comparison of every model on
+every board and seat.
+
+Expert uses depth-3 expectimax, a four-second search budget, a 1.2-million-node
+ceiling and the frozen learned tables. It chooses the highest-ranked legal
+command, including trade decisions. It evaluates offers but does not interpret
+chat. The LLMs receive automatic search advice and can request additional
+analysis, including a sampled view of an opponent’s incentives.
+
+## Playing through tools
+
+The open-source arena is a self-contained TypeScript harness around the Rust
+rules engine. Each LLM sees its hand, public scores and card counts, bank supply,
+legal actions and live offers as labelled text. A fixed ASCII hex map shows
+tiles, intersections and roads using the same identifiers as tool calls. Search
+rankings describe nearby resources and road endpoints, and resource counts name
+their resource. Tool receipts, scratchpad and conversation memory are text too. Kimi and GLM also receive a board image; DeepSeek receives text.
+No player receives an opponent’s private hand, scratchpad or future randomness.
+
+An active turn allows two minutes and up to 50,000 generated tokens, including
+reasoning, across at most 24 requests. Each response can generate up to 16,384
+tokens. Input context is reported separately. Each tool receipt refreshes the
+world state and reports the remaining time and token allowance.
+
+| Tool | Purpose |
+| --- | --- |
+| `play_action` | Build, play cards, move the robber, or propose, accept, reject and counter trades |
+| `analyze` | Rank actions or examine another player’s likely incentives under a chosen search budget |
+| `chat` | Negotiate publicly or privately, choose which conversations to follow, and read the inbox |
+| `scratchpad` | Replace one private planning document, automatically reloaded on the next decision |
+
+The harness rolls automatically when no knight is playable. With a playable
+knight, the agent chooses whether to use it before rolling. Returning without
+more tool calls ends the activation. The Rust engine resolves mandatory
+unfinished decisions at the deadline.
+
+Players can hold side conversations and respond to offers during other turns.
+Off-turn work has a separate 2,000-token allowance and yields when their own
+decision starts. Limits on messages, characters and recipients prevent one
+player from exhausting another’s attention. Conversation history persists
+across turns and compacts after 20 decision cycles or 60,000 historical
+characters, retaining up to four recent exchanges. The scratchpad survives
+compaction and can hold plans, promises, alliances and grudges.
+
+## Inspecting a match
+
+Each round opens in the normal full-screen 3D game viewer. **Timeline** shows
+public moves and conversation; **Spectate** shows each agent’s returned
+reasoning, the actions between responses and its scratchpad at the selected
+time. Private activity is marked “Spectators only.” The bottom playback track
+supports seeking, play/pause and speed changes.
+
+Browser recordings preserve this sequence while omitting repeated model input
+prompts, embedded input images and duplicate provider payloads. Full research
+archives are retained separately with verified hashes. The ten browser files
+total 17.5 MB, versus 638.6 MB for the full source Parquet files, a 97% reduction.
+Request cards show time
+and reported input/output usage; reasoning tokens are part of output, not an
+extra charge added twice. Missing provider reasoning is never reconstructed.
+
+<AgentContext title="Protocol and reproduction">
+
+The [registered protocol](../experiments/6fd3b0cd-e44f-4b6f-8725-26f94dbf3c56.toml)
+freezes the lineup, count, decision rule, budgets, schedule digest and runtime
+before paid inference. The [competition contract](../docs/competitions.mdx)
+records every entrant, board seat, playing order, outcome and published replay
+hash. Full journals and source Parquet files retain the original requests and
+responses; compact viewer files have their own hashes. The completed-run audit
+checks each result against the final engine snapshot and win event, all seat
+assignments and opening orders, and the independent journal-derived usage and
+failure totals. A verified local evidence bundle preserves the frozen runtime
+and source recordings; it is not an off-machine backup.
+
+Set the inference credentials in `arena/.env`, install the dependencies, and
+use a new series ID. Planning makes no inference requests; running calls the
+configured models.
 
 ```sh
 cd arena
 npm ci
 npm run verify
-npm run models
-```
-
-Configure four players in `config/baseten.json`, then plan a fresh series.
-Planning freezes the schedule and runtime without making inference calls.
-Running it makes billable requests to the configured provider.
-
-```sh
-npm run tournament -- plan --id my-competition --matches 10 --concurrency 2 \
-  --publish ../web/public/replays
+npm run tournament -- plan --id my-competition --config config/llm-expert.json \
+  --matches 10 --concurrency 2 --publish ../web/public/replays
 npm run tournament -- run --directory runs/my-competition
-npm run tournament -- report --directory runs/my-competition
 ```
 
-The first comparison used series `baseten-series-2026-09-17`, completed on
-September 17 in the operator's local time. The competition asset retains each
-game's seed, board-seat assignment, opening order, regular turn order, final
-points, winner, elapsed time, and Parquet SHA-256. Outcomes and file hashes were
-checked against all ten original journals and static replay copies.
+This article is owned by the LLM-versus-Expert study. The earlier ten-game
+Inkling series is a separate archived experiment and is not included in the
+new denominator. An initial JSON-input attempt was explicitly stopped after
+two partial games to adopt the text interface; its [interruption record](../records/runs/eee33ac0-bbae-4f02-923b-b3c5158c96b8.md)
+and source archives are retained separately. All ten replacement rounds use the
+same frozen text interface. Attribution: Codex implementation and audit.
+The first completed game's transcript was reviewed by `gpt-5.6-luna`; Codex
+verified its cited events and performed the final cross-game analysis. Private
+notes are agent claims and may contain mistaken geography or arithmetic.
 
-The schedule was frozen before play. This report and its qualitative transcript
-interpretation were written afterward; they are not a preregistered hypothesis
-test. Attribution: Codex implementation and audit, with transcript review by
-`gpt-5.6-luna`.
-
-Use the [competition contract](../docs/competitions.mdx) to prepare a compact
-research asset. The article embeds it without importing code:
-
-```mdx
-<ResearchCompetition asset="llm-arena-first-competition" />
-```
-
-The schema holds metadata and outcomes. Parquet files remain separate from the
-research source tree. Serve them at `/replays/<gameId>.parquet` in the web app;
-the component opens `/replay/<gameId>`. Set `replayBaseUrl` to an HTTPS viewer
-base if the research site and replay app use different origins. Publishing the
-MDX alone does not upload the recording files.
+The next useful comparison would preregister more games with equal input
+modalities, diagnose provider failures and spatial confusion, and separate the
+value of LLM decisions from the learned search advice. Those are follow-up
+questions; this competition does not answer them.
 
 </AgentContext>
+
+## Why Inkling was replaced
+
+Inkling was tested in the earlier competition, but repeatedly failed to call
+tools correctly and accepted poor trades. This gave opponents willing to trade
+with it an unfair advantage and made the table unsuitable for a useful strength
+comparison. We retired that competition and replaced Inkling with Expert. Its
+original recordings, report and source metadata remain archived for inspection.

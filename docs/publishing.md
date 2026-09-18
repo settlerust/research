@@ -77,7 +77,7 @@ implementation into an MDX expression.
 
 ## LLM competitions
 
-`<ResearchCompetition asset="llm-arena-first-competition" />` renders a complete
+`<ResearchCompetition asset="llm-arena-expert-competition" />` renders a complete
 series: exact model identities, derived standings, per-round seat assignments,
 opening and regular turn orders, scores, and links to the full 3D replay.
 [The competition contract](competitions.mdx) defines the versioned schema and

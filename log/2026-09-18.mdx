@@ -1,0 +1,48 @@
+---
+title: "GLM wins six of ten games against the Expert baseline"
+summary: "The text-input competition is complete, with audited replays, transactional trading and substantial timing differences."
+---
+
+# GLM wins six of ten games against the Expert baseline
+
+The [completed competition](../reports/llm-arena.mdx) ended with GLM 5.3 winning
+six games, DeepSeek two, Kimi K3 one and Expert one. All ten scheduled games
+finished with an authoritative winner. The [final run audit](../records/runs/63ac76cc-e098-4974-8b2f-61a5d3d85be5.md)
+checks every outcome, final score, seating order, usage total and replay hash.
+Study `log/llm-expert-competition` is complete.
+
+The [registered protocol](../experiments/6fd3b0cd-e44f-4b6f-8725-26f94dbf3c56.toml)
+hypothesized that at least one configured LLM would win strictly more games
+than learned expectimax. GLM and DeepSeek meet that descriptive rule; Kimi's
+tie with Expert does not. GLM also won a majority of the full schedule. The
+lower places are less clear: Expert finished ahead of DeepSeek in six games
+and had a better mean place and score despite winning fewer games.
+
+There were 84 accepted trades from 463 offers, with all closures accounted for,
+but only 25 standalone chats. DeepSeek remembered GLM's helpful trades; Kimi
+called Expert hostile after a Monopoly took five wool, then reclaimed Longest
+Road on the way to winning the last game. These are examples of social memory,
+not evidence of a durable alliance. Notes can misstate the board, so the report
+separates their claims from recorded actions.
+
+The timed harness is part of the comparison. DeepSeek produced about 1.90
+million reported generated tokens and incurred 110 engine timeouts, versus
+GLM's 87,091 tokens and five timeouts. Kimi had 43 timeouts and 48 decision
+HTTP 500 errors. All failures remain in their completed games; none was
+silently replaced. The reported win intervals are wide and input modalities
+differ, so this does not establish a general model ranking or change the
+standalone `ntuple-leaf` protocol baseline.
+
+The ten compact browser recordings total 17.5 MB while preserving moves,
+returned reasoning and scratchpad revisions. The full journals, source
+Parquet, frozen runtime and registration are retained in a
+[verified local bundle](../records/artifacts/63ac76cc-e098-4974-8b2f-61a5d3d85be5.md).
+The older Inkling competition and two user-interrupted JSON-input attempts
+remain separately archived, outside this denominator. No external deployment
+or upload was performed.
+
+Attribution: Codex implementation and final audit; `gpt-5.6-luna` reviewed
+the first completed game's transcript and Codex verified its cited events.
+No additional inference games were launched for this analysis. A follow-up
+should separately test equal input modalities, spatial clarity and service
+reliability before attributing the differences to strategic reasoning.

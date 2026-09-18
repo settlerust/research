@@ -1,0 +1,12 @@
+id = "log/llm-expert-competition"
+title = "Kimi, GLM, and DeepSeek against Expert"
+created = "2026-09-17"
+updated = "2026-09-18"
+status = "complete"
+question = "Can any of the three configured LLM agents win more of ten Catan games than an expectimax player using learned n-tuple tables?"
+outcome = "All ten text-input games completed: GLM won six, DeepSeek two, Kimi one and Expert one. GLM won a majority; GLM and DeepSeek meet the descriptive registered rule. Expert had a better average finish than DeepSeek despite fewer wins. Timing failures, provider errors, shared search advice, unequal input modalities and the small sample limit general strength claims. The two interrupted JSON-input games and earlier Inkling series remain separate archived evidence."
+next_step = "Register a distinct follow-up to separate strategic choices from spatial-input and provider reliability effects, with equal modalities and more games; preserve this completed cohort."
+attribution = "Codex implementation, preregistration, final journal audit and writeup; gpt-5.6-luna reviewed the first completed transcript, with parent verification. Participant identities and the Expert checkpoint are frozen in the plan."
+reports = ["reports/llm-arena.mdx"]
+logs = ["log/2026-09-17.mdx", "log/2026-09-18.mdx"]
+legacy_experiments = []

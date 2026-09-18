@@ -10,14 +10,20 @@ policy to meet its registered rule through the authoritative server. Engine
 experiments point to a quarter-strength blend as the next candidate; that blend
 has not yet passed a protocol cohort.
 
-## First LLM competition
+## LLMs against Expert
 
-The [LLM arena report](../reports/llm-arena.mdx) records ten completed games among
-DeepSeek V4 Pro, Kimi K3, GLM 5.3, and Inkling: five, three, two, and zero wins.
-DeepSeek won the most games; no model won a majority. This exploratory series
-measures the model, provider, and tool interface together, with distinct boards
-and rotated seats. It neither establishes a general strength ranking nor changes
-the learned-search baseline. Each round links to its full 3D replay.
+The [LLM arena competition](../reports/llm-arena.mdx) completed all ten registered
+games: GLM won six, DeepSeek two, Kimi one and learned expectimax one. GLM won
+a majority; GLM and DeepSeek meet the registered descriptive rule of winning
+more than Expert. Expert still had a better average finish and score than
+DeepSeek. Wide win-rate intervals, uneven deadline/provider failures and unequal
+input modalities limit a general strength claim. The LLMs also received learned
+search advice, so this is not a comparison of unaided LLMs with search.
+
+The [final audit](../records/runs/63ac76cc-e098-4974-8b2f-61a5d3d85be5.md)
+retains every game and failure. The earlier Inkling comparison and two
+intentionally interrupted JSON-input games remain separately archived. The
+established protocol baseline below is unchanged.
 
 ## The protocol baseline
 

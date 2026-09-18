@@ -7,12 +7,12 @@ summary: "A versioned competition contract connects model identities, seating, r
 
 A competition is a small, versioned JSON exhibit. It names the entrants, preserves
 the order and outcome of every scheduled game, and points to full Parquet
-replays. The [first LLM comparison](../reports/llm-arena.mdx) is a complete example.
+replays. The [LLM and Expert comparison](../reports/llm-arena.mdx) is a complete example.
 
 Store the asset in `content/assets/` and embed it by name:
 
 ```mdx
-<ResearchCompetition asset="llm-arena-first-competition" />
+<ResearchCompetition asset="llm-arena-expert-competition" />
 ```
 
 The underlying React component takes a typed `competition` prop. Its TypeScript
@@ -28,11 +28,16 @@ accidentally becoming part of this metadata exhibit.
 | --- | --- |
 | `schema`, `kind` | Exactly `1` and `"competition"` |
 | `id`, `title`, `date`, `caption` | Stable competition slug, display name, ISO publication date, and evidence context |
-| `participants` | Entrants with unique `id`, display `name`, exact provider `model` identifier, `provider`, and `input` of `text` or `text-and-image` |
+| `participants` | Entrants with unique `id`, display `name`, exact `model` identifier, provenance `provider`, and `input` of `text` or `text-and-image`; new entrants also declare `kind` as `llm` or `expert` |
 | `runtimeSha256` | Digest of the frozen runtime used by the producer |
 | `conditions` | Victory target, active/spectating budgets, concurrency, context limits, search budget, request/turn/token caps, and reasoning effort |
 | `replayBaseUrl` | Root-relative viewer base such as `/replay`, or an explicit HTTPS viewer base |
 | `rounds` | Every scheduled game, in consecutive one-based round-number order |
+
+Expert entrants include `search` with `depth`, `milliseconds`, `nodeBudget` and
+`checkpointSha256`. LLM entrants do not carry these baseline settings. The
+provider is provenance metadata and is not used as a player label. Older assets
+without `kind` remain readable.
 
 Entrant IDs identify player instances, not model families. Two Kimi entrants can
 share the same `model` value while using different IDs and names. Every round
@@ -69,6 +74,7 @@ when changing the common runtime or these settings.
 | `maxRequests` | Game-wide provider request cap, including compaction |
 | `maxTokens` | Requested output-token cap per provider response |
 | `reasoningEffort` | Requested reasoning-effort setting; provider handling can differ |
+| `turnTokenBudget`, `spectatorTokenBudget`, `turnRequestLimit` | Optional generated-token and request ceilings for LLM seats; reasoning is included in generated output |
 
 ## Outcomes and recordings
 
@@ -120,10 +126,11 @@ paths, nonnegative finite scores, outcome fields, and SHA-256 formatting. Keep
 the TypeScript contract and parser together when adding a schema version.
 
 The runtime digest and file digest are provenance claims, not proof that a file
-has been uploaded. Check published Parquet hashes against the source recordings
-before making replay links available. The initial exhibit was generated from
-the arena's frozen plan and verified final state, then compared against its
-recorded outcomes and byte-identical static files.
+has been uploaded. Check each published Parquet against its own recorded digest before enabling
+its replay link. Compact viewer recordings have a different digest from their
+full source archive. The arena records both hashes and stores the source digest
+in the compact Parquet metadata. Generate the exhibit from the frozen plan and
+audited state with `analysis/llm_arena_competition.py`; it verifies both files.
 
 The React component is server-renderable and does not fetch game files while a
 reader browses a report. Replay navigation loads the selected game on demand.

@@ -16,12 +16,13 @@ next question. The project is [open source](https://github.com/settlerust).
 | [Run the server](docs/quickstart.md) | Set up with only the research and server repositories |
 | [Research approaches](approaches/README.md) | Explore the decisions and mechanisms being studied |
 
-## LLMs at the Catan table
+## Kimi, GLM, and DeepSeek
 
-Four language models played ten complete games using tools to build, negotiate,
-and keep private notebooks. DeepSeek won five, Kimi three, GLM two, and Inkling
-none. [Read how the arena works and watch the competition](reports/llm-arena.mdx),
-including the agents’ conversations, returned reasoning, and evolving notes.
+GLM won six of ten games against DeepSeek, Kimi K3 and Expert, an expectimax
+player with learned n-tuple tables. [Read the results](reports/llm-arena.mdx)
+and inspect each round's moves, conversation, reasoning and scratchpad. The
+comparison includes substantial timing and provider failures, which limit a
+strategy-only interpretation.
 
 ## The current baseline
 
