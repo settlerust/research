@@ -16,6 +16,14 @@ next question. The project is [open source](https://github.com/settlerust).
 | [Run the server](docs/quickstart.md) | Set up with only the research and server repositories |
 | [Research approaches](approaches/README.md) | Explore the decisions and mechanisms being studied |
 
+## Kimi, GLM, and DeepSeek
+
+GLM won six of ten games against DeepSeek, Kimi K3 and Expert, an expectimax
+player with learned n-tuple tables. [Read the results](reports/llm-arena.mdx)
+and inspect each round's moves, conversation, reasoning and scratchpad. The
+comparison includes substantial timing and provider failures, which limit a
+strategy-only interpretation.
+
 ## The current baseline
 
 **`ntuple-leaf`** combines expectimax search with [learned position values](docs/concepts.md#learned-leaf). In

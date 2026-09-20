@@ -10,6 +10,21 @@ policy to meet its registered rule through the authoritative server. Engine
 experiments point to a quarter-strength blend as the next candidate; that blend
 has not yet passed a protocol cohort.
 
+## LLMs against Expert
+
+The [LLM arena competition](../reports/llm-arena.mdx) completed all ten registered
+games: GLM won six, DeepSeek two, Kimi one and learned expectimax one. GLM won
+a majority; GLM and DeepSeek meet the registered descriptive rule of winning
+more than Expert. Expert still had a better average finish and score than
+DeepSeek. Wide win-rate intervals, uneven deadline/provider failures and unequal
+input modalities limit a general strength claim. The LLMs also received learned
+search advice, so this is not a comparison of unaided LLMs with search.
+
+The [final audit](../records/runs/63ac76cc-e098-4974-8b2f-61a5d3d85be5.md)
+retains every game and failure. The earlier Inkling comparison and two
+intentionally interrupted JSON-input games remain separately archived. The
+established protocol baseline below is unchanged.
+
 ## The protocol baseline
 
 With the same depth-3 search and 1.5-second budget, the learned leaf won

@@ -1,0 +1,77 @@
+---
+title: "The first ten-game LLM arena comparison"
+summary: "Ten completed games, a reusable competition exhibit, and full 3D replays with agent notebooks."
+---
+
+# The first ten-game LLM arena comparison
+
+Study `log/llm-arena` documents the completed arena series
+`baseten-series-2026-09-17`. The [report](../reports/llm-arena.mdx) introduces the
+TypeScript tool loop, seated information boundary, search, memory, and Parquet
+recordings. The new competition exhibit preserves all ten round IDs, exact
+model identities, seat assignments, opening and regular turn orders, final
+outcomes, and replay hashes.
+
+DeepSeek V4 Pro won five games, Kimi K3 three, GLM 5.3 two, and Inkling none.
+All ten reached a recorded winner; no game was excluded or replaced. There were
+tool errors, provider failures, compaction fallbacks, and engine timeouts within
+completed games. Inkling's action-format failures and DeepSeek's higher timeout
+count limit an interpretation based solely on strategy.
+
+The lineup, schedule, settings and runtime were frozen before play. This study
+files an exploratory comparison retrospectively, not a preregistered causal
+hypothesis. The standalone learned-search baseline remains unchanged. No new
+inference was run to publish this report.
+
+Attribution: Codex implementation and audit, with `gpt-5.6-luna` reviewing
+transcripts. The player IDs are recorded separately and exactly in the exhibit.
+
+
+## Expert baseline follow-up
+
+The original comparison has been retired from the public report. Its ten full
+recordings, original report and metadata were archived without changing their
+hashes. The original arena journals and frozen runtime remain available locally.
+Inkling’s malformed tool calls and poor trade decisions made it an unsuitable
+member of a strength comparison. Its rounds are not pooled with the new study.
+
+Study `log/llm-expert-competition` owns the replacement report. The
+[registered protocol](../experiments/981f6ecf-d016-4698-a14e-35bf1ed8876d.toml)
+freezes ten distinct boards, the three LLMs, the Expert baseline, a two-minute
+turn ceiling and the complete token/search settings before paid inference.
+The source runtime and schedule digests are in the registration. The hypothesis
+is that at least one LLM wins more games than Expert; equality does not support
+it. This small comparison is descriptive, with uncertainty reported.
+
+Before registration, an Expert smoke exposed unnecessary worker termination
+between completed decisions. Preserving idle workers retains their loaded
+tables; the short real game now completes. All 30 arena tests and checkpoint
+verification passed before launch. No smoke results enter the ten-game total.
+Published replays omit repeated input prompts, images and opaque provider
+payloads while retaining every move, reasoning response, scratchpad revision
+and timeline event. Full source archives remain local.
+
+Attribution: Codex implementation and analysis. No transcript subagent was used
+for this follow-up. The batch is still running; final interpretation follows
+after every scheduled game has been audited.
+
+
+## Restart with spatial text inputs
+
+The user explicitly stopped the first Expert-baseline attempt while two games
+were running. They ended at turns 37 and 31, with no winner. Eight
+scheduled games never started. The [interruption record](../records/runs/eee33ac0-bbae-4f02-923b-b3c5158c96b8.md)
+retains the original protocol and hash-verified local archive; those games are
+excluded from the replacement denominator because the input protocol changed,
+not because of who was leading.
+
+The [replacement protocol](../experiments/6fd3b0cd-e44f-4b6f-8725-26f94dbf3c56.toml) freezes ten new boards and
+the same models, seating balance and budgets. Every LLM receives labelled text,
+a stable ASCII hex map, named resource counts and contextual action rankings.
+Tool receipts, scratchpad contents and compaction transcripts are text. Typed
+JSON remains at the provider transport and outgoing tool-call boundaries.
+Images remain available for Kimi and GLM. Thirty-three arena tests and all eight
+vendored-file/checkpoint checks passed before the new runtime was frozen.
+
+The series `kimi-glm-deepseek-expert-text-2026-09-17` is running. No strength
+conclusion is available yet. Attribution: Codex implementation and audit.

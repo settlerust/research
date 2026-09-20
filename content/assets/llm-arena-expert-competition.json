@@ -1,0 +1,460 @@
+{
+  "schema": 1,
+  "kind": "competition",
+  "id": "kimi-glm-deepseek-expert-text-2026-09-17",
+  "title": "Kimi, GLM, and DeepSeek",
+  "date": "2026-09-17",
+  "caption": "Ten scheduled games on distinct boards with counterbalanced starting positions. Expert uses learned n-tuple expectimax; the other three players use the same LLM harness.",
+  "runtimeSha256": "09e45d8e8f3a6fd6b1ed0727513f700941b9cca602728817fe5770e21bc3560b",
+  "replayBaseUrl": "/replay",
+  "conditions": {
+    "pointsToWin": 10,
+    "turnSeconds": 120,
+    "spectatorSeconds": 15,
+    "spectateEveryTurns": 4,
+    "contextWindowMoves": 20,
+    "contextRecentMoves": 4,
+    "contextMaxChars": 60000,
+    "searchMilliseconds": 500,
+    "maxTurns": 700,
+    "maxRequests": 3000,
+    "maxTokens": 16384,
+    "reasoningEffort": "low",
+    "turnTokenBudget": 50000,
+    "spectatorTokenBudget": 2000,
+    "turnRequestLimit": 24,
+    "concurrency": 2
+  },
+  "participants": [
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "model": "deepseek-ai/DeepSeek-V4-Pro-0813",
+      "provider": "baseten",
+      "input": "text",
+      "kind": "llm"
+    },
+    {
+      "id": "kimi",
+      "name": "Kimi K3",
+      "model": "moonshotai/Kimi-K3",
+      "provider": "baseten",
+      "input": "text-and-image",
+      "kind": "llm"
+    },
+    {
+      "id": "glm",
+      "name": "GLM 5.3",
+      "model": "zai-org/GLM-5.3",
+      "provider": "baseten",
+      "input": "text-and-image",
+      "kind": "llm"
+    },
+    {
+      "id": "expert",
+      "name": "Expert",
+      "model": "expert-ntuple",
+      "provider": "local",
+      "input": "text",
+      "kind": "expert",
+      "search": {
+        "depth": 3,
+        "milliseconds": 4000,
+        "nodeBudget": 1200000,
+        "checkpointSha256": "f8e61e66e0279b0fe67f5f4d6be0ad3ca0a86617e91ed24fe08a34a997b46f0c"
+      }
+    }
+  ],
+  "rounds": [
+    {
+      "number": 1,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-01",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/1",
+      "seats": [
+        "glm",
+        "deepseek",
+        "kimi",
+        "expert"
+      ],
+      "openingOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "turnOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 0,
+        "points": [
+          10,
+          5,
+          4,
+          6
+        ],
+        "turns": 68,
+        "durationSeconds": 3711.623
+      },
+      "replay": {
+        "sha256": "20919e6beb117917fca262a151e2ad0c29dd2fc69afb50fbe633458892ec8222",
+        "bytes": 1776593
+      }
+    },
+    {
+      "number": 2,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-02",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/2",
+      "seats": [
+        "expert",
+        "kimi",
+        "glm",
+        "deepseek"
+      ],
+      "openingOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "turnOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 3,
+        "points": [
+          9,
+          8,
+          6,
+          10
+        ],
+        "turns": 91,
+        "durationSeconds": 5223.754
+      },
+      "replay": {
+        "sha256": "cf81ffb0c2597d66c32a45ae8fccf632fe1421325406dc8dad88cb27bdd5bfba",
+        "bytes": 2062285
+      }
+    },
+    {
+      "number": 3,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-03",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/3",
+      "seats": [
+        "expert",
+        "kimi",
+        "deepseek",
+        "glm"
+      ],
+      "openingOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "turnOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 3,
+        "points": [
+          7,
+          6,
+          6,
+          10
+        ],
+        "turns": 81,
+        "durationSeconds": 4001.629
+      },
+      "replay": {
+        "sha256": "4a9c9d207074ef571762a767d16fd781e36f6376b170990538283ae0cbbbb9c5",
+        "bytes": 2402634
+      }
+    },
+    {
+      "number": 4,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-04",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/4",
+      "seats": [
+        "glm",
+        "kimi",
+        "expert",
+        "deepseek"
+      ],
+      "openingOrder": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "turnOrder": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 2,
+        "points": [
+          5,
+          4,
+          10,
+          7
+        ],
+        "turns": 69,
+        "durationSeconds": 3287.927
+      },
+      "replay": {
+        "sha256": "37c430d9bc96189e564e4c2d200b91b5fe1b29cf823142da03ed9250b2377236",
+        "bytes": 1763663
+      }
+    },
+    {
+      "number": 5,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-05",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/5",
+      "seats": [
+        "glm",
+        "deepseek",
+        "kimi",
+        "expert"
+      ],
+      "openingOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "turnOrder": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 0,
+        "points": [
+          10,
+          3,
+          8,
+          4
+        ],
+        "turns": 44,
+        "durationSeconds": 2005.612
+      },
+      "replay": {
+        "sha256": "2ef4ea82b4af1ccfe354c3d0396d4a7cb4c25f45a64666a09255e01f49c615ef",
+        "bytes": 805326
+      }
+    },
+    {
+      "number": 6,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-06",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/6",
+      "seats": [
+        "glm",
+        "deepseek",
+        "expert",
+        "kimi"
+      ],
+      "openingOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "turnOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 0,
+        "points": [
+          10,
+          4,
+          9,
+          3
+        ],
+        "turns": 90,
+        "durationSeconds": 5228.996
+      },
+      "replay": {
+        "sha256": "fd826d4d7ee77ff1bde7a965a5004fbebefce8ddce36f04c4491c68fb0e957d8",
+        "bytes": 1856514
+      }
+    },
+    {
+      "number": 7,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-07",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/7",
+      "seats": [
+        "kimi",
+        "deepseek",
+        "glm",
+        "expert"
+      ],
+      "openingOrder": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "turnOrder": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 2,
+        "points": [
+          4,
+          2,
+          10,
+          4
+        ],
+        "turns": 61,
+        "durationSeconds": 3352.771
+      },
+      "replay": {
+        "sha256": "083b59d9788cf2312dc9dc78e42853db5e773c92d8d976fb40e41d638a316d87",
+        "bytes": 1510265
+      }
+    },
+    {
+      "number": 8,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-08",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/8",
+      "seats": [
+        "expert",
+        "deepseek",
+        "glm",
+        "kimi"
+      ],
+      "openingOrder": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "turnOrder": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 2,
+        "points": [
+          7,
+          7,
+          10,
+          4
+        ],
+        "turns": 71,
+        "durationSeconds": 3857.534
+      },
+      "replay": {
+        "sha256": "f2be425eafcfdb34c0b5cf418f595b8badc1770d5c84e207598c54d259091669",
+        "bytes": 1699575
+      }
+    },
+    {
+      "number": 9,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-09",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/9",
+      "seats": [
+        "kimi",
+        "expert",
+        "glm",
+        "deepseek"
+      ],
+      "openingOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "turnOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 3,
+        "points": [
+          9,
+          3,
+          4,
+          10
+        ],
+        "turns": 61,
+        "durationSeconds": 2293.515
+      },
+      "replay": {
+        "sha256": "73ff9a302aedeac192522b40706596979035b409f45d40862dcbeb486a43651d",
+        "bytes": 1251928
+      }
+    },
+    {
+      "number": 10,
+      "gameId": "kimi-glm-deepseek-expert-text-2026-09-17-10",
+      "seed": "kimi-glm-deepseek-expert-text-2026-09-17/board/10",
+      "seats": [
+        "glm",
+        "deepseek",
+        "expert",
+        "kimi"
+      ],
+      "openingOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "turnOrder": [
+        3,
+        0,
+        1,
+        2
+      ],
+      "outcome": {
+        "status": "completed",
+        "winnerSeat": 3,
+        "points": [
+          6,
+          9,
+          8,
+          10
+        ],
+        "turns": 101,
+        "durationSeconds": 4759.587
+      },
+      "replay": {
+        "sha256": "fef59ba0ce16fa92686580060a61f611baba6dcea406542dc5db49d654260575",
+        "bytes": 2361285
+      }
+    }
+  ]
+}
