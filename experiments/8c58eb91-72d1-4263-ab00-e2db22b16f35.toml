@@ -1,0 +1,12 @@
+id = "8c58eb91-72d1-4263-ab00-e2db22b16f35"
+study = "population/best-response"
+arena = "engine"
+hypothesis = "Does the remedy close the gap. The population-trained tables against the frozen tables' challenger at L2 (a third frozen-tables search and ETA) on the confirmation boards: the population tables give up less to the challenger than the frozen tables do, that is the effect of the population tables over the challenger lies above -0.03. Lineup L2, the population lineup (a third frozen-tables search in slot 2, ETA in slot 3), boards 1464-1527, four rotations, deterministic. Half B of the swapped pair: the control in slot 0, the candidate in slot 1; the partner half A is experiment 33349c0a-6738-469f-8c5c-47111fc47dd5."
+decision_rule = "Support if the interval lies above -0.03; refutation if the interval lies below -0.10 (the challenger exploits the population tables about as much as the frozen tables); otherwise inconclusive. Primary contrast: the seating-corrected effect of the candidate over the control, half the per-board difference of the two halves' slot-0-minus-slot-1 win contrasts (analysis/seating_pair.py), with a normal 95% interval over the 64 boards; the half-sum is the seating term. All 256 games of each half complete. Decision-time ratio and play statistics (cities, cards, trades, robber moves) reported alongside. Development tier (engine arena)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-challenger.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-population.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "1464-1527"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

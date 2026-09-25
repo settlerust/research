@@ -1,0 +1,12 @@
+id = "187cac29-b57e-433f-9ce1-bc70a43308c1"
+study = "population/best-response"
+arena = "engine"
+hypothesis = "Exploitability at the population table. The challenger, warm-started from the frozen tables and trained for 40,000 games against three seats drawn from {self:1, frozen tables:3} (only its own seats learn), beats the frozen tables at depth 2 by more than +0.10 wins per game when the other seats are a third frozen-tables search and ETA (L2), so the frozen tables' self-play style is exploitable by a player that has seen it. Lineup L2, the population lineup (a third frozen-tables search in slot 2, ETA in slot 3), boards 1400-1463, four rotations, deterministic. Half A of the swapped pair: the candidate in slot 0, the control in slot 1; half B is registered next."
+decision_rule = "Support if the interval lies above zero and the estimate reaches +0.10; refutation if the interval lies below +0.10 (no exploitable gain of that size; below zero, no gain at all); otherwise inconclusive. Primary contrast: the seating-corrected effect of the candidate over the control, half the per-board difference of the two halves' slot-0-minus-slot-1 win contrasts (analysis/seating_pair.py), with a normal 95% interval over the 64 boards; the half-sum is the seating term. All 256 games of each half complete. Decision-time ratio and play statistics (cities, cards, trades, robber moves) reported alongside. Development tier (engine arena)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-challenger.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "1400-1463"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

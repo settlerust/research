@@ -1,0 +1,12 @@
+id = "617cebbd-e9a4-4049-ae19-ef64b869989d"
+study = "population/best-response"
+arena = "engine"
+hypothesis = "The fine-tune's share. The control tables, warm-started from the frozen tables and trained for the same 40,000 games at the same alpha in plain self-play (pool self), gain less over the frozen tables at L2 than the challenger does on the same boards: the control's effect is below +0.10 and below the challenger's, so the challenger's gain comes from the opponent change, not from more training. Lineup L2, the population lineup (a third frozen-tables search in slot 2, ETA in slot 3), boards 1400-1463, four rotations, deterministic. Half A of the swapped pair: the candidate in slot 0, the control in slot 1; half B is registered next."
+decision_rule = "Support if the control's estimate is below +0.10 and the per-board difference of the challenger pair's effect minus this pair's effect has an interval above zero; refutation if this pair's interval lies above +0.10; otherwise inconclusive. Primary contrast: the seating-corrected effect of the candidate over the control, half the per-board difference of the two halves' slot-0-minus-slot-1 win contrasts (analysis/seating_pair.py), with a normal 95% interval over the 64 boards; the half-sum is the seating term. All 256 games of each half complete. Decision-time ratio and play statistics (cities, cards, trades, robber moves) reported alongside. Development tier (engine arena)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-control.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta"]
+seeds = "1400-1463"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

@@ -1,0 +1,12 @@
+id = "f8dfd84a-e52d-4085-82e2-fe3397d11bea"
+study = "population/best-response"
+arena = "engine"
+hypothesis = "Remedy at the builder table. Tables warm-started from the frozen tables and trained for 60,000 games on the mixed population {self:2, frozen tables:1, eta:0.5, fast:0.5} beat the frozen tables at depth 2 by at least +0.03 wins per game with the ETA and fast builders (L1) on the confirmation boards. Lineup L1, the builder lineup (ETA in slot 2, fast in slot 3), boards 1464-1527, four rotations, deterministic. Half A of the swapped pair: the candidate in slot 0, the control in slot 1; half B is registered next."
+decision_rule = "Support if the interval lies above zero and the estimate reaches +0.03; refutation if the interval lies below zero; otherwise inconclusive. Primary contrast: the seating-corrected effect of the candidate over the control, half the per-board difference of the two halves' slot-0-minus-slot-1 win contrasts (analysis/seating_pair.py), with a normal 95% interval over the 64 boards; the half-sum is the seating term. All 256 games of each half complete. Decision-time ratio and play statistics (cities, cards, trades, robber moves) reported alongside. Development tier (engine arena)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-population.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "1464-1527"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

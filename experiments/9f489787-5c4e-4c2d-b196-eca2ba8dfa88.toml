@@ -1,0 +1,12 @@
+id = "9f489787-5c4e-4c2d-b196-eca2ba8dfa88"
+study = "population/best-response"
+arena = "engine"
+hypothesis = "Specialization check at the builder table. The same challenger's gain over the frozen tables shrinks or vanishes when the other seats are the ETA and fast builders (L1) on the same boards as the L2 pair: the effect is below +0.10 and smaller than at L2, which would show a specialized exploit of the frozen tables rather than a generally stronger player. Lineup L1, the builder lineup (ETA in slot 2, fast in slot 3), boards 1400-1463, four rotations, deterministic. Half A of the swapped pair: the candidate in slot 0, the control in slot 1; half B is registered next."
+decision_rule = "Support (specialization) if the L1 estimate is below +0.10 and the per-board difference of the L2 pair's effect minus this pair's effect on the same boards has an interval above zero; refutation if this pair's interval lies above +0.10 (the gain is general); otherwise inconclusive. Primary contrast: the seating-corrected effect of the candidate over the control, half the per-board difference of the two halves' slot-0-minus-slot-1 win contrasts (analysis/seating_pair.py), with a normal 95% interval over the 64 boards; the half-sum is the seating term. All 256 games of each half complete. Decision-time ratio and play statistics (cities, cards, trades, robber moves) reported alongside. Development tier (engine arena)."
+players = ["v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-challenger.bin\"}}", "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}", "eta", "fast"]
+seeds = "1400-1463"
+rotations = 4
+games = 256
+points_to_win = 10
+max_turns = 500
+deterministic = true

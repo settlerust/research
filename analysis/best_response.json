@@ -1,0 +1,78 @@
+{
+ "base": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+ "pairs": [
+  {
+   "label": "challenger-l2-dev",
+   "lineup": "L2",
+   "seeds": "1400-1463",
+   "candidate": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-challenger.bin\"}}",
+   "control": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+   "needs": [
+    "best-response-challenger.bin"
+   ],
+   "half_a": "187cac29-b57e-433f-9ce1-bc70a43308c1",
+   "half_b": "f3ab380c-becc-48d9-ae8b-4898a5a71aba"
+  },
+  {
+   "label": "challenger-l1-dev",
+   "lineup": "L1",
+   "seeds": "1400-1463",
+   "candidate": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-challenger.bin\"}}",
+   "control": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+   "needs": [
+    "best-response-challenger.bin"
+   ],
+   "half_a": "9f489787-5c4e-4c2d-b196-eca2ba8dfa88",
+   "half_b": "6bb27d82-f79f-4d97-9f83-4acc63e12325"
+  },
+  {
+   "label": "control-l2-dev",
+   "lineup": "L2",
+   "seeds": "1400-1463",
+   "candidate": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-control.bin\"}}",
+   "control": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+   "needs": [
+    "best-response-control.bin"
+   ],
+   "half_a": "617cebbd-e9a4-4049-ae19-ef64b869989d",
+   "half_b": "5ccba706-4eb8-4d04-9c41-f2f582b06ae6"
+  },
+  {
+   "label": "population-l1-conf",
+   "lineup": "L1",
+   "seeds": "1464-1527",
+   "candidate": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-population.bin\"}}",
+   "control": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+   "needs": [
+    "best-response-population.bin"
+   ],
+   "half_a": "f8dfd84a-e52d-4085-82e2-fe3397d11bea",
+   "half_b": "b912c614-b344-4789-9bb1-19e6d631083d"
+  },
+  {
+   "label": "population-l2-conf",
+   "lineup": "L2",
+   "seeds": "1464-1527",
+   "candidate": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-population.bin\"}}",
+   "control": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/hex-portfolio-main.bin\"}}",
+   "needs": [
+    "best-response-population.bin"
+   ],
+   "half_a": "0870ae30-fe0a-4973-b191-471c67d3edcc",
+   "half_b": "91448a5f-74f0-458a-a6f8-881d73105549"
+  },
+  {
+   "label": "population-vs-challenger-l2-conf",
+   "lineup": "L2",
+   "seeds": "1464-1527",
+   "candidate": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-population.bin\"}}",
+   "control": "v2:{\"depth\":2,\"leaf\":{\"tables\":\"/home/keshav/settlers/research/artifacts/ntuple/best-response-challenger.bin\"}}",
+   "needs": [
+    "best-response-population.bin",
+    "best-response-challenger.bin"
+   ],
+   "half_a": "33349c0a-6738-469f-8c5c-47111fc47dd5",
+   "half_b": "8c58eb91-72d1-4263-ab00-e2db22b16f35"
+  }
+ ]
+}
