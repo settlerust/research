@@ -7,8 +7,8 @@ summary: The ntuple-leaf baseline, the next protocol candidate, and the limits o
 
 Use **`ntuple-leaf`** as the reference for a new candidate. It is the latest
 policy to meet its registered rule through the authoritative server. Engine
-experiments point to a quarter-strength blend as the next candidate; that blend
-has not yet passed a protocol cohort.
+experiments pointed to a quarter-strength blend as the next candidate; its
+protocol pair on twenty boards was inconclusive, so the reference is unchanged.
 
 ## LLMs against Expert
 
@@ -40,7 +40,7 @@ not establish strength against humans or every opponent population. The
 [protocol report](../reports/ntuple-leaf-protocol.mdx) includes the registration,
 complete denominator, and public replay.
 
-## The next candidate
+## The next candidate, through the protocol
 
 The [quarter-strength blend](../reports/leaf-blend.mdx) adds a small contribution
 from the hand-written evaluator to the learned tables. Its effect survives both
@@ -49,9 +49,20 @@ engine lineups: builders and a table with three searches.
 <ResearchPlot asset="leaf-blend-pooled-effects" />
 
 The after-the-fact pools cover 192 builder boards and 128 population boards.
-Decision time rises by about 40%. Register a fresh protocol cohort against
-`ntuple-leaf` before changing the server default. The browser still uses the
-hand-written leaf; these table-based results do not transfer directly to it.
+Decision time rises by about 40%. Through the protocol arena, as a swapped
+pair on twenty deterministic boards inside `ntuple-leaf`'s exact search
+([report](../reports/blend-protocol.mdx)), the blend won
+<WinRate value="34" total="80" label="blend, half A" /> and
+<WinRate value="34" total="80" label="blend, half B" /> against
+<WinRate value="33" total="80" label="ntuple-leaf, half A" /> and
+<WinRate value="32" total="80" label="ntuple-leaf, half B" />, a
+seating-corrected effect of <ResultComparison value="0.019" low="-0.087" high="0.124" />.
+That is inconclusive by the registered rule and covers both zero and the engine
+estimate; under the 1.5 s clock on a loaded machine the blend completed depth 3
+in about 51% of contested decisions against 61% for the tables alone. The server
+default stays `ntuple-leaf`; resolving an effect of the engine's size would take
+a pair of about 64-board halves. The browser still uses the hand-written leaf;
+these table-based results do not transfer directly to it.
 
 ## What the other comparisons changed
 

@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "kind": "plot",
+  "variant": "scatter",
+  "evidence": "measured",
+  "title": "The quarter blend against ntuple-leaf through the protocol arena",
+  "source": "Source: analysis/blend_protocol.py over runs cfee89ba-3e06-4549-8cae-c31652464985 (half A) and 2047d413-be8e-4a80-bcea-4c53fbf78619 (half B); seeds 2000 to 2019, four rotations per seed per half, 80 and 80 completed games. Contrasts are candidate minus control in wins per game; the effect is half the per-seed difference of the two halves' slot-0-minus-slot-1 contrasts and the seating term half their sum; 95% normal intervals over seeds.",
+  "caption": "Each seating alone carries the turn-order term; the corrected effect is the middle point.",
+  "x": {
+    "label": "Contrast",
+    "min": 0,
+    "max": 3,
+    "ticks": [
+      "Half A (blend first)",
+      "Half B (blend second)",
+      "Seating-corrected effect",
+      "Seating term"
+    ]
+  },
+  "y": {
+    "label": "Wins per game",
+    "min": -0.25,
+    "max": 0.25
+  },
+  "series": [
+    {
+      "label": "20 seeds, both seatings",
+      "points": [
+        {
+          "x": 0,
+          "y": 0.013,
+          "low": -0.156,
+          "high": 0.181
+        },
+        {
+          "x": 1,
+          "y": 0.025,
+          "low": -0.145,
+          "high": 0.195
+        },
+        {
+          "x": 2,
+          "y": 0.019,
+          "low": -0.087,
+          "high": 0.124
+        },
+        {
+          "x": 3,
+          "y": -0.006,
+          "low": -0.139,
+          "high": 0.126
+        }
+      ]
+    }
+  ],
+  "reference": {
+    "y": 0,
+    "label": "No difference"
+  }
+}

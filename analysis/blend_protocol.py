@@ -266,10 +266,10 @@ def main():
     if args.assets:
         folder = Path(args.assets)
         folder.mkdir(parents=True, exist_ok=True)
-        for label, run in (('a', a), ('b', b)):
-            asset = chart_asset(run, f"Win rate by competitor, half {label.upper()}",
-                                f"Run {run['id']}. {run['summary']['completed']} completed of {run['manifest']['games']} planned games. 95% Wilson intervals; descriptive evidence only.")
-            (folder / f'{args.slug}-half-{label}-wins.json').write_text(json.dumps(asset, indent=2) + '\n')
+        # Half A's chart and replay come from `just publish RUN_A --slug SLUG`; only half B's chart is written here.
+        asset = chart_asset(b, 'Win rate by competitor, half B',
+                            f"Run {b['id']}. {b['summary']['completed']} completed of {b['manifest']['games']} planned games. 95% Wilson intervals; descriptive evidence only.")
+        (folder / f'{args.slug}-half-b-wins.json').write_text(json.dumps(asset, indent=2) + '\n')
         span = max(abs(v) for v in (*ci_a, *ci_b, *ci_e, *ci_s)) + 0.05
         plot = {
             'schema': 1, 'kind': 'plot', 'variant': 'scatter', 'evidence': 'measured',

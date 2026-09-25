@@ -1,0 +1,82 @@
+---
+title: The quarter blend through the protocol arena
+summary: The quarter-strength blend and the learned tables alone split a swapped protocol pair on twenty boards; the seating-corrected effect crosses zero, the blend completes depth 3 less often under the clock, and ntuple-leaf stays the reference.
+---
+
+# The quarter blend through the protocol arena
+
+The [engine retest](../reports/tables-retest.mdx) left one candidate for the
+protocol tier: `ntuple-leaf`'s search with the hand-written terms blended
+into the learned tables at a quarter of their weight, +0.066 and +0.064 wins
+per game at the two engine lineups for 1.4 times the decision time. It is now
+registered as `ntuple-leaf-blend` (the `ntuple-leaf` command with
+`"hand":0.25` inside `leaf`) and was played against `ntuple-leaf` through the
+authoritative server as a swapped pair on deterministic seeds 2000 to 2019:
+[half A](https://github.com/settlerust/research/blob/dev/experiments/0d174884-6e7e-4d88-8f1c-dd51cb21ba29.toml)
+with the blend in slot 0,
+[half B](https://github.com/settlerust/research/blob/dev/experiments/23b1085d-20a9-473f-a31d-daa907181449.toml)
+with the blend in slot 1, `eta` and `fast` in the other seats, four rotations
+per seed, 80 games each, the same caps as the cohort that made `ntuple-leaf`
+the baseline, twelve matches in flight. A
+[four-game smoke](/research/records/runs/692397a2-d408-421c-b7b6-ac518031aba4)
+checked the plumbing first: every game valid, both search seats reporting
+the tables evaluator on every decision.
+
+[Half A](/research/records/runs/cfee89ba-3e06-4549-8cae-c31652464985): 34
+blend wins against 33 for `ntuple-leaf`, contrast +0.013 (−0.156 to +0.181).
+[Half B](/research/records/runs/2047d413-be8e-4a80-bcea-4c53fbf78619): 34
+against 32, contrast −0.025 (−0.195 to +0.145) for `ntuple-leaf` minus the
+blend. Both halves completed all 80 games with no timeout moves. The
+seating-corrected effect of the blend is +0.019 wins per game (95% interval
+−0.087 to +0.124) and the seating term −0.006 (−0.139 to +0.126). By the
+registered rule this is inconclusive: the interval includes zero and the
+estimate is below +0.03, but the interval also covers the engine estimate,
+so twenty boards in both seatings could not separate an effect of the
+engine's size from nothing. `ntuple-leaf` stays the protocol reference and
+the server default is unchanged. The
+[report](../reports/blend-protocol.mdx) has both Wilson tables, the play
+statistics, and the decision traces.
+
+Under the 1.5 s clock on a machine shared with five other agents (load
+average 60 to 80 on 32 cores), the blend completed depth 3 in 49.9% and
+51.8% of contested main-phase decisions against 61.2% and 60.9% for the
+tables alone, and was stopped by the budget in a quarter of them against a
+fifth, at about 1.1 times the control's time per contested decision (932
+and 911 ms against 827 and 834 ms). Its cost shows up as lost depth rather
+than as the engine's 1.4 times wall time. As in the engine, the blend built
+more cities and finished with about half a point more per game; the points
+did not become wins.
+
+The first attempt at half A
+([registered protocol](https://github.com/settlerust/research/blob/dev/experiments/7de5ddb4-c007-4e66-b4e6-7c08e0fa07c1.toml),
+[abandoned attempt](/research/records/runs/99bfec6f-10ac-4536-99bf-460d62d0fea5))
+stopped at its nineteenth game: the harness's seat join at game creation was
+refused with a version conflict before any policy process started, so the
+game is invalid and the schedule stopped as registered. Eighteen games had
+completed validly (blend 6 wins, `ntuple-leaf` 4, `eta` 3, `fast` 5); they
+are recorded and not pooled. The server checks a command's version before
+it recognizes a duplicate request, so a join envelope retried after a lost
+response under load fails with a conflict although the seat was taken;
+`harness/arena.py` now refreshes the snapshot, keeps a seat it already
+holds, and retries a join on conflict, as the ready and start steps already
+did. Half A was registered again with the same text and half B ran as
+first registered. Both searches also logged a few
+`continuation could not reach the next-turn horizon` fallbacks, a
+pre-existing search path that plays the first legal action when the search
+returns no candidate: 22 and 19 for the blend, 19 and 27 for the tables
+alone, out of 9,000 to 10,000 decisions per seat per half.
+
+To read the searches' cost through the protocol, the `remote` runner's
+expectimax seat gained an opt-in trace (`SETTLERS_SEARCH_TRACE`, one JSON
+line per decision on stderr with the evaluator, the completed depth, and the
+search and wall times; server `crates/policies/src/expectimax.rs`, off by
+default and never changing a decision). The harness keeps it in each seat's
+private policy log; `analysis/blend_protocol.py` aggregates it together
+with the two halves' per-seed contrasts and the public tapes. Study
+`patterns/blend-protocol` is complete. Resolving an effect of the engine's
+size through the protocol would take a pair of about 64-board halves (512
+games, roughly ±0.06), preferably on an unloaded machine so the blend keeps
+its depth; the cheaper question is whether a subset of the hand-written
+terms buys the engine gain without the depth cost.
+
+Attribution: Claude Fable 5.1 (claude-fable-5-1) through Claude Code.

@@ -1,0 +1,193 @@
+---
+date: "2026-09-25"
+title: "The quarter blend through the protocol arena"
+summary: "Inside ntuple-leaf's search, the quarter-strength blend won 34 of 80 authoritative games in each seating against 33 and 32 for ntuple-leaf; the seating-corrected effect crosses zero and the reference is unchanged."
+---
+
+# The quarter blend through the protocol arena
+
+<ResearchCallout title="Inconclusive: the blend and the tables alone split the protocol pair">
+Seated inside `ntuple-leaf`'s exact search, the quarter-strength blend won <WinRate value="34" total="80" label="blend, half A" /> and <WinRate value="34" total="80" label="blend, half B" /> against `ntuple-leaf`'s <WinRate value="33" total="80" label="half A" /> and <WinRate value="32" total="80" label="half B" />. The seating-corrected effect is <ResultComparison value="0.019" low="-0.087" high="0.124" />, below the +0.03 bar with an interval that covers both zero and the engine estimate of +0.066. `ntuple-leaf` stays the protocol reference.
+</ResearchCallout>
+
+<ResearchPlot asset="blend-protocol-effects" />
+
+## What was registered
+
+The blend is `ntuple-leaf`'s search (depth 3, 1.5 s budget, 8 dice scenarios,
+4 sampled worlds, 4 inner scenarios) with `leaf.hand` 0.25 added on top of
+the same frozen tables, registered in the policy registry as
+`ntuple-leaf-blend`. The [engine retest](tables-retest.mdx) had read it at
++0.066 wins per game against builders and +0.064 at a table of searches, at
+1.4 times the decision time, and the [current evidence](../docs/status.md)
+asked for a protocol cohort before any default changes.
+
+Two halves were registered under `patterns/blend-protocol` before either
+ran, each naming the other:
+[half A](https://github.com/settlerust/research/blob/dev/experiments/0d174884-6e7e-4d88-8f1c-dd51cb21ba29.toml)
+seats the blend in slot 0 and `ntuple-leaf` in slot 1,
+[half B](https://github.com/settlerust/research/blob/dev/experiments/23b1085d-20a9-473f-a31d-daa907181449.toml)
+swaps them; `eta` and `fast` fill slots 2 and 3 in both. Each half plays
+deterministic seeds 2000 to 2019 once per rotation of the four slots, 80
+games, with the same points, match, decision, and turn caps as the
+[cohort that made `ntuple-leaf` the baseline](ntuple-leaf-protocol.mdx).
+The rule: all 160 games valid with no server timeout moves; support if the
+seating-corrected effect's interval lies above zero and the estimate reaches
++0.03 wins per game; refutation if the interval lies below zero; otherwise
+inconclusive.
+
+## The two halves
+
+[Half A](/research/records/runs/cfee89ba-3e06-4549-8cae-c31652464985) and
+[half B](/research/records/runs/2047d413-be8e-4a80-bcea-4c53fbf78619) each
+completed all 80 games with no timeout moves, twelve matches in flight,
+72 and 76 turns per game on average. The two searches ran as separate
+`remote` processes against the server and saw only their own seated view
+and event history; both loaded the frozen tables (SHA-256 `f8e61e66…`) and
+reported the tables evaluator on every decision.
+
+Half A, blend in slot 0:
+
+| Slot / policy | Wins | Completed | Win rate | 95% Wilson interval | Mean points |
+| --- | ---: | ---: | ---: | --- | ---: |
+| 0 / `ntuple-leaf-blend` | 34 | 80 | 42.5% | 32.3% to 53.4% | 7.79 |
+| 1 / `ntuple-leaf` | 33 | 80 | 41.2% | 31.1% to 52.2% | 7.33 |
+| 2 / `eta` | 8 | 80 | 10.0% | 5.2% to 18.5% | 6.28 |
+| 3 / `fast` | 5 | 80 | 6.2% | 2.7% to 13.8% | 6.55 |
+
+Half B, blend in slot 1:
+
+| Slot / policy | Wins | Completed | Win rate | 95% Wilson interval | Mean points |
+| --- | ---: | ---: | ---: | --- | ---: |
+| 0 / `ntuple-leaf` | 32 | 80 | 40.0% | 30.0% to 51.0% | 7.24 |
+| 1 / `ntuple-leaf-blend` | 34 | 80 | 42.5% | 32.3% to 53.4% | 7.81 |
+| 2 / `eta` | 5 | 80 | 6.2% | 2.7% to 13.8% | 6.88 |
+| 3 / `fast` | 9 | 80 | 11.2% | 6.0% to 20.0% | 6.96 |
+
+<ResearchChart asset="blend-protocol-wins" />
+
+<ResearchChart asset="blend-protocol-half-b-wins" />
+
+## The seating-corrected effect
+
+| Contrast | Wins per game (95% interval over 20 seeds) |
+| --- | --- |
+| Half A, slot 0 minus slot 1 (blend minus `ntuple-leaf`) | +0.013 (−0.156 to +0.181) |
+| Half B, slot 0 minus slot 1 (`ntuple-leaf` minus blend) | −0.025 (−0.195 to +0.145) |
+| Seating-corrected effect of the blend | **+0.019 (−0.087 to +0.124)** |
+| Seating term | −0.006 (−0.139 to +0.126) |
+
+The blend won one more game than the tables alone in half A and two more in
+half B, and the two seatings agree that there is nothing large to find: the
+corrected estimate is +0.019 wins per game, below the +0.03 bar, with an
+interval that includes zero, so the registered rule reads inconclusive. It
+is not a refutation. Twenty boards played in both seatings resolve about
+±0.11 wins per game, and the engine estimate of +0.066 sits comfortably
+inside the interval; this cohort could not separate an effect of that size
+from nothing. The seating term is invisible here (−0.006), unlike the engine
+arena's +0.05 to +0.18, which says nothing about the arena difference on
+twenty boards.
+
+What the blend changes at the table is the same as in the engine: over both
+halves it built more cities per game (1.43 and 1.38 against 1.09 and 1.14),
+traded more with players (2.30 and 2.46 against 1.96 and 2.14), and finished
+with about half a point more (7.79 and 7.81 against 7.33 and 7.24), and
+those points did not become wins.
+
+## Decision time and completed depth
+
+The `remote` runner's search seat now writes an optional per-decision trace
+(`SETTLERS_SEARCH_TRACE`, kept in each seat's private policy log), so this
+is the first protocol cohort that can say how much of the depth-3 search the
+1.5 s clock actually delivered. The machine was shared with five other
+agents throughout (load average 60 to 80 on 32 cores), and both seats in
+every game shared that load.
+
+| Half | Policy | Contested decisions | Mean ms | Median ms | Completed depth 3 | Depth 2 | Depth 1 | Stopped by the budget |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| A | `ntuple-leaf-blend` | 3,267 | 932 | 882 | 49.9% | 42.8% | 7.3% | 26.0% |
+| A | `ntuple-leaf` | 3,073 | 827 | 732 | 61.2% | 35.3% | 3.5% | 20.2% |
+| B | `ntuple-leaf` | 3,267 | 834 | 749 | 60.9% | 35.4% | 3.7% | 21.8% |
+| B | `ntuple-leaf-blend` | 3,422 | 911 | 853 | 51.8% | 42.1% | 6.2% | 25.3% |
+
+Contested decisions are main-phase decisions with at least two root actions;
+a single candidate never deepens past the first depth. Over all decisions,
+including the trivial ones, the blend's median was 516 and 478 ms against
+427 and 456 ms. The blend spent about 1.1 times the control's time per
+contested decision, less than the engine's 1.4 because the clock caps the
+difference, and paid for it in depth: it completed depth 3 in half of its
+contested decisions where the tables alone completed it in three fifths, and
+it was stopped by the budget in a quarter of them against a fifth. Both
+seats fell back to the first legal action on a search error in about 0.2%
+of decisions (22 and 19 for the blend, 19 and 27 for the tables alone, out
+of 9,000 to 10,000 decisions per seat per half), a pre-existing path of the
+search when it returns no candidate.
+
+## One game, viewed from above
+
+The first match of the cohort, seed 2000 in its first rotation, which the
+blend's seat won in 49 turns with ten points against two, five, and eight.
+It is a real recorded game chosen for its position in the schedule; it does
+not by itself establish which policy is stronger.
+
+<GameReplay asset="blend-protocol-game" />
+
+## Limitations
+
+One lineup, one rotation scheme, twenty boards: a swapped pair on twenty
+seeds resolves about ±0.11 wins per game, so only a large effect could clear
+the +0.03 bar here, and the engine estimate of +0.066 sits inside what this
+cohort cannot separate from zero. The two searches are time-budgeted, and
+the cohort ran on a machine shared with five other agents, so both seats
+completed depth 3 less often than the unloaded 2026-09-09 cohort would have,
+and the blend lost about ten points of depth-3 share to its cost. The
+contrast is fair within a game, but it measures the two evaluators as the
+machine could run them, not at full depth. A first attempt at half A stopped
+on a seat-join conflict at game creation
+([abandoned attempt](/research/records/runs/99bfec6f-10ac-4536-99bf-460d62d0fea5),
+18 valid games, not pooled) and the harness's join step was made to retry on
+conflict before the pair was played; the [daily log](../log/2026-09-25.mdx)
+has the details. Nothing here speaks to negotiating opponents, humans, or
+the browser's hand-written leaf.
+
+## What the browser would need
+
+The browser worker runs the hand-written leaf in WASM and cannot load the
+tables, so `leaf.hand` is not a browser switch. Using the blend there would
+need the 14.3 MB tables shipped to the worker, which the WASM build rejects
+by decision, or a server-side seat; nothing in web changes with this result.
+
+[Half A record](/research/records/runs/cfee89ba-3e06-4549-8cae-c31652464985) ·
+[Half B record](/research/records/runs/2047d413-be8e-4a80-bcea-4c53fbf78619) ·
+[Learned pattern values](../approaches/patterns) · [Log 2026-09-25](../log/2026-09-25)
+
+<AgentContext title="Detailed result and cohort context">
+
+Public frame source SHA-256 of the replayed game: `d02fab140bfb654d4f7629c111a8c89875998f52ba0643f56974f7f721c328b0`.
+
+Through the authoritative server, on 20 deterministic seeds (2000 to 2019)
+each played once per rotation of the four slots in each of two seatings,
+`ntuple-leaf-blend` (the `ntuple-leaf` search at depth 3 under 1.5 s with
+`leaf.hand` 0.25 over the frozen hex plus portfolio tables) won **34 of 80
+games in half A** (blend in slot 0) against **33** for `ntuple-leaf`, and
+**34 of 80 in half B** (blend in slot 1) against **32**. The slot-0-minus-
+slot-1 contrasts are +0.013 (−0.156 to +0.181) and −0.025 (−0.195 to
++0.145); the seating-corrected effect of the blend is **+0.019 wins per
+game (95% interval −0.087 to +0.124)** and the seating term −0.006 (−0.139
+to +0.126). All 160 games completed validly with no timeout move. By the
+registered rule the result is **inconclusive**: the interval includes zero
+and the estimate is below +0.03. The protocol reference remains
+`ntuple-leaf`; the server default is unchanged.
+
+Reproduction: `SETTLERS_SEARCH_TRACE=1 just run EXPERIMENT --parallel 12`
+from the research checkout with `SETTLERS_SERVER_DIR` pointing at a server
+worktree at or after the trace commit on `dev`, then
+`python3 analysis/blend_protocol.py cfee89ba-3e06-4549-8cae-c31652464985 2047d413-be8e-4a80-bcea-4c53fbf78619 --assets content/assets`.
+The half A run belongs to experiment `0d174884-6e7e-4d88-8f1c-dd51cb21ba29`,
+the half B run to `23b1085d-20a9-473f-a31d-daa907181449`; the abandoned
+first attempt at half A is experiment `7de5ddb4-c007-4e66-b4e6-7c08e0fa07c1`,
+run `99bfec6f-10ac-4536-99bf-460d62d0fea5`, and the four-game smoke that
+preceded them is run `692397a2-d408-421c-b7b6-ac518031aba4`. Half A's
+chart and replay come from `just publish cfee89ba-… --match 0 --slug blend-protocol`.
+
+</AgentContext>
