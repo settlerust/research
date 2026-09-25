@@ -7,6 +7,6 @@ question = "How much does a learner warm-started from the frozen tables gain by 
 outcome = "No experiment has been executed."
 next_step = "Train the challenger, control, and population arms from the frozen tables, freeze each best point, and run the registered swapped pairs on boards 1400-1527."
 attribution = "Claude Fable 5.1 (claude-fable-5-1) through Claude Code"
-reports = []
+reports = ["reports/best-response.mdx"]
 logs = []
 legacy_experiments = []

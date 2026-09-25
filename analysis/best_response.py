@@ -255,6 +255,43 @@ def pairs(specs, json_out=None):
     return results
 
 
+def asset(results_path, out_path):
+    """The effects plot of the report from the JSON written by `pairs --json`: one point per
+    contrast with its 95 percent interval over boards, split by lineup."""
+    results = json.loads(Path(results_path).read_text())
+    ticks = []
+    series = {'L1': [], 'L2': []}
+    for p in results:
+        label, lineup = p['label'], ('L1' if '-l1-' in p['label'] else 'L2')
+        name = {'challenger-l2-dev': 'Challenger over frozen', 'challenger-l1-dev': 'Challenger over frozen',
+                'control-l2-dev': 'Fine-tune over frozen', 'population-l1-conf': 'Population over frozen',
+                'population-l2-conf': 'Population over frozen',
+                'population-vs-challenger-l2-conf': 'Population over challenger'}.get(label, label)
+        if name not in ticks:
+            ticks.append(name)
+        mean, lo, hi = p['effect']
+        series[lineup].append({'x': ticks.index(name), 'y': round(mean, 3), 'low': round(lo, 3), 'high': round(hi, 3)})
+    lows = [pt['low'] for s in series.values() for pt in s]
+    highs = [pt['high'] for s in series.values() for pt in s]
+    data = {
+        'schema': 1, 'kind': 'plot', 'variant': 'scatter',
+        'title': 'A challenger trained against the frozen tables, and the population remedy',
+        'evidence': 'measured',
+        'source': ('Source: reports/best-response.mdx, The evidence; analysis/best_response.py pairs. Seating-corrected '
+                   'swapped pairs of 64 deterministic boards, four rotations in each half, 256 games per half, every '
+                   'cohort complete unless the report says otherwise. 95% intervals over boards. Exploitability on '
+                   'boards 1400-1463, the remedy on boards 1464-1527.'),
+        'caption': 'Each point is the candidate\'s change in wins per game over its control at one table.',
+        'x': {'label': 'Contrast', 'min': 0, 'max': max(1, len(ticks) - 1), 'ticks': ticks},
+        'y': {'label': 'Change in wins per game', 'min': round(min(lows) - 0.02, 2), 'max': round(max(highs) + 0.02, 2)},
+        'series': [{'label': 'Builders (L1)', 'points': series['L1']},
+                   {'label': 'Population table (L2)', 'points': series['L2']}],
+        'reference': {'y': 0, 'label': 'No difference'},
+    }
+    write_json(out_path, data)
+    print(f'wrote {out_path}')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
@@ -264,6 +301,9 @@ def main():
     p.add_argument('--pair', nargs=3, action='append', required=True, metavar=('LABEL', 'RUN_A', 'RUN_B'),
                    help='label, run (or games.jsonl) with the candidate in slot 0, run with it in slot 1')
     p.add_argument('--json', help='write the results as JSON')
+    a = commands.add_parser('asset')
+    a.add_argument('results', help='JSON written by pairs --json')
+    a.add_argument('--out', default=str(ROOT / 'content/assets/best-response-effects.json'))
     args = parser.parse_args()
     if args.command == 'train':
         return train(args.arm)
@@ -271,6 +311,8 @@ def main():
         return freeze(args.arm)
     if args.command == 'training':
         return training(args.arm)
+    if args.command == 'asset':
+        return asset(args.results, args.out)
     pairs(args.pair, args.json)
     return 0
 

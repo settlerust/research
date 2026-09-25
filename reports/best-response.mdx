@@ -1,0 +1,94 @@
+---
+date: "2026-09-25"
+title: "A best response to the frozen tables, and training on a population"
+summary: "{{SUMMARY}}"
+---
+
+# A best response to the frozen tables, and training on a population
+
+<ResearchCallout title="{{CALLOUT_TITLE}}">
+{{CALLOUT}}
+</ResearchCallout>
+
+<ResearchPlot asset="best-response-effects" />
+
+## The question
+
+The frozen tables (`hex-portfolio-main`, the leaf of `ntuple-leaf`) were trained
+by self-play among four copies of themselves, guarded only by two builders at
+validation time. A player trained that way may be strong against its own style
+and weak against a player that has seen it. Two questions, in order. How much
+does a challenger gain when it is trained specifically against the frozen
+tables, and does that gain survive a table of builders? And do tables trained
+on a mixed population beat the frozen tables at both lineups while giving up
+less to the challenger?
+
+## The arms
+
+All three arms start from the frozen tables (`train --init`) and learn with
+the same rule (TD(lambda) at depth 1 on the true state, alpha 0.5, chunks of
+5,000 games, a validation tournament of 48 boards against the hand-written
+leaf with the builders after every chunk, the best validation point frozen).
+They differ only in who sits at the training table, drawn by weight for every
+game with `train --pool` (a draw without the learner is redrawn; only the
+learner's seats update the tables).
+
+| Arm | Pool | Games | Learner seats per game | Frozen point |
+| --- | --- | ---: | --- | --- |
+| challenger | self 1, frozen tables 3 | 40,000 | {{CH_COMPOSITION}} | {{CH_BEST}} |
+| control | self only (the fine-tune) | 40,000 | four | {{CT_BEST}} |
+| population | self 2, frozen tables 1, ETA 0.5, fast 0.5 | 60,000 | {{PO_COMPOSITION}} | {{PO_BEST}} |
+
+{{TRAINING_PROSE}}
+
+## The evidence
+
+Every contrast is a swapped pair on the same deterministic boards: the
+candidate in slot 0 and the control in slot 1, then the other way round; the
+effect is half the per-board difference of the two slot-0-minus-slot-1
+contrasts, which cancels the turn-order [seating term](arena-seating.mdx).
+The builder table (L1) seats ETA and fast in slots 2 and 3. The population
+table (L2) seats a third frozen-tables search and ETA, so the candidate meets
+two frozen seats. Exploitability was measured on boards 1400 to 1463, the
+remedy on boards 1464 to 1527; all boards were fresh. Every cohort is 64
+boards, four rotations, 256 deterministic games.
+
+| Contrast | Lineup | Boards | Effect (95% interval) | Seating term | Time | Reading |
+| --- | --- | --- | --- | --- | ---: | --- |
+| challenger over frozen | L2 | 1400-1463 | {{CH_L2}} | {{CH_L2_SEAT}} | {{CH_L2_TIME}} | {{CH_L2_READ}} |
+| challenger over frozen | L1 | 1400-1463 | {{CH_L1}} | {{CH_L1_SEAT}} | {{CH_L1_TIME}} | {{CH_L1_READ}} |
+| control over frozen | L2 | 1400-1463 | {{CT_L2}} | {{CT_L2_SEAT}} | {{CT_L2_TIME}} | {{CT_L2_READ}} |
+| population over frozen | L1 | 1464-1527 | {{PO_L1}} | {{PO_L1_SEAT}} | {{PO_L1_TIME}} | {{PO_L1_READ}} |
+| population over frozen | L2 | 1464-1527 | {{PO_L2}} | {{PO_L2_SEAT}} | {{PO_L2_TIME}} | {{PO_L2_READ}} |
+| population over challenger | L2 | 1464-1527 | {{PO_CH}} | {{PO_CH_SEAT}} | {{PO_CH_TIME}} | {{PO_CH_READ}} |
+
+{{EVIDENCE_PROSE}}
+
+## What changed at the table
+
+{{PLAY_TABLE}}
+
+{{PLAY_PROSE}}
+
+## What this means
+
+{{MEANING}}
+
+## What could still be wrong
+
+{{CAVEATS}}
+
+<AgentContext title="Full results and cohort ledger">
+
+{{LEDGER}}
+
+Reproduction: `python3 analysis/best_response.py train ARM` (one process, twelve
+threads, game budgets), `freeze ARM`, `python3 analysis/best_response_register.py`,
+`analysis/best_response_queue.sh`, and `python3 analysis/best_response.py pairs
+--pair LABEL RUN_A RUN_B ...` recompute every number above from the archived
+runs. Training records under `records/training/best-response/`, table receipts
+under `records/artifacts/ntuple-best-response-*.md`. Server branch
+`research/population-training` adds `train --init` and `--pool`. This study was
+run by Claude Fable 5.1 (claude-fable-5-1) through Claude Code.
+
+</AgentContext>
