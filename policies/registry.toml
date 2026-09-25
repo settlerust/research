@@ -60,6 +60,11 @@ transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{{\"tables\":\"{root}/artifacts/ntuple/hex-portfolio-main.bin\"}}}}", "{token_file}", "{name}"]
 description = "expectimax-v2-plan's search (depth 3, 1.5 s, 8 scenarios, 4 worlds) with the learned hex + portfolio n-tuple tables as its leaf (frozen 2026-09-09 from the main training run); braces are doubled for the harness placeholder syntax"
 
+[ntuple-leaf-blend]
+transport = "remote"
+command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":3,\"time_budget_ms\":1500,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{{\"tables\":\"{root}/artifacts/ntuple/hex-portfolio-main.bin\",\"hand\":0.25}}}}", "{token_file}", "{name}"]
+description = "ntuple-leaf's search (depth 3, 1.5 s, 8 scenarios, 4 worlds) with the hand-written terms blended into the learned tables at quarter weight (leaf.hand 0.25): the one switch of the 74,240-game retest that helped at both engine lineups (+0.066 and +0.064 wins per game, 1.4x decision time; reports/leaf-blend.mdx, reports/tables-retest.mdx), registered 2026-09-24 as the protocol candidate against ntuple-leaf; braces are doubled for the harness placeholder syntax"
+
 [ntuple-leaf-deep]
 transport = "remote"
 command = ["{server}/target/release/remote", "{base}", "{game}", "v2:{{\"depth\":4,\"time_budget_ms\":4000,\"node_budget\":5000000,\"deepen_gap\":20,\"samples\":4,\"scenarios\":8,\"inner_scenarios\":4,\"leaf\":{{\"tables\":\"{root}/artifacts/ntuple/hex-portfolio-main.bin\"}}}}", "{token_file}", "{name}"]
