@@ -149,13 +149,27 @@ def traces(run):
             if not log.exists():
                 continue
             for line in log.read_text(errors='replace').splitlines():
-                if not line.startswith('{"trace":"search"'):
+                if '"trace":"search"' not in line:
                     continue
                 try:
                     out[players[slot]].append(json.loads(line))
                 except json.JSONDecodeError:
                     continue
     return {p: rows for p, rows in out.items() if rows}
+
+
+def fallbacks(run):
+    """Search fallbacks per policy: decisions where the seat's search returned an error and the
+    runner played the first legal action, counted from the private policy logs."""
+    players = run['manifest']['players']
+    counts = {p: 0 for p in players}
+    for m in run['matches']:
+        private = run['folder'] / f"match-{m['index']:04d}" / 'private'
+        for seat, slot in enumerate(m['slots']):
+            log = private / f'policy-{seat}.log'
+            if log.exists():
+                counts[players[slot]] += sum('expectimax fallback' in line for line in log.read_text(errors='replace').splitlines())
+    return counts
 
 
 def quantile(values, q):
@@ -167,24 +181,24 @@ def quantile(values, q):
 
 
 def trace_rows(run):
+    """Per-policy aggregates. Contested decisions have at least two root actions; a single
+    candidate never deepens past the first depth, so depth shares are reported over contested
+    main-phase decisions."""
     rows = {}
     for policy, decisions in traces(run).items():
-        main = [d for d in decisions if d['phase'] == 'main']
-        cap = max(d['depth_completed'] for d in decisions)
+        contested = [d for d in decisions if d['phase'] == 'main' and d['root_actions'] >= 2]
         rows[policy] = {
-            'decisions': len(decisions), 'main': len(main), 'cap': cap,
+            'decisions': len(decisions), 'contested': len(contested),
             'mean_ms': statistics.fmean(d['wall_ms'] for d in decisions),
             'median_ms': quantile([d['wall_ms'] for d in decisions], .5),
             'p90_ms': quantile([d['wall_ms'] for d in decisions], .9),
-            'main_mean_ms': statistics.fmean(d['wall_ms'] for d in main) if main else float('nan'),
-            'main_median_ms': quantile([d['wall_ms'] for d in main], .5) if main else float('nan'),
-            'main_p90_ms': quantile([d['wall_ms'] for d in main], .9) if main else float('nan'),
-            'main_depth3': sum(d['depth_completed'] >= 3 for d in main) / len(main) if main else float('nan'),
-            'main_depth2': sum(d['depth_completed'] == 2 for d in main) / len(main) if main else float('nan'),
-            'main_depth1': sum(d['depth_completed'] <= 1 for d in main) / len(main) if main else float('nan'),
-            'main_aborted': sum(bool(d['aborted']) for d in main) / len(main) if main else float('nan'),
-            'over_1500': sum(d['wall_ms'] > 1500 for d in decisions) / len(decisions),
-            'over_3000': sum(d['wall_ms'] > 3000 for d in decisions) / len(decisions),
+            'contested_mean_ms': statistics.fmean(d['wall_ms'] for d in contested) if contested else float('nan'),
+            'contested_median_ms': quantile([d['wall_ms'] for d in contested], .5) if contested else float('nan'),
+            'depth3': sum(d['depth_completed'] >= 3 for d in contested) / len(contested) if contested else float('nan'),
+            'depth2': sum(d['depth_completed'] == 2 for d in contested) / len(contested) if contested else float('nan'),
+            'depth1': sum(d['depth_completed'] <= 1 for d in contested) / len(contested) if contested else float('nan'),
+            'aborted': sum(bool(d['aborted']) for d in contested) / len(contested) if contested else float('nan'),
+            'at_budget': sum(d['wall_ms'] >= 1500 for d in contested) / len(contested) if contested else float('nan'),
             'max_ms': max(d['wall_ms'] for d in decisions),
             'policy_field': sorted({d['policy'] for d in decisions}),
         }
@@ -192,15 +206,15 @@ def trace_rows(run):
 
 
 def trace_table(runs):
-    lines = ['| Half | Policy | Decisions | Main-phase decisions | Mean ms | Median ms | 90th pct ms | Main mean ms | Main median ms | Main 90th pct ms | Main depth 3 | Main depth 2 | Main depth 1 | Main aborted | Over 1.5 s | Over 3 s | Max ms |',
-             '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
+    lines = ['| Half | Policy | Decisions | Contested | Mean ms | Median ms | 90th pct ms | Contested mean ms | Contested median ms | Depth 3 | Depth 2 | Depth 1 | Aborted | At budget | Max ms | Evaluator |',
+             '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |']
     any_rows = False
     for label, run in runs:
         for policy, r in trace_rows(run).items():
             any_rows = True
-            lines.append(f"| {label} | `{policy}` | {r['decisions']} | {r['main']} | {r['mean_ms']:.0f} | {r['median_ms']:.0f} | {r['p90_ms']:.0f} | "
-                         f"{r['main_mean_ms']:.0f} | {r['main_median_ms']:.0f} | {r['main_p90_ms']:.0f} | {r['main_depth3']:.1%} | {r['main_depth2']:.1%} | "
-                         f"{r['main_depth1']:.1%} | {r['main_aborted']:.1%} | {r['over_1500']:.1%} | {r['over_3000']:.1%} | {r['max_ms']:.0f} |")
+            lines.append(f"| {label} | `{policy}` | {r['decisions']} | {r['contested']} | {r['mean_ms']:.0f} | {r['median_ms']:.0f} | {r['p90_ms']:.0f} | "
+                         f"{r['contested_mean_ms']:.0f} | {r['contested_median_ms']:.0f} | {r['depth3']:.1%} | {r['depth2']:.1%} | {r['depth1']:.1%} | "
+                         f"{r['aborted']:.1%} | {r['at_budget']:.1%} | {r['max_ms']:.0f} | {', '.join(r['policy_field'])} |")
     return '\n'.join(lines) if any_rows else 'No search traces in the private policy logs.'
 
 
@@ -245,6 +259,7 @@ def main():
     print('\n## Half A\n\n' + wilson_table(a) + '\n\n## Half B\n\n' + wilson_table(b))
     print('\n## Play statistics per seat per game (public tapes)\n\n' + play_table([('A', a), ('B', b)]))
     print('\n## Decision traces (private policy logs, aggregates only)\n\n' + trace_table([('A', a), ('B', b)]))
+    print(f"\nsearch fallbacks per policy: A {fallbacks(a)}; B {fallbacks(b)}")
     print('\n## Per-seed contrasts\n\n| Seed | Half A | Half B | Effect | Seating |\n| --- | ---: | ---: | ---: | ---: |')
     for s in seeds:
         print(f'| {s} | {da[s]:+.2f} | {db[s]:+.2f} | {(da[s] - db[s]) / 2:+.3f} | {(da[s] + db[s]) / 2:+.3f} |')
