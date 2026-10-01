@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "kind": "chart",
+  "title": "Win rate by competitor, half A",
+  "unit": "fraction",
+  "caption": "Run cfee89ba-3e06-4549-8cae-c31652464985. 80 completed of 80 planned games. 95% Wilson intervals; descriptive evidence only.",
+  "rows": [
+    {
+      "label": "ntuple-leaf-blend \u00b7 slot 0",
+      "value": 0.425,
+      "low": 0.3225656178960177,
+      "high": 0.5343071015343113,
+      "n": 80
+    },
+    {
+      "label": "ntuple-leaf \u00b7 slot 1",
+      "value": 0.4125,
+      "low": 0.3110585761276188,
+      "high": 0.5219595965410984,
+      "n": 80
+    },
+    {
+      "label": "eta \u00b7 slot 2",
+      "value": 0.1,
+      "low": 0.05154761556738083,
+      "high": 0.18510688806104086,
+      "n": 80
+    },
+    {
+      "label": "fast \u00b7 slot 3",
+      "value": 0.0625,
+      "low": 0.026989375670841982,
+      "high": 0.13810148767274424,
+      "n": 80
+    }
+  ]
+}

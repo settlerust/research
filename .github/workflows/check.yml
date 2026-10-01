@@ -1,5 +1,15 @@
 name: Research checks
-on: [push, pull_request]
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: source-ci-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   check:
     runs-on: ubuntu-latest

@@ -138,8 +138,20 @@ def match(root, run_dir, index, slots, plan, registry, topology, seed=None):
         for seat, slot in enumerate(slots):
             name = f"{plan['players'][slot]} slot {slot}"
             client = Client.guest(plan['base'], name)
-            client.command(created['id'], host.game(created['id'])['version'],
-                           {'type': 'join_agent', 'name': name})
+            # A join is a versioned command like any other: on a version conflict, refresh
+            # the snapshot and ask again, unless the seat is already held (a retried
+            # envelope may have been applied before its response was lost).
+            for attempt in range(8):
+                view = client.game(created['id'])
+                if any(m.get('is_you') and m.get('seat') is not None for m in view['members']):
+                    break
+                try:
+                    client.command(created['id'], view['version'], {'type': 'join_agent', 'name': name})
+                    break
+                except ServerError as error:
+                    if error.data['code'] != 'conflict' or attempt == 7:
+                        raise
+                    time.sleep(.05)
             clients.append(client)
             token_file = private / f'{seat}.jwt'
             token_file.write_text(client.token)

@@ -1,0 +1,12 @@
+id = "7de5ddb4-c007-4e66-b4e6-7c08e0fa07c1"
+study = "patterns/blend-protocol"
+hypothesis = "Inside ntuple-leaf's exact search (depth 3, 1.5 s budget, 8 dice scenarios, 4 sampled worlds, 4 inner scenarios), the quarter-strength blend of the hand-written terms over the learned tables (ntuple-leaf-blend, leaf.hand 0.25) beats ntuple-leaf through the authoritative protocol arena: half A of a swapped pair seats the blend in slot 0 and ntuple-leaf in slot 1 with the ETA and fast builders in slots 2 and 3 on deterministic seeds 2000 to 2019, four rotations per seed; half B (registered separately with the two searches swapped) plays the same seeds, and the seating-corrected effect of the blend over the two halves lies above zero. The engine-arena retest read +0.066 and +0.064 wins per game at 1.4 times the decision time; the secondary question is whether the blend's cost reaches depth 3 less often under the 1.5 s clock, read from the remote seats' per-decision traces."
+decision_rule = "All 80 games of this half and all 80 of its partner half must complete validly with no server timeout moves; a failed game stops the run for investigation and is never refilled. Primary contrast: the seating-corrected effect of ntuple-leaf-blend over ntuple-leaf, half the per-seed difference of the two halves' slot-0-minus-slot-1 win contrasts over the 20 seeds, with a normal-approximation 95% interval over seeds. Support if the interval lies above zero and the estimate reaches +0.03 wins per game; refutation if the interval lies below zero; otherwise inconclusive. The seating term (half the sum of the two contrasts) and this half's own slot-0-minus-slot-1 contrast are reported alongside and carry no decision weight on their own. Decision-time distribution and completed-depth share of both remote searches are reported from their private traces. Never extend or refill this cohort."
+players = ["ntuple-leaf-blend", "ntuple-leaf", "eta", "fast"]
+games = 80
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000
+seeds = "2000-2019"
+deterministic = true

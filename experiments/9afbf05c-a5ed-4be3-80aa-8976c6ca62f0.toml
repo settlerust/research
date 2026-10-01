@@ -1,0 +1,10 @@
+id = "9afbf05c-a5ed-4be3-80aa-8976c6ca62f0"
+study = "patterns/blend-protocol"
+hypothesis = "Check protocol plumbing for this lineup; no strength claim."
+decision_rule = "Every game completes without invalid actions or server timeout moves."
+players = ["ntuple-leaf-blend", "ntuple-leaf", "eta", "fast"]
+games = 4
+points_to_win = 10
+match_seconds = 600
+decision_seconds = 5
+max_turns = 3000
